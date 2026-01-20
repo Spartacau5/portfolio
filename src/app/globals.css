@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Graphik Font Family */
+@font-face {
+  font-family: 'Graphik';
+  src: url(https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/62c89c430027d0223c57ca99_GraphikRegular.woff2) format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url(https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/63140b59ad9f7970e51195eb_graphikmedium-webfont.woff2) format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url(https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/63140b59482ba728b174eacb_graphiksemibold-webfont.woff2) format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
+  src: url(https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/63140b59cf6f3b0570376e9e_graphikbolditalic-webfont.woff2) format('woff2');
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     /* Color Palette - Modern Portfolio */
@@ -18,9 +51,9 @@
     --color-dark-10: rgba(18, 18, 18, 0.1);
 
     /* Typography */
-    --font-display: 'Big Shoulders Display', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-    --font-mono: 'Inter', sans-serif;
+    --font-display: 'Graphik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-body: 'Graphik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'Graphik', -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace;
 
     /* Spacing */
     --spacing-xs: 0.25rem;
@@ -101,9 +134,16 @@
   /* Container */
   .container {
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg);
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .container.home {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
   }
 
   @media (max-width: 1199px) {
@@ -115,8 +155,236 @@
   @media (max-width: 809px) {
     .container {
       max-width: 390px;
-      padding: 0 var(--spacing-md);
     }
+  }
+
+  /* Grid Layout */
+  .w-layout-grid {
+    grid-row-gap: 16px;
+    grid-column-gap: 16px;
+    grid-auto-columns: 1fr;
+    display: grid;
+  }
+
+  .about-grid {
+    z-index: 2;
+    grid-template-rows: auto auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    position: relative;
+  }
+
+  /* Tile Base Styles */
+  .tile {
+    background-color: #f7f7f9;
+    border-radius: 32px;
+  }
+
+  /* First Box - XL Left Column */
+  #w-node-_6c8a77c8-e695-9470-df4c-56e39795bf33-d4229b69 {
+    grid-area: 1 / 1 / 4 / 2;
+  }
+
+  .tile.xl {
+    padding: 32px;
+  }
+
+  .tile.xl.me {
+    width: 672px;
+    max-width: 672px;
+  }
+
+  .tile.xl.me.about {
+    height: auto;
+  }
+
+  /* Second Box - Twitter */
+  #twitter.w-node-ad3c41ab-6071-5e6c-3932-6d9df03bfcb6-d4229b69 {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+
+  .tile-twitter {
+    background-color: #f7f7f9;
+    border-radius: 32px;
+  }
+
+  .tile-twitter.sm {
+    width: 328px;
+    min-width: 328px;
+    height: 328px;
+    max-height: 328px;
+    padding: 24px;
+  }
+
+  .tile-twitter.sm.twitter {
+    z-index: 0;
+    position: static;
+    overflow: hidden;
+  }
+
+  /* Third Box - Music */
+  #w-node-_6c8a77c8-e695-9470-df4c-56e39795c572-d4229b69 {
+    grid-area: 1 / 3 / 2 / 4;
+  }
+
+  .tile.sm {
+    min-width: 328px;
+    height: 328px;
+    max-height: 328px;
+    padding: 24px;
+  }
+
+  .tile.sm.music {
+    z-index: 16;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Fourth Box - Photos */
+  #w-node-_6c8a77c8-e695-9470-df4c-56e39795c7d7-d4229b69 {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+
+  .tile.sm.photos {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Fifth Box - Podcast */
+  #w-node-_6c8a77c8-e695-9470-df4c-56e39795c819-d4229b69 {
+    grid-area: 2 / 3 / 3 / 4;
+  }
+
+  .tile.sm.podcast {
+    z-index: 13;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Sixth Box - iMessage */
+  #w-node-e4cacf2e-5d38-4548-b099-9b308486aed2-d4229b69 {
+    grid-area: 3 / 2 / 4 / 4;
+  }
+
+  .tile.sm.imessage {
+    width: 672px;
+    min-width: 672px;
+    height: 328px;
+    max-height: 328px;
+    padding-top: 0;
+    position: relative;
+  }
+
+  /* About Me Content Styles */
+  .internal-div {
+    z-index: 2;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    display: flex;
+    position: relative;
+  }
+
+  .about-me-div {
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+  }
+
+  .display-heading {
+    color: #949494;
+    letter-spacing: -0.4px;
+    font-family: Graphik, sans-serif;
+    font-size: 31px;
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  .display-emphasis {
+    color: #000000;
+  }
+
+  .intro-hr {
+    background-color: #0000000f;
+    width: 100%;
+    height: 1.4px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+
+  .about-me-block {
+    margin-bottom: 24px;
+  }
+
+  .work-label {
+    color: #747474;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-family: Graphik, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+  }
+
+  .display-heading-2-about {
+    color: #707070;
+    font-family: Graphik, sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 180%;
+  }
+
+  .nav-icons-div {
+    justify-content: space-between;
+    display: flex;
+  }
+
+  .nav-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    display: flex;
+    position: relative;
+  }
+
+  .w-inline-block {
+    max-width: 100%;
+    display: inline-block;
+  }
+
+  /* Grid Top Bar */
+  .grid-top-bar {
+    z-index: 10;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 8px;
+    margin-left: 32px;
+    margin-right: 32px;
+    display: flex;
+  }
+
+  .view-controls-div {
+    display: flex;
+    align-items: center;
+  }
+
+  .list-icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    max-width: 100%;
+    display: inline-block;
+    border: 0;
+  }
+
+  .caption-text-w-icon {
+    color: #949494;
+    font-size: 14px;
+    letter-spacing: 0.1px;
+    margin-left: 8px;
+    font-family: Graphik, sans-serif;
+    font-weight: 400;
+    line-height: 1;
   }
 
   /* Button Styles */
@@ -256,5 +524,173 @@
   }
 }
 
-/* Google Fonts Import */
-@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;700;900&display=swap');
+/* Twitter Card Styles */
+.small-app-flex {
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  display: flex;
+}
+
+.twitter-top-flex {
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+}
+
+.twitter-info-div {
+  z-index: 2;
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.twitter-avi-div {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.twitter-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.twitter-name-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.twitter-name {
+  font-family: Chirp, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.twitter-handle {
+  font-family: Chirp, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.small-app-icon-div {
+  width: 56px;
+  height: 56px;
+  position: relative;
+}
+
+.app-icon-link {
+  width: 56px;
+  height: 56px;
+}
+
+.small-tile-icon-hover {
+  z-index: 1;
+  border-radius: 12px;
+  width: 100%;
+  position: absolute;
+  inset: 0%;
+}
+
+.small-app-background {
+  z-index: 0;
+  transform-origin: 50%;
+  background-color: #4a99e9;
+  border-radius: 12px;
+  width: 56px;
+  height: 56px;
+  position: absolute;
+  inset: 0%;
+  box-shadow: 0 1px 2px #00000040;
+}
+
+.tweet-div {
+  margin-top: 24px;
+}
+
+.twitter-tweet {
+  z-index: 2;
+  cursor: default;
+  font-family: Chirp, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 135%;
+  position: relative;
+}
+
+.tweet-link {
+  color: #1685c7;
+  font-family: Chirp, sans-serif;
+  text-decoration: none;
+}
+
+.tweet-link:hover {
+  text-decoration: underline;
+}
+
+.twitter-button {
+  z-index: 2;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 2px solid #0000001a;
+  border-radius: 56px;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  display: flex;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.twitter-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.inner-button-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.button-text {
+  font-family: Graphik, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.arrow-icon-div {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow-icon {
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.3s ease;
+}
+
+.arrow-icon-white {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.twitter-button:hover .arrow-icon {
+  opacity: 0;
+}
+
+.twitter-button:hover .arrow-icon-white {
+  opacity: 1;
+}

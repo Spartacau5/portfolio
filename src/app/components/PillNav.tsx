@@ -8,28 +8,24 @@ export function PillNav() {
 
   const navItems = [
     { name: 'Home', href: '/' },
+    { name: 'Work', href: '/work' },
     { name: 'About', href: '/about' },
-    { name: 'Work', href: '/projects', hasIndicator: true },
-    { name: 'Contact', href: '/contact' },
   ];
 
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50">
-      <div className="bg-white/80 backdrop-blur-md rounded-full px-8 py-4 shadow-lg border border-gray-200/50">
-        <ul className="flex items-center gap-8">
+      <div className="bg-white/90 backdrop-blur-md rounded-full px-2 py-2 shadow-lg border border-gray-200/50">
+        <ul className="flex items-center gap-2">
           {navItems.map((item) => (
-            <li key={item.name} className="relative">
+            <li key={item.name}>
               <Link
                 href={item.href}
-                className={`text-sm font-medium transition-colors relative ${
+                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 block ${
                   pathname === item.href
-                    ? 'text-gray-900'
-                    : 'text-gray-500 hover:text-gray-900'
+                    ? 'bg-gray-200 text-gray-900 hover:text-gray-900'
+                    : 'text-gray-400 hover:!text-gray-600'
                 }`}
               >
-                {item.hasIndicator && (
-                  <span className="absolute -top-1 -right-3 w-2 h-2 bg-red-500 rounded-full"></span>
-                )}
                 {item.name}
               </Link>
             </li>

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./styles/twitter-card.css";
+import "./styles/music-player.css";
 
 export const metadata: Metadata = {
   title: "Arpit Ahluwalia's UX Design Portfolio",

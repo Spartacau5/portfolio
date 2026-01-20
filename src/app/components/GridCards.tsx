@@ -2,11 +2,17 @@
 
 export function GridCards() {
   return (
-    <div className="container mx-auto px-6 pt-32 pb-16">
+      <div className="container home">
+        <div className="grid-top-bar">
+          <div className="view-controls-div">
+            <img src="/images/arrow.svg" loading="lazy" alt="" className="list-icon" />
+            <div className="caption-text-w-icon">Look around...</div>
+          </div>
+        </div>
       <div className="grid grid-cols-12 gap-4">
         {/* Row 1 */}
         {/* Icon Card 1 - Command Key */}
-        <div className="col-span-3 bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-2 hover:rotate-0 relative group">
+        <div className="col-span-3 bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-0 hover:rotate-2 relative group">
           <div className="text-7xl font-light text-gray-800">⌘</div>
           <button className="absolute bottom-4 right-4 w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -16,7 +22,7 @@ export function GridCards() {
         </div>
 
         {/* Icon Card 2 - V */}
-        <div className="col-span-3 bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-2 hover:rotate-0 relative group">
+        <div className="col-span-3 bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-0 hover:rotate-2 relative group">
           <div className="text-7xl font-light text-gray-800">V</div>
           <button className="absolute bottom-4 right-4 w-8 h-8 rounded-full border border-gray-300 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
             <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -26,7 +32,7 @@ export function GridCards() {
         </div>
 
         {/* Phone Mockup Card */}
-        <div className="col-span-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-2 hover:rotate-0 relative flex items-center justify-center min-h-[400px]">
+        <div className="col-span-3 bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-0 hover:rotate-2 relative flex items-center justify-center min-h-[25rem]">
           <div className="relative w-[200px] h-[400px] bg-black rounded-[2.5rem] p-2 shadow-2xl">
             <div className="w-full h-full bg-white rounded-[2rem] overflow-hidden">
               {/* Phone Screen Content */}
@@ -98,7 +104,7 @@ export function GridCards() {
         </div>
 
         {/* Careers Card */}
-        <div className="col-span-3 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-2 hover:rotate-0 relative flex flex-col justify-center items-center min-h-[400px]">
+        <div className="col-span-3 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-0 hover:rotate-2 relative flex flex-col justify-center items-center min-h-[25rem]">
           <h2 className="text-5xl font-black text-gray-400 mb-2">Careers</h2>
           <p className="text-2xl text-gray-500">at CommandDot</p>
           <button className="absolute bottom-4 right-4 w-8 h-8 rounded-full border border-gray-300 bg-white flex items-center justify-center">
@@ -110,7 +116,7 @@ export function GridCards() {
 
         {/* Row 2 */}
         {/* Availability Calendar Card */}
-        <div className="col-span-3 bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-2 hover:rotate-0 relative">
+        <div className="col-span-3 bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-0 hover:rotate-2 relative">
           <div className="mb-4">
             <div className="text-xs text-gray-400 uppercase tracking-wide mb-2">Availability Calendar</div>
             <h3 className="text-xl font-semibold text-gray-900">Monday, Nov 21st</h3>
@@ -177,7 +183,7 @@ export function GridCards() {
         </div>
 
         {/* Small Moments BiG JoY Card */}
-        <div className="col-span-6 bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-2 hover:rotate-0 relative flex items-center justify-center min-h-[300px]">
+        <div className="col-span-6 bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-0 hover:rotate-2 relative flex items-center justify-center min-h-[18.75rem]">
           <div className="text-center">
             <p className="text-3xl text-gray-400 mb-2">Small Moments</p>
             <h2 className="text-7xl font-black text-gray-300">BiG JoY</h2>
@@ -190,7 +196,7 @@ export function GridCards() {
         </div>
 
         {/* Lock Icon Card */}
-        <div className="col-span-3 bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-2 hover:rotate-0 relative flex items-center justify-center min-h-[300px]">
+        <div className="col-span-3 bg-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-0 hover:rotate-2 relative flex items-center justify-center min-h-[18.75rem]">
           <svg className="w-32 h-32 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
@@ -202,7 +208,7 @@ export function GridCards() {
         </div>
 
         {/* 3D Logo Card */}
-        <div className="col-span-3 bg-gradient-to-br from-gray-100 to-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-2 hover:rotate-0 relative flex items-center justify-center min-h-[300px]">
+        <div className="col-span-3 bg-gradient-to-br from-gray-100 to-white rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 transform rotate-0 hover:rotate-2 relative flex items-center justify-center min-h-[18.75rem]">
           <div className="text-9xl font-black text-gray-300 transform rotate-12">
             ⌘E
           </div>

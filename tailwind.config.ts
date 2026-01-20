@@ -14,9 +14,10 @@ const config: Config = {
         light: '#f0f0f0',
       },
       fontFamily: {
-        display: ['Big Shoulders Display', 'sans-serif'],
-        body: ['DM Sans', 'sans-serif'],
-        mono: ['Inter', 'monospace'],
+        sans: ['Graphik', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        display: ['Graphik', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        body: ['Graphik', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'sans-serif'],
+        mono: ['Graphik', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'monospace'],
       },
       animation: {
         'bounce-slow': 'bounce 2s infinite',
