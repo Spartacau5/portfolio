@@ -1,5 +1,27 @@
 /* Apple Music Player Styles */
 
+.tile.sm.music.about {
+  padding: 0 !important;
+}
+
+.spotify-embed-wrapper {
+  width: 100%;
+  height: 328px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 32px;
+  overflow: hidden;
+  background: transparent;
+}
+
+.spotify-embed-wrapper iframe {
+  flex: 1;
+  width: 100%;
+  height: 328px;
+  border: none;
+  border-radius: 32px;
+}
+
 .mp-track-wrapper {
   flex-direction: column;
   justify-content: space-between;
@@ -17,6 +39,8 @@
 .sp-details-wrapper {
   flex-direction: column;
   display: flex;
+  position: relative;
+  z-index: 1;
 }
 
 .player-top-flex {
@@ -28,6 +52,8 @@
 .player-info-div {
   width: 128px;
   height: 128px;
+  position: relative;
+  z-index: 2;
 }
 
 .album-cover {
@@ -35,6 +61,31 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: box-shadow .3s;
+}
+
+.album-cover:hover {
+  box-shadow: 0 6px 12px 1px #0003;
+}
+
+.small-app-icon-div {
+  width: 56px;
+  height: 56px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.app-icon-link {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .small-app-music-background {
@@ -56,6 +107,8 @@
 
 .sp-title-wrapper {
   margin-top: 16px;
+  position: relative;
+  z-index: 2;
 }
 
 .album-name-div {
@@ -123,11 +176,14 @@
 
 .media-player {
   z-index: 2;
-  border-radius: 12px;
+  border-width: 2px;
+  border-color: rgba(0, 0, 26, 0.1);
+  border-image: none;
+  border-radius: 56px;
   justify-content: space-between;
   align-items: center;
   margin-top: 16px;
-  padding: 8px 12px;
+  padding: 10px 16px;
   display: flex;
   position: relative;
   transition: background-color 0.3s ease;
@@ -138,12 +194,16 @@
 }
 
 .library-div {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .library-icon {
@@ -174,6 +234,12 @@
   height: 24px;
   position: relative;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mp-previous,
@@ -204,10 +270,16 @@
 }
 
 .play-pause-div {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   position: relative;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mp-pause,
@@ -237,10 +309,16 @@
 }
 
 .volume-div {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   position: relative;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .player-icon-volume,
