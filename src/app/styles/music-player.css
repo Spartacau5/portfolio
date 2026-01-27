@@ -2,23 +2,29 @@
 
 .tile.sm.music.about {
   padding: 0 !important;
+  height: 328px;
+  /* keep your grid size */
+  overflow: hidden;
+  /* prevents any breakout */
+  box-sizing: border-box;
 }
 
 .spotify-embed-wrapper {
   width: 100%;
-  height: 328px;
+  height: 352px;
   display: flex;
-  flex-direction: column;
   border-radius: 32px;
   overflow: hidden;
   background: transparent;
+  box-sizing: border-box;
 }
 
 .spotify-embed-wrapper iframe {
-  flex: 1;
   width: 100%;
-  height: 328px;
-  border: none;
+  height: 100%;
+  border: 0;
+  display: block;
+  /* removes the tiny baseline gap */
   border-radius: 32px;
 }
 
