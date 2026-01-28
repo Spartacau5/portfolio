@@ -5,6 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 
 /* ============================================
    CUSTOM FONTS
@@ -802,7 +807,8 @@
   .imessage-bubble.auto-3,
   .imessage-bubble.auto-7,
   .imessage-bubble.auto-9,
-  .imessage-bubble.auto-15 {
+  .imessage-bubble.auto-15,
+  .imessage-bubble.auto-dynamic {
     width: auto;
   }
 
@@ -969,11 +975,12 @@
   .imessage-sender-tail {
     width: 24px;
     position: absolute;
-    inset: auto -3px 21px auto;
+    bottom: 0;
+    right: -3px;
   }
 
   .imessage-sender-tail.intro {
-    bottom: 24px;
+    bottom: 0;
   }
 
   /* Typing bubbles */
@@ -1107,12 +1114,14 @@
     background-color: #0078ff;
     border: 1px #000;
     align-self: flex-end;
-    width: 185px;
-    max-width: none;
-    font-family: SF Pro Text;
+    width: auto;
+    max-width: 250px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-family: SF Pro Text, -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 20px;
     line-height: 125%;
-    position: static;
+    position: relative;
   }
 
   /* Delivered labels */
@@ -1790,5 +1799,24 @@
   .focus-visible:focus-visible {
     outline: 2px solid #6366f1;
     outline-offset: 2px;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes typingDot {
+
+  0%,
+  60%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
