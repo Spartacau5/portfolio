@@ -5,6 +5,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Grid card press effect */
+.grid-card {
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.grid-card:hover {
+  transform: scale(0.98);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
 body {
   overflow-x: hidden;
   width: 100%;
