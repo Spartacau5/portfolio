@@ -1,5 +1,8 @@
 'use client';
 
+import { MusicPlayer } from './MusicPlayer';
+import { PhotoCarousel } from './PhotoCarousel';
+
 export function GridCards() {
   return (
     <div className="container home">
@@ -77,7 +80,7 @@ export function GridCards() {
         </div>
 
         {/* Mount Sinai Card - Now narrower */}
-        <div className="grid-card col-span-3 bg-white rounded-3xl pt-8 px-4 pb-0 shadow-sm border border-gray-100 relative min-h-[25rem] flex flex-col items-center overflow-hidden cursor-pointer">
+        <div className="grid-card col-span-3 bg-white rounded-3xl pt-8 px-4 pb-0 shadow-sm border border-gray-100 relative min-h-[20rem] flex flex-col items-center overflow-hidden cursor-pointer">
           {/* Logo */}
           <img src="/images/mount-sinai-logo.png" alt="Mount Sinai" className="w-10 mb-1" />
 
@@ -86,7 +89,7 @@ export function GridCards() {
           <p className="text-xs text-[#00b4b4] tracking-tight font-medium mb-2">Incident Reporting App</p>
 
           {/* Phone Mockup Image - extends past bottom */}
-          <img src="/images/mount-sinai-mockup.png" alt="Mount Sinai App" className="w-48 rounded-t-[2rem] shadow-2xl mt-4" />
+          <img src="/images/mount-sinai-mockup.png" alt="Mount Sinai App" className="w-60 rounded-t-[2rem] shadow-2xl mt-4 -mb-24" />
         </div>
 
         {/* Two stacked placeholder divs */}
@@ -108,21 +111,178 @@ export function GridCards() {
             </div>
           </div>
 
-          {/* Bottom placeholder div */}
-          <div className="grid-card flex-1 basis-1/2 bg-white rounded-3xl p-6 shadow-sm border border-gray-100 cursor-pointer">
+          {/* Twitter Card - duplicated from About page */}
+          <div className="tile-twitter sm twitter about flex-1 basis-1/2">
+            <div className="small-app-flex">
+              <div className="twtitter-top-div">
+                <div className="twitter-top-flex">
+                  <a
+                    href="https://twitter.com/spartacau5"
+                    className="twitter-info-div w-inline-block"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <div className="twitter-avi-div">
+                      <img
+                        src="/images/profilepic.png"
+                        alt="Arpit Ahluwalia"
+                        width={40}
+                        height={40}
+                        className="twitter-img"
+                      />
+                    </div>
+
+                    <div className="twitter-name-div">
+                      <div className="twitter-name" style={{ color: "rgb(0, 0, 0)" }}>
+                        Arpit Ahluwalia
+                      </div>
+                      <div
+                        className="twitter-handle"
+                        style={{ color: "rgb(148, 148, 149)" }}
+                      >
+                        @spartacau5
+                      </div>
+                    </div>
+                  </a>
+
+                  <div className="small-app-icon-div">
+                    <a
+                      href="https://twitter.com/spartacau5"
+                      className="app-icon-link w-inline-block"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <img
+                        src="/images/twitter-icon-min.png"
+                        alt="Twitter"
+                        width={56}
+                        height={56}
+                        className="small-tile-icon-hover"
+                      />
+                    </a>
+
+                    <div
+                      className="small-app-background"
+                      style={{
+                        transform:
+                          "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
+                        transformStyle: "preserve-3d",
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="tweet-div">
+                  <div className="twitter-tweet" style={{ color: "rgb(0, 0, 0)" }}>
+                    cooking up • prev{" "}
+                    <a
+                      href="https://x.com/vercel"
+                      className="tweet-link"
+                      style={{ color: "rgb(21, 133, 199)" }}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      @craft
+                    </a>{" "}
+                    <a
+                      href="https://x.com/v0"
+                      className="tweet-link"
+                      style={{ color: "rgb(21, 133, 199)" }}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      @zoominfo
+                    </a>{" "}
+                    <a
+                      href="https://twitter.com/figma"
+                      className="tweet-link"
+                      style={{ color: "rgb(21, 133, 199)" }}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      @j&j
+                    </a>{" "}
+                    <a
+                      href="https://twitter.com/diagram"
+                      className="tweet-link"
+                      style={{ color: "rgb(21, 133, 199)" }}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      @mtsinai
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <a
+                id="twitter-button"
+                data-w-id="ad3c41ab-6071-5e6c-3932-6d9df03bfcd4"
+                href="https://twitter.com/spartacau5"
+                className="twitter-button w-inline-block"
+                style={{
+                  borderColor: "rgb(222, 222, 224)",
+                  backgroundColor: "rgba(0, 0, 0, 0)",
+                }}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <div className="inner-button-flex">
+                  <div className="button-text" style={{ color: "rgb(0, 0, 0)" }}>
+                    Read mid tweets
+                  </div>
+
+                  <div className="arrow-icon-div">
+                    <img
+                      src="/images/arrow-angle.svg"
+                      alt=""
+                      width={16}
+                      height={16}
+                      className="arrow-icon"
+                      style={{ opacity: 1 }}
+                    />
+                    <img
+                      src="/images/arrow-hover.svg"
+                      alt=""
+                      width={16}
+                      height={16}
+                      className="arrow-icon-white"
+                    />
+                  </div>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Careers Card */}
-        <div className="grid-card col-span-6 bg-gradient-to-br from-gray-100 to-gray-200 rounded-3xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500  relative flex flex-col justify-center items-center min-h-[25rem]">
-          <h2 className="text-5xl font-black text-gray-400 mb-2">Careers</h2>
-          <p className="text-2xl text-gray-500">at CommandDot</p>
-          <button className="absolute bottom-4 right-4 w-8 h-8 rounded-full border border-gray-300 bg-white flex items-center justify-center">
-            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
-            </svg>
-          </button>
+        {/* HYPEX Card */}
+        <div className="grid-card col-span-6 bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
+          <img src="/images/hypex-mockup.png" alt="HYPEX" className="w-full h-full object-contain" />
+
+          {/* Sublabels that slide up on hover */}
+          <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out bg-gradient-to-t from-white via-white to-transparent">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-3">
+              <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500 w-fit">Led marketing and design efforts for an NFT-based trading game.</span>
+              <div className="flex gap-2">
+                <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">UI Designer</span>
+                <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">Contract</span>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Spotify Music Player Card */}
+        <div className="col-span-3">
+          <MusicPlayer />
+        </div>
+
+        {/* Photos Carousel Card */}
+        <div className="col-span-3">
+          <PhotoCarousel />
+        </div>
+
+        {/* Empty placeholder div */}
+        <div className="col-span-6"></div>
 
         {/* Row 2 */}
         {/* Availability Calendar Card */}
