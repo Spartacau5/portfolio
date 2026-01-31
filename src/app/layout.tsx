@@ -3,6 +3,7 @@ import "./globals.css";
 import "./styles/twitter-card.css";
 import "./styles/music-player.css";
 import "./styles/photo-carousel.css";
+import { CustomCursor } from "./components/CustomCursor";
 
 export const metadata: Metadata = {
   title: "Arpit Ahluwalia's UX Design Portfolio",
@@ -30,6 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
+        <CustomCursor />
         {children}
       </body>
     </html>
