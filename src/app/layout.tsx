@@ -3,6 +3,7 @@ import "./globals.css";
 import "./styles/twitter-card.css";
 import "./styles/music-player.css";
 import "./styles/photo-carousel.css";
+import "./styles/case-study.css";
 import { CustomCursor } from "./components/CustomCursor";
 
 export const metadata: Metadata = {

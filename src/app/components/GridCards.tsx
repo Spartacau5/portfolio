@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
 
@@ -16,6 +17,7 @@ const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
 
 export function GridCards() {
   const [focusedCard, setFocusedCard] = useState<string | null>(null);
+  const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
 
   return (
     <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
@@ -49,14 +51,15 @@ export function GridCards() {
           <div className="grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative h-full min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
             <img src="/images/arrive-logo.png" alt="Arrive" className="w-48" />
 
-            {/* Arrow Button - Bottom Left */}
-            <button
+            {/* Arrow Button - Bottom Left - Links to case study */}
+            <Link
+              href="/work/arrive"
               className="card-arrow-btn"
               onMouseEnter={() => setFocusedCard('arrive')}
               onMouseLeave={() => setFocusedCard(null)}
             >
               <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
-            </button>
+            </Link>
 
             {/* Sublabels that slide up on hover */}
             <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full transition-transform duration-500 ease-out">
@@ -78,8 +81,26 @@ export function GridCards() {
 
         {/* ZoomInfo Logo Card */}
         <div className={`card-wrapper col-span-6 ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
-          <div className="grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-            <img src="/images/zoominfo-logo.png" alt="ZoomInfo" className="w-64" />
+          <div
+            className="grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            onMouseEnter={() => setIsZoominfoHovered(true)}
+            onMouseLeave={() => setIsZoominfoHovered(false)}
+          >
+            {/* Default logo */}
+            <img
+              src="/images/zoominfo-logo.png"
+              alt="ZoomInfo"
+              className="w-64 transition-opacity duration-300"
+              style={{ opacity: isZoominfoHovered ? 0 : 1 }}
+            />
+
+            {/* Hover gif - covers entire card */}
+            <img
+              src="/images/zigif.gif"
+              alt="ZoomInfo Demo"
+              className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-opacity duration-300"
+              style={{ opacity: isZoominfoHovered ? 1 : 0 }}
+            />
 
             {/* Arrow Button - Bottom Left */}
             <button
@@ -370,7 +391,7 @@ export function GridCards() {
         */}
 
         {/* Two stacked placeholder divs */}
-        <div className={`col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard ? 'opacity-20' : ''}`}>
+        <div className={`col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-20' : ''}`}>
           {/* Microsoft Card */}
           <div className={`card-wrapper flex-1 basis-1/2 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
             <div className="grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[10rem]">
@@ -386,14 +407,14 @@ export function GridCards() {
               </button>
             </div>
             {/* Description text that appears on focus */}
-            <div className={`card-focus-description low ${focusedCard === 'microsoft' ? 'visible' : ''}`}>
+            <div className={`card-focus-description microsoft-low ${focusedCard === 'microsoft' ? 'visible' : ''}`}>
               <span className="project-name">{cardDescriptions.microsoft.name}</span>
               <span className="project-subtitle"> — {cardDescriptions.microsoft.subtitle}</span>
             </div>
           </div>
 
           {/* Twitter Card - duplicated from About page */}
-          <div className="tile-twitter sm twitter about flex-1 basis-1/2">
+          <div className={`tile-twitter sm twitter about flex-1 basis-1/2 transition-opacity duration-300 ${focusedCard === 'microsoft' ? 'opacity-10' : ''}`}>
             <div className="small-app-flex">
               <div className="twtitter-top-div">
                 <div className="twitter-top-flex">

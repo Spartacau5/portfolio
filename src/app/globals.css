@@ -90,6 +90,13 @@
   bottom: -48px;
 }
 
+/* Even lower positioned description for Microsoft card */
+.card-focus-description.microsoft-low {
+  bottom: -60px;
+  left: 8px;
+  right: 8px;
+}
+
 /* Custom Cursor */
 .custom-cursor {
   position: fixed;
