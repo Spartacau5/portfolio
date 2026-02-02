@@ -6,6 +6,7 @@ import "./styles/photo-carousel.css";
 import "./styles/case-study.css";
 import { CustomCursor } from "./components/CustomCursor";
 import { PageTransition } from "./components/PageTransition";
+import { Header } from "./components/Header";
 
 export const metadata: Metadata = {
   title: "Arpit Ahluwalia's UX Design Portfolio",
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
         <CustomCursor />
+        <Header />
         <PageTransition>
           {children}
         </PageTransition>

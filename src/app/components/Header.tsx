@@ -3,9 +3,13 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 
 export function Header() {
   const pathname = usePathname();
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+  const navRef = useRef<HTMLUListElement>(null);
+  const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
 
   const navItems = [
     { name: 'Home', href: '/' },
@@ -14,14 +18,46 @@ export function Header() {
   ];
 
   // Determine which tab is active
-  const getActiveTab = () => {
-    if (pathname === '/') return '/';
-    if (pathname.startsWith('/about')) return '/about';
-    if (pathname.startsWith('/work')) return '/work';
-    return '/';
+  const getActiveIndex = () => {
+    if (pathname === '/') return 0;
+    if (pathname.startsWith('/about')) return 1;
+    if (pathname.startsWith('/work')) return 2;
+    return 0;
   };
 
-  const activeTab = getActiveTab();
+  const activeIndex = getActiveIndex();
+
+  // Update indicator position when active tab changes
+  useEffect(() => {
+    const activeItem = itemRefs.current[activeIndex];
+    if (activeItem && navRef.current) {
+      const navRect = navRef.current.getBoundingClientRect();
+      const itemRect = activeItem.getBoundingClientRect();
+      setIndicatorStyle({
+        left: itemRect.left - navRect.left,
+        width: itemRect.width,
+      });
+    }
+  }, [activeIndex]);
+
+  // Also update on mount and resize
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activeItem = itemRefs.current[activeIndex];
+      if (activeItem && navRef.current) {
+        const navRect = navRef.current.getBoundingClientRect();
+        const itemRect = activeItem.getBoundingClientRect();
+        setIndicatorStyle({
+          left: itemRect.left - navRect.left,
+          width: itemRect.width,
+        });
+      }
+    };
+
+    updateIndicator();
+    window.addEventListener('resize', updateIndicator);
+    return () => window.removeEventListener('resize', updateIndicator);
+  }, [activeIndex]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 py-6">
@@ -38,11 +74,29 @@ export function Header() {
         {/* Navigation Pills - Center */}
         <nav className="absolute left-1/2 -translate-x-1/2">
           <div className="bg-white/90 backdrop-blur-md rounded-full px-1 py-1 shadow-lg border border-gray-200/50">
-            <ul className="flex items-center gap-1 relative">
-              {navItems.map((item) => {
-                const isActive = item.href === activeTab;
+            <ul ref={navRef} className="flex items-center gap-1 relative">
+              {/* Single animated indicator */}
+              <motion.div
+                className="absolute bg-gray-200 rounded-full"
+                style={{ height: '100%', top: 0 }}
+                animate={{
+                  left: indicatorStyle.left,
+                  width: indicatorStyle.width,
+                }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 350,
+                  damping: 30,
+                }}
+              />
+              {navItems.map((item, index) => {
+                const isActive = index === activeIndex;
                 return (
-                  <li key={item.name} className="relative">
+                  <li
+                    key={item.name}
+                    ref={(el) => { itemRefs.current[index] = el; }}
+                    className="relative"
+                  >
                     <Link
                       href={item.href}
                       className={`px-6 py-2 rounded-full text-sm font-medium block tracking-[0px] relative z-10 transition-colors duration-200 ${isActive
@@ -52,18 +106,6 @@ export function Header() {
                     >
                       {item.name}
                     </Link>
-                    {isActive && (
-                      <motion.div
-                        layoutId="nav-indicator"
-                        className="absolute inset-0 bg-gray-200 rounded-full"
-                        style={{ zIndex: 0 }}
-                        transition={{
-                          type: 'spring',
-                          stiffness: 350,
-                          damping: 30,
-                        }}
-                      />
-                    )}
                   </li>
                 );
               })}

@@ -249,6 +249,14 @@ body {
 
 @font-face {
   font-family: 'Graphik';
+  src: url('./fonts/Graphik-LightItalic-Trial.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Graphik';
   src: url(https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/63140b59ad9f7970e51195eb_graphikmedium-webfont.woff2) format('woff2');
   font-weight: 500;
   font-style: normal;

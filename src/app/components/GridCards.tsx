@@ -135,13 +135,14 @@ export function GridCards() {
             <img src="/images/jnj-logo.png" alt="Johnson & Johnson" className="w-80" />
 
             {/* Arrow Button - Bottom Left */}
-            <button
+            <Link
+              href="/work/jnj"
               className="card-arrow-btn"
               onMouseEnter={() => setFocusedCard('jnj')}
               onMouseLeave={() => setFocusedCard(null)}
             >
               <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
-            </button>
+            </Link>
 
             {/* Sublabels that slide up on hover */}
             <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full transition-transform duration-500 ease-out">
@@ -399,13 +400,14 @@ export function GridCards() {
               <img src="/images/microsoft-full-logo.png" alt="Microsoft" className="w-32" />
 
               {/* Arrow Button - Bottom Left */}
-              <button
+              <Link
+                href="/work/microsoft"
                 className="card-arrow-btn"
                 onMouseEnter={() => setFocusedCard('microsoft')}
                 onMouseLeave={() => setFocusedCard(null)}
               >
                 <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
-              </button>
+              </Link>
             </div>
             {/* Description text that appears on focus */}
             <div className={`card-focus-description microsoft-low ${focusedCard === 'microsoft' ? 'visible' : ''}`}>
