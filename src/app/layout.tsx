@@ -5,6 +5,7 @@ import "./styles/music-player.css";
 import "./styles/photo-carousel.css";
 import "./styles/case-study.css";
 import { CustomCursor } from "./components/CustomCursor";
+import { PageTransition } from "./components/PageTransition";
 
 export const metadata: Metadata = {
   title: "Arpit Ahluwalia's UX Design Portfolio",
@@ -33,8 +34,11 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
         <CustomCursor />
-        {children}
+        <PageTransition>
+          {children}
+        </PageTransition>
       </body>
     </html>
   );
 }
+

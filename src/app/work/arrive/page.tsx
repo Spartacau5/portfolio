@@ -1,22 +1,16 @@
 'use client';
 
 import Link from 'next/link';
+import { Header } from '../../components/Header';
 
 export default function ArrivePage() {
     return (
         <div className="case-study-page">
-            {/* Navigation */}
-            <nav className="case-study-nav">
-                <div className="nav-pill">
-                    <Link href="/" className="nav-link">Home</Link>
-                    <Link href="/about" className="nav-link">About</Link>
-                    <Link href="/work/arrive" className="nav-link active">
-                        <span className="nav-dot"></span>
-                        Work
-                    </Link>
-                    <Link href="/contact" className="nav-link">Contact</Link>
-                </div>
-            </nav>
+            {/* Navigation - Using shared Header component */}
+            <Header />
+
+            {/* Spacer for fixed header */}
+            <div className="h-24"></div>
 
             {/* Hero Section */}
             <section className="case-study-hero">

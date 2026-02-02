@@ -353,13 +353,14 @@ export function GridCards() {
             </div>
 
             {/* Arrow Button - Bottom Left */}
-            <button
+            <Link
+              href="/work/hypex"
               className="card-arrow-btn"
               onMouseEnter={() => setFocusedCard('hypex')}
               onMouseLeave={() => setFocusedCard(null)}
             >
               <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
-            </button>
+            </Link>
           </div>
           {/* Description text that appears on focus */}
           <div className={`card-focus-description ${focusedCard === 'hypex' ? 'visible' : ''}`}>

@@ -56,7 +56,7 @@
 
 /* Hero Section */
 .case-study-hero {
-    padding: 2rem 0;
+    padding: 2rem 0 0.5rem;
 }
 
 .case-study-title {
@@ -77,7 +77,7 @@
 .case-study-divider {
     border: none;
     border-top: 1px solid #e5e7eb;
-    margin: 1.5rem 0 2rem;
+    margin: 1rem 0 2rem;
 }
 
 /* Meta Section */
@@ -163,29 +163,36 @@
     font-weight: 500;
     border-radius: 9999px;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.25s ease;
+    text-decoration: none;
 }
 
 .cta-button.primary {
     background: #fff;
     color: #111;
     border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .cta-button.primary:hover {
-    background: #f9fafb;
+    background: #fafafa;
     border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
 }
 
 .cta-button.secondary {
     background: #fff;
     color: #111;
     border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .cta-button.secondary:hover {
-    background: #f9fafb;
+    background: #fafafa;
     border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
 }
 
 .cta-arrow {
