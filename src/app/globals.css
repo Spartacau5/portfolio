@@ -97,6 +97,134 @@
   right: 8px;
 }
 
+/* Johnson & Johnson Card Hover Effect */
+.jnj-card {
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease,
+              background-color 0.4s ease;
+}
+
+.jnj-card:hover {
+  background-color: #D51900;
+  border-color: #D51900;
+}
+
+.jnj-logo {
+  transition: filter 0.4s ease;
+}
+
+.jnj-card:hover .jnj-logo {
+  filter: brightness(0) invert(1);
+}
+
+/* Update sublabels on J&J hover */
+.jnj-card:hover .bg-gray-100 {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+}
+
+/* Microsoft Card Graffiti Animation */
+.microsoft-card {
+  position: relative;
+}
+
+.microsoft-bg-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 1.5rem;
+}
+
+/* SVG container */
+.microsoft-graffiti-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Individual path animation - drawing effect from edges to center */
+.graffiti-path {
+  opacity: 0;
+  transform: scale(0) rotate(-3deg);
+  transform-origin: var(--origin-x, 50%) var(--origin-y, 50%);
+  transform-box: fill-box;
+  transition: opacity 0.7s ease-out, transform 0.85s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: var(--delay, 0s);
+}
+
+/* Hover state - animate in simultaneously */
+.graffiti-path.animate-in {
+  opacity: 0.5;
+  transform: scale(1) rotate(0deg);
+  transition-delay: 0s;
+}
+
+/* Exit state - smooth reverse */
+.graffiti-path.animate-out {
+  opacity: 0;
+  transform: scale(0) rotate(3deg);
+  transition: opacity 0.55s ease-in, transform 0.7s cubic-bezier(0.4, 0, 0.6, 1);
+  transition-delay: var(--exit-delay, 0s);
+}
+
+/* Microsoft content container - centered vertically, slightly lower */
+.microsoft-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  height: 100%;
+  padding-top: 60px;
+}
+
+/* Soft white gradient behind content - faux clear area */
+.microsoft-content::before {
+  content: '';
+  position: absolute;
+  width: 280px;
+  height: 200px;
+  background: radial-gradient(ellipse at center,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(255, 255, 255, 0.95) 30%,
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Logo container - no background */
+.microsoft-logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Animated text below logo */
+.microsoft-hover-text {
+  font-family: Graphik, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #6b7280;
+  text-align: center;
+  max-width: 200px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 0.3s ease 0.35s, transform 0.3s ease 0.35s;
+}
+
+.microsoft-card.is-hovered .microsoft-hover-text {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.microsoft-card:not(.is-hovered) .microsoft-hover-text {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
 /* Custom Cursor */
 .custom-cursor {
   position: fixed;
@@ -510,6 +638,7 @@ body {
     z-index: 13;
     position: relative;
     overflow: hidden;
+    background-color: #fff;
   }
 
   .tile.sm.imessage {
@@ -519,6 +648,7 @@ body {
     max-height: 328px;
     padding-top: 0;
     position: relative;
+    background-color: #fff;
   }
 
   /* Twitter Tile */
@@ -568,6 +698,7 @@ body {
 
   .tile.xl.me.about {
     height: auto;
+    background-color: #fff;
   }
 
   /* Tile Grid Positions */
@@ -918,6 +1049,7 @@ body {
     max-height: 328px;
     padding-top: 0;
     position: relative;
+    background-color: #fff;
   }
 
   /* Layout containers */

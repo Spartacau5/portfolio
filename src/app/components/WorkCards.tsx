@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { MicrosoftGraffiti } from './MicrosoftGraffiti';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
@@ -15,6 +16,7 @@ const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
 export function WorkCards() {
     const [focusedCard, setFocusedCard] = useState<string | null>(null);
     const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
+    const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
 
     return (
         <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
@@ -84,8 +86,8 @@ export function WorkCards() {
                 <div className="col-span-6 flex flex-col gap-4">
                     {/* Johnson & Johnson Logo Card */}
                     <div className={`card-wrapper flex-1 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
-                        <div className="grid-card h-full bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-                            <img src="/images/jnj-logo.png" alt="Johnson & Johnson" className="w-64" />
+                        <div className="jnj-card grid-card h-full bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
+                            <img src="/images/jnj-logo.png" alt="Johnson & Johnson" className="jnj-logo w-64" />
                             <Link
                                 href="/work/jnj"
                                 className="card-arrow-btn"
@@ -103,8 +105,24 @@ export function WorkCards() {
 
                     {/* Microsoft Card */}
                     <div className={`card-wrapper flex-1 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
-                        <div className="grid-card h-full bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-                            <img src="/images/microsoft-full-logo.png" alt="Microsoft" className="w-40" />
+                        <div
+                            className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[20rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
+                            onMouseEnter={() => setIsMicrosoftHovered(true)}
+                            onMouseLeave={() => setIsMicrosoftHovered(false)}
+                        >
+                            {/* Animated graffiti background */}
+                            <div className="microsoft-bg-container">
+                                <MicrosoftGraffiti isHovered={isMicrosoftHovered} />
+                            </div>
+
+                            {/* Logo with white background and animated text */}
+                            <div className="microsoft-content relative z-10 flex flex-col items-center">
+                                <div className="microsoft-logo-container">
+                                    <img src="/images/microsoft-full-logo.png" alt="Microsoft" className="w-32" />
+                                </div>
+                                <p className="microsoft-hover-text">Designing an AI-Powered Assistant for Specialized Educators</p>
+                            </div>
+
                             <Link
                                 href="/work/microsoft"
                                 className="card-arrow-btn"

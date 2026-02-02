@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Header } from '../../components/Header';
 
 export default function HypexPage() {
     const scrollToChallenge = () => {
@@ -13,9 +12,6 @@ export default function HypexPage() {
 
     return (
         <div className="case-study-page">
-            {/* Navigation - Using shared Header component */}
-            <Header />
-
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
 
@@ -74,7 +70,7 @@ export default function HypexPage() {
                     {/* CTA Buttons */}
                     <div className="case-study-cta">
                         <button className="cta-button primary" onClick={scrollToChallenge}>Read Case Study</button>
-                        <a href="https://hypex.gg" target="_blank" rel="noopener noreferrer" className="cta-button secondary">
+                        <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="cta-button secondary">
                             Website
                             <img src="/images/arrow-angle.svg" alt="" className="cta-arrow" />
                         </a>
@@ -82,101 +78,106 @@ export default function HypexPage() {
                 </div>
             </section>
 
-            {/* Click around hint */}
-            <div className="click-around-hint">
-                <span className="hint-arrow">▶</span>
-                <span className="hint-text">Click around...</span>
-            </div>
-
-            {/* Image Gallery Grid */}
+            {/* Video Showcase */}
             <section className="case-study-gallery">
-                <div className="gallery-grid">
-                    <div className="gallery-card large">
-                        <img src="/images/hypex-mockup.png" alt="HYPEX" className="gallery-image contain" />
-                    </div>
-                    <div className="gallery-card">
-                        <div className="placeholder-content">
-                            <span className="placeholder-icon">🎮</span>
-                        </div>
-                    </div>
-                    <div className="gallery-card">
-                        <div className="placeholder-content">
-                            <span className="placeholder-icon">🃏</span>
-                        </div>
-                    </div>
+                <div className="video-showcase">
+                    <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="showcase-video"
+                    >
+                        <source src="/images/hypex.webm" type="video/webm" />
+                    </video>
                 </div>
+                <div className="showcase-caption">First time using Blender after school!</div>
             </section>
 
             {/* Challenge Section */}
             <section id="challenge-section" className="case-study-content">
                 <h2 className="content-heading">Challenge</h2>
+                <p className="content-text">
+                    The team's expectation was for a progressive, cutting edge landing page which really delivers their vision and connects with their user persona of sneakerheads who get attracted to strong and trendy designs.
+                </p>
                 <p className="content-lead">
-                    <strong>How might we create an engaging NFT trading experience that appeals to both crypto enthusiasts and casual gamers?</strong>
+                    <strong>I was provided a rough mockup of the team's vision.</strong>
                 </p>
-                <p className="content-text">The project presented several key challenges:</p>
-                <ul className="content-list">
-                    <li>Creating a visual identity that stands out in the crowded NFT space</li>
-                    <li>Designing intuitive trading mechanics for users unfamiliar with blockchain</li>
-                    <li>Building marketing campaigns that educate while entertaining</li>
-                </ul>
+                <div className="reference-images">
+                    <img src="/images/reference1.avif" alt="Reference mockup 1" className="reference-image" />
+                    <img src="/images/reference2.avif" alt="Reference mockup 2" className="reference-image" />
+                </div>
+                <p className="content-text">
+                    The team shared with me their existing wireframes and it was a very basic skeleton which was put together by the CEO and their marketing team when they initially started back in early 2021.
+                </p>
+                <p className="content-text">
+                    This gave me a simple base with ideas and some direction on art style to start off of, as it provided me with the content I had to display in the landing page and also some stylistic elements that they really wanted to keep such as the Nike AirMag.
+                </p>
             </section>
 
-            {/* Constraints Section */}
+            {/* Moodboard Section */}
             <section className="case-study-content">
-                <h2 className="content-heading">Constraints</h2>
+                <h2 className="content-heading">Moodboard</h2>
                 <p className="content-text">
-                    Working on HYPEX during the NFT boom meant operating in a rapidly evolving landscape.
-                    Market trends shifted quickly, and user expectations were constantly changing.
+                    Right from the beginning, I wanted a clear vision of the team's expectations on how to visually represent HypeX to the world. I set out to create a Moodboard which took inspiration from the most followed crypto projects in the world at the time.
                 </p>
+                <div className="moodboard-image-container">
+                    <img src="/images/moodboard.webp" alt="HypeX Moodboard" className="moodboard-image" />
+                </div>
                 <p className="content-text">
-                    As the sole designer, I had to balance speed with quality, often iterating on designs
-                    in real-time based on community feedback and market conditions.
+                    I noticed there was a lot of focus on environment design where a mixture of impressive elements come together to create a whole ecosystem which you get transported to instead of just a static web page. This inspired me to take that space galaxy vibe to another level of immersion using 3D elements mixed with 2D.
                 </p>
             </section>
 
-            {/* Research Section */}
+            {/* Wireframing Section */}
             <section className="case-study-content">
-                <h2 className="content-heading">Research</h2>
+                <h2 className="content-heading">Wireframing</h2>
 
-                <h3 className="content-subheading">Market Analysis</h3>
+                <h3 className="content-subheading">Low-Fidelity</h3>
                 <p className="content-text">
-                    I conducted extensive research into existing NFT games and trading platforms,
-                    identifying patterns that resonated with users and opportunities for differentiation.
+                    I started with redesigning the old version I was provided (or v0 as I called it) into a low/mid-fidelity version to better understand the layout, structure and flow of the landing page.
                 </p>
 
-                <h3 className="content-subheading">Key Insights</h3>
-                <p className="content-text italic">
-                    Users wanted a seamless onboarding experience that didn't require deep crypto knowledge.
+                <div className="lowfi-gallery">
+                    <img src="/images/lowfi1.avif" alt="Low-fidelity wireframe 1" className="lowfi-main" />
+                    <div className="lowfi-grid">
+                        <img src="/images/lowfi2.avif" alt="Low-fidelity wireframe 2" className="lowfi-thumb" />
+                        <img src="/images/lowfi3.avif" alt="Low-fidelity wireframe 3" className="lowfi-thumb" />
+                        <img src="/images/lowfi4.avif" alt="Low-fidelity wireframe 4" className="lowfi-thumb" />
+                        <img src="/images/lowfi5.avif" alt="Low-fidelity wireframe 5" className="lowfi-thumb" />
+                    </div>
+                </div>
+
+                <h3 className="content-subheading">High Fidelity v1</h3>
+                <p className="content-text">
+                    Once the layout was approved, I designed a high fidelity version which our developers could adopt quickly since time was a major constraint.
                 </p>
-                <p className="content-text italic">
-                    Visual appeal and card aesthetics were primary drivers of purchase decisions.
+                <div className="highfi-image-container">
+                    <img src="/images/highfi.webp" alt="High-fidelity design v1" className="highfi-image" />
+                </div>
+
+                <h3 className="content-subheading">Final Version</h3>
+                <p className="content-text">
+                    Once we satisfied investors with a basic version of what HypeX does, I designed a final version which hit that immersive space environment I wanted to achieve. Our young team of college developers worked hard to bring the designs to life using React components which you can check out at <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="content-link">www.hypex.io</a>
                 </p>
-                <p className="content-text italic">
-                    Community features and social proof significantly impacted user engagement.
-                </p>
+                <div className="highfi-image-container">
+                    <img src="/images/finalhighfi.webp" alt="Final high-fidelity design" className="highfi-image" />
+                </div>
             </section>
 
-            {/* Iterations Section */}
-            <section className="case-study-content">
-                <h2 className="content-heading">Iterations</h2>
-
-                <h3 className="content-subheading">Brand Identity Development</h3>
-                <p className="content-text">
-                    The HYPEX brand went through multiple iterations, evolving from a more traditional
-                    gaming aesthetic to a bold, futuristic look that captured the energy of the NFT space.
-                </p>
-                <p className="content-text">
-                    The final identity featured vibrant gradients, dynamic typography, and a distinctive
-                    visual language that set HYPEX apart from competitors.
-                </p>
-            </section>
-
-            {/* Back to Home Link */}
-            <div className="back-to-home">
+            {/* Bottom Navigation */}
+            <div className="case-study-bottom-nav">
                 <Link href="/" className="back-link">
                     <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
                     Back to Home
                 </Link>
+                <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="back-link"
+                >
+                    Go to top
+                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                </button>
             </div>
         </div>
     );

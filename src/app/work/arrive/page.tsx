@@ -1,14 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { Header } from '../../components/Header';
 
 export default function ArrivePage() {
     return (
         <div className="case-study-page">
-            {/* Navigation - Using shared Header component */}
-            <Header />
-
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
 

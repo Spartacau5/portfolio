@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   description: "Strategic Designer based in Brooklyn blending aesthetics, creativity, and usability in my solutions. Here's all my creative work ranging from design strategy, UX/UI, graphic design, photography, music production, and more.",
   keywords: ["UX Design", "UI Design", "Strategic Design", "Product Design", "Portfolio", "Arpit Ahluwalia"],
   authors: [{ name: "Arpit Ahluwalia" }],
+  icons: {
+    icon: "/favicon.png",
+  },
   openGraph: {
     type: "website",
     title: "Arpit Ahluwalia's UX Design Portfolio",
@@ -39,6 +42,12 @@ export default function RootLayout({
         <PageTransition>
           {children}
         </PageTransition>
+        <footer style={{ textAlign: 'center', padding: '2rem 1rem', color: '#9CA3AF', fontSize: '14px' }}>
+          Vibe-coded from scratch with{' '}
+          <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" style={{ color: '#9CA3AF', textDecoration: 'underline' }}>Cursor</a>
+          {' & '}
+          <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" style={{ color: '#9CA3AF', textDecoration: 'underline' }}>Claude</a>
+        </footer>
       </body>
     </html>
   );

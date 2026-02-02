@@ -16,13 +16,8 @@ const photoCategories: PhotoCategory[] = [
     name: 'All',
     icon: 'https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/62f3408bff92d3dec1bc25b0_everything-icon.svg',
     photos: [
-      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?w=800&h=800&fit=crop',
+      '/images/photos/DSCF6249.JPG',
+      '/images/photos/DSCF6266.JPG',
     ],
   },
   {
@@ -30,11 +25,7 @@ const photoCategories: PhotoCategory[] = [
     name: 'Places',
     icon: 'https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/62f33ef05cac0a959ca7e5e6_places-icon.svg',
     photos: [
-      'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1485871981521-5b1fd3805eee?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?w=800&h=800&fit=crop',
+      '/images/photos/Gemini_Generated_Image_kjoouskjoouskjoo.png',
     ],
   },
   {
@@ -42,10 +33,9 @@ const photoCategories: PhotoCategory[] = [
     name: 'Favorites',
     icon: 'https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/62f34342e3e5062aabcadb04_heart-icon.svg',
     photos: [
-      'https://images.unsplash.com/photo-1511576661531-b34d7da5d0bb?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=800&fit=crop',
+      '/images/photos/1745887158804.jpg',
+      '/images/photos/1752265266549.jpg',
+      '/images/photos/image.jpg',
     ],
   },
   {
@@ -53,11 +43,7 @@ const photoCategories: PhotoCategory[] = [
     name: 'Dog',
     icon: 'https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/62f33ef00ae83f7d38631375_dog-icon.svg',
     photos: [
-      'https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1534351590666-13e3e96b5017?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=800&h=800&fit=crop',
-      'https://images.unsplash.com/photo-1558788353-f76d92427f16?w=800&h=800&fit=crop',
+      '/images/photos/597327246_1309438800869894_2014569186096821257_n.png',
     ],
   },
 ];

@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import { Header } from "../components/Header";
 import { MusicPlayer } from "../components/MusicPlayer";
 import { PhotoCarousel } from "../components/PhotoCarousel";
 import { PodcastPlayer } from "../components/PodcastPlayer";
@@ -13,7 +12,6 @@ import { IMessageChat } from "../components/IMessageChat";
 export default function About() {
   return (
     <main className="min-h-screen bg-gray-50">
-      <Header />
 
       <div className="container home">
         <div className="grid-top-bar">

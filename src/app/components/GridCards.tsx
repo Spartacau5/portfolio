@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
+import { MicrosoftGraffiti } from './MicrosoftGraffiti';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
@@ -18,6 +19,7 @@ const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
 export function GridCards() {
   const [focusedCard, setFocusedCard] = useState<string | null>(null);
   const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
+  const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
 
   return (
     <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
@@ -103,13 +105,14 @@ export function GridCards() {
             />
 
             {/* Arrow Button - Bottom Left */}
-            <button
+            <Link
+              href="/work/zoominfo"
               className="card-arrow-btn"
               onMouseEnter={() => setFocusedCard('zoominfo')}
               onMouseLeave={() => setFocusedCard(null)}
             >
               <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
-            </button>
+            </Link>
 
             {/* Sublabels that slide up on hover */}
             <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full transition-transform duration-500 ease-out">
@@ -131,8 +134,8 @@ export function GridCards() {
 
         {/* Johnson & Johnson Logo Card */}
         <div className={`card-wrapper col-span-6 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
-          <div className="grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-            <img src="/images/jnj-logo.png" alt="Johnson & Johnson" className="w-80" />
+          <div className="jnj-card grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
+            <img src="/images/jnj-logo.png" alt="Johnson & Johnson" className="jnj-logo w-80" />
 
             {/* Arrow Button - Bottom Left */}
             <Link
@@ -396,8 +399,23 @@ export function GridCards() {
         <div className={`col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-20' : ''}`}>
           {/* Microsoft Card */}
           <div className={`card-wrapper flex-1 basis-1/2 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
-            <div className="grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[10rem]">
-              <img src="/images/microsoft-full-logo.png" alt="Microsoft" className="w-32" />
+            <div
+              className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[10rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
+              onMouseEnter={() => setIsMicrosoftHovered(true)}
+              onMouseLeave={() => setIsMicrosoftHovered(false)}
+            >
+              {/* Animated graffiti background - individual vectors */}
+              <div className="microsoft-bg-container">
+                <MicrosoftGraffiti isHovered={isMicrosoftHovered} />
+              </div>
+
+              {/* Logo with white background and animated text */}
+              <div className="microsoft-content relative z-10 flex flex-col items-center">
+                <div className="microsoft-logo-container">
+                  <img src="/images/microsoft-full-logo.png" alt="Microsoft" className="w-32" />
+                </div>
+                <p className="microsoft-hover-text">Designing an AI-Powered Assistant for Specialized Educators</p>
+              </div>
 
               {/* Arrow Button - Bottom Left */}
               <Link
@@ -481,7 +499,7 @@ export function GridCards() {
                   <div className="twitter-tweet" style={{ color: "rgb(0, 0, 0)" }}>
                     cooking up • prev{" "}
                     <a
-                      href="https://x.com/vercel"
+                      href="https://madebycraft.co/about"
                       className="tweet-link"
                       style={{ color: "rgb(21, 133, 199)" }}
                       target="_blank"
@@ -490,7 +508,7 @@ export function GridCards() {
                       @craft
                     </a>{" "}
                     <a
-                      href="https://x.com/v0"
+                      href="https://x.com/ZoomInfo"
                       className="tweet-link"
                       style={{ color: "rgb(21, 133, 199)" }}
                       target="_blank"
@@ -499,16 +517,16 @@ export function GridCards() {
                       @zoominfo
                     </a>{" "}
                     <a
-                      href="https://twitter.com/figma"
+                      href="https://x.com/JNJNews?lang=en"
                       className="tweet-link"
                       style={{ color: "rgb(21, 133, 199)" }}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      @j&j
+                      @j&amp;j
                     </a>{" "}
                     <a
-                      href="https://twitter.com/diagram"
+                      href="https://x.com/MountSinaiNYC"
                       className="tweet-link"
                       style={{ color: "rgb(21, 133, 199)" }}
                       target="_blank"
@@ -523,7 +541,7 @@ export function GridCards() {
               <a
                 id="twitter-button"
                 data-w-id="ad3c41ab-6071-5e6c-3932-6d9df03bfcd4"
-                href="https://twitter.com/spartacau5"
+                href="https://x.com/homeybabaRB"
                 className="twitter-button w-inline-block"
                 style={{
                   borderColor: "rgb(222, 222, 224)",
@@ -560,13 +578,13 @@ export function GridCards() {
           </div>
         </div>
 
-        {/* Spotify & Photos Cards - Stacked vertically */}
+        {/* Photos & Spotify Cards - Stacked vertically */}
         <div className={`col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard ? 'opacity-5' : ''}`}>
           <div className="flex-1">
-            <MusicPlayer />
+            <PhotoCarousel />
           </div>
           <div className="flex-1">
-            <PhotoCarousel />
+            <MusicPlayer />
           </div>
         </div>
       </div>
