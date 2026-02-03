@@ -116,7 +116,7 @@
 }
 
 .tile-twitter:hover .small-app-background {
-  transform: translate3d(0px, 0px, 0px) scale3d(14, 14, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg) !important;
+  transform: translate3d(0px, 0px, 0px) scale3d(20, 20, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg) !important;
 }
 
 .tweet-div {

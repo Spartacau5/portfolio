@@ -17,6 +17,7 @@ export function WorkCards() {
     const [focusedCard, setFocusedCard] = useState<string | null>(null);
     const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
     const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
+    const [isArriveHovered, setIsArriveHovered] = useState(false);
 
     return (
         <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
@@ -26,12 +27,40 @@ export function WorkCards() {
                     <div className="caption-text-w-icon">Look around...</div>
                 </div>
             </div>
-            <div className="grid grid-cols-12 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 {/* Row 1: Arrive + ZoomInfo */}
                 {/* Arrive Logo Card */}
-                <div className={`card-wrapper col-span-6 ${focusedCard && focusedCard !== 'arrive' ? 'opacity-10' : ''}`}>
-                    <div className="grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-                        <img src="/images/arrive-logo.png" alt="Arrive" className="w-48" />
+                <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'arrive' ? 'opacity-10' : ''}`}>
+                    <div
+                        className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+                        onMouseEnter={() => setIsArriveHovered(true)}
+                        onMouseLeave={() => setIsArriveHovered(false)}
+                    >
+                        {/* Default logo */}
+                        <img
+                            src="/images/arrive-logo.png"
+                            alt="Arrive"
+                            className="w-48 transition-opacity duration-300"
+                            style={{ opacity: isArriveHovered ? 0 : 1 }}
+                        />
+
+                        {/* Hover state - GIFs side by side */}
+                        <div
+                            className="absolute inset-0 flex items-center justify-center gap-4 p-6 transition-opacity duration-300"
+                            style={{ opacity: isArriveHovered ? 1 : 0 }}
+                        >
+                            <img
+                                src="/images/dispatcher.gif"
+                                alt="Dispatcher Dashboard"
+                                className="h-[80%] max-h-[240px] rounded-lg shadow-lg object-contain"
+                            />
+                            <img
+                                src="/images/driver-mvp.gif"
+                                alt="Driver App"
+                                className="h-[80%] max-h-[240px] rounded-lg shadow-lg object-contain"
+                            />
+                        </div>
+
                         <Link
                             href="/work/arrive"
                             className="card-arrow-btn"
@@ -48,9 +77,9 @@ export function WorkCards() {
                 </div>
 
                 {/* ZoomInfo Logo Card */}
-                <div className={`card-wrapper col-span-6 ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
+                <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
                     <div
-                        className="grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+                        className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
                         onMouseEnter={() => setIsZoominfoHovered(true)}
                         onMouseLeave={() => setIsZoominfoHovered(false)}
                     >
@@ -83,10 +112,10 @@ export function WorkCards() {
 
                 {/* Row 2: J&J + Microsoft stacked on left, HYPEX tall on right */}
                 {/* Left Column: J&J + Microsoft stacked */}
-                <div className="col-span-6 flex flex-col gap-4">
+                <div className="col-span-1 lg:col-span-6 flex flex-col gap-4">
                     {/* Johnson & Johnson Logo Card */}
                     <div className={`card-wrapper flex-1 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
-                        <div className="jnj-card grid-card h-full bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
+                        <div className="jnj-card grid-card h-full bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
                             <img src="/images/jnj-logo.png" alt="Johnson & Johnson" className="jnj-logo w-64" />
                             <Link
                                 href="/work/jnj"
@@ -106,7 +135,7 @@ export function WorkCards() {
                     {/* Microsoft Card */}
                     <div className={`card-wrapper flex-1 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
                         <div
-                            className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[20rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
+                            className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[16rem] lg:min-h-[20rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
                             onMouseEnter={() => setIsMicrosoftHovered(true)}
                             onMouseLeave={() => setIsMicrosoftHovered(false)}
                         >
@@ -140,8 +169,8 @@ export function WorkCards() {
                 </div>
 
                 {/* Right Column: HYPEX Card - Full height to match J&J + Microsoft */}
-                <div className={`card-wrapper col-span-6 ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
-                    <div className="hypex-card grid-card bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative flex items-center justify-center overflow-hidden group cursor-pointer" style={{ height: 'calc(40rem + 1rem + 4px)' }}>
+                <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
+                    <div className="hypex-card hypex-tall grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative flex items-center justify-center overflow-hidden group cursor-pointer">
                         <img src="/images/hypex-mockup.png" alt="HYPEX" className="w-full h-full object-contain relative z-10" />
 
                         {/* Marquee hover effect */}

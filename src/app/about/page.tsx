@@ -34,9 +34,20 @@ export default function About() {
           >
             <div className="internal-div">
               <div className="about-me-div">
-                <h1 className="display-heading">
-                  What I&apos;m <span className="display-emphasis">bout.</span>
-                </h1>
+                <div className="about-header-flex">
+                  <h1 className="display-heading">
+                    What I&apos;m <span className="display-emphasis">bout.</span>
+                  </h1>
+                  <a
+                    href="/resume.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="cta-button secondary"
+                  >
+                    Download Resume
+                    <img src="/images/arrow-angle.svg" alt="" className="cta-arrow" />
+                  </a>
+                </div>
 
                 <div className="intro-hr" />
 
@@ -102,6 +113,7 @@ export default function About() {
                   href="#"
                   className="nav-icon w-inline-block"
                 >
+                  <span className="tooltip">Text Me</span>
                   <Image
                     src="/images/imessage-icon.svg"
                     alt="iMessage"
@@ -112,9 +124,10 @@ export default function About() {
 
                 <a
                   id="w-node-_6c8a77c8-e695-9470-df4c-56e39795c901-d4229b69"
-                  href="#"
+                  href="mailto:arpit.ahluwalia1@gmail.com"
                   className="nav-icon w-inline-block"
                 >
+                  <span className="tooltip">Email Me</span>
                   <Image
                     src="/images/email-contact-icon.svg"
                     alt="Email"
@@ -125,9 +138,12 @@ export default function About() {
 
                 <a
                   id="w-node-_6c8a77c8-e695-9470-df4c-56e39795c902-d4229b69"
-                  href="#"
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="nav-icon w-inline-block"
                 >
+                  <span className="tooltip">CV</span>
                   <Image
                     src="/images/read-cv-icon.svg"
                     alt="Read CV"
@@ -138,9 +154,12 @@ export default function About() {
 
                 <a
                   id="w-node-_6c8a77c8-e695-9470-df4c-56e39795c903-d4229b69"
-                  href="#"
+                  href="https://x.com/HomeyBabaRB"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="nav-icon w-inline-block"
                 >
+                  <span className="tooltip">@HomeyBabaRB</span>
                   <Image
                     src="/images/twitter-contact-icon.svg"
                     alt="Twitter"

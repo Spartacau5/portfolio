@@ -20,6 +20,7 @@ export function GridCards() {
   const [focusedCard, setFocusedCard] = useState<string | null>(null);
   const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
   const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
+  const [isArriveHovered, setIsArriveHovered] = useState(false);
 
   return (
     <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
@@ -29,17 +30,17 @@ export function GridCards() {
           <div className="caption-text-w-icon">Look around...</div>
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Intro/Bio Card */}
-        <div className={`col-span-6 bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[25rem] flex flex-col transition-opacity duration-300 ${focusedCard && focusedCard !== 'bio' ? 'opacity-10' : ''}`}>
+        <div className={`col-span-1 lg:col-span-6 bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[20rem] lg:min-h-[25rem] flex flex-col transition-opacity duration-300 ${focusedCard && focusedCard !== 'bio' ? 'opacity-10' : ''}`}>
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 inline">Arpit Singh Ahluwalia</h2>
-            <span className="text-2xl text-gray-400"> – UX Designer and Strategist. Currently, learning at Parsons.</span>
+            <h2 className="text-xl lg:text-2xl font-bold text-gray-900 inline">Arpit Singh Ahluwalia</h2>
+            <span className="text-xl lg:text-2xl text-gray-400"> – UX Designer and Strategist. Currently, learning at Parsons.</span>
           </div>
 
           <hr className="my-6 border-gray-200" />
 
-          <div className="space-y-5 text-gray-500 text-base leading-relaxed">
+          <div className="space-y-4 lg:space-y-5 text-gray-500 text-sm lg:text-base leading-relaxed">
             <p>I'm a UX Designer and Strategist with 4+ years of experience at companies like ZoomInfo and Johnson & Johnson.</p>
 
             <p>I thrive on figuring out the messy middle through research, translating discoveries into designs that actually work for people. I think strategically but execute quickly, always co-designing with real users along the process.</p>
@@ -49,9 +50,36 @@ export function GridCards() {
         </div>
 
         {/* Arrive Logo Card */}
-        <div className={`card-wrapper col-span-6 h-full ${focusedCard && focusedCard !== 'arrive' ? 'opacity-10' : ''}`}>
-          <div className="grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative h-full min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-            <img src="/images/arrive-logo.png" alt="Arrive" className="w-48" />
+        <div className={`card-wrapper col-span-1 lg:col-span-6 h-full ${focusedCard && focusedCard !== 'arrive' ? 'opacity-10' : ''}`}>
+          <div
+            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            onMouseEnter={() => setIsArriveHovered(true)}
+            onMouseLeave={() => setIsArriveHovered(false)}
+          >
+            {/* Default logo */}
+            <img
+              src="/images/arrive-logo.png"
+              alt="Arrive"
+              className="w-48 transition-opacity duration-300"
+              style={{ opacity: isArriveHovered ? 0 : 1 }}
+            />
+
+            {/* Hover state - GIFs side by side */}
+            <div
+              className="absolute inset-0 flex items-center justify-center gap-4 p-6 transition-opacity duration-300"
+              style={{ opacity: isArriveHovered ? 1 : 0 }}
+            >
+              <img
+                src="/images/dispatcher.gif"
+                alt="Dispatcher Dashboard"
+                className="h-[80%] max-h-[280px] rounded-lg shadow-lg object-contain"
+              />
+              <img
+                src="/images/driver-mvp.gif"
+                alt="Driver App"
+                className="h-[80%] max-h-[280px] rounded-lg shadow-lg object-contain"
+              />
+            </div>
 
             {/* Arrow Button - Bottom Left - Links to case study */}
             <Link
@@ -62,17 +90,6 @@ export function GridCards() {
             >
               <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
             </Link>
-
-            {/* Sublabels that slide up on hover */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full transition-transform duration-500 ease-out">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-3">
-                <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500 w-fit">Defining the future of mobility solutions</span>
-                <div className="flex gap-2">
-                  <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">UX Researcher</span>
-                  <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">Contract</span>
-                </div>
-              </div>
-            </div>
           </div>
           {/* Description text that appears on focus */}
           <div className={`card-focus-description ${focusedCard === 'arrive' ? 'visible' : ''}`}>
@@ -82,9 +99,9 @@ export function GridCards() {
         </div>
 
         {/* ZoomInfo Logo Card */}
-        <div className={`card-wrapper col-span-6 ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
+        <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
           <div
-            className="grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
             onMouseEnter={() => setIsZoominfoHovered(true)}
             onMouseLeave={() => setIsZoominfoHovered(false)}
           >
@@ -116,7 +133,7 @@ export function GridCards() {
 
             {/* Sublabels that slide up on hover */}
             <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full transition-transform duration-500 ease-out">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-3">
+              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-3">
                 <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500 w-fit">Redesigned how sales & marketing teams hit their number worldwide</span>
                 <div className="flex gap-2">
                   <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">UX/UI Designer</span>
@@ -133,8 +150,8 @@ export function GridCards() {
         </div>
 
         {/* Johnson & Johnson Logo Card */}
-        <div className={`card-wrapper col-span-6 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
-          <div className="jnj-card grid-card bg-white rounded-3xl p-8 shadow-sm border border-gray-100 relative min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
+        <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
+          <div className="jnj-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
             <img src="/images/jnj-logo.png" alt="Johnson & Johnson" className="jnj-logo w-80" />
 
             {/* Arrow Button - Bottom Left */}
@@ -149,7 +166,7 @@ export function GridCards() {
 
             {/* Sublabels that slide up on hover */}
             <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full transition-transform duration-500 ease-out">
-              <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-3">
+              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-3">
                 <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500 w-fit">Designed JnJ's 2021 Healthy for Humanity & DEI Reports</span>
                 <div className="flex gap-2">
                   <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">UI Designer</span>
@@ -166,8 +183,8 @@ export function GridCards() {
         </div>
 
         {/* HYPEX Card */}
-        <div className={`card-wrapper col-span-6 ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
-          <div className="hypex-card grid-card bg-white rounded-3xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
+        <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
+          <div className="hypex-card grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
             <img src="/images/hypex-mockup.png" alt="HYPEX" className="w-full h-full object-contain relative z-10" />
 
             {/* Marquee hover effect */}
@@ -396,11 +413,11 @@ export function GridCards() {
         */}
 
         {/* Two stacked placeholder divs */}
-        <div className={`col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-20' : ''}`}>
+        <div className={`col-span-1 lg:col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-20' : ''}`}>
           {/* Microsoft Card */}
           <div className={`card-wrapper flex-1 basis-1/2 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
             <div
-              className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[10rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
+              className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[18rem] lg:min-h-[10rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
               onMouseEnter={() => setIsMicrosoftHovered(true)}
               onMouseLeave={() => setIsMicrosoftHovered(false)}
             >
@@ -435,7 +452,7 @@ export function GridCards() {
           </div>
 
           {/* Twitter Card - duplicated from About page */}
-          <div className={`tile-twitter sm twitter about flex-1 basis-1/2 transition-opacity duration-300 ${focusedCard === 'microsoft' ? 'opacity-10' : ''}`}>
+          <div className={`tile-twitter sm twitter about flex-1 basis-1/2 min-h-[18rem] lg:min-h-0 transition-opacity duration-300 ${focusedCard === 'microsoft' ? 'opacity-10' : ''}`}>
             <div className="small-app-flex">
               <div className="twtitter-top-div">
                 <div className="twitter-top-flex">
@@ -579,11 +596,11 @@ export function GridCards() {
         </div>
 
         {/* Photos & Spotify Cards - Stacked vertically */}
-        <div className={`col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard ? 'opacity-5' : ''}`}>
-          <div className="flex-1">
+        <div className={`col-span-1 lg:col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard ? 'opacity-5' : ''}`}>
+          <div className="flex-1 min-h-[18rem] lg:min-h-0">
             <PhotoCarousel />
           </div>
-          <div className="flex-1">
+          <div className="flex-1 min-h-[16rem] lg:min-h-0">
             <MusicPlayer />
           </div>
         </div>

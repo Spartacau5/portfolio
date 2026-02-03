@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function ZoominfoPage() {
     const scrollToPrototype = () => {
@@ -9,6 +10,9 @@ export default function ZoominfoPage() {
             prototypeSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    // Scroll animation ref
+    const projectsAnim = useScrollAnimation();
 
     return (
         <div className="case-study-page">
@@ -79,7 +83,7 @@ export default function ZoominfoPage() {
             </section>
 
             {/* Key Projects Section */}
-            <section id="prototype-section" className="case-study-content">
+            <section ref={projectsAnim.ref as React.RefObject<HTMLElement>} id="prototype-section" className="case-study-content" style={fadeInUp(projectsAnim.isVisible)}>
                 <h2 className="content-heading">Key Projects</h2>
 
                 <div className="project-cards-grid">

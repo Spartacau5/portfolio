@@ -1,7 +1,6 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
 
 interface PageTransitionProps {
@@ -10,20 +9,28 @@ interface PageTransitionProps {
 
 export function PageTransition({ children }: PageTransitionProps) {
     const pathname = usePathname();
-    const [isTransitioning, setIsTransitioning] = useState(false);
     const [displayChildren, setDisplayChildren] = useState(children);
+    const [isNavigating, setIsNavigating] = useState(false);
     const previousPathname = useRef(pathname);
+    const isInitialMount = useRef(true);
 
     useEffect(() => {
+        // Skip animation on initial mount
+        if (isInitialMount.current) {
+            isInitialMount.current = false;
+            setDisplayChildren(children);
+            return;
+        }
+
         // Only trigger transition if pathname actually changed
         if (previousPathname.current !== pathname) {
-            setIsTransitioning(true);
+            setIsNavigating(true);
 
-            // After a brief delay, update the children and fade back in
+            // After a brief delay, update the children
             const timer = setTimeout(() => {
                 setDisplayChildren(children);
-                setIsTransitioning(false);
-            }, 200);
+                setIsNavigating(false);
+            }, 150);
 
             previousPathname.current = pathname;
             return () => clearTimeout(timer);
@@ -34,32 +41,14 @@ export function PageTransition({ children }: PageTransitionProps) {
     }, [pathname, children]);
 
     return (
-        <div className="relative">
-            {/* Skeleton overlay that appears during transition */}
-            <AnimatePresence>
-                {isTransitioning && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.15 }}
-                        className="page-transition-overlay"
-                    />
-                )}
-            </AnimatePresence>
-
-            {/* Main content with fade effect */}
-            <motion.div
-                key={pathname}
-                initial={{ opacity: 0.4 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                    duration: 0.3,
-                    ease: [0.25, 0.1, 0.25, 1]
-                }}
-            >
-                {displayChildren}
-            </motion.div>
+        <div
+            className="relative"
+            style={{
+                opacity: isNavigating ? 0.7 : 1,
+                transition: 'opacity 0.15s ease-out'
+            }}
+        >
+            {displayChildren}
         </div>
     );
 }

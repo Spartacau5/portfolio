@@ -60,21 +60,21 @@ export function Header() {
   }, [activeIndex]);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 py-6">
-      <div className="w-full max-w-[1400px] mx-auto px-6 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 py-4 md:py-6">
+      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 flex items-center justify-between">
         {/* Profile Picture - Left */}
         <Link href="/" className="flex-shrink-0">
           <img
             src="/images/profilepic.png"
             alt="Profile"
-            className="rounded-full w-14 h-14"
+            className="rounded-full w-10 h-10 md:w-14 md:h-14"
           />
         </Link>
 
         {/* Navigation Pills - Center */}
         <nav className="absolute left-1/2 -translate-x-1/2">
           <div className="bg-white/90 backdrop-blur-md rounded-full px-1 py-1 shadow-lg border border-gray-200/50">
-            <ul ref={navRef} className="flex items-center gap-1 relative">
+            <ul ref={navRef} className="flex items-center gap-0.5 md:gap-1 relative">
               {/* Single animated indicator */}
               <motion.div
                 className="absolute bg-gray-200 rounded-full"
@@ -99,7 +99,7 @@ export function Header() {
                   >
                     <Link
                       href={item.href}
-                      className={`px-6 py-2 rounded-full text-sm font-medium block tracking-[0px] relative z-10 transition-colors duration-200 ${isActive
+                      className={`px-4 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium block tracking-[0px] relative z-10 transition-colors duration-200 ${isActive
                           ? 'text-gray-900'
                           : 'text-gray-400 hover:text-gray-600'
                         }`}
@@ -123,7 +123,7 @@ export function Header() {
           <img
             src="/images/mdi_linkedin.png"
             alt="LinkedIn"
-            className="opacity-60 w-10 h-10"
+            className="opacity-60 w-8 h-8 md:w-10 md:h-10"
           />
         </a>
       </div>

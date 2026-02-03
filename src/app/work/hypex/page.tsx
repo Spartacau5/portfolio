@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function HypexPage() {
     const scrollToChallenge = () => {
@@ -9,6 +10,12 @@ export default function HypexPage() {
             challengeSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    // Scroll animation refs
+    const galleryAnim = useScrollAnimation();
+    const challengeAnim = useScrollAnimation();
+    const moodboardAnim = useScrollAnimation();
+    const wireframeAnim = useScrollAnimation();
 
     return (
         <div className="case-study-page">
@@ -79,7 +86,7 @@ export default function HypexPage() {
             </section>
 
             {/* Video Showcase */}
-            <section className="case-study-gallery">
+            <section ref={galleryAnim.ref as React.RefObject<HTMLElement>} className="case-study-gallery" style={fadeInUp(galleryAnim.isVisible)}>
                 <div className="video-showcase">
                     <video
                         autoPlay
@@ -95,7 +102,7 @@ export default function HypexPage() {
             </section>
 
             {/* Challenge Section */}
-            <section id="challenge-section" className="case-study-content">
+            <section ref={challengeAnim.ref as React.RefObject<HTMLElement>} id="challenge-section" className="case-study-content" style={fadeInUp(challengeAnim.isVisible)}>
                 <h2 className="content-heading">Challenge</h2>
                 <p className="content-text">
                     The team's expectation was for a progressive, cutting edge landing page which really delivers their vision and connects with their user persona of sneakerheads who get attracted to strong and trendy designs.
@@ -116,7 +123,7 @@ export default function HypexPage() {
             </section>
 
             {/* Moodboard Section */}
-            <section className="case-study-content">
+            <section ref={moodboardAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(moodboardAnim.isVisible)}>
                 <h2 className="content-heading">Moodboard</h2>
                 <p className="content-text">
                     Right from the beginning, I wanted a clear vision of the team's expectations on how to visually represent HypeX to the world. I set out to create a Moodboard which took inspiration from the most followed crypto projects in the world at the time.
@@ -130,7 +137,7 @@ export default function HypexPage() {
             </section>
 
             {/* Wireframing Section */}
-            <section className="case-study-content">
+            <section ref={wireframeAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(wireframeAnim.isVisible)}>
                 <h2 className="content-heading">Wireframing</h2>
 
                 <h3 className="content-subheading">Low-Fidelity</h3>

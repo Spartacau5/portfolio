@@ -1,8 +1,18 @@
 'use client';
 
 import Link from 'next/link';
+import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function ArrivePage() {
+    const projectsAnim = useScrollAnimation();
+
+    const scrollToPrototype = () => {
+        const prototypeSection = document.getElementById('prototype-section');
+        if (prototypeSection) {
+            prototypeSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
         <div className="case-study-page">
             {/* Spacer for fixed header */}
@@ -11,7 +21,7 @@ export default function ArrivePage() {
             {/* Hero Section */}
             <section className="case-study-hero">
                 <h1 className="case-study-title">Arrive</h1>
-                <p className="case-study-company">Mobility Solutions</p>
+                <p className="case-study-company">Defining the future of mobility solutions</p>
             </section>
 
             {/* Divider */}
@@ -29,187 +39,172 @@ export default function ArrivePage() {
                     {/* Team */}
                     <div className="meta-block">
                         <span className="meta-label">TEAM</span>
-                        <p className="meta-value">Product Team</p>
-                        <p className="meta-value">Engineering Team</p>
-                    </div>
-
-                    {/* Tools */}
-                    <div className="meta-block">
-                        <span className="meta-label">TOOLS</span>
-                        <p className="meta-value link">Figma</p>
-                        <p className="meta-value link">Miro</p>
-                        <p className="meta-value link">Notion</p>
+                        <p className="meta-value">2 researchers<br />2 designers<br />1 engagement manager</p>
                     </div>
 
                     {/* Timeline */}
                     <div className="meta-block">
                         <span className="meta-label">TIMELINE</span>
-                        <p className="meta-value link">2023–2024</p>
+                        <p className="meta-value">June - Dec 2025</p>
+                    </div>
+
+                    {/* Tools */}
+                    <div className="meta-block">
+                        <span className="meta-label">TOOLS</span>
+                        <p className="meta-value">Figma<br />Craigslist<br />Typeform<br />Grain.ai<br />Notion</p>
                     </div>
                 </div>
 
                 <div className="case-study-description">
-                    {/* Description */}
-                    <div className="description-block">
-                        <span className="meta-label">DESCRIPTION</span>
-                        <p className="description-text">
-                            Defining the future of mobility solutions through user-centered research and design,
-                            creating seamless experiences for urban transportation.
-                        </p>
-                    </div>
-
                     {/* Context */}
                     <div className="description-block">
                         <span className="meta-label">CONTEXT</span>
                         <p className="description-text">
-                            I joined Arrive as a UX Researcher to help understand user needs and behaviors
-                            in the mobility space. My role involved conducting user interviews, synthesizing
-                            research findings, and translating insights into actionable design recommendations.
+                            This project represents a six-month embedded research engagement conducted through Craft, in partnership with Arrive, a mobility technology company operating across consumer and enterprise parking solutions.
+                        </p>
+                        <p className="description-text">
+                            As a UX Researcher with a design background, I worked closely with Arrive's product designers, product managers, sales leadership, and enterprise customers to support the company's expansion into B2B offerings. Rather than focusing on a single feature or workflow, my work spanned multiple initiatives aimed at clarifying product direction, de-risking new opportunities, and aligning teams around real operational needs.
+                        </p>
+                        <p className="description-text">
+                            Across this engagement, I contributed to three core initiatives: defining Arrive's long-term B2B vision, exploring an integrated expense management opportunity, and validating a Fleet Management MVP concept. Together, these projects highlight how research can guide strategy, inform design decisions, and support cross-functional alignment in complex B2B environments.
                         </p>
                     </div>
 
                     {/* CTA Buttons */}
                     <div className="case-study-cta">
-                        <button className="cta-button primary">Read Case Study</button>
-                        <button className="cta-button secondary">
-                            Website
-                            <img src="/images/arrow-angle.svg" alt="" className="cta-arrow" />
-                        </button>
+                        <button className="cta-button primary" onClick={scrollToPrototype}>View Work</button>
                     </div>
                 </div>
             </section>
 
-            {/* Click around hint */}
-            <div className="click-around-hint">
-                <span className="hint-arrow">▶</span>
-                <span className="hint-text">Click around...</span>
-            </div>
+            {/* Key Projects Section */}
+            <section id="prototype-section" ref={projectsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(projectsAnim.isVisible)}>
+                <h2 className="content-heading">Key Projects</h2>
 
-            {/* Image Gallery Grid */}
-            <section className="case-study-gallery">
-                <div className="gallery-grid">
-                    <div className="gallery-card large">
-                        <img src="/images/arrive-logo.png" alt="Arrive" className="gallery-image contain" />
-                    </div>
-                    <div className="gallery-card">
-                        <div className="placeholder-content">
-                            <span className="placeholder-icon">⌘</span>
-                            <span className="placeholder-dot">•</span>
+                <div className="project-cards-grid" style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
+                    {/* Project 1: Parking Planner for Dispatchers */}
+                    <div className="project-card-wrapper">
+                        <Link href="/work/arrive/parking-planner" className="project-card has-image" style={{
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            justifyContent: 'center',
+                            gap: '2rem',
+                            padding: '3rem 2rem',
+                            background: '#f5f5f5',
+                            borderRadius: '24px',
+                            minHeight: '400px'
+                        }}>
+                            {/* Dispatcher GIF - Tablet style (larger) */}
+                            <img
+                                src="/images/dispatcher.gif"
+                                alt="Dispatcher Dashboard"
+                                style={{
+                                    width: '60%',
+                                    maxWidth: '500px',
+                                    borderRadius: '12px',
+                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)'
+                                }}
+                            />
+                            {/* Driver MVP GIF - Phone style (smaller) */}
+                            <img
+                                src="/images/driver-mvp.gif"
+                                alt="Driver App"
+                                style={{
+                                    width: '20%',
+                                    maxWidth: '150px',
+                                    borderRadius: '12px',
+                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)'
+                                }}
+                            />
+                        </Link>
+                        <div className="project-card-info">
+                            <Link href="/work/arrive/parking-planner" className="project-card-title-link">
+                                Fleet Management: Parking Planner MVP
+                            </Link>
+                            <p className="project-card-subtext">
+                                Used mixed-methods research to determine whether building a parking planner for dispatchers and fleet managers was a viable next step in Arrive's B2B strategy.
+                            </p>
                         </div>
                     </div>
-                    <div className="gallery-card phone-mockup">
-                        <div className="phone-frame">
-                            <img src="/images/arrive-logo.png" alt="App Preview" className="phone-screen" />
+
+                    {/* Project 2: Expense Management */}
+                    <div className="project-card-wrapper">
+                        <Link href="/work/arrive/booking-flow" className="project-card has-image" style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0',
+                            padding: '3rem 2rem',
+                            background: '#f5f5f5',
+                            borderRadius: '24px',
+                            minHeight: '400px'
+                        }}>
+                            <img src="/images/arrive-logo.png" alt="Arrive" style={{ height: '48px' }} />
+                            <span style={{ fontSize: '28px', fontWeight: '300', color: '#9ca3af', margin: '0 0.5rem 0 1.5rem' }}>×</span>
+                            <img src="/images/sapconcur.jpg" alt="SAP Concur" style={{ height: '180px' }} />
+                        </Link>
+                        <div className="project-card-info">
+                            <Link href="/work/arrive/booking-flow" className="project-card-title-link">
+                                Expense Management: SAP Concur Integration
+                            </Link>
+                            <p className="project-card-subtext">
+                                Conducted research to evaluate and shape an in-progress SAP Concur integration MVP, identifying opportunities to streamline parking expense submission, improve compliance, and reduce manual overhead for enterprise teams.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Project 3: B2B Vision Testing */}
+                    <div className="project-card-wrapper">
+                        <Link href="/work/arrive/vision-testing" className="project-card has-image" style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '0',
+                            background: '#f5f5f5',
+                            borderRadius: '24px',
+                            minHeight: '400px',
+                            overflow: 'hidden'
+                        }}>
+                            <video
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                    borderRadius: '24px'
+                                }}
+                            >
+                                <source src="/images/visiontesting.mp4" type="video/mp4" />
+                            </video>
+                        </Link>
+                        <div className="project-card-info">
+                            <Link href="/work/arrive/vision-testing" className="project-card-title-link">
+                                Arrive for Business: Vision Testing
+                            </Link>
+                            <p className="project-card-subtext">
+                                Led cross-functional vision testing workshops with sales and leadership to evaluate, prioritize, and refine Arrive's two-year B2B product vision based on customer-facing insights.
+                            </p>
                         </div>
                     </div>
                 </div>
-
-                <div className="gallery-grid secondary">
-                    <div className="gallery-card calendar-card">
-                        <span className="card-label">AVAILABILITY CALENDAR</span>
-                        <h3 className="card-title">Monday, Nov 21st</h3>
-                        <div className="calendar-mini">
-                            <div className="calendar-row">
-                                <span>Sun</span>
-                                <span className="today">Mon 21</span>
-                                <span className="highlight">Tue 22</span>
-                                <span className="highlight">Wed 23</span>
-                                <span>Thu</span>
-                                <span>Fri</span>
-                                <span>Sat</span>
-                            </div>
-                        </div>
-                        <div className="duration-row">
-                            <span className="duration-icon">⏱</span>
-                            <span className="duration-text">60 minutes</span>
-                        </div>
-                    </div>
-                    <div className="gallery-card preview-card">
-                        <span className="card-label">AVAILABILITY PREVIEW</span>
-                        <p className="preview-text">Here are some times I'm available this week (all PST):</p>
-                        <ul className="time-list">
-                            <li>Mon (Nov 21): 9 AM, 11 AM</li>
-                            <li>Tue (Nov 22): 10 AM, 11 AM, 1 PM</li>
-                            <li>Wed (Nov 23): 9 AM, 10 AM, 11 AM</li>
-                        </ul>
-                        <a href="#" className="book-link">or you can book some time here ↗</a>
-                    </div>
-                </div>
             </section>
 
-            {/* Challenge Section */}
-            <section className="case-study-content">
-                <h2 className="content-heading">Challenge</h2>
-                <p className="content-lead">
-                    <strong>How might we create a way for people to share availability in plain-text format?</strong>
-                </p>
-                <p className="content-text">I was provided the following needs and constraints:</p>
-                <ul className="content-list">
-                    <li>a way for users to generate plain-text availability from a set of rules</li>
-                    <li>must be accessible from anywhere on their computer at any time</li>
-                    <li>interface must be able to scale past availability and support unrelated commands/actions</li>
-                </ul>
-            </section>
-
-            {/* Constraints Section */}
-            <section className="case-study-content">
-                <h2 className="content-heading">Constraints</h2>
-                <p className="content-text">
-                    Working as the only designer at an early-stage startup while moving to a new city during the middle of a
-                    pandemic brought its own set of personal and professional challenges. I'd be remiss to not mention that
-                    here first and foremost.
-                </p>
-                <p className="content-text">
-                    During my 2.5 years at CommandDot, I was all things design. This included design across the entire
-                    product, research, ui/ux, branding, marketing, website design & development (thanks Webflow),
-                    onboarding, dashboards, emails + an overwhelming amount of other shelved ideas that still live scattered
-                    throughout my Figma files today.
-                </p>
-            </section>
-
-            {/* Research Section */}
-            <section className="case-study-content">
-                <h2 className="content-heading">Research</h2>
-
-                <h3 className="content-subheading">Interviews</h3>
-                <p className="content-text">
-                    After our team conducted a series of interviews, we were able to understand scheduler motivations and
-                    the blockers/pain points that exist during the scheduling and booking experience.
-                </p>
-
-                <h3 className="content-subheading">Key user stories</h3>
-                <p className="content-text italic">
-                    As a scheduler, I want to share my availability without tabbing back-and-forth to my calendar.
-                </p>
-                <p className="content-text italic">
-                    As a scheduler, I want to share my availability without manually typing it out.
-                </p>
-                <p className="content-text italic">
-                    As a scheduler, I want a way to customize my availability based on my schedule and the person I'm meeting with.
-                </p>
-            </section>
-
-            {/* Iterations Section */}
-            <section className="case-study-content">
-                <h2 className="content-heading">Iterations</h2>
-
-                <h3 className="content-subheading">Command Line Interface to generate Plain-Text Availability</h3>
-                <p className="content-text">
-                    CommandDot was conceptualized as a Command Line Interface that can do a variety of tasks and actions
-                    from anywhere on your computer—with the plan to quickly expand beyond availability-focused commands.
-                </p>
-                <p className="content-text">
-                    With this being the case, I first designed a modern availability-focused CLI with room to grow beyond
-                    scheduling. This first iteration of our user interface helped us begin testing and iterating.
-                </p>
-            </section>
-
-            {/* Back to Home Link */}
-            <div className="back-to-home">
+            {/* Bottom Navigation */}
+            <div className="case-study-bottom-nav">
                 <Link href="/" className="back-link">
                     <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
                     Back to Home
                 </Link>
+                <button
+                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                    className="back-link"
+                >
+                    Go to top
+                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                </button>
             </div>
         </div>
     );

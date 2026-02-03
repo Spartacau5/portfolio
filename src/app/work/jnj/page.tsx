@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function JnJPage() {
     const scrollToChallenge = () => {
@@ -9,6 +10,13 @@ export default function JnJPage() {
             challengeSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    // Scroll animation refs
+    const processAnim = useScrollAnimation();
+    const audienceAnim = useScrollAnimation();
+    const iaAnim = useScrollAnimation();
+    const wireframeAnim = useScrollAnimation();
+    const takeawaysAnim = useScrollAnimation();
 
     return (
         <div className="case-study-page">
@@ -74,7 +82,7 @@ export default function JnJPage() {
             </section>
 
             {/* Process Section */}
-            <section id="challenge-section" className="case-study-content">
+            <section ref={processAnim.ref as React.RefObject<HTMLElement>} id="challenge-section" className="case-study-content" style={fadeInUp(processAnim.isVisible)}>
                 <h2 className="content-heading">Process</h2>
                 <p className="content-text">
                     To start with, I wanted to learn the context for these reports and go through previous years reports to understand what works well and more importantly what doesn't.
@@ -191,7 +199,7 @@ export default function JnJPage() {
             </section>
 
             {/* Understanding our Audiences Section */}
-            <section className="case-study-content">
+            <section ref={audienceAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(audienceAnim.isVisible)}>
                 <h2 className="content-heading">Understanding our Audiences</h2>
                 <p className="content-text">
                     After understanding the UI requirements, I connected with stakeholders from JnJ to better understand the target user types for these type of reports and I learnt a lot more than I initially thought this would intended/designed for.
@@ -303,7 +311,7 @@ export default function JnJPage() {
             </section>
 
             {/* Developing Information Architecture Section */}
-            <section className="case-study-content">
+            <section ref={iaAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(iaAnim.isVisible)}>
                 <h2 className="content-heading">Developing Information Architecture</h2>
                 <p className="content-text">
                     From our research on past microsites and competitors, I designed 2 versions of the information architecture with simplified navigation, clear language, and intuitive groupings that aligned with user expectations. Since 2020 was a big year in healthcare in terms of COVID and J&J's frontline involvement in developing a vaccine, we wanted to highlight that work and stories but also not take away from all the other important global initiatives they focused on that year including work towards solving HIV, TB, Ebola and more.
@@ -326,7 +334,7 @@ export default function JnJPage() {
             </section>
 
             {/* Wireframing Section */}
-            <section className="case-study-content">
+            <section ref={wireframeAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(wireframeAnim.isVisible)}>
                 <h2 className="content-heading">Wireframing</h2>
                 <p className="content-text">
                     I completed pixel-perfect mid-fidelity designs for both mobile and desktop screens, covering every page in the main navigation. These designs were handed off to the team at JK for high-fidelity polish, ensuring a smooth transition in the design process. I then collaborated closely with JK's designers, providing ongoing graphic support and ensuring the visual direction aligned with the project goals. This iterative process ensured a cohesive and polished final product.
@@ -384,7 +392,7 @@ export default function JnJPage() {
             </section>
 
             {/* Takeaways Section */}
-            <section className="case-study-content">
+            <section ref={takeawaysAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
                 <h2 className="content-heading">Takeaways</h2>
                 <p className="content-text">
                     Working on Johnson & Johnson's website as a fresh graduate was an incredible experience. It was one of my first large-scale projects for a major company, with high expectations and standards. I enjoyed conducting impactful user research, including competitive analysis and A/B testing, and designing the information architecture. Through mid-fidelity designs, I decided the entire hierarchy and layout for the reports, receiving positive validation through constant feedback from the talented designers at JK and J&J. Ultimately, the final prototype for both websites was well received and approved for development, which was very satisfying as I lived up to the team's high standards and contributed to the success of the project.

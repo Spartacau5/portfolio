@@ -245,15 +245,39 @@
   opacity: 1;
 }
 
-/* Hide default cursor */
-body {
-  cursor: none !important;
-  overflow-x: hidden;
-  width: 100%;
+/* Hide default cursor on desktop */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none !important;
+  }
+
+  * {
+    cursor: none !important;
+  }
 }
 
-* {
-  cursor: none !important;
+/* Show default cursor on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .custom-cursor {
+    display: none !important;
+  }
+
+  body {
+    cursor: auto !important;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+
+  a, button {
+    cursor: pointer !important;
+  }
+}
+
+body {
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* ============================================
@@ -300,6 +324,18 @@ body {
 
 .hypex-card:hover .hypex-marquee-container {
   opacity: 1;
+}
+
+/* HYPEX tall card for WorkCards page */
+.hypex-tall {
+  height: calc(40rem + 1rem + 4px);
+}
+
+@media (max-width: 1023px) {
+  .hypex-tall {
+    height: auto;
+    min-height: 20rem;
+  }
 }
 
 .hypex-marquee-wrapper {
@@ -747,6 +783,53 @@ body {
     display: flex;
   }
 
+  .about-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .about-header-flex .cta-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    border-radius: 100px;
+    font-family: Graphik, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    background: #fff;
+    color: #111;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+
+  .about-header-flex .cta-button:hover {
+    background: #fafafa;
+    border-color: #d1d5db;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-1px);
+  }
+
+  .about-header-flex .cta-arrow {
+    width: 14px;
+    height: 14px;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+  }
+
+  .about-header-flex .cta-button:hover .cta-arrow {
+    opacity: 1;
+  }
+
   .display-heading {
     color: #949494;
     letter-spacing: -0.4px;
@@ -801,6 +884,45 @@ body {
     margin-right: 10px;
     display: flex;
     position: relative;
+  }
+
+  .nav-icon .tooltip {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    padding: 5px 6px;
+    border-radius: 4px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .nav-icon .tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px;
+    border-style: solid;
+    border-color: transparent transparent #1a1a1a transparent;
+  }
+
+  .nav-icon:hover .tooltip {
+    opacity: 1;
+    visibility: visible;
   }
 
 
@@ -2109,13 +2231,37 @@ body {
     }
   }
 
-  @media (max-width: 809px) {
+  @media (max-width: 1023px) {
     .container {
-      max-width: 390px;
+      max-width: 100%;
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .container.home {
+      padding-top: 6rem;
+      padding-bottom: 3rem;
     }
 
     .about-grid {
       grid-template-columns: 1fr;
+      grid-row-gap: 16px;
+      grid-template-rows: auto;
+    }
+
+    /* Reset all grid-area positions for about page on mobile */
+    .about-grid > * {
+      grid-area: auto !important;
+    }
+
+    #w-node-_6c8a77c8-e695-9470-df4c-56e39795bf33-d4229b69,
+    #twitter.w-node-ad3c41ab-6071-5e6c-3932-6d9df03bfcb6-d4229b69,
+    #w-node-_6c8a77c8-e695-9470-df4c-56e39795c572-d4229b69,
+    #w-node-_6c8a77c8-e695-9470-df4c-56e39795c7d7-d4229b69,
+    #w-node-_6c8a77c8-e695-9470-df4c-56e39795c819-d4229b69,
+    #w-node-e4cacf2e-5d38-4548-b099-9b308486aed2-d4229b69 {
+      grid-area: auto !important;
+      grid-column: 1 !important;
     }
 
     .tile.sm,
@@ -2124,12 +2270,286 @@ body {
     .tile.xl {
       min-width: 100%;
       width: 100%;
+      height: auto;
+    }
+
+    .tile.sm {
+      height: auto;
+      min-height: 320px;
+      max-height: none;
+    }
+
+    .tile.sm.imessage {
+      width: 100%;
+      min-width: 100%;
+      height: auto;
+      min-height: 320px;
+      max-height: none;
+    }
+
+    .tile-twitter.sm {
+      width: 100%;
+      min-width: 100%;
+      height: auto;
+      min-height: 320px;
+      max-height: none;
+    }
+
+    .tile.xl {
+      height: auto;
+      padding: 24px;
+    }
+
+    .tile.xl.me {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .tile.xl.me.about {
+      height: auto;
+      padding: 20px;
+    }
+
+    .display-heading {
+      font-size: 24px;
+    }
+
+    .display-heading-2-about {
+      font-size: 16px;
+    }
+
+    .twitter-tweet {
+      font-size: 18px;
+    }
+
+    .imessage-bubble {
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .imessage-text {
+      font-size: 16px;
+    }
+
+    .grid-top-bar {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+
+    /* Card description adjustments */
+    .card-focus-description {
+      left: 16px;
+      right: 16px;
+      font-size: 13px;
+    }
+
+    .card-focus-description.low {
+      bottom: -40px;
+    }
+
+    .card-focus-description.microsoft-low {
+      bottom: -52px;
     }
   }
 
   @media screen and (max-width: 479px) {
     .container {
       max-width: none;
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .container.home {
+      padding-top: 5rem;
+      padding-bottom: 2rem;
+    }
+
+    .tile {
+      border-radius: 24px;
+    }
+
+    .tile.sm {
+      min-height: 300px;
+      padding: 16px;
+    }
+
+    .tile-twitter.sm {
+      min-height: 300px;
+      padding: 16px;
+    }
+
+    .about-header-flex {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .about-header-flex .cta-button {
+      padding: 0.5rem 1rem;
+      font-size: 13px;
+    }
+
+    .display-heading {
+      font-size: 20px;
+    }
+
+    .display-heading-2-about {
+      font-size: 14px;
+      line-height: 160%;
+    }
+
+    .work-label {
+      font-size: 11px;
+      margin-bottom: 12px;
+    }
+
+    .twitter-tweet {
+      font-size: 16px;
+    }
+
+    .imessage-bubble {
+      max-width: 260px;
+    }
+
+    .imessage-text {
+      font-size: 14px;
+    }
+
+    .imessage-top {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+
+    .imessage-flex-intro {
+      margin-bottom: 16px;
+    }
+
+    .imessage-label {
+      margin-left: 56px;
+      font-size: 12px;
+    }
+
+    .imessage-image {
+      width: 40px;
+    }
+
+    .twitter-avi-div {
+      width: 36px;
+      height: 36px;
+    }
+
+    .twitter-name {
+      font-size: 14px;
+    }
+
+    .twitter-handle {
+      font-size: 13px;
+    }
+
+    .small-app-icon-div {
+      width: 48px;
+      height: 48px;
+    }
+
+    .app-icon-link {
+      width: 48px;
+      height: 48px;
+    }
+
+    .small-app-background {
+      width: 48px;
+      height: 48px;
+    }
+
+    .album-cover {
+      width: 120px;
+    }
+
+    .album-name-2 {
+      font-size: 14px;
+    }
+
+    .artist-name-2 {
+      font-size: 14px;
+    }
+
+    .media-player-2 {
+      height: 44px;
+      padding: 8px 12px;
+    }
+
+    .grid-card {
+      border-radius: 24px;
+    }
+
+    .card-arrow-btn {
+      width: 32px;
+      height: 32px;
+      bottom: 12px;
+      left: 12px;
+    }
+
+    .card-arrow-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* Hypex Marquee Mobile */
+    .hypex-marquee-text {
+      font-size: 28px;
+    }
+
+    /* Microsoft Card Mobile */
+    .microsoft-content {
+      padding-top: 40px;
+    }
+
+    .microsoft-content::before {
+      width: 200px;
+      height: 140px;
+    }
+
+    .microsoft-hover-text {
+      font-size: 11px;
+      max-width: 160px;
+    }
+
+    /* Card description */
+    .card-focus-description {
+      bottom: -28px;
+      left: 12px;
+      right: 12px;
+      font-size: 12px;
+    }
+  }
+
+  /* Extra small mobile */
+  @media screen and (max-width: 360px) {
+    .container {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    .tile.sm {
+      min-height: 280px;
+      padding: 12px;
+    }
+
+    .tile-twitter.sm {
+      min-height: 280px;
+      padding: 12px;
+    }
+
+    .display-heading {
+      font-size: 18px;
+    }
+
+    .twitter-tweet {
+      font-size: 14px;
+    }
+
+    .imessage-text {
+      font-size: 13px;
     }
   }
 }

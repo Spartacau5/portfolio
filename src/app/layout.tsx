@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import "./styles/twitter-card.css";
 import "./styles/music-player.css";
@@ -7,6 +7,13 @@ import "./styles/case-study.css";
 import { CustomCursor } from "./components/CustomCursor";
 import { PageTransition } from "./components/PageTransition";
 import { Header } from "./components/Header";
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+};
 
 export const metadata: Metadata = {
   title: "Arpit Ahluwalia's UX Design Portfolio",
@@ -42,11 +49,11 @@ export default function RootLayout({
         <PageTransition>
           {children}
         </PageTransition>
-        <footer style={{ textAlign: 'center', padding: '2rem 1rem', color: '#9CA3AF', fontSize: '14px' }}>
-          Vibe-coded from scratch with{' '}
-          <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" style={{ color: '#9CA3AF', textDecoration: 'underline' }}>Cursor</a>
+        <footer className="text-center py-8 px-4 text-gray-400 text-sm">
+          Vibe-coded from scratch using{' '}
+          <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 underline hover:text-gray-600 transition-colors">Cursor</a>
           {' & '}
-          <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" style={{ color: '#9CA3AF', textDecoration: 'underline' }}>Claude</a>
+          <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" className="text-gray-400 underline hover:text-gray-600 transition-colors">Claude</a>
         </footer>
       </body>
     </html>
