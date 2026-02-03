@@ -1,0 +1,105 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+
+// Hook for scroll-triggered fade-in animations
+export function useScrollAnimation(threshold = 0.1) {
+    const ref = useRef<HTMLElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold, rootMargin: '0px 0px -50px 0px' }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => observer.disconnect();
+    }, [threshold]);
+
+    return { ref, isVisible };
+}
+
+// Helper function to generate fade-in-up animation styles
+export function fadeInUp(isVisible: boolean, delay = 0): React.CSSProperties {
+    return {
+        opacity: isVisible ? 1 : 0,
+        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
+        transition: `opacity 0.8s ease-out ${delay}s, transform 0.8s ease-out ${delay}s`,
+    };
+}
+
+// Animated counter component for statistics
+export function AnimatedCounter({ end, duration = 2000, suffix = '' }: { end: number; duration?: number; suffix?: string }) {
+    const [count, setCount] = useState(0);
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    setHasAnimated(true);
+                    let startTime: number;
+                    const animate = (currentTime: number) => {
+                        if (!startTime) startTime = currentTime;
+                        const progress = Math.min((currentTime - startTime) / duration, 1);
+                        const easeOut = 1 - Math.pow(1 - progress, 3);
+                        setCount(Math.floor(easeOut * end));
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        }
+                    };
+                    requestAnimationFrame(animate);
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => observer.disconnect();
+    }, [end, duration, hasAnimated]);
+
+    return <div ref={ref}>{count}{suffix}</div>;
+}
+
+// Animated progress bar component
+export function AnimatedBar({ width, delay = 0 }: { width: string; delay?: number }) {
+    const [animatedWidth, setAnimatedWidth] = useState('0%');
+    const [hasAnimated, setHasAnimated] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasAnimated) {
+                    setHasAnimated(true);
+                    setTimeout(() => {
+                        setAnimatedWidth(width);
+                    }, delay);
+                }
+            },
+            { threshold: 0.5 }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => observer.disconnect();
+    }, [width, delay, hasAnimated]);
+
+    return (
+        <div ref={ref} style={{ height: '100%', width: animatedWidth, background: '#1f2937', borderRadius: '4px', transition: 'width 1s ease-out' }}></div>
+    );
+}
