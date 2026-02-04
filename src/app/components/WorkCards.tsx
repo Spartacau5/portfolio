@@ -44,20 +44,26 @@ export function WorkCards() {
                             style={{ opacity: isArriveHovered ? 0 : 1 }}
                         />
 
-                        {/* Hover state - GIFs side by side */}
+                        {/* Hover state - Videos side by side */}
                         <div
                             className="absolute inset-0 flex items-center justify-center gap-4 p-6 transition-opacity duration-300"
                             style={{ opacity: isArriveHovered ? 1 : 0 }}
                         >
-                            <img
-                                src="/images/dispatcher.gif"
-                                alt="Dispatcher Dashboard"
+                            <video
+                                src="/images/dispatcher.mp4"
                                 className="h-[80%] max-h-[240px] rounded-lg shadow-lg object-contain"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
                             />
-                            <img
-                                src="/images/driver-mvp.gif"
-                                alt="Driver App"
+                            <video
+                                src="/images/driver-mvp.mp4"
                                 className="h-[80%] max-h-[240px] rounded-lg shadow-lg object-contain"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
                             />
                         </div>
 
@@ -89,11 +95,14 @@ export function WorkCards() {
                             className="w-64 transition-opacity duration-300"
                             style={{ opacity: isZoominfoHovered ? 0 : 1 }}
                         />
-                        <img
-                            src="/images/zigif.gif"
-                            alt="ZoomInfo Demo"
+                        <video
+                            src="/images/zigif.mp4"
                             className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-opacity duration-300"
                             style={{ opacity: isZoominfoHovered ? 1 : 0 }}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
                         />
                         <Link
                             href="/work/zoominfo"

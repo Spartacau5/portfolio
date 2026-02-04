@@ -111,7 +111,7 @@ export default function MicrosoftPage() {
                     controls
                     width="100%"
                 >
-                    <source src="/Final4Portfolio.mp4" type="video/mp4" />
+                    <source src="/Final4Portfolio.webm" type="video/webm" />
                     Your browser does not support the video tag.
                 </video>
             </section>
@@ -411,7 +411,7 @@ export default function MicrosoftPage() {
                     width="100%"
                     style={{ marginTop: '1.5rem' }}
                 >
-                    <source src="/bridgit.mp4" type="video/mp4" />
+                    <source src="/bridgit.webm" type="video/webm" />
                     Your browser does not support the video tag.
                 </video>
             </section>

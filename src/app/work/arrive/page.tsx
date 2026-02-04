@@ -94,10 +94,13 @@ export default function ArrivePage() {
                             borderRadius: '24px',
                             minHeight: '400px'
                         }}>
-                            {/* Dispatcher GIF - Tablet style (larger) */}
-                            <img
-                                src="/images/dispatcher.gif"
-                                alt="Dispatcher Dashboard"
+                            {/* Dispatcher Video - Tablet style (larger) */}
+                            <video
+                                src="/images/dispatcher.mp4"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
                                 style={{
                                     width: '60%',
                                     maxWidth: '500px',
@@ -105,10 +108,13 @@ export default function ArrivePage() {
                                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)'
                                 }}
                             />
-                            {/* Driver MVP GIF - Phone style (smaller) */}
-                            <img
-                                src="/images/driver-mvp.gif"
-                                alt="Driver App"
+                            {/* Driver MVP Video - Phone style (smaller) */}
+                            <video
+                                src="/images/driver-mvp.mp4"
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
                                 style={{
                                     width: '20%',
                                     maxWidth: '150px',
@@ -177,7 +183,7 @@ export default function ArrivePage() {
                                     borderRadius: '24px'
                                 }}
                             >
-                                <source src="/images/visiontesting.mp4" type="video/mp4" />
+                                <source src="/images/visiontesting.webm" type="video/webm" />
                             </video>
                         </Link>
                         <div className="project-card-info">

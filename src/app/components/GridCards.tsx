@@ -84,7 +84,7 @@ export function GridCards() {
             >
               <video
                 ref={arriveVideoRef}
-                src="/images/visiontesting.mp4"
+                src="/images/visiontesting.webm"
                 className="w-full h-full object-cover"
                 muted
                 playsInline
@@ -124,12 +124,15 @@ export function GridCards() {
               style={{ opacity: isZoominfoHovered ? 0 : 1 }}
             />
 
-            {/* Hover gif - covers entire card */}
-            <img
-              src="/images/zigif.gif"
-              alt="ZoomInfo Demo"
+            {/* Hover video - covers entire card */}
+            <video
+              src="/images/zigif.mp4"
               className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-opacity duration-300"
               style={{ opacity: isZoominfoHovered ? 1 : 0 }}
+              autoPlay
+              muted
+              loop
+              playsInline
             />
 
             {/* Arrow Button - Bottom Left */}
