@@ -180,8 +180,8 @@ export default function DashboardTalentOSPage() {
                     <iframe
                         style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
                         width="100%"
-                        height="860"
-                        src="https://embed.figma.com/proto/6qoFhYDgzPKdSE4xbObdVE/Dashboard?page-id=826%3A194431&node-id=826-255364&viewport=367%2C-10719%2C0.2&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=826%3A255364&embed-host=share"
+                        height="600"
+                        src="https://embed.figma.com/proto/6qoFhYDgzPKdSE4xbObdVE/Dashboard?page-id=826%3A194431&node-id=826-255364&viewport=367%2C-10719%2C0.2&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=826%3A255364&embed-host=share&scaling=scale-down"
                         allowFullScreen
                     />
                 </div>

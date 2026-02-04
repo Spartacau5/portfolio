@@ -220,7 +220,7 @@ export default function JobDescriptionParserPage() {
                         style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
                         width="100%"
                         height="600"
-                        src="https://embed.figma.com/proto/TApUYPgJrqbQgDTZzsJ2lU/Job-Description-Parser?page-id=705%3A66784&node-id=272-12371&viewport=1059%2C45%2C0.16&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=272%3A12371&embed-host=share"
+                        src="https://embed.figma.com/proto/TApUYPgJrqbQgDTZzsJ2lU/Job-Description-Parser?page-id=705%3A66784&node-id=272-12371&viewport=1059%2C45%2C0.16&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=272%3A12371&embed-host=share&scaling=scale-down-width"
                         allowFullScreen
                     />
                 </div>
