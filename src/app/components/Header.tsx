@@ -123,7 +123,7 @@ export function Header() {
       </header>
 
       {/* Single Navigation - positioned at bottom on mobile, center-top on desktop */}
-      <nav className="fixed z-50 left-1/2 -translate-x-1/2 bottom-4 md:bottom-auto md:top-4 md:py-2">
+      <nav className="fixed z-50 left-0 right-0 bottom-4 md:bottom-auto md:top-4 md:py-2 flex justify-center px-4">
         <div className="nav-pill-glass rounded-full px-1 py-1">
           <ul ref={navRef} className="flex items-center gap-0.5 md:gap-1 relative">
             {/* Single animated indicator */}

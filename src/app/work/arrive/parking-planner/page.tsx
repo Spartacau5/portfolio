@@ -5,21 +5,12 @@ import Image from 'next/image';
 import { useScrollAnimation, fadeInUp, AnimatedCounter, AnimatedBar } from '@/app/hooks/useScrollAnimation';
 
 export default function ParkingPlannerMVPPage() {
-    // Scroll animation refs for each section
+    // Scroll animation refs - reduced to 5 key sections for performance
     const challengeAnim = useScrollAnimation();
-    const roleAnim = useScrollAnimation();
-    const recruitmentAnim = useScrollAnimation();
-    const sampleAnim = useScrollAnimation();
     const methodsAnim = useScrollAnimation();
     const insightsAnim = useScrollAnimation();
-    const insight1Anim = useScrollAnimation();
-    const insight2Anim = useScrollAnimation();
-    const insight3Anim = useScrollAnimation();
-    const insight4Anim = useScrollAnimation();
-    const insight5Anim = useScrollAnimation();
     const recommendationsAnim = useScrollAnimation();
     const reflectionAnim = useScrollAnimation();
-    const artifactsAnim = useScrollAnimation();
 
     return (
         <div className="case-study-page">
@@ -121,14 +112,14 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* My Role Section */}
-            <section ref={roleAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(roleAnim.isVisible)}>
+            <section ref={methodsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(methodsAnim.isVisible)}>
                 <h2 className="content-heading">My Role</h2>
                 <p className="section-subtitle" style={{ fontSize: '18px', color: '#6b7280', marginBottom: '48px' }}>
                     Embedded UX Researcher via Craft, partnering directly with Arrive's product team
                 </p>
 
                 {/* Role Cards Grid */}
-                <div className="role-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+                <div className="role-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '24px' }}>
                     <div className="role-card" style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '28px', transition: 'all 0.2s' }}>
                         <div style={{ width: '48px', height: '48px', background: '#f3f4f6', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '20px' }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -181,7 +172,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Recruitment Strategy Section */}
-            <section ref={recruitmentAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(recruitmentAnim.isVisible)}>
+            <section ref={methodsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(methodsAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Approach
                 </div>
@@ -245,7 +236,7 @@ export default function ParkingPlannerMVPPage() {
 
                 <h3 className="content-subheading" style={{ marginTop: '48px' }}>Execution</h3>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1fr', gap: '40px', marginTop: '24px' }}>
+                <div className="recruitment-grid" style={{ display: 'grid', gap: '40px', marginTop: '24px' }}>
                     <div>
                         <img
                             src="/images/craigslist.png"
@@ -294,27 +285,27 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Sample Section */}
-            <section ref={sampleAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(sampleAnim.isVisible)}>
+            <section ref={methodsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(methodsAnim.isVisible)}>
                 <h2 className="content-heading">Who We Interviewed</h2>
 
                 {/* Persona Cards */}
                 <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#6b7280', marginTop: '48px', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '1px' }}>Role</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', marginBottom: '48px' }}>
-                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '32px', textAlign: 'center', ...fadeInUp(sampleAnim.isVisible, 0.1) }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', marginBottom: '48px' }}>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '32px', textAlign: 'center', ...fadeInUp(methodsAnim.isVisible, 0.1) }}>
                         <div style={{ fontSize: '64px', fontWeight: 800, lineHeight: 1, marginBottom: '8px', color: '#1f2937' }}>
                             <AnimatedCounter end={9} duration={1500} />
                         </div>
                         <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>Drivers</h3>
                         <p style={{ fontSize: '14px', color: '#6b7280', lineHeight: 1.5 }}>Field technicians who park and complete service jobs</p>
                     </div>
-                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '32px', textAlign: 'center', ...fadeInUp(sampleAnim.isVisible, 0.2) }}>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '32px', textAlign: 'center', ...fadeInUp(methodsAnim.isVisible, 0.2) }}>
                         <div style={{ fontSize: '64px', fontWeight: 800, lineHeight: 1, marginBottom: '8px', color: '#1f2937' }}>
                             <AnimatedCounter end={5} duration={1500} />
                         </div>
                         <h3 style={{ fontSize: '20px', fontWeight: 600, marginBottom: '12px' }}>Dispatchers</h3>
                         <p style={{ fontSize: '14px', color: '#6b7280', lineHeight: 1.5 }}>Responsible for routing and scheduling</p>
                     </div>
-                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '32px', textAlign: 'center', ...fadeInUp(sampleAnim.isVisible, 0.3) }}>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '32px', textAlign: 'center', ...fadeInUp(methodsAnim.isVisible, 0.3) }}>
                         <div style={{ fontSize: '64px', fontWeight: 800, lineHeight: 1, marginBottom: '8px', color: '#1f2937' }}>
                             <AnimatedCounter end={5} duration={1500} />
                         </div>
@@ -394,14 +385,14 @@ export default function ParkingPlannerMVPPage() {
                 <h3 className="content-subheading" style={{ marginTop: '48px' }}>Synthesis Process</h3>
 
                 {/* Process Flow */}
-                <div style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'space-between', margin: '48px 0' }}>
-                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '16px 24px', borderRadius: '8px', fontSize: '14px', color: '#4b5563', flex: 1, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Live observation notes</div>
-                    <span style={{ color: '#9ca3af', fontSize: '20px', padding: '0 12px', display: 'flex', alignItems: 'center' }}>→</span>
-                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '16px 24px', borderRadius: '8px', fontSize: '14px', color: '#4b5563', flex: 1, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Clustered by theme</div>
-                    <span style={{ color: '#9ca3af', fontSize: '20px', padding: '0 12px', display: 'flex', alignItems: 'center' }}>→</span>
-                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '16px 24px', borderRadius: '8px', fontSize: '14px', color: '#4b5563', flex: 1, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Cross-persona patterns</div>
-                    <span style={{ color: '#9ca3af', fontSize: '20px', padding: '0 12px', display: 'flex', alignItems: 'center' }}>→</span>
-                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '16px 24px', borderRadius: '8px', fontSize: '14px', color: '#4b5563', flex: 1, textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Strategic framework</div>
+                <div className="synthesis-flow" style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'space-between', margin: '48px 0', flexWrap: 'wrap', gap: '12px' }}>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '16px 24px', borderRadius: '8px', fontSize: '14px', color: '#4b5563', flex: '1 1 120px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Live observation notes</div>
+                    <span className="flow-arrow" style={{ color: '#9ca3af', fontSize: '20px', padding: '0 12px', display: 'flex', alignItems: 'center' }}>→</span>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '16px 24px', borderRadius: '8px', fontSize: '14px', color: '#4b5563', flex: '1 1 120px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Clustered by theme</div>
+                    <span className="flow-arrow" style={{ color: '#9ca3af', fontSize: '20px', padding: '0 12px', display: 'flex', alignItems: 'center' }}>→</span>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '16px 24px', borderRadius: '8px', fontSize: '14px', color: '#4b5563', flex: '1 1 120px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Cross-persona patterns</div>
+                    <span className="flow-arrow" style={{ color: '#9ca3af', fontSize: '20px', padding: '0 12px', display: 'flex', alignItems: 'center' }}>→</span>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', padding: '16px 24px', borderRadius: '8px', fontSize: '14px', color: '#4b5563', flex: '1 1 120px', textAlign: 'center', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Strategic framework</div>
                 </div>
 
                 {/* Research Brainspace Image */}
@@ -426,7 +417,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 1 */}
-            <section ref={insight1Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight1Anim.isVisible) }}>
+            <section ref={insightsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insightsAnim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>01</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Parking is a real problem, but not the only problem</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -443,7 +434,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 2 */}
-            <section ref={insight2Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight2Anim.isVisible) }}>
+            <section ref={insightsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insightsAnim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>02</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Technical maturity predicts needs more than fleet size</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -451,7 +442,7 @@ export default function ParkingPlannerMVPPage() {
                 </p>
 
                 {/* Maturity Grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px', margin: '48px 0' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', margin: '48px 0' }}>
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '32px', position: 'relative' }}>
                         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#f97316', borderRadius: '16px 16px 0 0' }}></div>
                         <div style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '16px', color: '#f97316' }}>Low-Tech Maturity</div>
@@ -484,7 +475,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 3 */}
-            <section ref={insight3Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight3Anim.isVisible) }}>
+            <section ref={insightsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insightsAnim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>03</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Drivers carry the parking decision, regardless of planning</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -501,7 +492,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 4 */}
-            <section ref={insight4Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight4Anim.isVisible) }}>
+            <section ref={insightsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insightsAnim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>04</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Accuracy expectations varied by timing</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -518,7 +509,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 5 */}
-            <section ref={insight5Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ paddingTop: '40px', ...fadeInUp(insight5Anim.isVisible) }}>
+            <section ref={insightsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ paddingTop: '40px', ...fadeInUp(insightsAnim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>05</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>There is likely no product-market fit for a parking planner alone</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -528,7 +519,8 @@ export default function ParkingPlannerMVPPage() {
                 <h4 style={{ fontSize: '18px', margin: '48px 0 24px' }}>Product-Market Fit Matrix</h4>
 
                 {/* PMF Matrix */}
-                <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', overflow: 'hidden', margin: '48px 0' }}>
+                <div style={{ overflowX: 'auto', margin: '48px 0' }}>
+                <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', overflow: 'hidden', minWidth: '500px' }}>
                     <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', background: '#f3f4f6', borderBottom: '1px solid #e5e7eb' }}>
                         <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280' }}></div>
                         <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280', textAlign: 'center' }}>Driver</div>
@@ -554,6 +546,7 @@ export default function ParkingPlannerMVPPage() {
                         <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span></div>
                     </div>
                 </div>
+                </div>
 
                 <p style={{ fontSize: '13px', color: '#6b7280', fontStyle: 'italic', textAlign: 'center' }}>
                     Dark = Arrive standalone tool &nbsp;|&nbsp; Gray = Data enrichment into existing systems &nbsp;|&nbsp; Highlighted = Primary opportunity
@@ -568,7 +561,7 @@ export default function ParkingPlannerMVPPage() {
                 <h2 className="content-heading">Strategic Paths Forward</h2>
 
                 {/* Strategy Grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px', margin: '48px 0' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', margin: '48px 0' }}>
                     {/* Path A */}
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '40px', position: 'relative', overflow: 'hidden' }}>
                         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#1f2937' }}></div>
@@ -655,13 +648,13 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Artifacts */}
-            <section ref={artifactsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(artifactsAnim.isVisible)}>
+            <section ref={reflectionAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(reflectionAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Artifacts
                 </div>
                 <h2 className="content-heading">Project Artifacts</h2>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', marginTop: '40px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '20px', marginTop: '40px' }}>
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '20px', textAlign: 'center', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '140px' }}>
                         <div style={{ width: '48px', height: '48px', background: '#f3f4f6', borderRadius: '8px', marginBottom: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">

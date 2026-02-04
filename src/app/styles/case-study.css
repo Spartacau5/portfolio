@@ -7,6 +7,7 @@
     margin: 0 auto;
     padding: 2rem 1.5rem 4rem;
     font-family: Graphik, sans-serif;
+    overflow-x: hidden;
 }
 
 /* Navigation */
@@ -1515,10 +1516,37 @@
         justify-content: center;
     }
 
+    /* 2-item bottom nav: keep in row */
     .case-study-bottom-nav {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    /* 3-item bottom nav: use flex-wrap with order */
+    .case-study-bottom-nav:has(:nth-child(3)) {
+        flex-wrap: wrap;
+        gap: 1rem 0;
+        row-gap: 1rem;
+    }
+
+    /* Go to top button - first row, full width, right aligned */
+    .case-study-bottom-nav:has(:nth-child(3)) > button {
+        order: -1;
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    /* Back link - second row left */
+    .case-study-bottom-nav:has(:nth-child(3)) > a:first-child {
+        order: 1;
+        flex: 1;
+    }
+
+    /* Next link - second row right */
+    .case-study-bottom-nav:has(:nth-child(3)) > a:nth-child(2) {
+        order: 2;
+        flex: 1;
+        justify-content: flex-end;
     }
 
     .recruiter-feedback-grid {
@@ -1885,6 +1913,22 @@
 
     .figma-embed-container iframe {
         height: 250px;
+    }
+}
+
+/* Recruitment Grid - Parking Planner */
+.recruitment-grid {
+    grid-template-columns: 1.8fr 1fr;
+}
+
+@media (max-width: 768px) {
+    .recruitment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Synthesis flow - hide arrows on mobile when stacked */
+    .synthesis-flow .flow-arrow {
+        display: none;
     }
 }
 
