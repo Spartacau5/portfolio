@@ -136,18 +136,57 @@ export function IMessageChat() {
         }]);
         playSendSound();
 
-        // Store form data
-        if (step === 1) setFormData(prev => ({ ...prev, name: userMessage }));
-        if (step === 2) setFormData(prev => ({ ...prev, subject: userMessage }));
-        if (step === 3) setFormData(prev => ({ ...prev, phone: userMessage }));
-        if (step === 4) setFormData(prev => ({ ...prev, email: userMessage }));
-        if (step === 5) setFormData(prev => ({ ...prev, extra: userMessage }));
+        // Store form data and build updated data for submission
+        let updatedFormData = { ...formData };
+        if (step === 1) {
+            updatedFormData.name = userMessage;
+            setFormData(prev => ({ ...prev, name: userMessage }));
+        }
+        if (step === 2) {
+            updatedFormData.subject = userMessage;
+            setFormData(prev => ({ ...prev, subject: userMessage }));
+        }
+        if (step === 3) {
+            updatedFormData.phone = userMessage;
+            setFormData(prev => ({ ...prev, phone: userMessage }));
+        }
+        if (step === 4) {
+            updatedFormData.email = userMessage;
+            setFormData(prev => ({ ...prev, email: userMessage }));
+        }
+        if (step === 5) {
+            updatedFormData.extra = userMessage;
+            setFormData(prev => ({ ...prev, extra: userMessage }));
+        }
 
         // Move to next step
         const nextStep = step + 1;
         if (nextStep < conversationSteps.length) {
             await addArpitMessages(conversationSteps[nextStep].arpitMessages);
             setStep(nextStep);
+
+            // Submit to Airtable when conversation ends (after final message)
+            if (nextStep === 6) {
+                submitToAirtable(updatedFormData);
+            }
+        }
+    };
+
+    const submitToAirtable = async (data: typeof formData) => {
+        try {
+            const response = await fetch('/api/submit-lead', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            });
+
+            if (!response.ok) {
+                console.error('Failed to submit lead');
+            }
+        } catch (error) {
+            console.error('Error submitting lead:', error);
         }
     };
 
@@ -358,7 +397,8 @@ export function IMessageChat() {
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                                 onKeyDown={handleKeyDown}
-                                disabled={!isStarted || step >= 6}
+                                onClick={() => !isStarted && handleStart()}
+                                disabled={step >= 6}
                                 style={{
                                     width: '100%',
                                     height: 44,
