@@ -2788,3 +2788,68 @@ body {
     transform: scale(1);
   }
 }
+
+/* ============================================
+   CAT ANIMATION
+   ============================================ */
+
+.cat-position-wrapper {
+  position: absolute;
+  top: -60px;
+  left: 70%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.cat-animation-container {
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.cat-animation-container:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* Cat positioning for 1024-1399px screens */
+@media (min-width: 1024px) and (max-width: 1399px) {
+  .cat-position-wrapper {
+    left: 25%;
+  }
+}
+
+/* Cat positioning for medium screens - above "Ahluwalia" */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cat-position-wrapper {
+    left: 20%;
+    top: -52px;
+  }
+
+  .cat-animation-container {
+    width: 180px !important;
+    height: 52px !important;
+  }
+
+  .cat-animation-container svg {
+    width: 180px !important;
+    height: 52px !important;
+  }
+}
+
+/* Cat positioning for tablet/smaller screens - above "Arpit Singh" */
+@media (max-width: 767px) {
+  .cat-position-wrapper {
+    left: 25%;
+    top: -40px;
+  }
+
+  .cat-animation-container {
+    width: 140px !important;
+    height: 40px !important;
+  }
+
+  .cat-animation-container svg {
+    width: 140px !important;
+    height: 40px !important;
+  }
+}

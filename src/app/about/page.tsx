@@ -1,9 +1,12 @@
+'use client';
+
 import Image from "next/image";
 
 import { MusicPlayer } from "../components/MusicPlayer";
 import { PhotoCarousel } from "../components/PhotoCarousel";
 import { PodcastPlayer } from "../components/PodcastPlayer";
 import { IMessageChat } from "../components/IMessageChat";
+import CatAnimation from "../components/CatAnimation";
 
 // IMPORTANT (Next.js App Router):
 // Move this global CSS import to: src/app/layout.tsx (or src/app/globals.css)
@@ -31,8 +34,13 @@ export default function About() {
           {/* Left Column - Main Content */}
           <div
             id="w-node-_6c8a77c8-e695-9470-df4c-56e39795bf33-d4229b69"
-            className="tile xl me about"
+            className="card-wrapper"
           >
+            {/* Cat Animation - positioned above the card */}
+            <div className="cat-position-wrapper">
+              <CatAnimation />
+            </div>
+            <div className="tile xl me about">
             <div className="internal-div">
               <div className="about-me-div">
                 <div className="about-header-flex">
@@ -169,6 +177,7 @@ export default function About() {
                   />
                 </a>
               </div>
+            </div>
             </div>
           </div>
 

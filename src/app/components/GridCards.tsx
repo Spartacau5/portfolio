@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
+import CatAnimation from './CatAnimation';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
@@ -46,7 +47,12 @@ export function GridCards() {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
         {/* Intro/Bio Card */}
-        <div className={`col-span-1 lg:col-span-6 bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[20rem] lg:min-h-[25rem] flex flex-col transition-opacity duration-300 ${focusedCard && focusedCard !== 'bio' ? 'opacity-10' : ''}`}>
+        <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'bio' ? 'opacity-10' : ''}`}>
+          {/* Cat Animation - positioned above the card */}
+          <div className="cat-position-wrapper">
+            <CatAnimation />
+          </div>
+          <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[20rem] lg:min-h-[25rem] flex flex-col transition-opacity duration-300">
           <div>
             <h2 className="text-xl lg:text-2xl font-bold text-gray-900 inline">Arpit Singh Ahluwalia</h2>
             <span className="text-xl lg:text-2xl text-gray-400"> – UX Designer and Strategist. Currently, learning at Parsons.</span>
@@ -60,6 +66,7 @@ export function GridCards() {
             <p>I thrive on figuring out the messy middle through research, translating discoveries into designs that actually work for people. I think strategically but execute quickly, always co-designing with real users along the process.</p>
 
             <p>When I'm not designing, I'm gaming, making music, or (now) vibe-coding. I'm looking for opportunities to collaborate with people who value thoughtful, human-centered work.</p>
+          </div>
           </div>
         </div>
 
