@@ -5,6 +5,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   NAVIGATION PILL - GLASS EFFECT
+   ============================================ */
+.nav-pill-glass {
+  background-color: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile nav - larger size */
+@media (max-width: 767px) {
+  .nav-pill-glass {
+    padding: 6px;
+  }
+  .nav-pill-glass ul {
+    gap: 4px;
+  }
+  .nav-pill-glass a {
+    padding: 12px 24px !important;
+    font-size: 15px !important;
+  }
+}
+
 /* Grid card press effect */
 .grid-card {
   transform: scale(1);
@@ -648,7 +673,7 @@ body {
 
   .tile {
     background-color: #f7f7f9;
-    border-radius: 32px;
+    border-radius: 24px;
   }
 
   /* Small Tiles */
@@ -675,6 +700,8 @@ body {
     position: relative;
     overflow: hidden;
     background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    border: 1px solid #f3f4f6;
   }
 
   .tile.sm.imessage {
@@ -685,12 +712,14 @@ body {
     padding-top: 0;
     position: relative;
     background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    border: 1px solid #f3f4f6;
   }
 
   /* Twitter Tile */
   .tile-twitter {
     background-color: #ffffff;
-    border-radius: 32px;
+    border-radius: 24px;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
     border: 1px solid #f3f4f6;
   }
@@ -735,6 +764,8 @@ body {
   .tile.xl.me.about {
     height: auto;
     background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    border: 1px solid #f3f4f6;
   }
 
   /* Tile Grid Positions */
@@ -2273,6 +2304,88 @@ body {
     }
   }
 
+  /* About page grid for 1024-1399px - full width bio and chatbox */
+  @media (min-width: 1024px) and (max-width: 1399px) {
+    .container {
+      max-width: 100% !important;
+      padding-left: 24px !important;
+      padding-right: 24px !important;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr 1fr !important;
+      grid-row-gap: 16px;
+      grid-column-gap: 16px;
+    }
+
+    /* Bio card - full width (override ID selector) */
+    #w-node-_6c8a77c8-e695-9470-df4c-56e39795bf33-d4229b69 {
+      grid-area: 1 / 1 / 2 / 3 !important;
+    }
+
+    /* Twitter card */
+    #twitter.w-node-ad3c41ab-6071-5e6c-3932-6d9df03bfcb6-d4229b69 {
+      grid-area: auto !important;
+    }
+
+    /* Spotify card */
+    #w-node-_6c8a77c8-e695-9470-df4c-56e39795c572-d4229b69 {
+      grid-area: auto !important;
+    }
+
+    /* Photos card */
+    #w-node-_6c8a77c8-e695-9470-df4c-56e39795c7d7-d4229b69 {
+      grid-area: auto !important;
+    }
+
+    /* Podcast card */
+    #w-node-_6c8a77c8-e695-9470-df4c-56e39795c819-d4229b69 {
+      grid-area: auto !important;
+    }
+
+    /* Chatbox - full width (override ID selector) */
+    #w-node-e4cacf2e-5d38-4548-b099-9b308486aed2-d4229b69 {
+      grid-area: auto !important;
+      grid-column: 1 / -1 !important;
+      min-height: 350px !important;
+    }
+
+    /* Reset tile sizes */
+    .about-grid .tile.sm,
+    .about-grid .tile-twitter.sm {
+      min-width: 100% !important;
+      width: 100% !important;
+    }
+
+    /* Bio card - override fixed width constraint */
+    .tile.xl.me.about {
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+
+    /* About header - keep in one row with fixed button */
+    .about-header-flex {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      gap: 1rem !important;
+    }
+
+    .about-header-flex .display-heading {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+    }
+
+    .about-header-flex .cta-button {
+      flex-shrink: 0 !important;
+      width: auto !important;
+      max-width: none !important;
+      padding: 0.625rem 1.25rem !important;
+    }
+  }
+
   @media (max-width: 1023px) {
     .container {
       max-width: 100%;
@@ -2391,6 +2504,38 @@ body {
 
     .card-focus-description.microsoft-low {
       bottom: -52px;
+    }
+  }
+
+  /* About page header fix for 480-768px - keep row layout with smaller button */
+  @media screen and (min-width: 480px) and (max-width: 768px) {
+    .about-header-flex {
+      display: flex !important;
+      flex-direction: row !important;
+      flex-wrap: nowrap !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+      width: 100%;
+      gap: 0.75rem;
+    }
+
+    .about-header-flex .display-heading {
+      white-space: nowrap !important;
+      flex-shrink: 0 !important;
+      font-size: 22px !important;
+    }
+
+    .about-header-flex .cta-button {
+      padding: 0.4rem 0.875rem !important;
+      font-size: 12px !important;
+      flex-shrink: 0 !important;
+      width: auto !important;
+      max-width: none !important;
+    }
+
+    .about-header-flex .cta-arrow {
+      width: 12px;
+      height: 12px;
     }
   }
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Link from 'next/link';
 import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
@@ -21,6 +21,19 @@ export function GridCards() {
   const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
   const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
   const [isArriveHovered, setIsArriveHovered] = useState(false);
+  const arriveVideoRef = useRef<HTMLVideoElement>(null);
+
+  const handleArriveHover = (isHovering: boolean) => {
+    setIsArriveHovered(isHovering);
+    if (arriveVideoRef.current) {
+      if (isHovering) {
+        arriveVideoRef.current.currentTime = 0;
+        arriveVideoRef.current.play();
+      } else {
+        arriveVideoRef.current.pause();
+      }
+    }
+  };
 
   return (
     <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
@@ -53,8 +66,8 @@ export function GridCards() {
         <div className={`card-wrapper col-span-1 lg:col-span-6 h-full ${focusedCard && focusedCard !== 'arrive' ? 'opacity-10' : ''}`}>
           <div
             className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-            onMouseEnter={() => setIsArriveHovered(true)}
-            onMouseLeave={() => setIsArriveHovered(false)}
+            onMouseEnter={() => handleArriveHover(true)}
+            onMouseLeave={() => handleArriveHover(false)}
           >
             {/* Default logo */}
             <img
@@ -64,20 +77,18 @@ export function GridCards() {
               style={{ opacity: isArriveHovered ? 0 : 1 }}
             />
 
-            {/* Hover state - GIFs side by side */}
+            {/* Hover state - Video */}
             <div
-              className="absolute inset-0 flex items-center justify-center gap-4 p-6 transition-opacity duration-300"
+              className="absolute inset-0 transition-opacity duration-300"
               style={{ opacity: isArriveHovered ? 1 : 0 }}
             >
-              <img
-                src="/images/dispatcher.gif"
-                alt="Dispatcher Dashboard"
-                className="h-[80%] max-h-[280px] rounded-lg shadow-lg object-contain"
-              />
-              <img
-                src="/images/driver-mvp.gif"
-                alt="Driver App"
-                className="h-[80%] max-h-[280px] rounded-lg shadow-lg object-contain"
+              <video
+                ref={arriveVideoRef}
+                src="/images/visiontesting.mp4"
+                className="w-full h-full object-cover"
+                muted
+                playsInline
+                loop
               />
             </div>
 
