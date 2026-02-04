@@ -2225,6 +2225,48 @@ body {
    RESPONSIVE BREAKPOINTS
    ============================================ */
 
+  /* Fix for home page grid at 1024-1400px - rearrange smaller cards */
+  @media (min-width: 1024px) and (max-width: 1400px) {
+    /* Hypex takes full width */
+    .home-hypex-card {
+      grid-column: span 12 / span 12 !important;
+      order: 1;
+    }
+
+    /* Microsoft/Twitter stack takes 6 cols */
+    .home-microsoft-twitter-stack {
+      grid-column: span 6 / span 6 !important;
+      order: 2;
+    }
+
+    /* Photos/Spotify stack takes 6 cols */
+    .home-photos-spotify-stack {
+      grid-column: span 6 / span 6 !important;
+      order: 3;
+    }
+
+    /* Make the stacked cards have consistent height */
+    .home-microsoft-twitter-stack .card-wrapper,
+    .home-microsoft-twitter-stack .tile-twitter {
+      min-height: 220px !important;
+    }
+
+    .home-photos-spotify-stack > div {
+      min-height: 220px !important;
+    }
+
+    /* Ensure inner cards fill their containers */
+    .home-microsoft-twitter-stack .microsoft-card {
+      min-height: 200px !important;
+    }
+
+    /* Make Twitter card full width to match Microsoft card */
+    .home-microsoft-twitter-stack .tile-twitter {
+      width: 100% !important;
+      min-width: 100% !important;
+    }
+  }
+
   @media (max-width: 1199px) {
     .container {
       max-width: 810px;

@@ -183,7 +183,7 @@ export function GridCards() {
         </div>
 
         {/* HYPEX Card */}
-        <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
+        <div className={`card-wrapper col-span-1 lg:col-span-6 home-hypex-card ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
           <div className="hypex-card grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
             <img src="/images/hypex-mockup.png" alt="HYPEX" className="w-full h-full object-contain relative z-10" />
 
@@ -413,7 +413,7 @@ export function GridCards() {
         */}
 
         {/* Two stacked placeholder divs */}
-        <div className={`col-span-1 lg:col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-20' : ''}`}>
+        <div className={`col-span-1 lg:col-span-3 flex flex-col gap-4 transition-opacity duration-300 home-microsoft-twitter-stack ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-20' : ''}`}>
           {/* Microsoft Card */}
           <div className={`card-wrapper flex-1 basis-1/2 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
             <div
@@ -596,7 +596,7 @@ export function GridCards() {
         </div>
 
         {/* Photos & Spotify Cards - Stacked vertically */}
-        <div className={`col-span-1 lg:col-span-3 flex flex-col gap-4 transition-opacity duration-300 ${focusedCard ? 'opacity-5' : ''}`}>
+        <div className={`col-span-1 lg:col-span-3 flex flex-col gap-4 transition-opacity duration-300 home-photos-spotify-stack ${focusedCard ? 'opacity-5' : ''}`}>
           <div className="flex-1 min-h-[18rem] lg:min-h-0">
             <PhotoCarousel />
           </div>
