@@ -16,10 +16,11 @@ export default function About() {
       <div className="container home">
         <div className="grid-top-bar">
           <div className="view-controls-div">
-            <img
+            <Image
               src="/images/arrow.svg"
-              loading="lazy"
               alt=""
+              width={16}
+              height={16}
               className="list-icon"
             />
             <div className="caption-text-w-icon">Look around...</div>
@@ -45,7 +46,7 @@ export default function About() {
                     className="cta-button secondary"
                   >
                     Download Resume
-                    <img src="/images/arrow-angle.svg" alt="" className="cta-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="cta-arrow" />
                   </a>
                 </div>
 

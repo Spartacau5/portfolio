@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function HypexPage() {
@@ -79,7 +80,7 @@ export default function HypexPage() {
                         <button className="cta-button primary" onClick={scrollToChallenge}>Read Case Study</button>
                         <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="cta-button secondary">
                             Website
-                            <img src="/images/arrow-angle.svg" alt="" className="cta-arrow" />
+                            <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="cta-arrow" />
                         </a>
                     </div>
                 </div>
@@ -111,8 +112,8 @@ export default function HypexPage() {
                     <strong>I was provided a rough mockup of the team's vision.</strong>
                 </p>
                 <div className="reference-images">
-                    <img src="/images/reference1.avif" alt="Reference mockup 1" className="reference-image" />
-                    <img src="/images/reference2.avif" alt="Reference mockup 2" className="reference-image" />
+                    <Image src="/images/reference1.avif" alt="Reference mockup 1" width={500} height={350} className="reference-image" />
+                    <Image src="/images/reference2.avif" alt="Reference mockup 2" width={500} height={350} className="reference-image" />
                 </div>
                 <p className="content-text">
                     The team shared with me their existing wireframes and it was a very basic skeleton which was put together by the CEO and their marketing team when they initially started back in early 2021.
@@ -129,7 +130,7 @@ export default function HypexPage() {
                     Right from the beginning, I wanted a clear vision of the team's expectations on how to visually represent HypeX to the world. I set out to create a Moodboard which took inspiration from the most followed crypto projects in the world at the time.
                 </p>
                 <div className="moodboard-image-container">
-                    <img src="/images/moodboard.webp" alt="HypeX Moodboard" className="moodboard-image" />
+                    <Image src="/images/moodboard.webp" alt="HypeX Moodboard" width={1000} height={700} className="moodboard-image" />
                 </div>
                 <p className="content-text">
                     I noticed there was a lot of focus on environment design where a mixture of impressive elements come together to create a whole ecosystem which you get transported to instead of just a static web page. This inspired me to take that space galaxy vibe to another level of immersion using 3D elements mixed with 2D.
@@ -146,12 +147,12 @@ export default function HypexPage() {
                 </p>
 
                 <div className="lowfi-gallery">
-                    <img src="/images/lowfi1.avif" alt="Low-fidelity wireframe 1" className="lowfi-main" />
+                    <Image src="/images/lowfi1.avif" alt="Low-fidelity wireframe 1" width={600} height={400} className="lowfi-main" />
                     <div className="lowfi-grid">
-                        <img src="/images/lowfi2.avif" alt="Low-fidelity wireframe 2" className="lowfi-thumb" />
-                        <img src="/images/lowfi3.avif" alt="Low-fidelity wireframe 3" className="lowfi-thumb" />
-                        <img src="/images/lowfi4.avif" alt="Low-fidelity wireframe 4" className="lowfi-thumb" />
-                        <img src="/images/lowfi5.avif" alt="Low-fidelity wireframe 5" className="lowfi-thumb" />
+                        <Image src="/images/lowfi2.avif" alt="Low-fidelity wireframe 2" width={200} height={150} className="lowfi-thumb" />
+                        <Image src="/images/lowfi3.avif" alt="Low-fidelity wireframe 3" width={200} height={150} className="lowfi-thumb" />
+                        <Image src="/images/lowfi4.avif" alt="Low-fidelity wireframe 4" width={200} height={150} className="lowfi-thumb" />
+                        <Image src="/images/lowfi5.avif" alt="Low-fidelity wireframe 5" width={200} height={150} className="lowfi-thumb" />
                     </div>
                 </div>
 
@@ -160,7 +161,7 @@ export default function HypexPage() {
                     Once the layout was approved, I designed a high fidelity version which our developers could adopt quickly since time was a major constraint.
                 </p>
                 <div className="highfi-image-container">
-                    <img src="/images/highfi.webp" alt="High-fidelity design v1" className="highfi-image" />
+                    <Image src="/images/highfi.webp" alt="High-fidelity design v1" width={1000} height={700} className="highfi-image" />
                 </div>
 
                 <h3 className="content-subheading">Final Version</h3>
@@ -168,14 +169,14 @@ export default function HypexPage() {
                     Once we satisfied investors with a basic version of what HypeX does, I designed a final version which hit that immersive space environment I wanted to achieve. Our young team of college developers worked hard to bring the designs to life using React components which you can check out at <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="content-link">www.hypex.io</a>
                 </p>
                 <div className="highfi-image-container">
-                    <img src="/images/finalhighfi.webp" alt="Final high-fidelity design" className="highfi-image" />
+                    <Image src="/images/finalhighfi.webp" alt="Final high-fidelity design" width={1000} height={700} className="highfi-image" />
                 </div>
             </section>
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
                 <Link href="/" className="back-link">
-                    <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Home
                 </Link>
                 <button
@@ -183,7 +184,7 @@ export default function HypexPage() {
                     className="back-link"
                 >
                     Go to top
-                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
         </div>

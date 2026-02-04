@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
@@ -39,7 +40,7 @@ export function GridCards() {
     <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
       <div className="grid-top-bar">
         <div className="view-controls-div">
-          <img src="/images/arrow.svg" loading="lazy" alt="" className="list-icon" />
+          <Image src="/images/arrow.svg" alt="" width={16} height={16} className="list-icon" />
           <div className="caption-text-w-icon">Look around...</div>
         </div>
       </div>
@@ -70,9 +71,11 @@ export function GridCards() {
             onMouseLeave={() => handleArriveHover(false)}
           >
             {/* Default logo */}
-            <img
+            <Image
               src="/images/arrive-logo.png"
               alt="Arrive"
+              width={192}
+              height={48}
               className="w-48 transition-opacity duration-300"
               style={{ opacity: isArriveHovered ? 0 : 1 }}
             />
@@ -99,7 +102,7 @@ export function GridCards() {
               onMouseEnter={() => setFocusedCard('arrive')}
               onMouseLeave={() => setFocusedCard(null)}
             >
-              <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
           </div>
           {/* Description text that appears on focus */}
@@ -117,9 +120,11 @@ export function GridCards() {
             onMouseLeave={() => setIsZoominfoHovered(false)}
           >
             {/* Default logo */}
-            <img
+            <Image
               src="/images/zoominfo-logo.png"
               alt="ZoomInfo"
+              width={256}
+              height={64}
               className="w-64 transition-opacity duration-300"
               style={{ opacity: isZoominfoHovered ? 0 : 1 }}
             />
@@ -142,7 +147,7 @@ export function GridCards() {
               onMouseEnter={() => setFocusedCard('zoominfo')}
               onMouseLeave={() => setFocusedCard(null)}
             >
-              <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
 
             {/* Sublabels that slide up on hover */}
@@ -166,7 +171,7 @@ export function GridCards() {
         {/* Johnson & Johnson Logo Card */}
         <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
           <div className="jnj-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-            <img src="/images/jnj-logo.png" alt="Johnson & Johnson" className="jnj-logo w-80" />
+            <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-80" />
 
             {/* Arrow Button - Bottom Left */}
             <Link
@@ -175,7 +180,7 @@ export function GridCards() {
               onMouseEnter={() => setFocusedCard('jnj')}
               onMouseLeave={() => setFocusedCard(null)}
             >
-              <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
 
             {/* Sublabels that slide up on hover */}
@@ -199,7 +204,7 @@ export function GridCards() {
         {/* HYPEX Card */}
         <div className={`card-wrapper col-span-1 lg:col-span-6 home-hypex-card ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
           <div className="hypex-card grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-            <img src="/images/hypex-mockup.png" alt="HYPEX" className="w-full h-full object-contain relative z-10" />
+            <Image src="/images/hypex-mockup.png" alt="HYPEX" width={400} height={400} className="w-full h-full object-contain relative z-10" />
 
             {/* Marquee hover effect */}
             <div className="hypex-marquee-container">
@@ -394,7 +399,7 @@ export function GridCards() {
               onMouseEnter={() => setFocusedCard('hypex')}
               onMouseLeave={() => setFocusedCard(null)}
             >
-              <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
           </div>
           {/* Description text that appears on focus */}
@@ -443,7 +448,7 @@ export function GridCards() {
               {/* Logo with white background and animated text */}
               <div className="microsoft-content relative z-10 flex flex-col items-center">
                 <div className="microsoft-logo-container">
-                  <img src="/images/microsoft-full-logo.png" alt="Microsoft" className="w-32" />
+                  <Image src="/images/microsoft-full-logo.png" alt="Microsoft" width={128} height={28} className="w-32" />
                 </div>
                 <p className="microsoft-hover-text">Designing an AI-Powered Assistant for Specialized Educators</p>
               </div>
@@ -455,7 +460,7 @@ export function GridCards() {
                 onMouseEnter={() => setFocusedCard('microsoft')}
                 onMouseLeave={() => setFocusedCard(null)}
               >
-                <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
+                <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
               </Link>
             </div>
             {/* Description text that appears on focus */}
@@ -477,7 +482,7 @@ export function GridCards() {
                     rel="noreferrer"
                   >
                     <div className="twitter-avi-div">
-                      <img
+                      <Image
                         src="/images/profilepic.png"
                         alt="Arpit Ahluwalia"
                         width={40}
@@ -506,7 +511,7 @@ export function GridCards() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <img
+                      <Image
                         src="/images/twitter-icon-min.png"
                         alt="Twitter"
                         width={56}
@@ -587,7 +592,7 @@ export function GridCards() {
                   </div>
 
                   <div className="arrow-icon-div">
-                    <img
+                    <Image
                       src="/images/arrow-angle.svg"
                       alt=""
                       width={16}
@@ -595,7 +600,7 @@ export function GridCards() {
                       className="arrow-icon"
                       style={{ opacity: 1 }}
                     />
-                    <img
+                    <Image
                       src="/images/arrow-hover.svg"
                       alt=""
                       width={16}

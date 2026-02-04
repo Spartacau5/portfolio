@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function VisionTestingPage() {
@@ -78,7 +79,7 @@ export default function VisionTestingPage() {
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
                 <Link href="/work/arrive" className="back-link">
-                    <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Arrive
                 </Link>
                 <button
@@ -86,7 +87,7 @@ export default function VisionTestingPage() {
                     className="back-link"
                 >
                     Go to top
-                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
         </div>

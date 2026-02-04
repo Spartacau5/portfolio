@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function MicrosoftPage() {
@@ -191,14 +192,14 @@ export default function MicrosoftPage() {
                 <p className="content-text">
                     We conducted 15+ stakeholder interviews across NYC, CA, PA, and TX school districts to get an initial understanding of how the education system operates and to identify any shared pain points.
                 </p>
-                <img src="/images/participants.png" alt="Research Participants" className="content-image" />
+                <Image src="/images/participants.png" alt="Research Participants" width={800} height={500} className="content-image" />
 
                 <p className="content-text" style={{ marginTop: '2.5rem' }}>
                     We also facilitated Co-Design Workshops (7 sessions across 3 rounds, 60-75 minutes each) which ensured our solution was built with and for teachers every step of the process from ideation to prototype.
                 </p>
                 <div className="stacked-images">
-                    <img src="/images/codesign1.png" alt="Co-Design Workshop 1" className="content-image" />
-                    <img src="/images/codesign2.png" alt="Co-Design Workshop 2" className="content-image" />
+                    <Image src="/images/codesign1.png" alt="Co-Design Workshop 1" width={800} height={500} className="content-image" />
+                    <Image src="/images/codesign2.png" alt="Co-Design Workshop 2" width={800} height={500} className="content-image" />
                 </div>
             </section>
 
@@ -271,7 +272,7 @@ export default function MicrosoftPage() {
                             <p className="opportunity-quote">"One of the really annoying things that I had to do as a speech therapist in a school is make my own schedule...I feel that AI would be beneficial in helping the providers, the clinicians, [and] the teachers complete the documentation and their admin work."</p>
                         </div>
                         <div className="opportunity-image">
-                            <img src="/images/opportunity-1.svg" alt="Productivity" />
+                            <Image src="/images/opportunity-1.svg" alt="Productivity" width={120} height={120} />
                         </div>
                     </div>
 
@@ -285,7 +286,7 @@ export default function MicrosoftPage() {
                             <p className="opportunity-quote">"Sometimes specialists and class teachers don't meet for weeks, it's very per-needs basis and this lack of communication can dampen the child's progress."</p>
                         </div>
                         <div className="opportunity-image">
-                            <img src="/images/opportunity-2.svg" alt="Communication" />
+                            <Image src="/images/opportunity-2.svg" alt="Communication" width={120} height={120} />
                         </div>
                     </div>
 
@@ -299,7 +300,7 @@ export default function MicrosoftPage() {
                             <p className="opportunity-quote">"How do you differentiate instruction for that range of kids? That is hugely time consuming for teachers...actually creating the lesson plans based on the kids needs. I think AI has a huge application there."</p>
                         </div>
                         <div className="opportunity-image">
-                            <img src="/images/opportunity-3.svg" alt="Personalization" />
+                            <Image src="/images/opportunity-3.svg" alt="Personalization" width={120} height={120} />
                         </div>
                     </div>
 
@@ -313,7 +314,7 @@ export default function MicrosoftPage() {
                             <p className="opportunity-quote">"I look at my kindergarten students from 30 years ago - they were so ready for first grade. And not so much right now because they've taken play out of the kindergarten classroom. You can't put just AI instruction into a kindergarten classroom, they need play as part of their learning."</p>
                         </div>
                         <div className="opportunity-image">
-                            <img src="/images/opportunity-4.svg" alt="Student Achievement" />
+                            <Image src="/images/opportunity-4.svg" alt="Student Achievement" width={120} height={120} />
                         </div>
                     </div>
                 </div>
@@ -325,7 +326,7 @@ export default function MicrosoftPage() {
                 <p className="content-text">
                     We examined current AI education tools but we quickly found these platforms generalize and try to address foundational classroom needs, but not so much as specialized educators and their needs.
                 </p>
-                <img src="/images/comp.png" alt="Competitive Research" className="content-image" style={{ marginTop: '1.5rem', width: '100%', maxWidth: 'none' }} />
+                <Image src="/images/comp.png" alt="Competitive Research" width={1200} height={600} className="content-image" style={{ marginTop: '1.5rem', width: '100%', maxWidth: 'none' }} />
             </section>
 
             {/* Co-Design Principles Section */}
@@ -334,7 +335,7 @@ export default function MicrosoftPage() {
                 <p className="content-text">
                     Now that we had a concept in mind, but we before we started designing we needed a guide to our process. So, we co-created principles that prioritize ethics, adaptability, and educator empowerment and set the foundation of the value we were trying to embody as a product and organization.
                 </p>
-                <img src="/images/cdp.png" alt="Co-Design Principles" className="content-image" style={{ marginTop: '1.5rem', width: '100%', maxWidth: 'none' }} />
+                <Image src="/images/cdp.png" alt="Co-Design Principles" width={1200} height={600} className="content-image" style={{ marginTop: '1.5rem', width: '100%', maxWidth: 'none' }} />
             </section>
 
             {/* Final Prototype Section */}
@@ -419,7 +420,7 @@ export default function MicrosoftPage() {
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
                 <Link href="/" className="back-link">
-                    <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Home
                 </Link>
                 <button
@@ -427,7 +428,7 @@ export default function MicrosoftPage() {
                     className="back-link"
                 >
                     Go to top
-                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
         </div>

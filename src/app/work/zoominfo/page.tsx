@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function ZoominfoPage() {
@@ -41,9 +42,9 @@ export default function ZoominfoPage() {
                     <div className="meta-block">
                         <span className="meta-label">TEAM</span>
                         <div className="team-logos">
-                            <img src="/images/salesos.avif" alt="SalesOS" className="team-logo" />
-                            <img src="/images/talentos.avif" alt="TalentOS" className="team-logo" />
-                            <img src="/images/reachout.avif" alt="ReachOut" className="team-logo" />
+                            <Image src="/images/salesos.avif" alt="SalesOS" width={80} height={24} className="team-logo" />
+                            <Image src="/images/talentos.avif" alt="TalentOS" width={80} height={24} className="team-logo" />
+                            <Image src="/images/reachout.avif" alt="ReachOut" width={80} height={24} className="team-logo" />
                         </div>
                     </div>
 
@@ -113,7 +114,7 @@ export default function ZoominfoPage() {
                     {/* Dashboard for TalentOS Card */}
                     <div className="project-card-wrapper">
                         <Link href="/work/zoominfo/dashboard-talentos" className="project-card has-image">
-                            <img src="/images/dashboard.avif" alt="Dashboard for TalentOS" className="project-card-image" />
+                            <Image src="/images/dashboard.avif" alt="Dashboard for TalentOS" width={600} height={400} className="project-card-image" />
                         </Link>
                         <div className="project-card-info">
                             <Link href="/work/zoominfo/dashboard-talentos" className="project-card-title-link">
@@ -130,7 +131,7 @@ export default function ZoominfoPage() {
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
                 <Link href="/" className="back-link">
-                    <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Home
                 </Link>
                 <button
@@ -138,7 +139,7 @@ export default function ZoominfoPage() {
                     className="back-link"
                 >
                     Go to top
-                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
         </div>

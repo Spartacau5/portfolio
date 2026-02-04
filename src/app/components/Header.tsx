@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
@@ -91,9 +92,11 @@ export function Header() {
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Profile Picture - Left */}
           <Link href="/" className="flex-shrink-0">
-            <img
+            <Image
               src="/images/profilepic.png"
               alt="Profile"
+              width={56}
+              height={56}
               className="rounded-full w-10 h-10 md:w-14 md:h-14"
             />
           </Link>
@@ -108,9 +111,11 @@ export function Header() {
             rel="noopener noreferrer"
             className="flex-shrink-0 hover:opacity-70 transition-opacity"
           >
-            <img
+            <Image
               src="/images/mdi_linkedin.png"
               alt="LinkedIn"
+              width={40}
+              height={40}
               className="opacity-60 w-8 h-8 md:w-10 md:h-10"
             />
           </a>

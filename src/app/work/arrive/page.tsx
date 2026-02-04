@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function ArrivePage() {
@@ -145,9 +146,9 @@ export default function ArrivePage() {
                             borderRadius: '24px',
                             minHeight: '400px'
                         }}>
-                            <img src="/images/arrive-logo.png" alt="Arrive" style={{ height: '48px' }} />
+                            <Image src="/images/arrive-logo.png" alt="Arrive" width={150} height={48} style={{ height: '48px', width: 'auto' }} />
                             <span style={{ fontSize: '28px', fontWeight: '300', color: '#9ca3af', margin: '0 0.5rem 0 1.5rem' }}>×</span>
-                            <img src="/images/sapconcur.jpg" alt="SAP Concur" style={{ height: '180px' }} />
+                            <Image src="/images/sapconcur.jpg" alt="SAP Concur" width={200} height={180} style={{ height: '180px', width: 'auto' }} />
                         </Link>
                         <div className="project-card-info">
                             <Link href="/work/arrive/booking-flow" className="project-card-title-link">
@@ -201,7 +202,7 @@ export default function ArrivePage() {
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
                 <Link href="/" className="back-link">
-                    <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Home
                 </Link>
                 <button
@@ -209,7 +210,7 @@ export default function ArrivePage() {
                     className="back-link"
                 >
                     Go to top
-                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
         </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, FormEvent, KeyboardEvent } from 'react';
+import Image from 'next/image';
 
 interface Message {
     id: number;
@@ -240,12 +241,12 @@ export function IMessageChat() {
                                 <div className="imessage-label">Arpit</div>
                                 <div className="imessage-flex-horizontal">
                                     <div className="imessage-image">
-                                        <img
+                                        <Image
                                             src="/images/profilepic.png"
-                                            loading="lazy"
                                             alt="Arpit Ahluwalia"
+                                            width={48}
+                                            height={48}
                                             className="imessage-avi"
-                                            style={{ width: 48, height: 48 }}
                                         />
                                     </div>
                                     <div className="imessage-my-messages">
@@ -289,12 +290,12 @@ export function IMessageChat() {
                                             <div className="imessage-label">Arpit</div>
                                             <div className="imessage-flex-horizontal">
                                                 <div className="imessage-image">
-                                                    <img
+                                                    <Image
                                                         src="/images/profilepic.png"
-                                                        loading="lazy"
                                                         alt="Arpit Ahluwalia"
+                                                        width={48}
+                                                        height={48}
                                                         className="imessage-avi"
-                                                        style={{ width: 48, height: 48 }}
                                                     />
                                                 </div>
                                                 <div className="imessage-my-messages">
@@ -322,12 +323,12 @@ export function IMessageChat() {
                                     <div className="imessage-label">Arpit</div>
                                     <div className="imessage-flex-horizontal">
                                         <div className="imessage-image">
-                                            <img
+                                            <Image
                                                 src="/images/profilepic.png"
-                                                loading="lazy"
                                                 alt="Arpit Ahluwalia"
+                                                width={48}
+                                                height={48}
                                                 className="imessage-avi"
-                                                style={{ width: 48, height: 48 }}
                                             />
                                         </div>
                                         <div className="imessage-my-messages">

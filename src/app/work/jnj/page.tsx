@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function JnJPage() {
@@ -93,8 +94,8 @@ export default function JnJPage() {
                     I started with evaluating the 2020 digital reports and preparing a blueprint for the new websites. During this phase I also compiled recommendations resulting from benchmarking of composite peer-set companies.
                 </p>
                 <div className="stacked-images">
-                    <img src="/images/2020hp.webp" alt="2020 Health for Humanity Report" className="stacked-image" />
-                    <img src="/images/2020nav.webp" alt="2020 Navigation Review" className="stacked-image" />
+                    <Image src="/images/2020hp.webp" alt="2020 Health for Humanity Report" width={800} height={500} className="stacked-image" />
+                    <Image src="/images/2020nav.webp" alt="2020 Navigation Review" width={800} height={500} className="stacked-image" />
                 </div>
 
                 <h3 className="content-subheading">Areas of Improvements</h3>
@@ -157,14 +158,14 @@ export default function JnJPage() {
                 </p>
 
                 <div className="image-slider">
-                    <img src="/images/comp1.webp" alt="Competitive research 1" className="slider-image" />
-                    <img src="/images/comp2.webp" alt="Competitive research 2" className="slider-image" />
-                    <img src="/images/comp3.webp" alt="Competitive research 3" className="slider-image" />
-                    <img src="/images/comp4.webp" alt="Competitive research 4" className="slider-image" />
-                    <img src="/images/comp5.webp" alt="Competitive research 5" className="slider-image" />
-                    <img src="/images/comp6.webp" alt="Competitive research 6" className="slider-image" />
-                    <img src="/images/comp7.webp" alt="Competitive research 7" className="slider-image" />
-                    <img src="/images/comp8.webp" alt="Competitive research 8" className="slider-image" />
+                    <Image src="/images/comp1.webp" alt="Competitive research 1" width={400} height={300} className="slider-image" />
+                    <Image src="/images/comp2.webp" alt="Competitive research 2" width={400} height={300} className="slider-image" />
+                    <Image src="/images/comp3.webp" alt="Competitive research 3" width={400} height={300} className="slider-image" />
+                    <Image src="/images/comp4.webp" alt="Competitive research 4" width={400} height={300} className="slider-image" />
+                    <Image src="/images/comp5.webp" alt="Competitive research 5" width={400} height={300} className="slider-image" />
+                    <Image src="/images/comp6.webp" alt="Competitive research 6" width={400} height={300} className="slider-image" />
+                    <Image src="/images/comp7.webp" alt="Competitive research 7" width={400} height={300} className="slider-image" />
+                    <Image src="/images/comp8.webp" alt="Competitive research 8" width={400} height={300} className="slider-image" />
                 </div>
 
                 <h3 className="content-subheading">Key Takeaways</h3>
@@ -319,11 +320,11 @@ export default function JnJPage() {
 
                 <div className="captioned-images">
                     <div className="captioned-image">
-                        <img src="/images/v1.webp" alt="Information Architecture Version A" className="stacked-image" />
+                        <Image src="/images/v1.webp" alt="Information Architecture Version A" width={600} height={400} className="stacked-image" />
                         <span className="image-caption">Version A</span>
                     </div>
                     <div className="captioned-image">
-                        <img src="/images/v2.webp" alt="Information Architecture Version B" className="stacked-image" />
+                        <Image src="/images/v2.webp" alt="Information Architecture Version B" width={600} height={400} className="stacked-image" />
                         <span className="image-caption">Version B</span>
                     </div>
                 </div>
@@ -402,7 +403,7 @@ export default function JnJPage() {
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
                 <Link href="/" className="back-link">
-                    <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Home
                 </Link>
                 <button
@@ -410,7 +411,7 @@ export default function JnJPage() {
                     className="back-link"
                 >
                     Go to top
-                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
         </div>

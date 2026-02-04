@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function ExpenseManagementPage() {
@@ -78,19 +79,19 @@ export default function ExpenseManagementPage() {
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
                 <Link href="/work/arrive" className="back-link">
-                    <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Arrive
                 </Link>
                 <Link href="/work/arrive/vision-testing" className="back-link">
                     Next: Vision Testing Case Study
-                    <img src="/images/arrow-angle.svg" alt="" className="right-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
                 </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"
                 >
                     Go to top
-                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
         </div>

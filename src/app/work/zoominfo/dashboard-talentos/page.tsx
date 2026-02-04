@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 
 export default function DashboardTalentOSPage() {
@@ -39,7 +40,7 @@ export default function DashboardTalentOSPage() {
                     <div className="meta-block">
                         <span className="meta-label">TEAM</span>
                         <div className="team-logos">
-                            <img src="/images/talentos.avif" alt="TalentOS" className="team-logo" />
+                            <Image src="/images/talentos.avif" alt="TalentOS" width={80} height={24} className="team-logo" />
                         </div>
                     </div>
 
@@ -79,11 +80,11 @@ export default function DashboardTalentOSPage() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginTop: '1.5rem' }}>
                     <div>
-                        <img src="/images/tracker1.avif" alt="Layoffs.fyi tracker" className="content-image" style={{ borderRadius: '16px' }} />
+                        <Image src="/images/tracker1.avif" alt="Layoffs.fyi tracker" width={600} height={400} className="content-image" style={{ borderRadius: '16px' }} />
                         <span className="image-caption" style={{ marginTop: '0.75rem', display: 'block' }}>Layoffs.fyi tracker</span>
                     </div>
                     <div>
-                        <img src="/images/tracker2.avif" alt="TalentTicker.com" className="content-image" style={{ borderRadius: '16px' }} />
+                        <Image src="/images/tracker2.avif" alt="TalentTicker.com" width={600} height={400} className="content-image" style={{ borderRadius: '16px' }} />
                         <span className="image-caption" style={{ marginTop: '0.75rem', display: 'block' }}>TalentTicker.com</span>
                     </div>
                 </div>
@@ -198,13 +199,13 @@ export default function DashboardTalentOSPage() {
                 <p className="content-text">
                     Although product indecision ultimately halted this idea, the process and output were highly appreciated internally. The project not only highlighted the importance of thoughtful design but also showcased the potential of innovative, user-driven solutions—leaving a lasting impact on the team and reinforcing the value of UX within the organization.
                 </p>
-                <img src="/images/feedback.webp" alt="Feedback" className="content-image" style={{ marginTop: '1.5rem', maxWidth: '600px' }} />
+                <Image src="/images/feedback.webp" alt="Feedback" width={600} height={400} className="content-image" style={{ marginTop: '1.5rem', maxWidth: '600px' }} />
             </section>
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
                 <Link href="/work/zoominfo" className="back-link">
-                    <img src="/images/arrow-angle.svg" alt="" className="back-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to ZoomInfo
                 </Link>
                 <button
@@ -212,7 +213,7 @@ export default function DashboardTalentOSPage() {
                     className="back-link"
                 >
                     Go to top
-                    <img src="/images/arrow-angle.svg" alt="" className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
         </div>
