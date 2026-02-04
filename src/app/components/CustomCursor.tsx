@@ -1,70 +1,80 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 export function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
-    const [isVisible, setIsVisible] = useState(false);
+    // Use refs to persist values across renders without causing re-runs
+    const mousePos = useRef({ x: 0, y: 0 });
+    const cursorPos = useRef({ x: 0, y: 0 });
+    const isVisible = useRef(false);
+    const animationId = useRef<number>(0);
 
     useEffect(() => {
-        // Mouse position (actual)
-        let mouseX = 0;
-        let mouseY = 0;
-        // Cursor position (with lag/resistance)
-        let cursorX = 0;
-        let cursorY = 0;
-        // Resistance factor (lower = more resistance/lag)
         const resistance = 0.15;
 
         const handleMouseMove = (e: MouseEvent) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            if (!isVisible) setIsVisible(true);
+            mousePos.current.x = e.clientX;
+            mousePos.current.y = e.clientY;
+
+            if (!isVisible.current && cursorRef.current) {
+                isVisible.current = true;
+                cursorRef.current.classList.add('visible');
+            }
         };
 
         const handleMouseLeave = () => {
-            setIsVisible(false);
-        };
-
-        const handleMouseEnter = () => {
-            setIsVisible(true);
-        };
-
-        // Animation loop for smooth following
-        const animate = () => {
-            // Calculate the distance to move
-            const dx = mouseX - cursorX;
-            const dy = mouseY - cursorY;
-
-            // Apply resistance - cursor catches up gradually
-            cursorX += dx * resistance;
-            cursorY += dy * resistance;
-
-            // Update cursor position
+            isVisible.current = false;
             if (cursorRef.current) {
-                cursorRef.current.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
+                cursorRef.current.classList.remove('visible');
+            }
+        };
+
+        const handleMouseEnter = (e: MouseEvent) => {
+            // Snap cursor to entry point
+            mousePos.current.x = e.clientX;
+            mousePos.current.y = e.clientY;
+            cursorPos.current.x = e.clientX;
+            cursorPos.current.y = e.clientY;
+
+            isVisible.current = true;
+            if (cursorRef.current) {
+                cursorRef.current.classList.add('visible');
+                cursorRef.current.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            }
+        };
+
+        const animate = () => {
+            const dx = mousePos.current.x - cursorPos.current.x;
+            const dy = mousePos.current.y - cursorPos.current.y;
+
+            cursorPos.current.x += dx * resistance;
+            cursorPos.current.y += dy * resistance;
+
+            if (cursorRef.current) {
+                cursorRef.current.style.transform = `translate(${cursorPos.current.x}px, ${cursorPos.current.y}px)`;
             }
 
-            requestAnimationFrame(animate);
+            animationId.current = requestAnimationFrame(animate);
         };
 
-        // Start listening and animating
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseleave', handleMouseLeave);
         document.addEventListener('mouseenter', handleMouseEnter);
-        animate();
+        animationId.current = requestAnimationFrame(animate);
 
         return () => {
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseleave', handleMouseLeave);
             document.removeEventListener('mouseenter', handleMouseEnter);
+            cancelAnimationFrame(animationId.current);
         };
-    }, [isVisible]);
+    }, []); // Empty dependency - only runs once
 
     return (
         <div
             ref={cursorRef}
-            className={`custom-cursor ${isVisible ? 'visible' : ''}`}
+            className="custom-cursor"
         />
     );
 }
