@@ -8,7 +8,7 @@ const redis = new Redis({
 });
 
 const COUNTER_KEY = 'cat_pet_count';
-const INITIAL_COUNT = 12847; // Starting count
+const INITIAL_COUNT = 0; // Starting count
 
 export async function GET() {
   try {
