@@ -29,11 +29,21 @@ export const metadata: Metadata = {
     title: "Arpit Ahluwalia's UX Design Portfolio",
     description: "Strategic Designer based in Brooklyn blending aesthetics, creativity, and usability in my solutions.",
     url: "https://www.arpitahluwalia.com/",
+    siteName: "Arpit Ahluwalia",
+    images: [
+      {
+        url: "https://www.arpitahluwalia.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Arpit Ahluwalia - UX Design Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Arpit Ahluwalia's UX Design Portfolio",
     description: "Strategic Designer based in Brooklyn blending aesthetics, creativity, and usability in my solutions.",
+    images: ["https://www.arpitahluwalia.com/og-image.png"],
   },
 };
 
