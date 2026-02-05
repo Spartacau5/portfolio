@@ -83,7 +83,7 @@ export function GridCards() {
               alt="Arrive"
               width={192}
               height={48}
-              className="w-48 transition-opacity duration-300"
+              className="w-28 lg:w-48 transition-opacity duration-300"
               style={{ opacity: isArriveHovered ? 0 : 1 }}
             />
 
@@ -132,7 +132,7 @@ export function GridCards() {
               alt="ZoomInfo"
               width={256}
               height={64}
-              className="w-64 transition-opacity duration-300"
+              className="w-36 lg:w-64 transition-opacity duration-300"
               style={{ opacity: isZoominfoHovered ? 0 : 1 }}
             />
 
@@ -178,7 +178,7 @@ export function GridCards() {
         {/* Johnson & Johnson Logo Card */}
         <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
           <div className="jnj-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer">
-            <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-80" />
+            <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-44 lg:w-80" />
 
             {/* Arrow Button - Bottom Left */}
             <Link

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react';
 
 export function Header() {
   const pathname = usePathname();
@@ -30,6 +30,22 @@ export function Header() {
   };
 
   const activeIndex = getActiveIndex();
+
+  // Smooth scroll to top handler for same-page navigation
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    // Check if we're already on this page
+    const isCurrentPage =
+      (href === '/' && pathname === '/') ||
+      (href !== '/' && pathname.startsWith(href));
+
+    if (isCurrentPage && window.scrollY > 0) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+  }, [pathname]);
 
   // Update indicator position when active tab changes
   useEffect(() => {
@@ -91,7 +107,7 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-50 pt-4 pb-2 md:pt-5 md:pb-2">
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Profile Picture - Left */}
-          <Link href="/" className="flex-shrink-0">
+          <Link href="/" className="flex-shrink-0" onClick={(e) => handleNavClick(e, '/')}>
             <Image
               src="/images/profilepic.png"
               alt="Profile"
@@ -125,7 +141,7 @@ export function Header() {
       </header>
 
       {/* Single Navigation - positioned at bottom on mobile, center-top on desktop */}
-      <nav className="fixed z-50 left-0 right-0 bottom-4 md:bottom-auto md:top-4 md:py-2 flex justify-center px-4 pointer-events-none">
+      <nav className="fixed z-50 left-0 right-0 bottom-8 md:bottom-auto md:top-4 md:py-2 flex justify-center px-4 pointer-events-none">
         <div className="nav-pill-glass rounded-full px-1 py-1 pointer-events-auto">
           <ul ref={navRef} className="flex items-center gap-0.5 md:gap-1 relative">
             {/* Single animated indicator */}
@@ -160,6 +176,7 @@ export function Header() {
                   />
                   <Link
                     href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href)}
                     className={`px-4 md:px-6 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium block tracking-[0px] relative z-10 transition-colors duration-200 ${isActive
                         ? 'text-gray-900'
                         : 'text-gray-400 hover:text-gray-600'

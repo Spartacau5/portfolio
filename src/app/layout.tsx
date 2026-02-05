@@ -49,7 +49,7 @@ export default function RootLayout({
         <PageTransition>
           {children}
         </PageTransition>
-        <footer className="text-center py-8 px-4 text-gray-400 text-sm">
+        <footer className="text-center pt-8 pb-24 md:pb-8 px-4 text-gray-400 text-sm">
           Vibe-coded from scratch using{' '}
           <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 underline hover:text-gray-600 transition-colors">Cursor</a>
           {' & '}
