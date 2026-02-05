@@ -21,6 +21,11 @@ const conversationSteps = [
     { step: 6, arpitMessages: ["awesome! i'll be in touch soon 📲"], waitFor: 'done' },
 ];
 
+// Generate a unique session ID
+const generateSessionId = () => {
+    return `session_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+};
+
 export function IMessageChat() {
     const [step, setStep] = useState(0);
     const [inputValue, setInputValue] = useState('');
@@ -28,6 +33,8 @@ export function IMessageChat() {
     const [isTyping, setIsTyping] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
     const [formData, setFormData] = useState({ name: '', subject: '', phone: '', email: '', extra: '' });
+    const [sessionId, setSessionId] = useState<string | null>(null);
+    const [airtableRecordId, setAirtableRecordId] = useState<string | null>(null);
     const messagesContainerRef = useRef<HTMLDivElement>(null);
     const inputRef = useRef<HTMLInputElement>(null);
     const audioContextRef = useRef<AudioContext | null>(null);
@@ -106,6 +113,10 @@ export function IMessageChat() {
         if (isStarted) return;
         setIsStarted(true);
 
+        // Generate new session ID for this conversation
+        const newSessionId = generateSessionId();
+        setSessionId(newSessionId);
+
         // Load audio on first interaction
         await loadAudio();
 
@@ -160,16 +171,14 @@ export function IMessageChat() {
             setFormData(prev => ({ ...prev, extra: userMessage }));
         }
 
+        // Submit to Airtable after EACH user response
+        submitToAirtable(updatedFormData);
+
         // Move to next step
         const nextStep = step + 1;
         if (nextStep < conversationSteps.length) {
             await addArpitMessages(conversationSteps[nextStep].arpitMessages);
             setStep(nextStep);
-
-            // Submit to Airtable when conversation ends (after final message)
-            if (nextStep === 6) {
-                submitToAirtable(updatedFormData);
-            }
         }
     };
 
@@ -180,10 +189,20 @@ export function IMessageChat() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data),
+                body: JSON.stringify({
+                    ...data,
+                    sessionId,
+                    recordId: airtableRecordId,
+                }),
             });
 
-            if (!response.ok) {
+            if (response.ok) {
+                const result = await response.json();
+                // Store the record ID for future updates
+                if (result.recordId && !airtableRecordId) {
+                    setAirtableRecordId(result.recordId);
+                }
+            } else {
                 console.error('Failed to submit lead');
             }
         } catch (error) {
