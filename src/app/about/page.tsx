@@ -190,7 +190,7 @@ export default function About() {
               <div className="twtitter-top-div">
                 <div className="twitter-top-flex">
                   <a
-                    href="https://twitter.com/spartacau5"
+                    href="https://twitter.com/HomeyBabaRB"
                     className="twitter-info-div w-inline-block"
                     target="_blank"
                     rel="noreferrer"
@@ -213,14 +213,14 @@ export default function About() {
                         className="twitter-handle"
                         style={{ color: "rgb(148, 148, 149)" }}
                       >
-                        @spartacau5
+                        @HomeyBabaRB
                       </div>
                     </div>
                   </a>
 
                   <div className="small-app-icon-div">
                     <a
-                      href="https://twitter.com/spartacau5"
+                      href="https://twitter.com/HomeyBabaRB"
                       className="app-icon-link w-inline-block"
                       target="_blank"
                       rel="noreferrer"
@@ -291,7 +291,7 @@ export default function About() {
               <a
                 id="twitter-button"
                 data-w-id="ad3c41ab-6071-5e6c-3932-6d9df03bfcd4"
-                href="https://twitter.com/spartacau5"
+                href="https://twitter.com/HomeyBabaRB"
                 className="twitter-button w-inline-block"
                 style={{
                   borderColor: "rgb(222, 222, 224)",

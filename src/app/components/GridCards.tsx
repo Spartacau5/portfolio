@@ -483,7 +483,7 @@ export function GridCards() {
               <div className="twtitter-top-div">
                 <div className="twitter-top-flex">
                   <a
-                    href="https://twitter.com/spartacau5"
+                    href="https://twitter.com/HomeyBabaRB"
                     className="twitter-info-div w-inline-block"
                     target="_blank"
                     rel="noreferrer"
@@ -506,14 +506,14 @@ export function GridCards() {
                         className="twitter-handle"
                         style={{ color: "rgb(148, 148, 149)" }}
                       >
-                        @spartacau5
+                        @HomeyBabaRB
                       </div>
                     </div>
                   </a>
 
                   <div className="small-app-icon-div">
                     <a
-                      href="https://twitter.com/spartacau5"
+                      href="https://twitter.com/HomeyBabaRB"
                       className="app-icon-link w-inline-block"
                       target="_blank"
                       rel="noreferrer"
