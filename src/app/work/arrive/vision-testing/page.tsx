@@ -82,6 +82,10 @@ export default function VisionTestingPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Arrive
                 </Link>
+                <Link href="/work/zoominfo" className="back-link">
+                    Next: ZoomInfo
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
+                </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"

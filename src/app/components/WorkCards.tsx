@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
@@ -19,6 +19,15 @@ export function WorkCards() {
     const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
     const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
     const [isArriveHovered, setIsArriveHovered] = useState(false);
+    const arriveVideoRef = useRef<HTMLVideoElement>(null);
+
+    // Reset Arrive video when hover starts
+    useEffect(() => {
+        if (isArriveHovered && arriveVideoRef.current) {
+            arriveVideoRef.current.currentTime = 0;
+            arriveVideoRef.current.play();
+        }
+    }, [isArriveHovered]);
 
     return (
         <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
@@ -33,7 +42,7 @@ export function WorkCards() {
                 {/* Arrive Logo Card */}
                 <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'arrive' ? 'opacity-10' : ''}`}>
                     <div
-                        className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+                        className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
                         onMouseEnter={() => setIsArriveHovered(true)}
                         onMouseLeave={() => setIsArriveHovered(false)}
                     >
@@ -47,22 +56,15 @@ export function WorkCards() {
                             style={{ opacity: isArriveHovered ? 0 : 1 }}
                         />
 
-                        {/* Hover state - Videos side by side */}
+                        {/* Hover state - Video */}
                         <div
-                            className="absolute inset-0 flex items-center justify-center gap-4 p-6 transition-opacity duration-300"
+                            className="absolute inset-0 transition-opacity duration-300"
                             style={{ opacity: isArriveHovered ? 1 : 0 }}
                         >
                             <video
-                                src="/images/dispatcher.mp4"
-                                className="h-[80%] max-h-[240px] rounded-lg shadow-lg object-contain"
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                            />
-                            <video
-                                src="/images/driver-mvp.mp4"
-                                className="h-[80%] max-h-[240px] rounded-lg shadow-lg object-contain"
+                                ref={arriveVideoRef}
+                                src="/images/visiontesting.webm"
+                                className="w-full h-full object-cover"
                                 autoPlay
                                 muted
                                 loop
@@ -88,7 +90,7 @@ export function WorkCards() {
                 {/* ZoomInfo Logo Card */}
                 <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
                     <div
-                        className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+                        className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
                         onMouseEnter={() => setIsZoominfoHovered(true)}
                         onMouseLeave={() => setIsZoominfoHovered(false)}
                     >

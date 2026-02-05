@@ -406,6 +406,10 @@ export default function JnJPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Home
                 </Link>
+                <Link href="/work/hypex" className="back-link">
+                    Next: HYPEX
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
+                </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"

@@ -244,6 +244,10 @@ export default function JobDescriptionParserPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to ZoomInfo
                 </Link>
+                <Link href="/work/zoominfo/dashboard-talentos" className="back-link">
+                    Next: Dashboard for TalentOS Case Study
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
+                </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"

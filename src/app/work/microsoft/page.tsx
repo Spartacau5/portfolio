@@ -423,6 +423,10 @@ export default function MicrosoftPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Home
                 </Link>
+                <Link href="/work/arrive" className="back-link">
+                    Next: Arrive
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
+                </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"
