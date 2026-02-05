@@ -97,11 +97,10 @@ export default function CatAnimation() {
         >
             {/* Tooltip */}
             <div
+                className="cat-tooltip"
                 style={{
                     position: 'absolute',
-                    top: '-32px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
+                    top: '-20px',
                     background: 'rgba(0, 0, 0, 0.8)',
                     color: 'white',
                     padding: '4px 10px',

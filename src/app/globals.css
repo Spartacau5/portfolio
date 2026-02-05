@@ -2854,3 +2854,18 @@ body {
     height: 40px !important;
   }
 }
+
+/* Cat tooltip positioning */
+.cat-tooltip {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Shift tooltip right on mobile to avoid profile pic */
+@media (max-width: 767px) {
+  .cat-tooltip {
+    left: auto;
+    right: -30px;
+    transform: none;
+  }
+}
