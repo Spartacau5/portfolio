@@ -104,7 +104,7 @@ export function Header() {
   return (
     <>
       {/* Top Header - Profile pic and LinkedIn */}
-      <header className="fixed top-0 left-0 right-0 z-50 pt-4 pb-2 md:pt-5 md:pb-2">
+      <header className="fixed top-0 left-0 right-0 z-50 pt-4 pb-4 md:pt-5 md:pb-2">
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 flex items-center justify-between">
           {/* Profile Picture - Left */}
           <Link href="/" className="flex-shrink-0" onClick={(e) => handleNavClick(e, '/')}>
@@ -113,7 +113,7 @@ export function Header() {
               alt="Profile"
               width={56}
               height={56}
-              className="rounded-full w-9 h-9 md:w-[52px] md:h-[52px]"
+              className="rounded-full w-11 h-11 md:w-[52px] md:h-[52px]"
             />
           </Link>
 
@@ -129,7 +129,7 @@ export function Header() {
             aria-label="LinkedIn Profile"
           >
             <svg
-              className="w-6 h-6 md:w-8 md:h-8"
+              className="w-7 h-7 md:w-8 md:h-8"
               fill="currentColor"
               viewBox="0 0 382 382"
               aria-hidden="true"

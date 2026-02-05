@@ -42,6 +42,12 @@ export default function JnJPage() {
                         <p className="meta-value">UI Designer<br />Communication Designer</p>
                     </div>
 
+                    {/* Timeline */}
+                    <div className="meta-block">
+                        <span className="meta-label">TIMELINE</span>
+                        <p className="meta-value">Oct 2021 - Feb 2022</p>
+                    </div>
+
                     {/* Team */}
                     <div className="meta-block">
                         <span className="meta-label">TEAM</span>
@@ -54,12 +60,6 @@ export default function JnJPage() {
                     <div className="meta-block">
                         <span className="meta-label">TOOLS</span>
                         <p className="meta-value">Adobe XD</p>
-                    </div>
-
-                    {/* Timeline */}
-                    <div className="meta-block">
-                        <span className="meta-label">TIMELINE</span>
-                        <p className="meta-value">Oct 2021 - Feb 2022</p>
                     </div>
                 </div>
 

@@ -85,7 +85,7 @@ export default function ArrivePage() {
                 <div className="project-cards-grid" style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
                     {/* Project 1: Parking Planner for Dispatchers */}
                     <div className="project-card-wrapper">
-                        <Link href="/work/arrive/parking-planner" className="project-card has-image" style={{
+                        <Link href="/work/arrive/parking-planner" className="project-card has-image fleet-management-card" style={{
                             display: 'flex',
                             alignItems: 'flex-end',
                             justifyContent: 'center',
@@ -136,7 +136,7 @@ export default function ArrivePage() {
 
                     {/* Project 2: Expense Management */}
                     <div className="project-card-wrapper">
-                        <Link href="/work/arrive/booking-flow" className="project-card has-image" style={{
+                        <Link href="/work/arrive/booking-flow" className="project-card has-image arrive-sapconcur-card" style={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -146,9 +146,9 @@ export default function ArrivePage() {
                             borderRadius: '24px',
                             minHeight: '400px'
                         }}>
-                            <Image src="/images/arrive-logo.png" alt="Arrive" width={150} height={48} style={{ height: '48px', width: 'auto' }} />
-                            <span style={{ fontSize: '28px', fontWeight: '300', color: '#9ca3af', margin: '0 0.5rem 0 1.5rem' }}>×</span>
-                            <Image src="/images/sapconcur.jpg" alt="SAP Concur" width={200} height={180} style={{ height: '180px', width: 'auto' }} />
+                            <Image src="/images/arrive-logo.png" alt="Arrive" width={150} height={48} className="arrive-logo" style={{ height: '48px', width: 'auto' }} />
+                            <span className="collab-x" style={{ fontSize: '28px', fontWeight: '300', color: '#9ca3af', margin: '1rem 1.5rem 0 1.5rem' }}>×</span>
+                            <Image src="/images/sapconcur.svg" alt="SAP Concur" width={200} height={48} className="sapconcur-logo" style={{ height: '70px', width: 'auto', marginTop: '0.75rem' }} />
                         </Link>
                         <div className="project-card-info">
                             <Link href="/work/arrive/booking-flow" className="project-card-title-link">

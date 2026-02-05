@@ -1461,14 +1461,15 @@
     }
 
     .case-study-meta {
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
     }
 
+    /* HTML order is now: My Role, Timeline, Team, Tools - natural grid flow works correctly */
+
     .meta-block {
-        flex: 1;
-        min-width: 120px;
+        min-width: 0;
     }
 
     .gallery-grid {
@@ -1578,12 +1579,12 @@
     }
 
     .case-study-meta {
-        flex-direction: column;
-        gap: 1.25rem;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
     }
 
     .meta-block {
-        min-width: 100%;
+        min-width: 0;
     }
 
     .meta-label {
@@ -1946,4 +1947,44 @@
     .project-card:active {
         transform: scale(0.98);
     }
+}
+
+/* Fleet Management Card - Mobile Vertical Centering */
+@media (max-width: 768px) {
+    .fleet-management-card {
+        align-items: center !important;
+    }
+}
+
+/* Arrive x SAP Concur Card - Mobile Vertical Stack */
+@media (max-width: 768px) {
+    .arrive-sapconcur-card {
+        flex-direction: column !important;
+        gap: 0.5rem !important;
+        justify-content: center !important;
+    }
+
+    .arrive-sapconcur-card .arrive-logo {
+        height: 36px !important;
+        width: auto !important;
+        margin-top: 1rem !important;
+    }
+
+    .arrive-sapconcur-card .collab-x {
+        margin: 0 !important;
+        font-size: 20px !important;
+    }
+
+    .arrive-sapconcur-card .sapconcur-logo {
+        height: auto !important;
+        width: 180px !important;
+        margin-top: -0.5rem !important;
+    }
+}
+
+/* Tools 2x2 Grid */
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem 1rem;
 }

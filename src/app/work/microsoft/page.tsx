@@ -46,6 +46,12 @@ export default function MicrosoftPage() {
                         <p className="meta-value">UX Researcher<br />UI Designer</p>
                     </div>
 
+                    {/* Timeline */}
+                    <div className="meta-block">
+                        <span className="meta-label">TIMELINE</span>
+                        <p className="meta-value">January - May 2025</p>
+                    </div>
+
                     {/* Team */}
                     <div className="meta-block">
                         <span className="meta-label">TEAM</span>
@@ -56,15 +62,11 @@ export default function MicrosoftPage() {
                     <div className="meta-block">
                         <span className="meta-label">STAKEHOLDERS</span>
                         <p className="meta-value">
-                            <a href="https://www.linkedin.com/in/christina-mallon-019ab911/" target="_blank" rel="noopener noreferrer" className="meta-link">Christina Mallon</a><br />Head of Inclusive Design<br /><br />
+                            <a href="https://www.linkedin.com/in/christina-mallon-019ab911/" target="_blank" rel="noopener noreferrer" className="meta-link">Christina Mallon</a><br />Head of Inclusive Design
+                        </p>
+                        <p className="meta-value" style={{ marginTop: '0.5rem' }}>
                             <a href="https://www.linkedin.com/in/brycejohnson/" target="_blank" rel="noopener noreferrer" className="meta-link">Bryce Johnson</a><br />Principal Inclusive Designer
                         </p>
-                    </div>
-
-                    {/* Timeline */}
-                    <div className="meta-block">
-                        <span className="meta-label">TIMELINE</span>
-                        <p className="meta-value">January - May 2025</p>
                     </div>
                 </div>
 

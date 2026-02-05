@@ -42,7 +42,7 @@ export function PageTransition({ children }: PageTransitionProps) {
 
     return (
         <div
-            className="relative"
+            className="relative mt-4 md:mt-0"
             style={{
                 opacity: isNavigating ? 0.7 : 1,
                 transition: 'opacity 0.15s ease-out'

@@ -94,7 +94,7 @@ export function PhotoCarousel() {
     <div id="w-node-_6c8a77c8-e695-9470-df4c-56e39795c7d7-d4229b69" className="tile sm photos about">
       {/* Photos Icon Link */}
       <a 
-        href="https://www.icloud.com/sharedalbum/#B0sG4TcsmPMIYn" 
+        href="https://www.icloud.com/sharedalbum/#B1w5VaUrzGAhyqp" 
         target="_blank"
         rel="noopener noreferrer"
         className="small-app-icon-div photos"

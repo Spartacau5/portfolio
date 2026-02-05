@@ -41,6 +41,12 @@ export default function HypexPage() {
                         <p className="meta-value">UI Designer</p>
                     </div>
 
+                    {/* Timeline */}
+                    <div className="meta-block">
+                        <span className="meta-label">TIMELINE</span>
+                        <p className="meta-value">Sept 2021 - Feb 2022</p>
+                    </div>
+
                     {/* Team */}
                     <div className="meta-block">
                         <span className="meta-label">TEAM</span>
@@ -54,12 +60,6 @@ export default function HypexPage() {
                         <p className="meta-value">Photoshop</p>
                         <p className="meta-value">After Effects</p>
                         <p className="meta-value">Blender</p>
-                    </div>
-
-                    {/* Timeline */}
-                    <div className="meta-block">
-                        <span className="meta-label">TIMELINE</span>
-                        <p className="meta-value">Sept 2021 - Feb 2022</p>
                     </div>
                 </div>
 
