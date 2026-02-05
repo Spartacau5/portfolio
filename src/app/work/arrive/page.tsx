@@ -142,7 +142,7 @@ export default function ArrivePage() {
 
                     {/* Project 2: Expense Management */}
                     <div className="project-card-wrapper">
-                        <Link href="/work/arrive/booking-flow" className="project-card has-image arrive-sapconcur-card" style={{
+                        <Link href="/work/arrive/expense-management" className="project-card has-image arrive-sapconcur-card" style={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -157,7 +157,7 @@ export default function ArrivePage() {
                             <Image src="/images/sapconcur.svg" alt="SAP Concur" width={200} height={48} className="sapconcur-logo" style={{ height: '70px', width: 'auto', marginTop: '0.75rem' }} />
                         </Link>
                         <div className="project-card-info">
-                            <Link href="/work/arrive/booking-flow" className="project-card-title-link">
+                            <Link href="/work/arrive/expense-management" className="project-card-title-link">
                                 Expense Management: SAP Concur Integration
                             </Link>
                             <p className="project-card-subtext">

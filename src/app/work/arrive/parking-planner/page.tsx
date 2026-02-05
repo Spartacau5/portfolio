@@ -770,7 +770,7 @@ export default function ParkingPlannerMVPPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Arrive
                 </Link>
-                <Link href="/work/arrive/booking-flow" className="back-link">
+                <Link href="/work/arrive/expense-management" className="back-link">
                     Next: Expense Management Case Study
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
                 </Link>
