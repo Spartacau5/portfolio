@@ -20,14 +20,24 @@ function PageViewTracker() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    if (pathname && window.gtag) {
-      const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
-      // Send page_view event with full details
-      window.gtag('event', 'page_view', {
-        page_path: url,
-        page_location: window.location.href,
-        page_title: document.title,
-      });
+    const sendPageView = () => {
+      if (pathname && window.gtag) {
+        const url = pathname + (searchParams?.toString() ? `?${searchParams.toString()}` : '');
+        // Send page_view event with full details
+        window.gtag('event', 'page_view', {
+          page_path: url,
+          page_location: window.location.href,
+          page_title: document.title,
+        });
+        return true;
+      }
+      return false;
+    };
+
+    // Try immediately, then retry if gtag isn't ready yet
+    if (!sendPageView()) {
+      const retryTimeout = setTimeout(sendPageView, 100);
+      return () => clearTimeout(retryTimeout);
     }
   }, [pathname, searchParams]);
 
