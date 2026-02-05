@@ -3,8 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
+import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
+import { analytics } from '@/app/components/GoogleAnalytics';
 
 export default function MicrosoftPage() {
+    // Analytics tracking
+    useScrollDepthTracking();
+    useTimeOnPage();
     const scrollToPrototype = () => {
         const prototypeSection = document.getElementById('prototype-section');
         if (prototypeSection) {
@@ -89,8 +94,8 @@ export default function MicrosoftPage() {
 
                     {/* CTA Buttons */}
                     <div className="case-study-cta">
-                        <a href="/Bridgit Final.pdf" target="_blank" rel="noopener noreferrer" className="cta-button primary">View Final Pitch</a>
-                        <button className="cta-button secondary" onClick={scrollToPrototype}>View Final Prototype</button>
+                        <a href="/Bridgit Final.pdf" target="_blank" rel="noopener noreferrer" className="cta-button primary" onClick={() => analytics.trackClick('View Final Pitch', 'Microsoft')}>View Final Pitch</a>
+                        <button className="cta-button secondary" onClick={() => { analytics.trackClick('View Final Prototype', 'Microsoft'); scrollToPrototype(); }}>View Final Prototype</button>
                     </div>
                 </div>
             </section>

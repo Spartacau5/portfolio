@@ -3,8 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
+import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
+import { analytics } from '@/app/components/GoogleAnalytics';
 
 export default function HypexPage() {
+    // Analytics tracking
+    useScrollDepthTracking();
+    useTimeOnPage();
     const scrollToChallenge = () => {
         const challengeSection = document.getElementById('challenge-section');
         if (challengeSection) {
@@ -77,8 +82,8 @@ export default function HypexPage() {
 
                     {/* CTA Buttons */}
                     <div className="case-study-cta">
-                        <button className="cta-button primary" onClick={scrollToChallenge}>Read Case Study</button>
-                        <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="cta-button secondary">
+                        <button className="cta-button primary" onClick={() => { analytics.trackClick('Read Case Study', 'HypeX'); scrollToChallenge(); }}>Read Case Study</button>
+                        <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="cta-button secondary" onClick={() => analytics.trackExternalLink('https://www.hypex.io', 'HypeX Website')}>
                             Website
                             <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="cta-arrow" />
                         </a>

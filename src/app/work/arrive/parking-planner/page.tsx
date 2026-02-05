@@ -3,8 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp, AnimatedCounter, AnimatedBar } from '@/app/hooks/useScrollAnimation';
+import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 
 export default function ParkingPlannerMVPPage() {
+    // Analytics tracking
+    useScrollDepthTracking();
+    useTimeOnPage();
+
     // Scroll animation refs - each section needs its own ref
     const challengeAnim = useScrollAnimation();
     const myRoleAnim = useScrollAnimation();

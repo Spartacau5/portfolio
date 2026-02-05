@@ -7,6 +7,7 @@ import "./styles/case-study.css";
 import { CustomCursor } from "./components/CustomCursor";
 import { PageTransition } from "./components/PageTransition";
 import { Header } from "./components/Header";
+import { GoogleAnalytics } from "./components/GoogleAnalytics";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -44,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
+        <GoogleAnalytics />
         <CustomCursor />
         <Header />
         <PageTransition>

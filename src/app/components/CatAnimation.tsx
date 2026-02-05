@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useRef, useEffect } from 'react';
+import { analytics } from './GoogleAnalytics';
 
 // Frame order: cat1 through cat13 (note: cat6 doesn't exist)
 const frameSequence = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13];
@@ -10,6 +11,16 @@ export default function CatAnimation() {
     const [isAnimating, setIsAnimating] = useState(false);
     const animationRef = useRef<NodeJS.Timeout | null>(null);
     const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [petCount, setPetCount] = useState<number | null>(null);
+    const [isHovered, setIsHovered] = useState(false);
+
+    // Load pet count from API on mount
+    useEffect(() => {
+        fetch('/api/cat-counter')
+            .then(res => res.json())
+            .then(data => setPetCount(data.count))
+            .catch(() => setPetCount(0));
+    }, []);
 
     // Preload all images
     useEffect(() => {
@@ -30,6 +41,15 @@ export default function CatAnimation() {
 
     const playAnimation = useCallback(() => {
         if (isAnimating) return;
+
+        // Track the pet in Google Analytics
+        analytics.trackCatPet();
+
+        // Increment counter via API
+        fetch('/api/cat-counter', { method: 'POST' })
+            .then(res => res.json())
+            .then(data => setPetCount(data.count))
+            .catch(() => {});
 
         setIsAnimating(true);
         let frame = 0;
@@ -65,15 +85,37 @@ export default function CatAnimation() {
         <div
             className="cat-animation-container"
             onClick={playAnimation}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
             style={{
                 cursor: 'pointer',
                 width: '220px',
                 height: '62px',
-                overflow: 'hidden',
+                overflow: 'visible',
                 position: 'relative',
             }}
-            title="Pet my cat Billu!"
         >
+            {/* Tooltip */}
+            <div
+                style={{
+                    position: 'absolute',
+                    top: '-32px',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: 'rgba(0, 0, 0, 0.8)',
+                    color: 'white',
+                    padding: '4px 10px',
+                    borderRadius: '6px',
+                    fontSize: '12px',
+                    whiteSpace: 'nowrap',
+                    opacity: isHovered ? 1 : 0,
+                    transition: 'opacity 0.2s ease',
+                    pointerEvents: 'none',
+                }}
+            >
+                Pet my cat Billu!{petCount !== null && ` (${petCount.toLocaleString()} pets)`}
+            </div>
+
             {/* SVG with cropped viewBox to show only the cat */}
             <svg
                 viewBox="260 625 400 110"

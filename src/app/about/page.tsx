@@ -7,6 +7,7 @@ import { PhotoCarousel } from "../components/PhotoCarousel";
 import { PodcastPlayer } from "../components/PodcastPlayer";
 import { IMessageChat } from "../components/IMessageChat";
 import CatAnimation from "../components/CatAnimation";
+import { analytics } from "../components/GoogleAnalytics";
 
 // IMPORTANT (Next.js App Router):
 // Move this global CSS import to: src/app/layout.tsx (or src/app/globals.css)
@@ -52,6 +53,7 @@ export default function About() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="cta-button secondary"
+                    onClick={() => analytics.trackResumeDownload('resume')}
                   >
                     Download Resume
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="cta-arrow" />
@@ -151,6 +153,7 @@ export default function About() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="nav-icon w-inline-block"
+                  onClick={() => analytics.trackResumeDownload('cv')}
                 >
                   <span className="tooltip">CV</span>
                   <Image

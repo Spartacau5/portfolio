@@ -3,8 +3,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
+import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 
 export default function VisionTestingPage() {
+    // Analytics tracking
+    useScrollDepthTracking();
+    useTimeOnPage();
+
     const comingSoonAnim = useScrollAnimation();
 
     return (

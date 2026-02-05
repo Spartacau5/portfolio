@@ -7,6 +7,7 @@ import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
 import CatAnimation from './CatAnimation';
+import { analytics } from './GoogleAnalytics';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
@@ -108,6 +109,7 @@ export function GridCards() {
               className="card-arrow-btn"
               onMouseEnter={() => setFocusedCard('arrive')}
               onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('Arrive')}
             >
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
@@ -153,6 +155,7 @@ export function GridCards() {
               className="card-arrow-btn"
               onMouseEnter={() => setFocusedCard('zoominfo')}
               onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
             >
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
@@ -186,6 +189,7 @@ export function GridCards() {
               className="card-arrow-btn"
               onMouseEnter={() => setFocusedCard('jnj')}
               onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('Johnson & Johnson')}
             >
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
@@ -405,6 +409,7 @@ export function GridCards() {
               className="card-arrow-btn"
               onMouseEnter={() => setFocusedCard('hypex')}
               onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('HypeX')}
             >
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
@@ -466,6 +471,7 @@ export function GridCards() {
                 className="card-arrow-btn"
                 onMouseEnter={() => setFocusedCard('microsoft')}
                 onMouseLeave={() => setFocusedCard(null)}
+                onClick={() => analytics.trackCaseStudyView('Microsoft')}
               >
                 <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
               </Link>
@@ -487,6 +493,7 @@ export function GridCards() {
                     className="twitter-info-div w-inline-block"
                     target="_blank"
                     rel="noreferrer"
+                    onClick={() => analytics.trackSocialClick('Twitter')}
                   >
                     <div className="twitter-avi-div">
                       <Image

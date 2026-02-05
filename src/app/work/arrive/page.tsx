@@ -3,8 +3,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
+import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
+import { analytics } from '@/app/components/GoogleAnalytics';
 
 export default function ArrivePage() {
+    // Analytics tracking
+    useScrollDepthTracking();
+    useTimeOnPage();
+
     const projectsAnim = useScrollAnimation();
 
     const scrollToPrototype = () => {

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react';
+import { analytics } from './GoogleAnalytics';
 
 export function Header() {
   const pathname = usePathname();
@@ -127,6 +128,7 @@ export function Header() {
             rel="noopener noreferrer"
             className="flex-shrink-0 transition-colors duration-200 text-[#C9C9C9] hover:text-[#0077B5] cursor-pointer p-2 -m-2 -mt-2"
             aria-label="LinkedIn Profile"
+            onClick={() => analytics.trackSocialClick('LinkedIn')}
           >
             <svg
               className="w-7 h-7 md:w-8 md:h-8"

@@ -3,8 +3,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
+import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
+import { analytics } from '@/app/components/GoogleAnalytics';
 
 export default function JnJPage() {
+    // Analytics tracking
+    useScrollDepthTracking();
+    useTimeOnPage();
+
     const scrollToChallenge = () => {
         const challengeSection = document.getElementById('challenge-section');
         if (challengeSection) {
@@ -77,7 +83,7 @@ export default function JnJPage() {
 
                     {/* CTA Buttons */}
                     <div className="case-study-cta">
-                        <button className="cta-button primary" onClick={scrollToChallenge}>Read Case Study</button>
+                        <button className="cta-button primary" onClick={() => { analytics.trackClick('Read Case Study', 'J&J'); scrollToChallenge(); }}>Read Case Study</button>
                     </div>
                 </div>
             </section>
