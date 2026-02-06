@@ -1466,7 +1466,11 @@
         gap: 1.5rem;
     }
 
-    /* HTML order is now: My Role, Timeline, Team, Tools - natural grid flow works correctly */
+    /* Reorder on mobile: My Role, Timeline, Team, Tools */
+    .case-study-meta .meta-block:nth-child(1) { order: 1; }
+    .case-study-meta .meta-block:nth-child(2) { order: 3; } /* Team moves to 3rd */
+    .case-study-meta .meta-block:nth-child(3) { order: 2; } /* Timeline moves to 2nd */
+    .case-study-meta .meta-block:nth-child(4) { order: 4; }
 
     .meta-block {
         min-width: 0;
