@@ -65,55 +65,63 @@ export default function About() {
                 <div className="about-me-block">
                   <h2 className="work-label">WHERE I&apos;M FROM</h2>
                   <div className="display-heading-2-about">
-                    I was born and raised in India, where I grew up always tinkering with something,convinced the next idea would be the one.
-                    Spoiler: it never was, but it trained me to keep iterating.
+                    I was born and raised in India, where I grew up always tinkering with something, convinced the next idea would be the one. Spoiler: it never was, but it trained me to keep iterating.
                   </div>
                 </div>
 
                 <div className="about-me-block">
                   <h2 className="work-label">WHAT I USED TO DO</h2>
                   <div className="display-heading-2-about">
-                    I didn&apos;t take the scenic route to design. I bounced
-                    across roles and rooms where you learn fast or you get left
-                    behind: early gigs, scrappy projects, and a lot of figuring
-                    it out in public.
+                    I didn&apos;t take the scenic route to design. I started making app interfaces before I fully understood why they worked, and figured out the rest in rooms where you were expected to figure it out.
                   </div>
                 </div>
 
                 <div className="about-me-block">
                   <h2 className="work-label">WHAT I DO NOW</h2>
                   <div className="display-heading-2-about">
-                    Today I&apos;m studying{" "}
-                    <span className="font-semibold">Strategic Design</span> at{" "}
-                    <span className="font-semibold">Parsons</span>. Previously,
-                    I was a <span className="font-semibold">UX Designer </span>
-                    at <span className="font-semibold">ZoomInfo</span>. I&apos;ve also worked as a
-                    contractor at{" "}
-                    <span className="font-semibold">
-                      Craft
-                    </span>
-                    , <span className="font-semibold">Johnson&amp;Johnson</span>{" "}
-                    and <span className="font-semibold">Mt. Sinai. </span>
-
+                    Finishing my MS in{' '}
+                    <a href="https://www.newschool.edu/parsons/ms-design-management/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                      Strategic Design
+                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>{' '}
+                    at{' '}
+                    <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                      Parsons
+                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>{' '}
+                    where I&apos;m also a{' '}
+                    <a href="https://www.instagram.com/p/DPK1mpMDal3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" className="bio-link">
+                      Figma Campus Leader
+                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>{' '}
+                    &amp;{' '}
+                    <a href="https://www.newschool.edu/parsons/faculty/sam-mejias/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                      Research Assistant
+                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>{' '}
+                    for the Dean of School of Art Media and Technology.
                   </div>
                 </div>
 
                 <div className="about-me-block">
                   <h2 className="work-label">WHERE I&apos;M AT NOW</h2>
                   <div className="display-heading-2-about">
-                    I&apos;m currently based in New York City. I&apos;m usually
-                    bouncing between campus, client work, and whatever new
-                    experiment I obsess over (currently streaming Arc Raiders on
-                    Youtube).
+                    I&apos;m currently living in Brooklyn. You can find me bouncing between school, client work, and whatever I&apos;m obsessing over (lately it&apos;s making beats and streaming Arc Raiders on YouTube).
                   </div>
                 </div>
 
                 <div className="about-me-block">
                   <h2 className="work-label">WHAT I&apos;M LOOKING FOR</h2>
                   <div className="display-heading-2-about">
-                    Impactful, purposeful work with a diverse team of talented
-                    people! I also think the personal computer needs its{" "}
-                    <span className="font-semibold">iPhone moment</span> ↗.
+                    Graduating this May and looking for product design or UX research roles with teams that care about getting it right, not just getting it done.
                   </div>
                 </div>
               </div>

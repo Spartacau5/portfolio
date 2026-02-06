@@ -56,7 +56,7 @@ export function GridCards() {
           <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[20rem] lg:min-h-[25rem] flex flex-col transition-opacity duration-300">
           <div>
             <h2 className="text-[1rem] lg:text-2xl font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
-            <span className="text-[1rem] lg:text-2xl text-gray-400 leading-relaxed"> – Product Designer. Currently finishing my{' '}
+            <span className="text-[1rem] lg:text-2xl text-gray-400 leading-relaxed"> – Product Designer. Currently studying{' '}
               <a href="https://www.newschool.edu/parsons/ms-design-management/" target="_blank" rel="noopener noreferrer" className="bio-link bio-link-lg">
                 MS in Strategic Design
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

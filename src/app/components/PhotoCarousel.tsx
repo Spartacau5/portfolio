@@ -113,20 +113,15 @@ export function PhotoCarousel() {
 
   return (
     <div id="w-node-_6c8a77c8-e695-9470-df4c-56e39795c7d7-d4229b69" className="tile sm photos about">
-      {/* Photos Icon Link */}
-      <a 
-        href="https://www.icloud.com/sharedalbum/#B1w5VaUrzGAhyqp" 
-        target="_blank"
-        rel="noopener noreferrer"
-        className="small-app-icon-div photos"
-      >
-        <img 
-          src="https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/630d832176e726efcbad3972_Photos-min.webp" 
-          loading="lazy" 
-          alt="Photos" 
+      {/* Photos Icon */}
+      <div className="small-app-icon-div photos">
+        <img
+          src="https://cdn.prod.website-files.com/62c89bdb7c26b515f632de67/630d832176e726efcbad3972_Photos-min.webp"
+          loading="lazy"
+          alt="Photos"
           className="small-tile-icon"
         />
-      </a>
+      </div>
 
       {/* Category Navigation */}
       <div className="photos-menu">

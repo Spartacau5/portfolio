@@ -935,6 +935,10 @@ body {
     margin-bottom: 24px;
   }
 
+  .about-me-block:last-child {
+    margin-bottom: 22px;
+  }
+
   .work-label {
     color: #747474;
     text-transform: uppercase;
