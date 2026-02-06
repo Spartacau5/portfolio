@@ -260,7 +260,7 @@
   background-color: #d1d5db;
   border-radius: 50%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 99999;
   opacity: 0;
   transition: opacity 0.3s ease;
   will-change: transform;

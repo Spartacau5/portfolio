@@ -1,13 +1,20 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 // Hook for scroll-triggered fade-in animations
 export function useScrollAnimation(threshold = 0.1) {
-    const ref = useRef<HTMLElement>(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [element, setElement] = useState<HTMLElement | null>(null);
+
+    // Callback ref - gets called when element mounts/unmounts
+    const ref = useCallback((node: HTMLElement | null) => {
+        setElement(node);
+    }, []);
 
     useEffect(() => {
+        if (!element) return;
+
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
@@ -17,12 +24,10 @@ export function useScrollAnimation(threshold = 0.1) {
             { threshold, rootMargin: '0px 0px -50px 0px' }
         );
 
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
+        observer.observe(element);
 
         return () => observer.disconnect();
-    }, [threshold]);
+    }, [element, threshold]);
 
     return { ref, isVisible };
 }

@@ -22,7 +22,20 @@ export const metadata: Metadata = {
   keywords: ["UX Design", "UI Design", "Strategic Design", "Product Design", "Portfolio", "Arpit Ahluwalia"],
   authors: [{ name: "Arpit Ahluwalia" }],
   icons: {
-    icon: "/favicon.png",
+    icon: [
+      { url: "/favicon.png", sizes: "32x32", type: "image/png" },
+      { url: "/images/profilepic.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: [
+      { url: "/images/profilepic.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/favicon.png",
+  },
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Arpit Ahluwalia",
   },
   openGraph: {
     type: "website",

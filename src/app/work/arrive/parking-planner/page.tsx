@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp, AnimatedCounter, AnimatedBar } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
+import PasswordProtect from '@/app/components/PasswordProtect';
 
 export default function ParkingPlannerMVPPage() {
     // Analytics tracking
@@ -27,6 +28,7 @@ export default function ParkingPlannerMVPPage() {
     const artifactsAnim = useScrollAnimation();
 
     return (
+        <PasswordProtect password="crafty123">
         <div className="case-study-page">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
@@ -783,5 +785,6 @@ export default function ParkingPlannerMVPPage() {
                 </button>
             </div>
         </div>
+        </PasswordProtect>
     );
 }

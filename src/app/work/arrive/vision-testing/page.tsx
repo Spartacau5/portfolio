@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp, AnimatedCounter } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
+import PasswordProtect from '@/app/components/PasswordProtect';
 
 export default function VisionTestingPage() {
     // Analytics tracking
@@ -22,6 +23,7 @@ export default function VisionTestingPage() {
     const reflectionAnim = useScrollAnimation();
 
     return (
+        <PasswordProtect password="crafty123">
         <div className="case-study-page">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
@@ -912,5 +914,6 @@ export default function VisionTestingPage() {
                 </button>
             </div>
         </div>
+        </PasswordProtect>
     );
 }
