@@ -101,7 +101,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Background Section */}
-            <section ref={backgroundAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(backgroundAnim.isVisible)}>
+            <section ref={backgroundAnim.ref} className="case-study-content" style={fadeInUp(backgroundAnim.isVisible)}>
                 <h2 className="content-heading">Background</h2>
                 <p className="content-text">
                     Specialized educators including ESL teachers, speech pathologists, special education coordinators, face impossible demands. They juggle multiple classrooms, manage complex schedules, and serve students with different needs, all while drowning in administrative overhead.
@@ -112,7 +112,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Final Solution Section */}
-            <section ref={solutionAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(solutionAnim.isVisible)}>
+            <section ref={solutionAnim.ref} className="case-study-content" style={fadeInUp(solutionAnim.isVisible)}>
                 <h2 className="content-heading">Final Solution</h2>
                 <video
                     className="process-video"
@@ -125,7 +125,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Research Section */}
-            <section ref={researchAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(researchAnim.isVisible)}>
+            <section ref={researchAnim.ref} className="case-study-content" style={fadeInUp(researchAnim.isVisible)}>
                 <h2 className="content-heading">Research</h2>
                 <p className="content-text">
                     Rather than assuming technology solutions, we led with foundational research to understand the human rhythms of teaching before designing any intervention. We moved systematically from raw educator voices to strategic business recommendations using a rigorous research continuum.
@@ -211,7 +211,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Problems Identified Section */}
-            <section ref={problemsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(problemsAnim.isVisible)}>
+            <section ref={problemsAnim.ref} className="case-study-content" style={fadeInUp(problemsAnim.isVisible)}>
                 <h2 className="content-heading">Problems Identified</h2>
                 <p className="content-text">
                     Our research revealed a system under immense strain. The data painted a clear picture, and the voices of educators, parents, and administrators brought it to life.
@@ -265,7 +265,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Opportunity Areas Section */}
-            <section ref={opportunityAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(opportunityAnim.isVisible)}>
+            <section ref={opportunityAnim.ref} className="case-study-content" style={fadeInUp(opportunityAnim.isVisible)}>
                 <h2 className="content-heading">Opportunity Areas</h2>
 
                 <div className="opportunity-grid">
@@ -328,7 +328,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Competitive Research Section */}
-            <section ref={competitiveAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={{ paddingBottom: '1rem', ...fadeInUp(competitiveAnim.isVisible) }}>
+            <section ref={competitiveAnim.ref} className="case-study-content" style={{ paddingBottom: '1rem', ...fadeInUp(competitiveAnim.isVisible) }}>
                 <h2 className="content-heading">Competitive Research</h2>
                 <p className="content-text">
                     We examined current AI education tools but we quickly found these platforms generalize and try to address foundational classroom needs, but not so much as specialized educators and their needs.
@@ -337,7 +337,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Co-Design Principles Section */}
-            <section ref={principlesAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={{ paddingBottom: '1rem', ...fadeInUp(principlesAnim.isVisible) }}>
+            <section ref={principlesAnim.ref} className="case-study-content" style={{ paddingBottom: '1rem', ...fadeInUp(principlesAnim.isVisible) }}>
                 <h2 className="content-heading">Co-Design Principles</h2>
                 <p className="content-text">
                     Now that we had a concept in mind, but we before we started designing we needed a guide to our process. So, we co-created principles that prioritize ethics, adaptability, and educator empowerment and set the foundation of the value we were trying to embody as a product and organization.
@@ -346,7 +346,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Final Prototype Section */}
-            <section ref={prototypeAnim.ref as React.RefObject<HTMLElement>} id="prototype-section" className="case-study-content" style={fadeInUp(prototypeAnim.isVisible)}>
+            <section ref={prototypeAnim.ref} id="prototype-section" className="case-study-content" style={fadeInUp(prototypeAnim.isVisible)}>
                 <h2 className="content-heading">Final Prototype</h2>
                 <div className="figma-embed-container">
                     <iframe
@@ -405,7 +405,7 @@ export default function MicrosoftPage() {
             </section>
 
             {/* Takeaways Section */}
-            <section ref={takeawaysAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
+            <section ref={takeawaysAnim.ref} className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
                 <h2 className="content-heading">Takeaways</h2>
                 <p className="content-text">
                     Strategic research drives business strategy not just validates design decisions. By starting with human needs rather than technology capabilities, we discovered underserved communities and built solutions that truly matter.

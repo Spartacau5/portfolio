@@ -72,7 +72,7 @@ export default function DashboardTalentOSPage() {
             </section>
 
             {/* Competitive Analysis - Tracker Section */}
-            <section ref={competitiveAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(competitiveAnim.isVisible)}>
+            <section ref={competitiveAnim.ref} className="case-study-content" style={fadeInUp(competitiveAnim.isVisible)}>
                 <h2 className="content-heading">Competitive Analysis – Tracker</h2>
                 <p className="content-text">
                     After receiving the PRD I started looking at online trackers to study from which were light-weight but had high usage numbers
@@ -106,7 +106,7 @@ export default function DashboardTalentOSPage() {
             </section>
 
             {/* User Flows Section */}
-            <section ref={userFlowsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(userFlowsAnim.isVisible)}>
+            <section ref={userFlowsAnim.ref} className="case-study-content" style={fadeInUp(userFlowsAnim.isVisible)}>
                 <h2 className="content-heading">User Flows</h2>
                 <div className="figma-embed-container" style={{ marginTop: '1.5rem' }}>
                     <iframe
@@ -140,7 +140,7 @@ export default function DashboardTalentOSPage() {
             </section>
 
             {/* UI Inspiration Section */}
-            <section ref={uiInspirationAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(uiInspirationAnim.isVisible)}>
+            <section ref={uiInspirationAnim.ref} className="case-study-content" style={fadeInUp(uiInspirationAnim.isVisible)}>
                 <h2 className="content-heading">UI Inspiration</h2>
                 <div className="figma-embed-container" style={{ marginTop: '1.5rem' }}>
                     <iframe
@@ -157,7 +157,7 @@ export default function DashboardTalentOSPage() {
             </section>
 
             {/* High-Fidelity Screens Section */}
-            <section ref={highFidelityAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(highFidelityAnim.isVisible)}>
+            <section ref={highFidelityAnim.ref} className="case-study-content" style={fadeInUp(highFidelityAnim.isVisible)}>
                 <h2 className="content-heading">High-Fidelity Screens - Tracker</h2>
                 <div className="figma-embed-container" style={{ marginTop: '1.5rem' }}>
                     <iframe
@@ -174,7 +174,7 @@ export default function DashboardTalentOSPage() {
             </section>
 
             {/* Final Solution Section */}
-            <section ref={solutionAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(solutionAnim.isVisible)}>
+            <section ref={solutionAnim.ref} className="case-study-content" style={fadeInUp(solutionAnim.isVisible)}>
                 <h2 className="content-heading">Final Solution</h2>
                 <div className="figma-embed-container" style={{ marginTop: '1.5rem' }}>
                     <iframe
@@ -191,7 +191,7 @@ export default function DashboardTalentOSPage() {
             </section>
 
             {/* Takeaways Section */}
-            <section ref={takeawaysAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
+            <section ref={takeawaysAnim.ref} className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
                 <h2 className="content-heading">Takeaways</h2>
                 <p className="content-text">
                     This project was a testament to the value of thorough research and a well-structured design process. From organizing focus groups and analyzing competitor solutions to testing prototypes and refining multiple iterations, every stage was driven by user-centered insights and collaboration. The sheer volume of research, ideas shared, and iterations designed demonstrated a commitment to delivering a solution that met both user needs and business goals.

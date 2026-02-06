@@ -106,7 +106,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* The Challenge Section */}
-            <section ref={contextAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(contextAnim.isVisible)}>
+            <section ref={contextAnim.ref} className="case-study-content" style={fadeInUp(contextAnim.isVisible)}>
                 <h2 className="content-heading">The Challenge</h2>
 
                 <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '40px' }}>
@@ -135,7 +135,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* The Strategic Pivot Section */}
-            <section ref={pivotAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={{ paddingTop: 0, ...fadeInUp(pivotAnim.isVisible) }}>
+            <section ref={pivotAnim.ref} className="case-study-content" style={{ paddingTop: 0, ...fadeInUp(pivotAnim.isVisible) }}>
                 <div style={{ background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.05), rgba(107, 114, 128, 0.05))', border: '1px solid rgba(31, 41, 55, 0.15)', borderRadius: '16px', padding: '40px' }}>
                     <div style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#1f2937', marginBottom: '12px', textTransform: 'uppercase' }}>
                         The Strategic Pivot
@@ -148,7 +148,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* My Role Section */}
-            <section ref={myRoleAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(myRoleAnim.isVisible)}>
+            <section ref={myRoleAnim.ref} className="case-study-content" style={fadeInUp(myRoleAnim.isVisible)}>
                 <h2 className="content-heading">My Role</h2>
                 <p className="section-subtitle" style={{ fontSize: '18px', color: '#6b7280', marginBottom: '48px' }}>
                     Leading the future-state expense management research while the MVP build was underway
@@ -209,7 +209,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Research Approach Section */}
-            <section ref={approachAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(approachAnim.isVisible)}>
+            <section ref={approachAnim.ref} className="case-study-content" style={fadeInUp(approachAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Approach
                 </div>
@@ -238,7 +238,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Sample Section */}
-            <section ref={sampleAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(sampleAnim.isVisible)}>
+            <section ref={sampleAnim.ref} className="case-study-content" style={fadeInUp(sampleAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Sample
                 </div>
@@ -281,7 +281,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Progressive Delivery Section */}
-            <section ref={deliveryAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(deliveryAnim.isVisible)}>
+            <section ref={deliveryAnim.ref} className="case-study-content" style={fadeInUp(deliveryAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Delivery
                 </div>
@@ -314,7 +314,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Framework Section */}
-            <section ref={frameworkAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(frameworkAnim.isVisible)}>
+            <section ref={frameworkAnim.ref} className="case-study-content" style={fadeInUp(frameworkAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Framework
                 </div>
@@ -347,7 +347,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Key Insights Header */}
-            <section ref={insightsHeaderAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={{ paddingBottom: '0', ...fadeInUp(insightsHeaderAnim.isVisible) }}>
+            <section ref={insightsHeaderAnim.ref} className="case-study-content" style={{ paddingBottom: '0', ...fadeInUp(insightsHeaderAnim.isVisible) }}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Findings
                 </div>
@@ -355,7 +355,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Insight 1 */}
-            <section ref={insight1Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight1Anim.isVisible) }}>
+            <section ref={insight1Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight1Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>01</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Integrations will not be for everyone—retaining monthly invoicing is important</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -380,7 +380,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Insight 2 */}
-            <section ref={insight2Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight2Anim.isVisible) }}>
+            <section ref={insight2Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight2Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>02</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Admins expected baseline user controls as must-haves</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -405,7 +405,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Insight 3 */}
-            <section ref={insight3Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight3Anim.isVisible) }}>
+            <section ref={insight3Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight3Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>03</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Parking insights were valued, but not enough to warrant a new workflow</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -422,7 +422,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Insight 4 */}
-            <section ref={insight4Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight4Anim.isVisible) }}>
+            <section ref={insight4Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight4Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>04</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Expense integrations may be an entry into companies&apos; broader ecosystems</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -439,7 +439,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Insight 5 */}
-            <section ref={insight5Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ paddingTop: '40px', ...fadeInUp(insight5Anim.isVisible) }}>
+            <section ref={insight5Anim.ref} className="case-study-content insight-section" style={{ paddingTop: '40px', ...fadeInUp(insight5Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>05</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Drivers wanted simple and frictionless—but doubted company buy-in</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -456,7 +456,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Strategic Recommendations */}
-            <section ref={recommendationsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(recommendationsAnim.isVisible)}>
+            <section ref={recommendationsAnim.ref} className="case-study-content" style={fadeInUp(recommendationsAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Recommendations
                 </div>
@@ -493,7 +493,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Impact Section */}
-            <section ref={impactAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(impactAnim.isVisible)}>
+            <section ref={impactAnim.ref} className="case-study-content" style={fadeInUp(impactAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Impact
                 </div>
@@ -551,7 +551,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Reflection */}
-            <section ref={reflectionAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(reflectionAnim.isVisible)}>
+            <section ref={reflectionAnim.ref} className="case-study-content" style={fadeInUp(reflectionAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Reflection
                 </div>
@@ -573,7 +573,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Artifacts */}
-            <section ref={artifactsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(artifactsAnim.isVisible)}>
+            <section ref={artifactsAnim.ref} className="case-study-content" style={fadeInUp(artifactsAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Artifacts
                 </div>

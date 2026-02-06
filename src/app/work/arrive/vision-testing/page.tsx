@@ -97,7 +97,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* Challenge Section */}
-            <section ref={challengeAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(challengeAnim.isVisible)}>
+            <section ref={challengeAnim.ref} className="case-study-content" style={fadeInUp(challengeAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     The Challenge
                 </div>
@@ -177,7 +177,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* Vision Framework Section */}
-            <section ref={visionFrameworkAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(visionFrameworkAnim.isVisible)}>
+            <section ref={visionFrameworkAnim.ref} className="case-study-content" style={fadeInUp(visionFrameworkAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Vision Framework
                 </div>
@@ -320,7 +320,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* Workshop 1: Product */}
-            <section ref={workshop1Anim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(workshop1Anim.isVisible)}>
+            <section ref={workshop1Anim.ref} className="case-study-content" style={fadeInUp(workshop1Anim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Workshop 1
                 </div>
@@ -497,7 +497,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* Workshop 2: Sales Team */}
-            <section ref={workshop2Anim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(workshop2Anim.isVisible)}>
+            <section ref={workshop2Anim.ref} className="case-study-content" style={fadeInUp(workshop2Anim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Workshop 2
                 </div>
@@ -590,7 +590,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* Workshop 3: Sales Leadership */}
-            <section ref={workshop3Anim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(workshop3Anim.isVisible)}>
+            <section ref={workshop3Anim.ref} className="case-study-content" style={fadeInUp(workshop3Anim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Workshop 3
                 </div>
@@ -701,7 +701,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* Synthesis Section */}
-            <section ref={synthesisAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(synthesisAnim.isVisible)}>
+            <section ref={synthesisAnim.ref} className="case-study-content" style={fadeInUp(synthesisAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Synthesis
                 </div>
@@ -764,7 +764,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* My Role Section */}
-            <section ref={roleAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(roleAnim.isVisible)}>
+            <section ref={roleAnim.ref} className="case-study-content" style={fadeInUp(roleAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     My Contribution
                 </div>
@@ -804,7 +804,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* Impact Section */}
-            <section ref={impactAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(impactAnim.isVisible)}>
+            <section ref={impactAnim.ref} className="case-study-content" style={fadeInUp(impactAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Impact
                 </div>
@@ -872,7 +872,7 @@ export default function VisionTestingPage() {
             </section>
 
             {/* Reflection */}
-            <section ref={reflectionAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(reflectionAnim.isVisible)}>
+            <section ref={reflectionAnim.ref} className="case-study-content" style={fadeInUp(reflectionAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Reflection
                 </div>

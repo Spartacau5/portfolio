@@ -85,7 +85,7 @@ export default function ArrivePage() {
             </section>
 
             {/* Key Projects Section */}
-            <section id="prototype-section" ref={projectsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(projectsAnim.isVisible)}>
+            <section id="prototype-section" ref={projectsAnim.ref} className="case-study-content" style={fadeInUp(projectsAnim.isVisible)}>
                 <h2 className="content-heading">Key Projects</h2>
 
                 <div className="project-cards-grid" style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>

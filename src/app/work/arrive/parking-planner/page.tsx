@@ -103,7 +103,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* The Challenge Section */}
-            <section ref={challengeAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(challengeAnim.isVisible)}>
+            <section ref={challengeAnim.ref} className="case-study-content" style={fadeInUp(challengeAnim.isVisible)}>
                 <h2 className="content-heading">The Challenge</h2>
 
                 <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '40px' }}>
@@ -128,7 +128,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* My Role Section */}
-            <section ref={myRoleAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(myRoleAnim.isVisible)}>
+            <section ref={myRoleAnim.ref} className="case-study-content" style={fadeInUp(myRoleAnim.isVisible)}>
                 <h2 className="content-heading">My Role</h2>
                 <p className="section-subtitle" style={{ fontSize: '18px', color: '#6b7280', marginBottom: '48px' }}>
                     Embedded UX Researcher via Craft, partnering directly with Arrive's product team
@@ -188,7 +188,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Recruitment Strategy Section */}
-            <section ref={recruitmentAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(recruitmentAnim.isVisible)}>
+            <section ref={recruitmentAnim.ref} className="case-study-content" style={fadeInUp(recruitmentAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Approach
                 </div>
@@ -301,7 +301,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Sample Section */}
-            <section ref={sampleAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(sampleAnim.isVisible)}>
+            <section ref={sampleAnim.ref} className="case-study-content" style={fadeInUp(sampleAnim.isVisible)}>
                 <h2 className="content-heading">Who We Interviewed</h2>
 
                 {/* Persona Cards */}
@@ -362,7 +362,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Methods Section */}
-            <section ref={methodsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(methodsAnim.isVisible)}>
+            <section ref={methodsAnim.ref} className="case-study-content" style={fadeInUp(methodsAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Methods
                 </div>
@@ -425,7 +425,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Key Insights Header */}
-            <section ref={insightsHeaderAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={{ paddingBottom: '0', ...fadeInUp(insightsHeaderAnim.isVisible) }}>
+            <section ref={insightsHeaderAnim.ref} className="case-study-content" style={{ paddingBottom: '0', ...fadeInUp(insightsHeaderAnim.isVisible) }}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Findings
                 </div>
@@ -433,7 +433,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 1 */}
-            <section ref={insight1Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight1Anim.isVisible) }}>
+            <section ref={insight1Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight1Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>01</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Parking is a real problem, but not the only problem</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -450,7 +450,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 2 */}
-            <section ref={insight2Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight2Anim.isVisible) }}>
+            <section ref={insight2Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight2Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>02</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Technical maturity predicts needs more than fleet size</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -491,7 +491,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 3 */}
-            <section ref={insight3Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight3Anim.isVisible) }}>
+            <section ref={insight3Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight3Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>03</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Drivers carry the parking decision, regardless of planning</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -508,7 +508,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 4 */}
-            <section ref={insight4Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight4Anim.isVisible) }}>
+            <section ref={insight4Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight4Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>04</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Accuracy expectations varied by timing</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -525,7 +525,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Insight 5 */}
-            <section ref={insight5Anim.ref as React.RefObject<HTMLElement>} className="case-study-content insight-section" style={{ paddingTop: '40px', ...fadeInUp(insight5Anim.isVisible) }}>
+            <section ref={insight5Anim.ref} className="case-study-content insight-section" style={{ paddingTop: '40px', ...fadeInUp(insight5Anim.isVisible) }}>
                 <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>05</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>There is likely no product-market fit for a parking planner alone</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
@@ -570,7 +570,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Strategic Recommendations */}
-            <section ref={recommendationsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(recommendationsAnim.isVisible)}>
+            <section ref={recommendationsAnim.ref} className="case-study-content" style={fadeInUp(recommendationsAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Recommendations
                 </div>
@@ -643,7 +643,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Reflection */}
-            <section ref={reflectionAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(reflectionAnim.isVisible)}>
+            <section ref={reflectionAnim.ref} className="case-study-content" style={fadeInUp(reflectionAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Reflection
                 </div>
@@ -664,7 +664,7 @@ export default function ParkingPlannerMVPPage() {
             </section>
 
             {/* Artifacts */}
-            <section ref={artifactsAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(artifactsAnim.isVisible)}>
+            <section ref={artifactsAnim.ref} className="case-study-content" style={fadeInUp(artifactsAnim.isVisible)}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
                     Artifacts
                 </div>

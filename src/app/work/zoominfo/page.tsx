@@ -84,7 +84,7 @@ export default function ZoominfoPage() {
             </section>
 
             {/* Key Projects Section */}
-            <section ref={projectsAnim.ref as React.RefObject<HTMLElement>} id="prototype-section" className="case-study-content" style={fadeInUp(projectsAnim.isVisible)}>
+            <section ref={projectsAnim.ref} id="prototype-section" className="case-study-content" style={fadeInUp(projectsAnim.isVisible)}>
                 <h2 className="content-heading">Key Projects</h2>
 
                 <div className="project-cards-grid">

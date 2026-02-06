@@ -69,7 +69,7 @@ export default function ExpenseManagementPage() {
             </section>
 
             {/* Coming Soon Placeholder */}
-            <section ref={comingSoonAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={{ textAlign: 'center', padding: '120px 0', ...fadeInUp(comingSoonAnim.isVisible) }}>
+            <section ref={comingSoonAnim.ref} className="case-study-content" style={{ textAlign: 'center', padding: '120px 0', ...fadeInUp(comingSoonAnim.isVisible) }}>
                 <p style={{ fontSize: '14px', fontWeight: 600, letterSpacing: '2px', color: '#9ca3af', textTransform: 'uppercase' }}>
                     Coming Soon
                 </p>

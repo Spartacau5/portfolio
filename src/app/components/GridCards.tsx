@@ -55,18 +55,54 @@ export function GridCards() {
           </div>
           <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[20rem] lg:min-h-[25rem] flex flex-col transition-opacity duration-300">
           <div>
-            <h2 className="text-xl lg:text-2xl font-bold text-gray-900 inline">Arpit Singh Ahluwalia</h2>
-            <span className="text-xl lg:text-2xl text-gray-400"> – UX Designer and Strategist. Currently, learning at Parsons.</span>
+            <h2 className="text-[1rem] lg:text-2xl font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
+            <span className="text-[1rem] lg:text-2xl text-gray-400 leading-relaxed"> – Product Designer. Currently finishing my{' '}
+              <a href="https://www.newschool.edu/parsons/ms-design-management/" target="_blank" rel="noopener noreferrer" className="bio-link bio-link-lg">
+                MS in Strategic Design
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>{' '}
+              at{' '}
+              <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link bio-link-lg">
+                Parsons
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>.
+            </span>
           </div>
 
           <hr className="my-6 border-gray-200" />
 
-          <div className="space-y-4 lg:space-y-5 text-gray-500 text-sm lg:text-base leading-relaxed">
-            <p>I'm a UX Designer and Strategist with 4+ years of experience at companies like ZoomInfo and Johnson & Johnson.</p>
+          <div className="space-y-4 text-gray-500 text-[0.75rem] lg:text-base leading-relaxed">
+            <p>I design products and the research that shapes them, helping teams gain clarity on what to build and why it matters.</p>
 
-            <p>I thrive on figuring out the messy middle through research, translating discoveries into designs that actually work for people. I think strategically but execute quickly, always co-designing with real users along the process.</p>
+            <p>Previously at{' '}
+              <Link href="/work/zoominfo" className="bio-link">
+                ZoomInfo
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>{' '}
+              and{' '}
+              <Link href="/work/jnj" className="bio-link">
+                Johnson &amp; Johnson
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>. Most recently consulted for{' '}
+              <Link href="/work/arrive" className="bio-link">
+                Arrive
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>.
+            </p>
 
-            <p>When I'm not designing, I'm gaming, making music, or (now) vibe-coding. I'm looking for opportunities to collaborate with people who value thoughtful, human-centered work.</p>
+            <p>When I'm not designing, I'm gaming, making music, or attempting stand-up comedy.</p>
+
+            <p><em className="font-medium">Graduating this May</em> and looking for teams that want a designer who thinks beyond the screen.</p>
           </div>
           </div>
         </div>
@@ -386,6 +422,96 @@ export function GridCards() {
                   <span className="hypex-marquee-text bold">HYPEX</span>
                 </div>
                 {/* Row 12 - Right */}
+                <div className="hypex-marquee-row right">
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                </div>
+                {/* Row 13 - Left */}
+                <div className="hypex-marquee-row left">
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                </div>
+                {/* Row 14 - Right */}
+                <div className="hypex-marquee-row right">
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                </div>
+                {/* Row 15 - Left */}
+                <div className="hypex-marquee-row left">
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                </div>
+                {/* Row 16 - Right */}
+                <div className="hypex-marquee-row right">
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                </div>
+                {/* Row 17 - Left */}
+                <div className="hypex-marquee-row left">
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text">HYPEX</span>
+                  <span className="hypex-marquee-text bold">HYPEX</span>
+                </div>
+                {/* Row 18 - Right */}
                 <div className="hypex-marquee-row right">
                   <span className="hypex-marquee-text bold">HYPEX</span>
                   <span className="hypex-marquee-text">HYPEX</span>

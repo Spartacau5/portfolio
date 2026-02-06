@@ -70,7 +70,7 @@ export default function JobDescriptionParserPage() {
             </section>
 
             {/* Video Section */}
-            <section ref={demoAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(demoAnim.isVisible)}>
+            <section ref={demoAnim.ref} className="case-study-content" style={fadeInUp(demoAnim.isVisible)}>
                 <h2 className="content-heading">Feature Demo</h2>
                 <div className="figma-embed-container">
                     <iframe
@@ -86,7 +86,7 @@ export default function JobDescriptionParserPage() {
             </section>
 
             {/* Process Section */}
-            <section ref={processAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={{ borderTop: 'none', paddingTop: '1.5rem', ...fadeInUp(processAnim.isVisible) }}>
+            <section ref={processAnim.ref} className="case-study-content" style={{ borderTop: 'none', paddingTop: '1.5rem', ...fadeInUp(processAnim.isVisible) }}>
                 <h2 className="content-heading">Process</h2>
 
                 <h3 className="content-subheading">Understanding the Problem</h3>
@@ -210,7 +210,7 @@ export default function JobDescriptionParserPage() {
             </section>
 
             {/* Final Solution Section */}
-            <section ref={solutionAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(solutionAnim.isVisible)}>
+            <section ref={solutionAnim.ref} className="case-study-content" style={fadeInUp(solutionAnim.isVisible)}>
                 <h2 className="content-heading">Final Solution</h2>
                 <p className="content-text">
                     Given the tight 3-week timeline for the project, I adopted a rapid iteration approach. I quickly developed a lightweight, high-fidelity prototype that captured the core functionality of the job description parser. This enabled me to conduct early validation and usability testing with our internal focus group. The feedback gathered during these sessions was instrumental in refining the design, ensuring it aligned with user needs and business goals within the constrained timeframe.
@@ -227,7 +227,7 @@ export default function JobDescriptionParserPage() {
             </section>
 
             {/* Takeaways Section */}
-            <section ref={takeawaysAnim.ref as React.RefObject<HTMLElement>} className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
+            <section ref={takeawaysAnim.ref} className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
                 <h2 className="content-heading">Takeaways</h2>
                 <p className="content-text">
                     Having one of my first projects being released and receiving positive feedback from our customers was an incredible feeling.
