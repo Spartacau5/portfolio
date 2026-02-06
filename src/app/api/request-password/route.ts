@@ -14,7 +14,8 @@ export async function POST(request: NextRequest) {
         }
 
         const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
-        const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+        // Use dedicated base ID for password requests, or fall back to main base ID
+        const AIRTABLE_BASE_ID = process.env.AIRTABLE_PASSWORD_BASE_ID || process.env.AIRTABLE_BASE_ID;
         const AIRTABLE_TABLE_NAME = process.env.AIRTABLE_PASSWORD_REQUESTS_TABLE || 'PasswordRequests';
 
         if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
@@ -47,9 +48,14 @@ export async function POST(request: NextRequest) {
 
         if (!response.ok) {
             const errorData = await response.json();
-            console.error('Airtable create error:', errorData);
+            console.error('Airtable create error:', JSON.stringify(errorData, null, 2));
+            console.error('Table name used:', AIRTABLE_TABLE_NAME);
+            console.error('Base ID used:', AIRTABLE_BASE_ID?.substring(0, 8) + '...');
+
+            // Return more specific error message
+            const airtableError = errorData?.error?.message || errorData?.error?.type || 'Unknown error';
             return NextResponse.json(
-                { error: 'Failed to submit request' },
+                { error: `Failed to submit request: ${airtableError}` },
                 { status: 500 }
             );
         }
