@@ -8,6 +8,7 @@ import { CustomCursor } from "./components/CustomCursor";
 import { PageTransition } from "./components/PageTransition";
 import { Header } from "./components/Header";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -80,6 +81,7 @@ export default function RootLayout({
           {' & '}
           <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" className="text-gray-400 underline hover:text-gray-600 transition-colors">Claude</a>
         </footer>
+        <SpeedInsights />
       </body>
     </html>
   );
