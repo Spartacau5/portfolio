@@ -39,6 +39,28 @@ export default function CatAnimation() {
         preloadImages();
     }, []);
 
+    // Visual-only animation (no pet count increment)
+    const playAnimationVisual = useCallback(() => {
+        if (isAnimating) return;
+
+        setIsAnimating(true);
+        let frame = 0;
+
+        const animate = () => {
+            frame++;
+            if (frame >= frameSequence.length) {
+                frame = 0;
+                setCurrentFrame(frame);
+                setIsAnimating(false);
+                return;
+            }
+            setCurrentFrame(frame);
+            animationRef.current = setTimeout(animate, 130);
+        };
+
+        animationRef.current = setTimeout(animate, 130);
+    }, [isAnimating]);
+
     const playAnimation = useCallback(() => {
         if (isAnimating) return;
 
@@ -51,24 +73,22 @@ export default function CatAnimation() {
             .then(data => setPetCount(data.count))
             .catch(() => {});
 
-        setIsAnimating(true);
-        let frame = 0;
+        playAnimationVisual();
+    }, [isAnimating, playAnimationVisual]);
 
-        const animate = () => {
-            frame++;
-            if (frame >= frameSequence.length) {
-                // Loop back to beginning for a smooth cycle
-                frame = 0;
-                setCurrentFrame(frame);
-                setIsAnimating(false);
-                return;
-            }
-            setCurrentFrame(frame);
-            animationRef.current = setTimeout(animate, 130); // 130ms per frame for smoother feel
-        };
-
-        animationRef.current = setTimeout(animate, 130);
-    }, [isAnimating]);
+    // Auto-play animation once per session on first visit
+    useEffect(() => {
+        if (!imagesLoaded) return;
+        const hasPlayed = sessionStorage.getItem('cat-animation-played');
+        if (!hasPlayed) {
+            sessionStorage.setItem('cat-animation-played', 'true');
+            // Small delay so the page settles before animation starts
+            const timer = setTimeout(() => {
+                playAnimationVisual();
+            }, 500);
+            return () => clearTimeout(timer);
+        }
+    }, [imagesLoaded, playAnimationVisual]);
 
     // Cleanup on unmount
     useEffect(() => {

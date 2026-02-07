@@ -71,7 +71,7 @@ export default function About() {
                 <div className="about-me-block">
                   <h2 className="work-label">WHAT I USED TO DO</h2>
                   <div className="display-heading-2-about">
-                    I didn&apos;t take the scenic route to design. I started making app interfaces before I fully understood why they worked, and figured out the rest in rooms where you were expected to figure it out.
+                    I didn&apos;t take the scenic route to design. I started making app interfaces before I fully understood why they worked, and learned the rest through rapid iteration and real feedback.
                   </div>
                 </div>
 
