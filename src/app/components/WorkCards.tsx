@@ -7,7 +7,7 @@ import { MicrosoftGraffiti } from './MicrosoftGraffiti';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
-    arrive: { name: 'Arrive', subtitle: 'Defining the future of mobility solutions' },
+    arrive: { name: 'Arrive', subtitle: 'Embedded UX researcher for enterprise product strategy' },
     zoominfo: { name: 'ZoomInfo', subtitle: 'Redesigned how sales & marketing teams hit their number worldwide' },
     jnj: { name: 'Johnson & Johnson', subtitle: 'Designed JnJ\'s 2021 Healthy for Humanity & DEI Reports' },
     hypex: { name: 'HYPEX', subtitle: 'Led marketing and design efforts for an NFT-based trading game' },

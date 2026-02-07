@@ -35,7 +35,8 @@ export default function ParkingPlannerMVPPage() {
 
             {/* Hero Section */}
             <section className="case-study-hero">
-                <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '24px', textTransform: 'uppercase' }}>
+                <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '24px', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ width: '6px', height: '6px', background: '#22c55e', borderRadius: '50%', flexShrink: 0 }}></span>
                     UX Research Case Study
                 </div>
                 <h1 className="case-study-title">Parking Planner MVP</h1>
@@ -112,15 +113,15 @@ export default function ParkingPlannerMVPPage() {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', paddingBottom: '24px', borderBottom: '1px solid #e5e7eb' }}>
-                            <span style={{ fontSize: '24px', fontWeight: 700, color: '#1f2937', lineHeight: 1 }}>01</span>
+                            <span style={{ fontSize: '24px', fontWeight: 700, color: '#22c55e', lineHeight: 1 }}>01</span>
                             <span style={{ fontSize: '20px', fontWeight: 400, color: '#1f2937', lineHeight: 1.4 }}>Does parking cause enough pain to justify a new tool?</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px', paddingBottom: '24px', borderBottom: '1px solid #e5e7eb' }}>
-                            <span style={{ fontSize: '24px', fontWeight: 700, color: '#1f2937', lineHeight: 1 }}>02</span>
+                            <span style={{ fontSize: '24px', fontWeight: 700, color: '#22c55e', lineHeight: 1 }}>02</span>
                             <span style={{ fontSize: '20px', fontWeight: 400, color: '#1f2937', lineHeight: 1.4 }}>Would dispatchers actually use a planner?</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'flex-start', gap: '20px' }}>
-                            <span style={{ fontSize: '24px', fontWeight: 700, color: '#1f2937', lineHeight: 1 }}>03</span>
+                            <span style={{ fontSize: '24px', fontWeight: 700, color: '#22c55e', lineHeight: 1 }}>03</span>
                             <span style={{ fontSize: '20px', fontWeight: 400, color: '#1f2937', lineHeight: 1.4 }}>What would it take for users to trust recommendations?</span>
                         </div>
                     </div>
@@ -279,8 +280,8 @@ export default function ParkingPlannerMVPPage() {
                             <div style={{ fontSize: '13px', color: '#6b7280', whiteSpace: 'nowrap' }}>Met filter criteria</div>
                         </div>
                         <div style={{ fontSize: '20px', color: '#9ca3af' }}>↓</div>
-                        <div style={{ background: 'rgba(31, 41, 55, 0.05)', border: '1px solid #1f2937', padding: '16px 24px', borderRadius: '8px', textAlign: 'center', width: '70%', minWidth: '140px' }}>
-                            <div style={{ fontSize: '24px', fontWeight: 700 }}><AnimatedCounter end={30} duration={1600} suffix="+" /></div>
+                        <div style={{ background: 'rgba(34, 197, 94, 0.08)', border: '2px solid #22c55e', padding: '16px 24px', borderRadius: '8px', textAlign: 'center', width: '70%', minWidth: '140px' }}>
+                            <div style={{ fontSize: '24px', fontWeight: 700, color: '#16a34a' }}><AnimatedCounter end={30} duration={1600} suffix="+" /></div>
                             <div style={{ fontSize: '13px', color: '#6b7280', whiteSpace: 'nowrap' }}>Completed Screeners</div>
                         </div>
                     </div>
@@ -374,6 +375,8 @@ export default function ParkingPlannerMVPPage() {
 
                 <h3 className="content-subheading" style={{ marginTop: '48px' }}>What We Tested</h3>
 
+                {/* TODO: Add detailed feature lists per concept matching deck visuals (Parking Guidance features, Job Planner features, Parking Intelligence features) */}
+
                 {/* Concept 1: Parking Planner (Drivers) */}
                 <div style={{ margin: '40px 0 60px 0' }}>
                     <iframe
@@ -424,6 +427,8 @@ export default function ParkingPlannerMVPPage() {
                 </div>
             </section>
 
+            {/* TODO: Add core needs section for Driver/Dispatcher/Fleet Manager with persona-specific quotes from deck */}
+
             {/* Key Insights Header */}
             <section ref={insightsHeaderAnim.ref} className="case-study-content" style={{ paddingBottom: '0', ...fadeInUp(insightsHeaderAnim.isVisible) }}>
                 <div className="section-label" style={{ fontSize: '12px', fontWeight: 600, letterSpacing: '2px', color: '#6b7280', marginBottom: '16px', textTransform: 'uppercase' }}>
@@ -434,14 +439,14 @@ export default function ParkingPlannerMVPPage() {
 
             {/* Insight 1 */}
             <section ref={insight1Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight1Anim.isVisible) }}>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>01</div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#22c55e', marginBottom: '16px' }}>01</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Parking is a real problem, but not the only problem</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
                     Service drivers confirmed that finding parking near urban job sites is a consistent friction point. They described circling blocks, double-parking, feeding meters, and absorbing tickets as a cost of doing business. But parking existed within a broader context of fragmented workflows. Drivers were juggling Google Maps, SpotHero, Jobber, text messages, and phone calls. The desire was not just for parking help but for a single tool that handled routing, timing, parking, and client communication together.
                 </p>
 
                 {/* Quote Card */}
-                <div style={{ background: '#f9fafb', borderLeft: '4px solid #1f2937', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
+                <div style={{ background: '#f9fafb', borderLeft: '4px solid #22c55e', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
                     <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         "I was waiting 20 minutes, then parking really far and having to walk with my technician & our equipment. It was really bad. So a 7:30am - 3:30pm day, we went back to the branch to exchange our vehicles and leave and it was 7:45 pm."
                     </p>
@@ -451,7 +456,7 @@ export default function ParkingPlannerMVPPage() {
 
             {/* Insight 2 */}
             <section ref={insight2Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight2Anim.isVisible) }}>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>02</div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#22c55e', marginBottom: '16px' }}>02</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Technical maturity predicts needs more than fleet size</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
                     The initial assumption was that fleet size would be the primary segmentation variable. Small fleets would have different needs than large fleets. This turned out to be incomplete. What actually predicted needs was technical maturity: how sophisticated a fleet's existing tooling was. Low-maturity fleets (using spreadsheets, Google Calendar, paper logs) had fundamentally different needs than high-maturity fleets (using Ignite, Fleetio, Samsara). A 30-vehicle fleet with no dedicated tools looked nothing like a 30-vehicle fleet with a full tech stack.
@@ -483,7 +488,7 @@ export default function ParkingPlannerMVPPage() {
                 </div>
 
                 {/* Callout */}
-                <div style={{ background: '#f9fafb', borderLeft: '4px solid #1f2937', padding: '24px 32px', margin: '32px 0', borderRadius: '0 12px 12px 0' }}>
+                <div style={{ background: '#f9fafb', borderLeft: '4px solid #22c55e', padding: '24px 32px', margin: '32px 0', borderRadius: '0 12px 12px 0' }}>
                     <p style={{ fontSize: '16px', color: '#4b5563', lineHeight: 1.7 }}>
                         This reframe changed the conversation from "how do we build this planner" to "who would actually use it, and in what form."
                     </p>
@@ -492,14 +497,14 @@ export default function ParkingPlannerMVPPage() {
 
             {/* Insight 3 */}
             <section ref={insight3Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight3Anim.isVisible) }}>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>03</div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#22c55e', marginBottom: '16px' }}>03</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Drivers carry the parking decision, regardless of planning</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
                     Even when dispatchers attempted to plan parking in advance, the final responsibility landed on the driver. Dispatchers might suggest options or provide general guidance, but when the driver arrived at a job site and the recommended spot was taken, they had to figure it out themselves. This meant the driver experience was critical, but it also meant that a dispatcher-facing planner alone would not solve the problem.
                 </p>
 
                 {/* Quote Card */}
-                <div style={{ background: '#f9fafb', borderLeft: '4px solid #1f2937', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
+                <div style={{ background: '#f9fafb', borderLeft: '4px solid #22c55e', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
                     <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         "One guy's got to go out and find the parking because they couldn't park anywhere at the job site. So that's all on them. They're big boys and girls out there. They can figure that out."
                     </p>
@@ -509,14 +514,14 @@ export default function ParkingPlannerMVPPage() {
 
             {/* Insight 4 */}
             <section ref={insight4Anim.ref} className="case-study-content insight-section" style={{ borderBottom: '1px solid #e5e7eb', paddingTop: '40px', ...fadeInUp(insight4Anim.isVisible) }}>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>04</div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#22c55e', marginBottom: '16px' }}>04</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>Accuracy expectations varied by timing</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
                     Users did not expect perfect accuracy for parking availability data, but they did expect accuracy to increase closer to the moment of parking. Trend-based data ("this area is typically 60% available at 10am") was seen as useful for planning. But if a driver was five minutes away from a job site, they expected near-real-time information or they would fall back to tools they already trusted, like SpotHero.
                 </p>
 
                 {/* Quote Card */}
-                <div style={{ background: '#f9fafb', borderLeft: '4px solid #1f2937', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
+                <div style={{ background: '#f9fafb', borderLeft: '4px solid #22c55e', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
                     <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         "[If it's not accurate in real-time], I think it's adding value. I think the question is whether it's adding enough value. If I was in a bind and I was worried about parking and I didn't have any alternative options, I would give it a try. But if I didn't know it was completely accurate and I was in a rush, I'd probably use SpotHero."
                     </p>
@@ -526,7 +531,7 @@ export default function ParkingPlannerMVPPage() {
 
             {/* Insight 5 */}
             <section ref={insight5Anim.ref} className="case-study-content insight-section" style={{ paddingTop: '40px', ...fadeInUp(insight5Anim.isVisible) }}>
-                <div style={{ fontSize: '14px', fontWeight: 700, color: '#1f2937', marginBottom: '16px' }}>05</div>
+                <div style={{ fontSize: '14px', fontWeight: 700, color: '#22c55e', marginBottom: '16px' }}>05</div>
                 <h3 style={{ fontSize: '28px', fontWeight: 700, marginBottom: '24px', maxWidth: '800px' }}>There is likely no product-market fit for a parking planner alone</h3>
                 <p className="content-text" style={{ maxWidth: '800px', marginBottom: '32px' }}>
                     The research pointed toward a clear conclusion: a standalone Parking Planner was unlikely to achieve adoption. For low-maturity fleets, parking recommendations were only valuable bundled with job planning functionality. For medium and high-maturity fleets, the concept was only compelling as a data enrichment layer within their existing tools. This was not a failure of the concept but a clarification of where it could and could not fit.
@@ -546,7 +551,7 @@ export default function ParkingPlannerMVPPage() {
                     <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', borderBottom: '1px solid #e5e7eb' }}>
                         <div style={{ padding: '24px 20px', fontSize: '14px', fontWeight: 600, background: '#f3f4f6', display: 'flex', alignItems: 'center' }}>Low-Tech</div>
                         <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: '#1f2937', color: '#fff' }}>Job Planner</span></div>
+                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: '#22c55e', color: '#fff' }}>Job Planner</span></div>
                         <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span></div>
                     </div>
                     <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', borderBottom: '1px solid #e5e7eb' }}>
@@ -580,62 +585,62 @@ export default function ParkingPlannerMVPPage() {
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', margin: '48px 0' }}>
                     {/* Path A */}
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '40px', position: 'relative', overflow: 'hidden' }}>
-                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#1f2937' }}></div>
-                        <div style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px', color: '#1f2937' }}>Path A</div>
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#22c55e' }}></div>
+                        <div style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px', color: '#16a34a' }}>Path A</div>
                         <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '16px' }}>Low-Tech Maturity Focus</h3>
                         <p style={{ fontSize: '15px', color: '#4b5563', lineHeight: 1.7, marginBottom: '24px' }}>
                             Build a lightweight job planner with integrated parking intelligence. Target fleets that haven't adopted dedicated scheduling software, positioning as a full workflow tool.
                         </p>
                         <div style={{ marginBottom: '24px' }}>
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 0', fontSize: '14px', color: '#4b5563' }}>
-                                <span style={{ width: '20px', height: '20px', background: '#f3f4f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#1f2937' }}>1</span>
+                                <span style={{ width: '20px', height: '20px', background: 'rgba(34, 197, 94, 0.15)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#16a34a' }}>1</span>
                                 <span>Survey fleets to size low-tech maturity opportunity</span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 0', fontSize: '14px', color: '#4b5563' }}>
-                                <span style={{ width: '20px', height: '20px', background: '#f3f4f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#1f2937' }}>2</span>
+                                <span style={{ width: '20px', height: '20px', background: 'rgba(34, 197, 94, 0.15)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#16a34a' }}>2</span>
                                 <span>Validate willingness to pay</span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 0', fontSize: '14px', color: '#4b5563' }}>
-                                <span style={{ width: '20px', height: '20px', background: '#f3f4f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#1f2937' }}>3</span>
+                                <span style={{ width: '20px', height: '20px', background: 'rgba(34, 197, 94, 0.15)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#16a34a' }}>3</span>
                                 <span>Supplement with EU interviews</span>
                             </div>
                         </div>
-                        <div style={{ background: 'rgba(31, 41, 55, 0.08)', borderLeft: '3px solid #1f2937', padding: '16px 20px', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#6b7280' }}>
-                            <strong style={{ color: '#1f2937' }}>Risk:</strong> Response rates may limit ability to size the opportunity accurately
+                        <div style={{ background: 'rgba(34, 197, 94, 0.08)', borderLeft: '3px solid #22c55e', padding: '16px 20px', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#6b7280' }}>
+                            <strong style={{ color: '#16a34a' }}>Risk:</strong> Response rates may limit ability to size the opportunity accurately
                         </div>
                     </div>
 
                     {/* Path B */}
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '40px', position: 'relative', overflow: 'hidden' }}>
-                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#1f2937' }}></div>
-                        <div style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px', color: '#1f2937' }}>Path B</div>
+                        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', background: '#22c55e' }}></div>
+                        <div style={{ fontSize: '12px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px', color: '#16a34a' }}>Path B</div>
                         <h3 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '16px' }}>Med/High-Tech Maturity Focus</h3>
                         <p style={{ fontSize: '15px', color: '#4b5563', lineHeight: 1.7, marginBottom: '24px' }}>
                             Browser-based plugin that enhances existing tools like Jobber with contextual parking suggestions. No workflow change required for users.
                         </p>
                         <div style={{ marginBottom: '24px' }}>
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 0', fontSize: '14px', color: '#4b5563' }}>
-                                <span style={{ width: '20px', height: '20px', background: '#f3f4f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#1f2937' }}>1</span>
+                                <span style={{ width: '20px', height: '20px', background: 'rgba(34, 197, 94, 0.15)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#16a34a' }}>1</span>
                                 <span>Assess technical feasibility of plugin</span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 0', fontSize: '14px', color: '#4b5563' }}>
-                                <span style={{ width: '20px', height: '20px', background: '#f3f4f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#1f2937' }}>2</span>
+                                <span style={{ width: '20px', height: '20px', background: 'rgba(34, 197, 94, 0.15)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#16a34a' }}>2</span>
                                 <span>Identify lightweight integration paths</span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '12px 0', fontSize: '14px', color: '#4b5563' }}>
-                                <span style={{ width: '20px', height: '20px', background: '#f3f4f6', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#1f2937' }}>3</span>
+                                <span style={{ width: '20px', height: '20px', background: 'rgba(34, 197, 94, 0.15)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: 600, flexShrink: 0, color: '#16a34a' }}>3</span>
                                 <span>Explore data enrichment partnerships</span>
                             </div>
                         </div>
-                        <div style={{ background: 'rgba(31, 41, 55, 0.08)', borderLeft: '3px solid #1f2937', padding: '16px 20px', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#6b7280' }}>
-                            <strong style={{ color: '#1f2937' }}>Risk:</strong> Integration complexity may delay development or limit usefulness
+                        <div style={{ background: 'rgba(34, 197, 94, 0.08)', borderLeft: '3px solid #22c55e', padding: '16px 20px', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#6b7280' }}>
+                            <strong style={{ color: '#16a34a' }}>Risk:</strong> Integration complexity may delay development or limit usefulness
                         </div>
                     </div>
                 </div>
 
                 {/* Outcome Box */}
-                <div style={{ background: 'rgba(31, 41, 55, 0.05)', border: '1px solid rgba(31, 41, 55, 0.2)', borderRadius: '16px', padding: '32px 40px', marginTop: '48px' }}>
-                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#1f2937', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Outcome</div>
+                <div style={{ background: 'rgba(34, 197, 94, 0.05)', border: '2px solid #22c55e', borderRadius: '16px', padding: '32px 40px', marginTop: '48px' }}>
+                    <div style={{ fontSize: '12px', fontWeight: 600, color: '#16a34a', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '12px' }}>Outcome</div>
                     <p style={{ fontSize: '17px', color: '#1f2937', lineHeight: 1.7 }}>
                         The product team chose to pause MVP development pending further opportunity sizing. Rather than build a parking planner that lacked clear product-market fit, they redirected effort toward validating the low-maturity fleet hypothesis with quantitative research and exploring integration feasibility for the enrichment model.
                     </p>

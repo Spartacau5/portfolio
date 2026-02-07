@@ -79,7 +79,7 @@ export function AnimatedCounter({ end, duration = 2000, suffix = '' }: { end: nu
 }
 
 // Animated progress bar component
-export function AnimatedBar({ width, delay = 0 }: { width: string; delay?: number }) {
+export function AnimatedBar({ width, delay = 0, color = '#22c55e' }: { width: string; delay?: number; color?: string }) {
     const [animatedWidth, setAnimatedWidth] = useState('0%');
     const [hasAnimated, setHasAnimated] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -105,6 +105,6 @@ export function AnimatedBar({ width, delay = 0 }: { width: string; delay?: numbe
     }, [width, delay, hasAnimated]);
 
     return (
-        <div ref={ref} style={{ height: '100%', width: animatedWidth, background: '#1f2937', borderRadius: '4px', transition: 'width 1s ease-out' }}></div>
+        <div ref={ref} style={{ height: '100%', width: animatedWidth, background: color, borderRadius: '4px', transition: 'width 1s ease-out' }}></div>
     );
 }

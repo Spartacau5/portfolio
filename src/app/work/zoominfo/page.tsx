@@ -104,6 +104,7 @@ export default function ZoominfoPage() {
                         <div className="project-card-info">
                             <Link href="/work/zoominfo/job-description-parser" className="project-card-title-link">
                                 Job Description Parser
+                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </Link>
                             <p className="project-card-subtext">
                                 Led the UX design for ZoomInfo's Job Description Parser, automating candidate searches to enhance recruiter efficiency.
@@ -119,6 +120,7 @@ export default function ZoominfoPage() {
                         <div className="project-card-info">
                             <Link href="/work/zoominfo/dashboard-talentos" className="project-card-title-link">
                                 Dashboard for TalentOS
+                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </Link>
                             <p className="project-card-subtext">
                                 Designed a dashboard for real-time insights into workforce reductions, aiming to enhance market intelligence and support users in navigating dynamic industry shifts.

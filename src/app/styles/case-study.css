@@ -437,13 +437,91 @@
 
 /* Content Link */
 .content-link {
-    color: #2563eb;
-    text-decoration: underline;
-    transition: color 0.2s;
+    color: #111;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
 }
 
-.content-link:hover {
-    color: #1d4ed8;
+.content-link::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: #111;
+    transition: width 0.3s ease;
+}
+
+.content-link:hover::after {
+    width: 100%;
+}
+
+.content-link-arrow {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-left: 1px;
+    position: relative;
+    top: 0px;
+    transition: transform 0.2s ease;
+}
+
+.content-link:hover .content-link-arrow {
+    transform: translate(1px, -1px);
+}
+
+/* Tool Icon Links with Tooltips */
+.tool-icon-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.tool-icon-link:hover {
+    transform: scale(1.1);
+}
+
+.tool-tooltip {
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1a1a1a;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    line-height: 1;
+    padding: 5px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease, visibility 0.15s ease;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.tool-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 4px;
+    border-style: solid;
+    border-color: #1a1a1a transparent transparent transparent;
+}
+
+.tool-icon-link:hover .tool-tooltip {
+    opacity: 1;
+    visibility: visible;
 }
 
 .gallery-grid {
@@ -1372,16 +1450,37 @@
     font-size: 18px;
     font-weight: 600;
     color: #111;
-    text-decoration: underline;
-    text-decoration-color: #111;
-    text-underline-offset: 3px;
-    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+    text-decoration: none;
+    transition: color 0.2s ease;
     width: fit-content;
+    position: relative;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 3px;
+}
+
+.project-card-title-link:hover .content-link-arrow {
+    transform: translate(1px, -1px);
+}
+
+.project-card-title-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #111;
+    transition: width 0.3s ease;
 }
 
 .project-card-title-link:hover {
     color: #6b7280;
-    text-decoration-color: #6b7280;
+}
+
+.project-card-title-link:hover::after {
+    width: 100%;
+    background: #6b7280;
 }
 
 .project-card-subtext {
@@ -1455,6 +1554,10 @@
         padding: 1.5rem 1rem 3rem;
     }
 
+    .case-study-page > .h-24 {
+        height: 3rem;
+    }
+
     .case-study-meta-section {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -1466,11 +1569,12 @@
         gap: 1.5rem;
     }
 
-    /* Reorder on mobile: My Role, Timeline, Team, Tools */
-    .case-study-meta .meta-block:nth-child(1) { order: 1; }
-    .case-study-meta .meta-block:nth-child(2) { order: 3; } /* Team moves to 3rd */
-    .case-study-meta .meta-block:nth-child(3) { order: 2; } /* Timeline moves to 2nd */
-    .case-study-meta .meta-block:nth-child(4) { order: 4; }
+    /* Reorder on mobile: My Role, Timeline, Team, Scope */
+    .case-study-meta .meta-block:nth-child(1) { order: 1; } /* My Role - top left */
+    .case-study-meta .meta-block:nth-child(2) { order: 3; } /* Team - middle left */
+    .case-study-meta .meta-block:nth-child(3) { order: 2; } /* Timeline - top right */
+    .case-study-meta .meta-block:nth-child(4) { order: 4; } /* Scope - middle right */
+    .case-study-meta .meta-block:nth-child(5) { order: 5; } /* Tools (if present) */
 
     .meta-block {
         min-width: 0;
@@ -1983,6 +2087,23 @@
         height: auto !important;
         width: 180px !important;
         margin-top: -0.5rem !important;
+    }
+}
+
+/* Tools Icons Container - 2x2 on desktop, single row on mobile */
+.tools-icons-container {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 12px 14px;
+    margin-top: 4px;
+    justify-items: start;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .tools-icons-container {
+        display: flex;
+        gap: 16px;
     }
 }
 

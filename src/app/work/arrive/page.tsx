@@ -28,7 +28,7 @@ export default function ArrivePage() {
             {/* Hero Section */}
             <section className="case-study-hero">
                 <h1 className="case-study-title">Arrive</h1>
-                <p className="case-study-company">Defining the future of mobility solutions</p>
+                <p className="case-study-company">6-month embedded research engagement shaping B2B product strategy</p>
             </section>
 
             {/* Divider */}
@@ -55,11 +55,29 @@ export default function ArrivePage() {
                         <p className="meta-value">June - Dec 2025</p>
                     </div>
 
-                    {/* Tools */}
+                    {/* Scope */}
                     <div className="meta-block">
-                        <span className="meta-label">TOOLS</span>
-                        <p className="meta-value">Figma<br />Craigslist<br />Typeform<br />Grain.ai<br />Notion</p>
+                        <span className="meta-label">SCOPE</span>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '4px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <span className="meta-value" style={{ margin: 0 }}>US</span>
+                                <span style={{ color: '#d1d5db' }}>—</span>
+                                <a href="https://parkmobile.io/" target="_blank" rel="noopener noreferrer" className="tool-icon-link">
+                                    <Image src="/images/parkmobile-logo.png" alt="ParkMobile" width={100} height={24} style={{ height: '18px', width: 'auto' }} />
+                                    <span className="tool-tooltip">ParkMobile</span>
+                                </a>
+                            </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                <span className="meta-value" style={{ margin: 0 }}>EU</span>
+                                <span style={{ color: '#d1d5db' }}>—</span>
+                                <a href="https://www.easypark.com/en-is" target="_blank" rel="noopener noreferrer" className="tool-icon-link">
+                                    <Image src="/images/easypark-logo.png" alt="EasyPark" width={100} height={24} style={{ height: '22px', width: 'auto' }} />
+                                    <span className="tool-tooltip">EasyPark</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
 
                 <div className="case-study-description">
@@ -67,13 +85,10 @@ export default function ArrivePage() {
                     <div className="description-block">
                         <span className="meta-label">CONTEXT</span>
                         <p className="description-text">
-                            This project represents a six-month embedded research engagement conducted through Craft, in partnership with Arrive, a mobility technology company operating across consumer and enterprise parking solutions.
+                            A six-month embedded engagement with <a href="https://arrive.com/en" target="_blank" rel="noopener noreferrer" className="content-link">Arrive<svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>, a mobility company expanding from consumer parking into enterprise solutions. I joined through <a href="https://www.madebycraft.co" target="_blank" rel="noopener noreferrer" className="content-link">Craft<svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a> to help Arrive&apos;s B2B team figure out what to build, and get internal alignment on how to get there.
                         </p>
                         <p className="description-text">
-                            As a UX Researcher with a design background, I worked closely with Arrive's product designers, product managers, sales leadership, and enterprise customers to support the company's expansion into B2B offerings. Rather than focusing on a single feature or workflow, my work spanned multiple initiatives aimed at clarifying product direction, de-risking new opportunities, and aligning teams around real operational needs.
-                        </p>
-                        <p className="description-text">
-                            Across this engagement, I contributed to three core initiatives: defining Arrive's long-term B2B vision, exploring an integrated expense management opportunity, and validating a Fleet Management MVP concept. Together, these projects highlight how research can guide strategy, inform design decisions, and support cross-functional alignment in complex B2B environments.
+                            I worked across product, design, sales leadership, and enterprise customers on three connected initiatives. Each built on the last: starting with evaluating a strategic pivot through testing an MVP concept, evolving into strategic research for future state of B2B integrations, and ending with cross-functional workshops that aligned the organization around a strong 2-year product vision.
                         </p>
                     </div>
 
@@ -132,10 +147,11 @@ export default function ArrivePage() {
                         </Link>
                         <div className="project-card-info">
                             <Link href="/work/arrive/parking-planner" className="project-card-title-link">
-                                Fleet Management: Parking Planner MVP
+                                B2B Parking Planner
+                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </Link>
                             <p className="project-card-subtext">
-                                Used mixed-methods research to determine whether building a parking planner for dispatchers and fleet managers was a viable next step in Arrive's B2B strategy.
+                                Evaluated whether Arrive's B2B offering should expand from parking support to fleet planning tools, based on research across US and EU.
                             </p>
                         </div>
                     </div>
@@ -159,6 +175,7 @@ export default function ArrivePage() {
                         <div className="project-card-info">
                             <Link href="/work/arrive/expense-management" className="project-card-title-link">
                                 Expense Management: SAP Concur Integration
+                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </Link>
                             <p className="project-card-subtext">
                                 Conducted research to evaluate and shape an in-progress SAP Concur integration MVP, identifying opportunities to streamline parking expense submission, improve compliance, and reduce manual overhead for enterprise teams.
@@ -196,6 +213,7 @@ export default function ArrivePage() {
                         <div className="project-card-info">
                             <Link href="/work/arrive/vision-testing" className="project-card-title-link">
                                 Arrive for Business: Vision Testing
+                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </Link>
                             <p className="project-card-subtext">
                                 Led cross-functional vision testing workshops with sales and leadership to evaluate, prioritize, and refine Arrive's two-year B2B product vision based on customer-facing insights.
