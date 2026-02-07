@@ -8,6 +8,7 @@ import { CustomCursor } from "./components/CustomCursor";
 import { PageTransition } from "./components/PageTransition";
 import { Header } from "./components/Header";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
+import { Analytics } from "@vercel/analytics/react";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -69,6 +70,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="antialiased">
         <GoogleAnalytics />
+        <Analytics />
         <CustomCursor />
         <Header />
         <PageTransition>
