@@ -56,7 +56,6 @@ export default function About() {
                     onClick={() => analytics.trackResumeDownload('resume')}
                   >
                     Download Resume
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="cta-arrow" />
                   </a>
                 </div>
 

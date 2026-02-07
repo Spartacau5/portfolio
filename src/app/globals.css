@@ -932,11 +932,11 @@ body {
   }
 
   .about-me-block {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
   }
 
   .about-me-block:last-child {
-    margin-bottom: 22px;
+    margin-bottom: 24px;
   }
 
   .work-label {
@@ -960,6 +960,7 @@ body {
   .nav-icons-div {
     justify-content: flex-start;
     display: flex;
+    margin-bottom: 26px;
   }
 
   .nav-icon {
