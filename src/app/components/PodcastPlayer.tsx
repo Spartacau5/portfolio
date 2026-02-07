@@ -18,12 +18,28 @@ export function PodcastPlayer() {
         return `${mins}:${secs.toString().padStart(2, '0')}`;
     };
 
+    // Listen for other audio sources playing and pause this one
+    useEffect(() => {
+        const handleOtherAudio = (e: Event) => {
+            const customEvent = e as CustomEvent;
+            if (customEvent.detail?.source !== 'podcast' && audioRef.current && isPlaying) {
+                audioRef.current.pause();
+                setIsPlaying(false);
+            }
+        };
+
+        window.addEventListener('audio-play', handleOtherAudio);
+        return () => window.removeEventListener('audio-play', handleOtherAudio);
+    }, [isPlaying]);
+
     // Handle play/pause
     const togglePlay = () => {
         if (audioRef.current) {
             if (isPlaying) {
                 audioRef.current.pause();
             } else {
+                // Notify other players to stop
+                window.dispatchEvent(new CustomEvent('audio-play', { detail: { source: 'podcast' } }));
                 audioRef.current.play();
             }
             setIsPlaying(!isPlaying);
