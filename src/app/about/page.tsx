@@ -120,7 +120,7 @@ export default function About() {
                 <div className="about-me-block">
                   <h2 className="work-label">WHAT I&apos;M LOOKING FOR</h2>
                   <div className="display-heading-2-about">
-                    Graduating this May and looking for product design or UX research roles with teams that care about getting it right, not just getting it done.
+                    <em>Graduating this May</em> and looking for teams that want a designer who thinks beyond the screen.
                   </div>
                 </div>
               </div>

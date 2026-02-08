@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp, AnimatedCounter, AnimatedBar } from '@/app/hooks/useScrollAnimation';
@@ -7,6 +8,9 @@ import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics'
 import PasswordProtect from '@/app/components/PasswordProtect';
 
 export default function ParkingPlannerMVPPage() {
+    // Scroll to top on mount
+    useEffect(() => { window.scrollTo(0, 0); }, []);
+
     // Analytics tracking
     useScrollDepthTracking();
     useTimeOnPage();
@@ -204,8 +208,8 @@ export default function ParkingPlannerMVPPage() {
 
                 <h3 className="content-subheading" style={{ marginTop: '48px' }}>Channel Evaluation</h3>
 
-                {/* Channel Evaluation Table */}
-                <div style={{ overflowX: 'auto', margin: '24px 0' }}>
+                {/* Channel Evaluation Table - Desktop */}
+                <div className="channel-eval-desktop" style={{ margin: '24px 0' }}>
                     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                         <thead>
                             <tr style={{ background: '#f9fafb' }}>
@@ -235,13 +239,57 @@ export default function ParkingPlannerMVPPage() {
                                 <td style={{ padding: '20px', borderBottom: '1px solid #f3f4f6' }}><span style={{ display: 'inline-block', padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: 600, background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}>Skip</span></td>
                             </tr>
                             <tr style={{ background: 'rgba(34, 197, 94, 0.08)' }}>
-                                <td style={{ padding: '20px', borderBottom: '1px solid #f3f4f6', fontWeight: 600 }}>Craigslist </td>
+                                <td style={{ padding: '20px', borderBottom: '1px solid #f3f4f6', fontWeight: 600 }}>Craigslist</td>
                                 <td style={{ padding: '20px', borderBottom: '1px solid #f3f4f6', color: '#6b7280', fontSize: '14px' }}>Fast, cheap, proven for persona</td>
                                 <td style={{ padding: '20px', borderBottom: '1px solid #f3f4f6', color: '#6b7280', fontSize: '14px' }}>Manual screening needed</td>
                                 <td style={{ padding: '20px', borderBottom: '1px solid #f3f4f6' }}><span style={{ display: 'inline-block', padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: 600, background: 'rgba(34, 197, 94, 0.15)', color: '#16a34a' }}>Selected</span></td>
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                {/* Channel Evaluation - Mobile stacked cards */}
+                <div className="channel-eval-mobile" style={{ display: 'flex', flexDirection: 'column', gap: '12px', margin: '24px 0' }}>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '16px 20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                            <span style={{ fontWeight: 600, fontSize: '15px' }}>Existing B2B Contacts</span>
+                            <span style={{ padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: 600, background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}>Skip</span>
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#6b7280', lineHeight: 1.6 }}>
+                            <span style={{ color: '#16a34a' }}>+</span> High relevance, context-rich<br/>
+                            <span style={{ color: '#ef4444' }}>−</span> Limited pool, compliance risk
+                        </div>
+                    </div>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '16px 20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                            <span style={{ fontWeight: 600, fontSize: '15px' }}>Fleet Manager Referrals</span>
+                            <span style={{ padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: 600, background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}>Skip</span>
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#6b7280', lineHeight: 1.6 }}>
+                            <span style={{ color: '#16a34a' }}>+</span> Warm intro, better context<br/>
+                            <span style={{ color: '#ef4444' }}>−</span> Slow, dependent on third party
+                        </div>
+                    </div>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '16px 20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                            <span style={{ fontWeight: 600, fontSize: '15px' }}>Recruitment Platforms</span>
+                            <span style={{ padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: 600, background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}>Skip</span>
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#6b7280', lineHeight: 1.6 }}>
+                            <span style={{ color: '#16a34a' }}>+</span> Quality participants<br/>
+                            <span style={{ color: '#ef4444' }}>−</span> 3-week lead time, limited persona
+                        </div>
+                    </div>
+                    <div style={{ background: 'rgba(34, 197, 94, 0.08)', border: '2px solid #22c55e', borderRadius: '12px', padding: '16px 20px' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+                            <span style={{ fontWeight: 600, fontSize: '15px' }}>Craigslist</span>
+                            <span style={{ padding: '4px 12px', borderRadius: '100px', fontSize: '12px', fontWeight: 600, background: 'rgba(34, 197, 94, 0.15)', color: '#16a34a' }}>Selected</span>
+                        </div>
+                        <div style={{ fontSize: '13px', color: '#6b7280', lineHeight: 1.6 }}>
+                            <span style={{ color: '#16a34a' }}>+</span> Fast, cheap, proven for persona<br/>
+                            <span style={{ color: '#ef4444' }}>−</span> Manual screening needed
+                        </div>
+                    </div>
                 </div>
 
                 {/* Callout */}
@@ -306,8 +354,7 @@ export default function ParkingPlannerMVPPage() {
                 <h2 className="content-heading">Who We Interviewed</h2>
 
                 {/* Persona Cards */}
-                <h3 style={{ fontSize: '14px', fontWeight: 600, color: '#6b7280', marginTop: '48px', marginBottom: '24px', textTransform: 'uppercase', letterSpacing: '1px' }}>Role</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', marginBottom: '48px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '24px', marginTop: '48px', marginBottom: '48px' }}>
                     <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', padding: '32px', textAlign: 'center', ...fadeInUp(sampleAnim.isVisible, 0.1) }}>
                         <div style={{ fontSize: '64px', fontWeight: 800, lineHeight: 1, marginBottom: '8px', color: '#1f2937' }}>
                             <AnimatedCounter end={9} duration={1500} />
@@ -447,7 +494,7 @@ export default function ParkingPlannerMVPPage() {
 
                 {/* Quote Card */}
                 <div style={{ background: '#f9fafb', borderLeft: '4px solid #22c55e', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
-                    <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '18px', fontStyle: 'italic', fontSynthesis: 'none', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         "I was waiting 20 minutes, then parking really far and having to walk with my technician & our equipment. It was really bad. So a 7:30am - 3:30pm day, we went back to the branch to exchange our vehicles and leave and it was 7:45 pm."
                     </p>
                     <p style={{ fontSize: '14px', color: '#6b7280' }}>Service Driver, Medium Fleet</p>
@@ -505,7 +552,7 @@ export default function ParkingPlannerMVPPage() {
 
                 {/* Quote Card */}
                 <div style={{ background: '#f9fafb', borderLeft: '4px solid #22c55e', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
-                    <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '18px', fontStyle: 'italic', fontSynthesis: 'none', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         "One guy's got to go out and find the parking because they couldn't park anywhere at the job site. So that's all on them. They're big boys and girls out there. They can figure that out."
                     </p>
                     <p style={{ fontSize: '14px', color: '#6b7280' }}>Dispatcher, High-Tech Maturity, Small Fleet</p>
@@ -522,7 +569,7 @@ export default function ParkingPlannerMVPPage() {
 
                 {/* Quote Card */}
                 <div style={{ background: '#f9fafb', borderLeft: '4px solid #22c55e', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
-                    <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '18px', fontStyle: 'italic', fontSynthesis: 'none', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         "[If it's not accurate in real-time], I think it's adding value. I think the question is whether it's adding enough value. If I was in a bind and I was worried about parking and I didn't have any alternative options, I would give it a try. But if I didn't know it was completely accurate and I was in a rush, I'd probably use SpotHero."
                     </p>
                     <p style={{ fontSize: '14px', color: '#6b7280' }}>Service Driver</p>
@@ -539,34 +586,92 @@ export default function ParkingPlannerMVPPage() {
 
                 <h4 style={{ fontSize: '18px', margin: '48px 0 24px' }}>Product-Market Fit Matrix</h4>
 
-                {/* PMF Matrix */}
-                <div style={{ overflowX: 'auto', margin: '48px 0' }}>
-                <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', overflow: 'hidden', minWidth: '500px' }}>
-                    <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', background: '#f3f4f6', borderBottom: '1px solid #e5e7eb' }}>
-                        <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280' }}></div>
-                        <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280', textAlign: 'center' }}>Driver</div>
-                        <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280', textAlign: 'center' }}>Dispatcher</div>
-                        <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280', textAlign: 'center' }}>Fleet Manager</div>
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', borderBottom: '1px solid #e5e7eb' }}>
-                        <div style={{ padding: '24px 20px', fontSize: '14px', fontWeight: 600, background: '#f3f4f6', display: 'flex', alignItems: 'center' }}>Low-Tech</div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: '#22c55e', color: '#fff' }}>Job Planner</span></div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span></div>
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', borderBottom: '1px solid #e5e7eb' }}>
-                        <div style={{ padding: '24px 20px', fontSize: '14px', fontWeight: 600, background: '#f3f4f6', display: 'flex', alignItems: 'center' }}>Medium-Tech</div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span></div>
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)' }}>
-                        <div style={{ padding: '24px 20px', fontSize: '14px', fontWeight: 600, background: '#f3f4f6', display: 'flex', alignItems: 'center' }}>High-Tech</div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
-                        <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span></div>
+                {/* PMF Matrix - Desktop table */}
+                <div className="pmf-matrix-desktop" style={{ margin: '48px 0' }}>
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '16px', overflow: 'hidden' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', background: '#f3f4f6', borderBottom: '1px solid #e5e7eb' }}>
+                            <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280' }}></div>
+                            <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280', textAlign: 'center' }}>Driver</div>
+                            <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280', textAlign: 'center' }}>Dispatcher</div>
+                            <div style={{ padding: '20px', fontSize: '13px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '1px', color: '#6b7280', textAlign: 'center' }}>Fleet Manager</div>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', borderBottom: '1px solid #e5e7eb' }}>
+                            <div style={{ padding: '24px 20px', fontSize: '14px', fontWeight: 600, background: '#f3f4f6', display: 'flex', alignItems: 'center' }}>Low-Tech</div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: '#22c55e', color: '#fff' }}>Job Planner</span></div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span></div>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)', borderBottom: '1px solid #e5e7eb' }}>
+                            <div style={{ padding: '24px 20px', fontSize: '14px', fontWeight: 600, background: '#f3f4f6', display: 'flex', alignItems: 'center' }}>Medium-Tech</div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span></div>
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '140px repeat(3, 1fr)' }}>
+                            <div style={{ padding: '24px 20px', fontSize: '14px', fontWeight: 600, background: '#f3f4f6', display: 'flex', alignItems: 'center' }}>High-Tech</div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span></div>
+                            <div style={{ padding: '24px 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span style={{ padding: '8px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span></div>
+                        </div>
                     </div>
                 </div>
+
+                {/* PMF Matrix - Mobile stacked cards */}
+                <div className="pmf-matrix-mobile" style={{ display: 'flex', flexDirection: 'column', gap: '16px', margin: '48px 0' }}>
+                    {/* Low-Tech */}
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '20px' }}>
+                        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px' }}>Low-Tech</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Driver</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Dispatcher</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: '#22c55e', color: '#fff' }}>Job Planner</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Fleet Manager</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Medium-Tech */}
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '20px' }}>
+                        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px' }}>Medium-Tech</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Driver</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Dispatcher</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Fleet Manager</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span>
+                            </div>
+                        </div>
+                    </div>
+                    {/* High-Tech */}
+                    <div style={{ background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: '12px', padding: '20px' }}>
+                        <div style={{ fontSize: '14px', fontWeight: 600, marginBottom: '16px' }}>High-Tech</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Driver</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Dispatcher</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(31, 41, 55, 0.1)', color: '#1f2937' }}>Parking Guidance</span>
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <span style={{ fontSize: '13px', color: '#6b7280' }}>Fleet Manager</span>
+                                <span style={{ padding: '6px 12px', borderRadius: '8px', fontSize: '12px', fontWeight: 600, background: 'rgba(107, 114, 128, 0.15)', color: '#6b7280' }}>Intelligence</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <p style={{ fontSize: '13px', color: '#6b7280', fontStyle: 'italic', textAlign: 'center' }}>
@@ -605,8 +710,8 @@ export default function ParkingPlannerMVPPage() {
                                 <span>Supplement with EU interviews</span>
                             </div>
                         </div>
-                        <div style={{ background: 'rgba(34, 197, 94, 0.08)', borderLeft: '3px solid #22c55e', padding: '16px 20px', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#6b7280' }}>
-                            <strong style={{ color: '#16a34a' }}>Risk:</strong> Response rates may limit ability to size the opportunity accurately
+                        <div style={{ background: 'rgba(234, 179, 8, 0.08)', borderLeft: '3px solid #eab308', padding: '16px 20px', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#6b7280' }}>
+                            <strong style={{ color: '#ca8a04' }}>Risk:</strong> Response rates may limit ability to size the opportunity accurately
                         </div>
                     </div>
 
@@ -632,8 +737,8 @@ export default function ParkingPlannerMVPPage() {
                                 <span>Explore data enrichment partnerships</span>
                             </div>
                         </div>
-                        <div style={{ background: 'rgba(34, 197, 94, 0.08)', borderLeft: '3px solid #22c55e', padding: '16px 20px', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#6b7280' }}>
-                            <strong style={{ color: '#16a34a' }}>Risk:</strong> Integration complexity may delay development or limit usefulness
+                        <div style={{ background: 'rgba(234, 179, 8, 0.08)', borderLeft: '3px solid #eab308', padding: '16px 20px', borderRadius: '0 8px 8px 0', fontSize: '13px', color: '#6b7280' }}>
+                            <strong style={{ color: '#ca8a04' }}>Risk:</strong> Integration complexity may delay development or limit usefulness
                         </div>
                     </div>
                 </div>
@@ -653,7 +758,7 @@ export default function ParkingPlannerMVPPage() {
                     Reflection
                 </div>
 
-                <p style={{ fontSize: '24px', fontWeight: 400, lineHeight: 1.5, fontStyle: 'italic', marginBottom: '48px', color: '#1f2937' }}>
+                <p style={{ fontSize: '24px', fontWeight: 400, lineHeight: 1.5, fontStyle: 'italic', fontSynthesis: 'none', marginBottom: '48px', color: '#1f2937' }}>
                     "The most valuable contribution was the reframe around technical maturity. That shift changed the conversation from 'how do we build this planner' to 'who would actually use it, and in what form.'"
                 </p>
 

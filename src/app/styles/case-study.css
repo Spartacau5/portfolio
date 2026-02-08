@@ -2090,6 +2090,34 @@
     }
 }
 
+/* PMF Matrix - Desktop/Mobile toggle */
+.pmf-matrix-mobile {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .pmf-matrix-desktop {
+        display: none !important;
+    }
+    .pmf-matrix-mobile {
+        display: flex !important;
+    }
+}
+
+/* Channel Evaluation - Desktop/Mobile toggle */
+.channel-eval-mobile {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .channel-eval-desktop {
+        display: none !important;
+    }
+    .channel-eval-mobile {
+        display: flex !important;
+    }
+}
+
 /* Tools Icons Container - 2x2 on desktop, single row on mobile */
 .tools-icons-container {
     display: grid;

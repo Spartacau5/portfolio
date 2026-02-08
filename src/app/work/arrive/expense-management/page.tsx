@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp, AnimatedCounter } from '@/app/hooks/useScrollAnimation';
@@ -7,6 +8,9 @@ import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics'
 import PasswordProtect from '@/app/components/PasswordProtect';
 
 export default function ExpenseManagementPage() {
+    // Scroll to top on mount
+    useEffect(() => { window.scrollTo(0, 0); }, []);
+
     // Analytics tracking
     useScrollDepthTracking();
     useTimeOnPage();
@@ -364,7 +368,7 @@ export default function ExpenseManagementPage() {
 
                 {/* Quote Card */}
                 <div style={{ background: '#f9fafb', borderLeft: '4px solid #1f2937', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
-                    <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '18px', fontStyle: 'italic', fontSynthesis: 'none', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         &quot;Just because we&apos;ve never seen it yet, we probably would want to see the invoice first sent to the inbox. But if there&apos;s a way going down the road to have it sent through Concur, it might be easier to have those auto receipts. So if that works out, we will definitely switch to that.&quot;
                     </p>
                     <p style={{ fontSize: '14px', color: '#6b7280', margin: 0 }}>Business Admin</p>
@@ -389,7 +393,7 @@ export default function ExpenseManagementPage() {
 
                 {/* Quote Card */}
                 <div style={{ background: '#f9fafb', borderLeft: '4px solid #6b7280', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
-                    <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '18px', fontStyle: 'italic', fontSynthesis: 'none', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         &quot;If I had to manually add more than 10 people, that would be very detailed and very time consuming.&quot;
                     </p>
                     <p style={{ fontSize: '14px', color: '#6b7280', margin: 0 }}>Business Admin</p>
@@ -414,7 +418,7 @@ export default function ExpenseManagementPage() {
 
                 {/* Quote Card */}
                 <div style={{ background: '#f9fafb', borderLeft: '4px solid #9ca3af', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
-                    <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '18px', fontStyle: 'italic', fontSynthesis: 'none', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         &quot;I know you have that dashboard on your portal, but if there&apos;s any way I&apos;ll get an email [of insights] at the end of the week/month, and it&apos;ll give me the highlights of like here&apos;s where you spent more. If it just did that automatically versus me having to go and hunt it out...&quot;
                     </p>
                     <p style={{ fontSize: '14px', color: '#6b7280', margin: 0 }}>Business Admin</p>
@@ -431,7 +435,7 @@ export default function ExpenseManagementPage() {
 
                 {/* Quote Card */}
                 <div style={{ background: '#f9fafb', borderLeft: '4px solid #1f2937', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
-                    <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '18px', fontStyle: 'italic', fontSynthesis: 'none', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         &quot;If there&apos;s a way that the system can talk to our HR Information System... so if somebody gets deleted in ADP, it would be really cool if it also got deleted in ParkMobile so we didn&apos;t have to remember to go in and get rid of that person.&quot;
                     </p>
                     <p style={{ fontSize: '14px', color: '#6b7280', margin: 0 }}>Business Admin</p>
@@ -448,7 +452,7 @@ export default function ExpenseManagementPage() {
 
                 {/* Quote Card */}
                 <div style={{ background: '#f9fafb', borderLeft: '4px solid #6b7280', padding: '24px 32px', borderRadius: '0 12px 12px 0', margin: '40px 0' }}>
-                    <p style={{ fontSize: '18px', fontStyle: 'italic', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
+                    <p style={{ fontSize: '18px', fontStyle: 'italic', fontSynthesis: 'none', color: '#1f2937', marginBottom: '16px', lineHeight: 1.7 }}>
                         &quot;As an employee, I really want it to be as simple and frictionless as possible. I like the idea that I&apos;m going to be able to bring in my receipts.&quot;
                     </p>
                     <p style={{ fontSize: '14px', color: '#6b7280', margin: 0 }}>B2B Driver</p>

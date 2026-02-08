@@ -2545,19 +2545,17 @@ body {
       margin-right: 16px;
     }
 
-    /* Card description adjustments */
+    /* Hide card descriptions on touch devices - hover state doesn't apply */
     .card-focus-description {
-      left: 16px;
-      right: 16px;
-      font-size: 13px;
+      display: none;
     }
 
     .card-focus-description.low {
-      bottom: -40px;
+      display: none;
     }
 
     .card-focus-description.microsoft-low {
-      bottom: -52px;
+      display: none;
     }
   }
 
@@ -2755,12 +2753,9 @@ body {
       max-width: 160px;
     }
 
-    /* Card description */
+    /* Card description - hidden on mobile */
     .card-focus-description {
-      bottom: -28px;
-      left: 12px;
-      right: 12px;
-      font-size: 12px;
+      display: none;
     }
   }
 

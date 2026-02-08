@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp, AnimatedCounter } from '@/app/hooks/useScrollAnimation';
@@ -7,6 +8,9 @@ import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics'
 import PasswordProtect from '@/app/components/PasswordProtect';
 
 export default function VisionTestingPage() {
+    // Scroll to top on mount
+    useEffect(() => { window.scrollTo(0, 0); }, []);
+
     // Analytics tracking
     useScrollDepthTracking();
     useTimeOnPage();
@@ -847,7 +851,7 @@ export default function VisionTestingPage() {
                     {/* Quote */}
                     <div style={{ background: 'white', borderRadius: '16px', padding: '32px', position: 'relative', border: '1px solid #e5e7eb' }}>
                         <span style={{ position: 'absolute', top: '16px', left: '24px', fontSize: '64px', color: '#e5e7eb', fontFamily: 'Georgia, serif', lineHeight: 1 }}>"</span>
-                        <p style={{ fontSize: '20px', fontStyle: 'italic', paddingLeft: '48px', marginBottom: '16px', lineHeight: 1.6, color: '#1f2937' }}>
+                        <p style={{ fontSize: '20px', fontStyle: 'italic', fontSynthesis: 'none', paddingLeft: '48px', marginBottom: '16px', lineHeight: 1.6, color: '#1f2937' }}>
                             The end-to-end narrative helped teams see the product as a cohesive business journey, creating momentum and alignment around a shared direction.
                         </p>
                         <span style={{ paddingLeft: '48px', color: '#9ca3af', fontSize: '14px' }}>— Workshop Synthesis</span>
@@ -877,7 +881,7 @@ export default function VisionTestingPage() {
                     Reflection
                 </div>
 
-                <p style={{ fontSize: '24px', fontWeight: 400, lineHeight: 1.5, fontStyle: 'italic', marginBottom: '48px', color: '#1f2937' }}>
+                <p style={{ fontSize: '24px', fontWeight: 400, lineHeight: 1.5, fontStyle: 'italic', fontSynthesis: 'none', marginBottom: '48px', color: '#1f2937' }}>
                     "This project demonstrated how structured facilitation can transform fragmented perspectives into shared strategic direction—a capability as valuable as traditional research."
                 </p>
 
