@@ -106,7 +106,7 @@ export default function About() {
                         <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
                     </a>{' '}
-                    for the Dean of School of Art Media and Technology.
+                    helping publish Dean Sam&apos;s next study in ethnography.
                   </div>
                 </div>
 
