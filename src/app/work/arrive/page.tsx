@@ -63,7 +63,7 @@ export default function ArrivePage() {
                                 <span className="meta-value" style={{ margin: 0 }}>US</span>
                                 <span style={{ color: '#d1d5db' }}>—</span>
                                 <a href="https://parkmobile.io/" target="_blank" rel="noopener noreferrer" className="tool-icon-link">
-                                    <Image src="/images/parkmobile-logo.png" alt="ParkMobile" width={100} height={24} style={{ height: '18px', width: 'auto' }} />
+                                    <img src="/images/parkmobile-logo.png" alt="ParkMobile" style={{ height: '18px', width: 'auto' }} />
                                     <span className="tool-tooltip">ParkMobile</span>
                                 </a>
                             </div>
@@ -71,7 +71,7 @@ export default function ArrivePage() {
                                 <span className="meta-value" style={{ margin: 0 }}>EU</span>
                                 <span style={{ color: '#d1d5db' }}>—</span>
                                 <a href="https://www.easypark.com/en-is" target="_blank" rel="noopener noreferrer" className="tool-icon-link">
-                                    <Image src="/images/easypark-logo.png" alt="EasyPark" width={100} height={24} style={{ height: '22px', width: 'auto' }} />
+                                    <img src="/images/easypark-logo.png" alt="EasyPark" style={{ height: '22px', width: 'auto' }} />
                                     <span className="tool-tooltip">EasyPark</span>
                                 </a>
                             </div>
