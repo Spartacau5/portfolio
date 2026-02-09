@@ -108,11 +108,11 @@ export default function ArrivePage() {
                     <div className="project-card-wrapper">
                         <Link href="/work/arrive/parking-planner" className="project-card has-image fleet-management-card" style={{
                             display: 'flex',
-                            alignItems: 'flex-end',
+                            alignItems: 'flex-start',
                             justifyContent: 'center',
                             gap: '2rem',
                             padding: '3rem 2rem',
-                            background: '#f5f5f5',
+                            background: '#ffffff',
                             borderRadius: '24px',
                             minHeight: '400px'
                         }}>
@@ -124,13 +124,14 @@ export default function ArrivePage() {
                                 loop
                                 playsInline
                                 style={{
-                                    width: '60%',
-                                    maxWidth: '500px',
-                                    borderRadius: '12px',
-                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)'
+                                    width: '65%',
+                                    maxWidth: '550px',
+                                    borderRadius: '24px',
+                                    border: '8px solid #000000',
+                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
                                 }}
                             />
-                            {/* Driver MVP Video - Phone style (smaller) */}
+                            {/* Driver MVP Video - Phone style */}
                             <video
                                 src="/images/driver-mvp.mp4"
                                 autoPlay
@@ -138,10 +139,11 @@ export default function ArrivePage() {
                                 loop
                                 playsInline
                                 style={{
-                                    width: '20%',
-                                    maxWidth: '150px',
+                                    width: '24.2%',
+                                    maxWidth: '200px',
                                     borderRadius: '12px',
-                                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)'
+                                    borderRight: '2px solid #000000',
+                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
                                 }}
                             />
                         </Link>
@@ -158,39 +160,12 @@ export default function ArrivePage() {
 
                     {/* Project 2: Expense Management */}
                     <div className="project-card-wrapper">
-                        <Link href="/work/arrive/expense-management" className="project-card has-image arrive-sapconcur-card" style={{
+                        <Link href="/work/arrive/expense-management" className="project-card has-image" style={{
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            gap: '0',
-                            padding: '3rem 2rem',
-                            background: '#f5f5f5',
-                            borderRadius: '24px',
-                            minHeight: '400px'
-                        }}>
-                            <Image src="/images/arrive-logo.png" alt="Arrive" width={150} height={48} className="arrive-logo" style={{ height: '48px', width: 'auto' }} />
-                            <span className="collab-x" style={{ fontSize: '28px', fontWeight: '300', color: '#9ca3af', margin: '1rem 1.5rem 0 1.5rem' }}>×</span>
-                            <Image src="/images/sapconcur.svg" alt="SAP Concur" width={200} height={48} className="sapconcur-logo" style={{ height: '70px', width: 'auto', marginTop: '0.75rem' }} />
-                        </Link>
-                        <div className="project-card-info">
-                            <Link href="/work/arrive/expense-management" className="project-card-title-link">
-                                Expense Management: SAP Concur Integration
-                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            </Link>
-                            <p className="project-card-subtext">
-                                Conducted research to evaluate and shape an in-progress SAP Concur integration MVP, identifying opportunities to streamline parking expense submission, improve compliance, and reduce manual overhead for enterprise teams.
-                            </p>
-                        </div>
-                    </div>
-
-                    {/* Project 3: B2B Vision Testing */}
-                    <div className="project-card-wrapper">
-                        <Link href="/work/arrive/vision-testing" className="project-card has-image" style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '0',
-                            background: '#f5f5f5',
+                            padding: '3rem',
+                            background: '#ffffff',
                             borderRadius: '24px',
                             minHeight: '400px',
                             overflow: 'hidden'
@@ -204,19 +179,61 @@ export default function ArrivePage() {
                                     width: '100%',
                                     height: '100%',
                                     objectFit: 'cover',
-                                    borderRadius: '24px'
+                                    borderRadius: '24px',
+                                    border: '8px solid #000000',
+                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
                                 }}
                             >
-                                <source src="/images/visiontesting.webm" type="video/webm" />
+                                <source src="/images/em2.mp4" type="video/mp4" />
+                            </video>
+                        </Link>
+                        <div className="project-card-info">
+                            <Link href="/work/arrive/expense-management" className="project-card-title-link">
+                                Expense Management: Future State
+                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                            </Link>
+                            <p className="project-card-subtext">
+                                Started by evaluating a Concur integration MVP, then pivoted to define a broader expense management vision based on enterprise needs.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Project 3: B2B Vision Testing */}
+                    <div className="project-card-wrapper">
+                        <Link href="/work/arrive/vision-testing" className="project-card has-image" style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            padding: '3rem',
+                            background: '#ffffff',
+                            borderRadius: '24px',
+                            minHeight: '400px',
+                            overflow: 'hidden'
+                        }}>
+                            <video
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                    borderRadius: '16px',
+                                    border: '8px solid #000000',
+                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
+                                }}
+                            >
+                                <source src="/images/vision1.mp4" type="video/mp4" />
                             </video>
                         </Link>
                         <div className="project-card-info">
                             <Link href="/work/arrive/vision-testing" className="project-card-title-link">
-                                Arrive for Business: Vision Testing
+                                B2B Product Vision Workshops
                                 <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                             </Link>
                             <p className="project-card-subtext">
-                                Led cross-functional vision testing workshops with sales and leadership to evaluate, prioritize, and refine Arrive's two-year B2B product vision based on customer-facing insights.
+                                Designed and facilitated three workshops with Product, Sales, and Leadership to pressure-test a two-year B2B vision, turning fragmented perspectives into aligned priorities globally.
                             </p>
                         </div>
                     </div>

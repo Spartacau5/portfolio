@@ -23,9 +23,11 @@ export function WorkCards() {
 
     // Reset Arrive video when hover starts
     useEffect(() => {
-        if (isArriveHovered && arriveVideoRef.current) {
-            arriveVideoRef.current.currentTime = 0;
-            arriveVideoRef.current.play();
+        if (isArriveHovered) {
+            if (arriveVideoRef.current) {
+                arriveVideoRef.current.currentTime = 0;
+                arriveVideoRef.current.play();
+            }
         }
     }, [isArriveHovered]);
 
@@ -56,15 +58,24 @@ export function WorkCards() {
                             style={{ opacity: isArriveHovered ? 0 : 1 }}
                         />
 
-                        {/* Hover state - Video */}
+                        {/* Hover state - Vision video */}
                         <div
-                            className="absolute inset-0 transition-opacity duration-300"
-                            style={{ opacity: isArriveHovered ? 1 : 0 }}
+                            className="absolute inset-0 transition-opacity duration-300 flex items-center justify-center"
+                            style={{ opacity: isArriveHovered ? 1 : 0, background: '#ffffff', padding: '2rem' }}
                         >
                             <video
                                 ref={arriveVideoRef}
                                 src="/images/visiontesting.webm"
-                                className="w-full h-full object-cover"
+                                preload="auto"
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                    objectPosition: 'top',
+                                    borderRadius: '16px',
+                                    border: '8px solid #000000',
+                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
+                                }}
                                 autoPlay
                                 muted
                                 loop

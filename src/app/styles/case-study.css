@@ -524,6 +524,65 @@
     visibility: visible;
 }
 
+/* Lightbox overlay */
+@keyframes lightboxFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Highlighter effect for research questions */
+.rq-row {
+    position: relative;
+    cursor: default;
+}
+
+.rq-text {
+    position: relative;
+    display: inline;
+    padding: 2px 0px 4px 6px;
+    isolation: isolate;
+}
+
+.rq-text::before {
+    --mark-color: 91 233 92;
+    --mark-bg-angle: 30deg;
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 3px 5px 3px 5px;
+    background:
+        conic-gradient(at 0 100%, rgb(var(--mark-color) / 100%) 1%, #fff0 3%) no-repeat 0 0 / auto 120%,
+        conic-gradient(from 180deg at 100% 0, #fff0, rgb(var(--mark-color) / 100%) 1%, #fff0 4%) no-repeat 100% 100% / auto 120%,
+        linear-gradient(var(--mark-bg-angle), rgb(var(--mark-color) / 60%), rgb(var(--mark-color) / 20%) 75%, rgb(var(--mark-color) / 55%)) no-repeat center / auto;
+    transform: rotate(0.5deg) scaleX(0) skew(-3deg) scaleY(1.05);
+    transform-origin: left center;
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.rq-row:hover .rq-text::before {
+    transform: rotate(0.5deg) scaleX(1.05) skew(-3deg) scaleY(1.05);
+}
+
+/* Stagger the animation slightly for each row */
+.rq-row:nth-child(1) .rq-text::before {
+    transition-duration: 0.4s;
+}
+.rq-row:nth-child(2) .rq-text::before {
+    transition-duration: 0.5s;
+    transform: rotate(-0.3deg) scaleX(0) skew(2deg) scaleY(1.05);
+}
+.rq-row:nth-child(2):hover .rq-text::before {
+    transform: rotate(-0.3deg) scaleX(1.05) skew(2deg) scaleY(1.05);
+}
+.rq-row:nth-child(3) .rq-text::before {
+    transition-duration: 0.55s;
+    transform: rotate(0.7deg) scaleX(0) skew(-4deg) scaleY(1.05);
+}
+.rq-row:nth-child(3):hover .rq-text::before {
+    transform: rotate(0.7deg) scaleX(1.05) skew(-4deg) scaleY(1.05);
+}
+
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1569,12 +1628,38 @@
         gap: 1.5rem;
     }
 
-    /* Reorder on mobile: My Role, Timeline, Team, Scope */
+    /* Reorder on mobile: My Role, Timeline, Team, Methods, Scope, Tools */
     .case-study-meta .meta-block:nth-child(1) { order: 1; } /* My Role - top left */
     .case-study-meta .meta-block:nth-child(2) { order: 3; } /* Team - middle left */
     .case-study-meta .meta-block:nth-child(3) { order: 2; } /* Timeline - top right */
-    .case-study-meta .meta-block:nth-child(4) { order: 4; } /* Scope - middle right */
-    .case-study-meta .meta-block:nth-child(5) { order: 5; } /* Tools (if present) */
+    .case-study-meta .meta-block:nth-child(4) { order: 4; } /* Methods - middle right */
+    .case-study-meta .meta-block:nth-child(5) { order: 5; } /* Scope - bottom left */
+    .case-study-meta .meta-block:nth-child(6) { order: 6; } /* Tools - bottom right */
+
+    /* Video preview mobile adjustments */
+    .pp-video-preview {
+        padding: 1.5rem !important;
+        gap: 1rem !important;
+    }
+    .pp-dispatcher-video {
+        width: 70% !important;
+        border-width: 4px !important;
+    }
+    .pp-driver-video {
+        width: 26.5% !important;
+        border-width: 2px !important;
+        border-color: #000000 !important;
+        border-right-width: 3px !important;
+    }
+
+    .pp-tools-list {
+        grid-template-columns: repeat(4, auto) !important;
+        gap: 16px !important;
+    }
+
+    .concept-block {
+        grid-template-columns: 1fr !important;
+    }
 
     .meta-block {
         min-width: 0;
@@ -2104,6 +2189,13 @@
     }
 }
 
+/* PMF Illustration Grid - responsive */
+@media (max-width: 768px) {
+    .pmf-illustration-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
 /* Channel Evaluation - Desktop/Mobile toggle */
 .channel-eval-mobile {
     display: none !important;
@@ -2132,6 +2224,109 @@
     .tools-icons-container {
         display: flex;
         gap: 16px;
+    }
+}
+
+/* Desktop: synthesis flow arrow-2 shows → */
+.flow-arrow-2 {
+    font-size: 0 !important;
+}
+.flow-arrow-2::after {
+    content: '→';
+    font-size: 20px;
+}
+
+/* ============================================
+   PARKING PLANNER - MOBILE STYLES
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Research Timeline: 2x2 grid */
+    .research-timeline {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 24px !important;
+    }
+    .timeline-connector {
+        display: none !important;
+    }
+
+    /* Concept block headings: smaller on mobile */
+    .concept-heading {
+        font-size: 20px !important;
+    }
+
+    /* Dispatcher concept block: text before image on mobile */
+    .concept-block-reverse {
+        display: flex !important;
+        flex-direction: column-reverse !important;
+        gap: 24px !important;
+    }
+    .concept-block-media {
+        min-height: 260px !important;
+    }
+
+    /* Synthesis flow: 2x2 grid on mobile */
+    .synthesis-flow {
+        grid-template-columns: 1fr auto 1fr !important;
+        grid-template-rows: auto auto auto !important;
+        gap: 8px !important;
+    }
+    .synthesis-box-1 { grid-column: 1; grid-row: 1; }
+    .flow-arrow-1 { grid-column: 2; grid-row: 1; }
+    .synthesis-box-2 { grid-column: 3; grid-row: 1; }
+    .flow-arrow-2 {
+        grid-column: 3; grid-row: 2;
+        font-size: 0 !important;
+    }
+    .flow-arrow-2::after {
+        content: '↓';
+        font-size: 20px;
+    }
+    .synthesis-box-3 { grid-column: 3; grid-row: 3; }
+    .flow-arrow-3 {
+        grid-column: 2; grid-row: 3;
+        transform: rotate(180deg);
+    }
+    .synthesis-box-4 { grid-column: 1; grid-row: 3; }
+
+    /* Three-column grids: stack vertically */
+    .pp-three-col-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+
+    /* PMF illustration grid: stack vertically */
+    .pmf-illustration-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .pmf-illustration-grid > div {
+        border-left: none !important;
+    }
+
+    /* Feature List / Market Fit popups: fit mobile width */
+    .pp-popup-container {
+        width: calc(100vw - 32px) !important;
+        max-width: none !important;
+        left: -16px !important;
+        right: auto !important;
+        position: absolute !important;
+    }
+    .pp-popup-container > div {
+        max-height: 80vh !important;
+        overflow-y: auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Research Timeline: tighter */
+    .research-timeline {
+        gap: 16px !important;
+    }
+
+    /* Driver app phone mockups: 2x2 */
+    .pp-phone-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
     }
 }
 
