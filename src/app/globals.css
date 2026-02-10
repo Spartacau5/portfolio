@@ -241,6 +241,7 @@
   transition-delay: var(--exit-delay, 0s);
 }
 
+
 /* Microsoft content container - centered vertically, slightly lower */
 .microsoft-content {
   display: flex;
