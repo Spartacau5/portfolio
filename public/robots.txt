@@ -1,0 +1,41 @@
+# Allow search engines to index public pages
+User-agent: *
+Allow: /
+Allow: /work
+Allow: /about
+Allow: /contact
+Allow: /projects
+
+# Block Arrive case studies (password-protected client work)
+Disallow: /work/arrive
+Disallow: /work/arrive/*
+
+# Block resume PDF
+Disallow: /resume.pdf
+
+# Block direct access to media assets
+Disallow: /images/*.mp4
+Disallow: /images/*.png
+Disallow: /images/*.pdf
+
+# Block known AI scrapers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /work/arrive
+
+# Sitemap
+Sitemap: https://www.arpitahluwalia.com/sitemap.xml

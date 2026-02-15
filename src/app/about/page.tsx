@@ -27,7 +27,7 @@ export default function About() {
               height={16}
               className="list-icon"
             />
-            <div className="caption-text-w-icon">Click around...</div>
+            <div className="caption-text-w-icon">Hover around...</div>
           </div>
         </div>
 

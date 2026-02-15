@@ -36,7 +36,7 @@ export function WorkCards() {
             <div className="grid-top-bar">
                 <div className="view-controls-div">
                     <Image src="/images/arrow.svg" alt="" width={16} height={16} className="list-icon" />
-                    <div className="caption-text-w-icon">Click around...</div>
+                    <div className="caption-text-w-icon">Hover around...</div>
                 </div>
             </div>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
