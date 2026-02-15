@@ -6,9 +6,10 @@ import { createPortal } from 'react-dom';
 interface PasswordProtectProps {
     children: React.ReactNode;
     password: string;
+    storageKey?: string;
 }
 
-export default function PasswordProtect({ children, password }: PasswordProtectProps) {
+export default function PasswordProtect({ children, password, storageKey }: PasswordProtectProps) {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -26,7 +27,12 @@ export default function PasswordProtect({ children, password }: PasswordProtectP
         }, 100);
     };
 
-    const [isUnlocked, setIsUnlocked] = useState(false);
+    const [isUnlocked, setIsUnlocked] = useState(() => {
+        if (storageKey && typeof window !== 'undefined') {
+            return sessionStorage.getItem(storageKey) === 'true';
+        }
+        return false;
+    });
     const [inputValue, setInputValue] = useState('');
     const [error, setError] = useState(false);
     const [isShaking, setIsShaking] = useState(false);
@@ -50,6 +56,9 @@ export default function PasswordProtect({ children, password }: PasswordProtectP
         if (inputValue === password) {
             setIsUnlocked(true);
             setError(false);
+            if (storageKey) {
+                sessionStorage.setItem(storageKey, 'true');
+            }
         } else {
             setError(true);
             setIsShaking(true);

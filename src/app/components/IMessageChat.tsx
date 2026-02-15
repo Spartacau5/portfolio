@@ -247,13 +247,7 @@ export function IMessageChat() {
 
                 {/* Messages area */}
                 <div className="imessage-top" ref={messagesContainerRef}>
-                    <div
-                        className="multiple-imessages"
-                        style={{
-                            transform: 'translate3d(0px, 0px, 0px)',
-                            top: '0',
-                        }}
-                    >
+                    <div className="multiple-imessages">
                         {/* Initial greeting from Arpit */}
                         <div className="imessage-flex-intro">
                             <div className="imessage-flex-vertical">

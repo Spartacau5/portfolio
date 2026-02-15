@@ -3,11 +3,20 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useScrollAnimation, fadeInUp, AnimatedCounter } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
-import PasswordProtect from '@/app/components/PasswordProtect';
 
 export default function ExpenseManagementPage() {
+    const router = useRouter();
+
+    // Redirect if not authenticated via Arrive page
+    useEffect(() => {
+        if (sessionStorage.getItem('arrive-auth') !== 'true') {
+            router.replace('/work/arrive');
+        }
+    }, [router]);
+
     // Scroll to top on mount
     useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -35,7 +44,6 @@ export default function ExpenseManagementPage() {
     const artifactsAnim = useScrollAnimation();
 
     return (
-        <PasswordProtect password="crafty123">
         <div className="case-study-page">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
@@ -685,6 +693,5 @@ export default function ExpenseManagementPage() {
                 </button>
             </div>
         </div>
-        </PasswordProtect>
     );
 }

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { analytics } from '@/app/components/GoogleAnalytics';
+import PasswordProtect from '@/app/components/PasswordProtect';
 
 export default function ArrivePage() {
     // Analytics tracking
@@ -21,6 +22,7 @@ export default function ArrivePage() {
     };
 
     return (
+        <PasswordProtect password="crafty123" storageKey="arrive-auth">
         <div className="case-study-page">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
@@ -255,5 +257,6 @@ export default function ArrivePage() {
                 </button>
             </div>
         </div>
+        </PasswordProtect>
     );
 }

@@ -1278,18 +1278,31 @@ body {
 
   .imessage-top {
     flex-direction: column;
-    justify-content: center;
     height: 100%;
     padding-top: 17px;
     padding-left: 28px;
     padding-right: 28px;
     display: flex;
-    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  .imessage-top::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .imessage-top::-webkit-scrollbar-track {
+    background: transparent;
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
+
+  .imessage-top::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 999px;
   }
 
   .multiple-imessages {
-    position: relative;
-    top: 648px;
+    margin-top: auto;
   }
 
   /* Forms */
@@ -2492,9 +2505,8 @@ body {
     .tile.sm.imessage {
       width: 100%;
       min-width: 100%;
-      height: auto;
-      min-height: 320px;
-      max-height: none;
+      height: 400px;
+      max-height: 400px;
     }
 
     .tile-twitter.sm {
