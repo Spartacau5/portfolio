@@ -1,13 +1,23 @@
 'use client';
 
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { useScrollAnimation, fadeInUp, AnimatedCounter, AnimatedBar } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
-import PasswordProtect from '@/app/components/PasswordProtect';
+import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 
 export default function ParkingPlannerMVPPage() {
+    const router = useRouter();
+
+    // Redirect if not authenticated via Arrive page
+    useEffect(() => {
+        if (sessionStorage.getItem('arrive-auth') !== 'true') {
+            router.replace('/work/arrive');
+        }
+    }, [router]);
+
     // Scroll to top on mount
     useEffect(() => { window.scrollTo(0, 0); }, []);
 
@@ -16,8 +26,7 @@ export default function ParkingPlannerMVPPage() {
     useTimeOnPage();
 
     // Lightbox state with gallery support
-    const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
-    const [lightboxGallery, setLightboxGallery] = useState<string[]>([]);
+    const { lightboxSrc, lightboxGallery, openLightbox, closeLightbox } = useLightbox();
     const [showFeatureList, setShowFeatureList] = useState(false);
     const [showMarketFit, setShowMarketFit] = useState(false);
     const featureWrapRef = useRef<HTMLDivElement>(null);
@@ -67,36 +76,6 @@ export default function ParkingPlannerMVPPage() {
         document.addEventListener('touchstart', handleTouch);
         return () => document.removeEventListener('touchstart', handleTouch);
     }, [showFeatureList, showMarketFit, showFeatureListPlugin, showMarketFitPlugin, showMarketFitMetrics, showFeatureListDriver, showMarketFitDriver]);
-    const closeLightbox = useCallback(() => { setLightboxSrc(null); setLightboxGallery([]); }, []);
-
-    const openLightbox = useCallback((src: string, gallery?: string[]) => {
-        setLightboxSrc(src);
-        setLightboxGallery(gallery || []);
-    }, []);
-
-    const lightboxIndex = lightboxGallery.length > 0 && lightboxSrc ? lightboxGallery.indexOf(lightboxSrc) : -1;
-    const goNext = useCallback(() => {
-        if (lightboxGallery.length > 0 && lightboxIndex < lightboxGallery.length - 1) {
-            setLightboxSrc(lightboxGallery[lightboxIndex + 1]);
-        }
-    }, [lightboxGallery, lightboxIndex]);
-    const goPrev = useCallback(() => {
-        if (lightboxGallery.length > 0 && lightboxIndex > 0) {
-            setLightboxSrc(lightboxGallery[lightboxIndex - 1]);
-        }
-    }, [lightboxGallery, lightboxIndex]);
-
-    // Keyboard navigation
-    useEffect(() => {
-        if (!lightboxSrc) return;
-        const handleKey = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowRight') goNext();
-            if (e.key === 'ArrowLeft') goPrev();
-        };
-        window.addEventListener('keydown', handleKey);
-        return () => window.removeEventListener('keydown', handleKey);
-    }, [lightboxSrc, closeLightbox, goNext, goPrev]);
 
     // Scroll animation refs - each section needs its own ref
     const challengeAnim = useScrollAnimation();
@@ -117,7 +96,6 @@ export default function ParkingPlannerMVPPage() {
     const artifactsAnim = useScrollAnimation();
 
     return (
-        <PasswordProtect password="crafty123">
         <div className="case-study-page">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
@@ -453,7 +431,7 @@ export default function ParkingPlannerMVPPage() {
                             src="/images/craigslist.png"
                             alt="Craigslist Campaign Posts"
                             style={{ width: '100%', borderRadius: '12px', cursor: 'zoom-in' }}
-                            onClick={() => setLightboxSrc('/images/craigslist.png')}
+                            onClick={() => openLightbox('/images/craigslist.png')}
                         />
                         <p style={{ fontSize: '13px', color: '#6b7280', fontStyle: 'italic', marginTop: '6px' }}>
                             Posted targeted ads across 10 US cities: NYC, Boston, Chicago, LA, SF, Miami, Seattle, Houston, Philadelphia, Phoenix
@@ -488,7 +466,7 @@ export default function ParkingPlannerMVPPage() {
                         src="/images/typeform.png"
                         alt="Typeform Screener Questions & Responses"
                         style={{ width: '100%', borderRadius: '12px', cursor: 'zoom-in' }}
-                        onClick={() => setLightboxSrc('/images/typeform.png')}
+                        onClick={() => openLightbox('/images/typeform.png')}
                     />
                 </div>
 
@@ -673,7 +651,7 @@ export default function ParkingPlannerMVPPage() {
                         src="/images/sharedspace.png"
                         alt="Research Brainspace (FigJam)"
                         style={{ width: '100%', borderRadius: '16px', cursor: 'zoom-in' }}
-                        onClick={() => setLightboxSrc('/images/sharedspace.png')}
+                        onClick={() => openLightbox('/images/sharedspace.png')}
                     />
                     <p style={{ fontSize: '13px', color: '#6b7280', fontStyle: 'italic', marginTop: '6px' }}>
                         Shared research brainspace where internal Craft team members and external Arrive stakeholders could observe sessions and contribute notes in real time
@@ -1550,7 +1528,7 @@ export default function ParkingPlannerMVPPage() {
                         marginBottom: '32px',
                         cursor: 'zoom-in',
                     }}
-                    onClick={() => setLightboxSrc('/images/use3.png')}
+                    onClick={() => openLightbox('/images/use3.png')}
                 />
 
                 {/* Recommendation Box */}
@@ -2172,132 +2150,8 @@ export default function ParkingPlannerMVPPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
+
+            <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />
         </div>
-
-            {/* Lightbox Overlay */}
-            {lightboxSrc && (
-                <div
-                    onClick={closeLightbox}
-                    style={{
-                        position: 'fixed',
-                        inset: 0,
-                        zIndex: 9999,
-                        background: 'rgba(0, 0, 0, 0.85)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'zoom-out',
-                        padding: '40px',
-                        animation: 'lightboxFadeIn 0.2s ease',
-                    }}
-                >
-                    {/* Close button */}
-                    <button
-                        onClick={closeLightbox}
-                        style={{
-                            position: 'absolute',
-                            top: '24px',
-                            right: '24px',
-                            background: 'none',
-                            border: 'none',
-                            color: '#9ca3af',
-                            fontSize: '32px',
-                            cursor: 'pointer',
-                            lineHeight: 1,
-                            padding: '8px',
-                            zIndex: 1,
-                        }}
-                        aria-label="Close"
-                    >
-                        &#x2715;
-                    </button>
-
-                    {/* Previous button */}
-                    {lightboxGallery.length > 1 && lightboxIndex > 0 && (
-                        <button
-                            onClick={(e) => { e.stopPropagation(); goPrev(); }}
-                            style={{
-                                position: 'absolute',
-                                left: '16px',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                background: 'rgba(255,255,255,0.1)',
-                                border: 'none',
-                                color: '#fff',
-                                fontSize: '24px',
-                                cursor: 'pointer',
-                                width: '48px',
-                                height: '48px',
-                                borderRadius: '50%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                            aria-label="Previous"
-                        >
-                            &#x2039;
-                        </button>
-                    )}
-
-                    {/* Next button */}
-                    {lightboxGallery.length > 1 && lightboxIndex < lightboxGallery.length - 1 && (
-                        <button
-                            onClick={(e) => { e.stopPropagation(); goNext(); }}
-                            style={{
-                                position: 'absolute',
-                                right: '16px',
-                                top: '50%',
-                                transform: 'translateY(-50%)',
-                                background: 'rgba(255,255,255,0.1)',
-                                border: 'none',
-                                color: '#fff',
-                                fontSize: '24px',
-                                cursor: 'pointer',
-                                width: '48px',
-                                height: '48px',
-                                borderRadius: '50%',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                            aria-label="Next"
-                        >
-                            &#x203A;
-                        </button>
-                    )}
-
-                    <img
-                        src={lightboxSrc}
-                        alt=""
-                        onClick={(e) => e.stopPropagation()}
-                        style={{
-                            maxWidth: '90vw',
-                            maxHeight: '85vh',
-                            objectFit: 'contain',
-                            borderRadius: '12px',
-                            cursor: 'default',
-                        }}
-                    />
-
-                    {/* Gallery counter */}
-                    {lightboxGallery.length > 1 && (
-                        <div
-                            onClick={(e) => e.stopPropagation()}
-                            style={{
-                                position: 'absolute',
-                                bottom: '20px',
-                                left: '50%',
-                                transform: 'translateX(-50%)',
-                                color: '#9ca3af',
-                                fontSize: '13px',
-                                cursor: 'default',
-                            }}
-                        >
-                            {lightboxIndex + 1} / {lightboxGallery.length}
-                        </div>
-                    )}
-                </div>
-            )}
-        </PasswordProtect>
     );
 }

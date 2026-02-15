@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
+import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 
 export default function JobDescriptionParserPage() {
+    // Lightbox
+    const { lightboxSrc, lightboxGallery, openLightbox, closeLightbox } = useLightbox();
+
     // Scroll animation refs
     const demoAnim = useScrollAnimation();
     const processAnim = useScrollAnimation();
@@ -101,7 +105,7 @@ export default function JobDescriptionParserPage() {
                 <p className="content-text">
                     Apart an early draft of a PRD, I researched into what our competitors had iterated with their own version of this feature, if at all.
                 </p>
-                <Image src="/images/seekout.avif" alt="Seekout's JD Parser" width={800} height={450} className="content-image" style={{ marginTop: '1.5rem' }} />
+                <Image src="/images/seekout.avif" alt="Seekout's JD Parser" width={800} height={450} className="content-image" style={{ marginTop: '1.5rem', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/seekout.avif')} />
                 <span className="image-caption" style={{ marginTop: '0.75rem', display: 'block' }}>Seekout's JD Parser</span>
                 <div style={{ marginTop: '1.5rem' }}>
                     <p className="content-text" style={{ marginBottom: '1rem' }}><strong>The simpler the better:</strong> Most parsers followed a very simple text-based UI to mimic the feel of Resumes and PDF's. The idea is for the back-end functionality to shine than UI to distract.</p>
@@ -116,13 +120,13 @@ export default function JobDescriptionParserPage() {
                     To begin with, I designed some alternatives. After multiple rounds of feedback with my UX Manager, and PM, we narrowed down our options to 2.
                 </p>
 
-                <Image src="/images/cta1.avif" alt="Version A - CTA as the starting filter" width={800} height={450} className="content-image" style={{ marginTop: '1.5rem' }} />
+                <Image src="/images/cta1.avif" alt="Version A - CTA as the starting filter" width={800} height={450} className="content-image" style={{ marginTop: '1.5rem', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/cta1.avif')} />
                 <span className="image-caption" style={{ marginTop: '0.75rem', display: 'block' }}>Version A - CTA as the starting filter in the left panel</span>
                 <p className="content-text" style={{ marginTop: '1rem' }}>
                     Version A wanted to keep this as its own filter since that was our most used area and the product had a track record of users not even exploring CTA's outside of this panel. This was a PM-led approach which went against UX principles and logic but we had to entertain this option.
                 </p>
 
-                <Image src="/images/cta2.avif" alt="Version B - CTA on top next to search bar" width={800} height={450} className="content-image" style={{ marginTop: '2.5rem' }} />
+                <Image src="/images/cta2.avif" alt="Version B - CTA on top next to search bar" width={800} height={450} className="content-image" style={{ marginTop: '2.5rem', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/cta2.avif')} />
                 <span className="image-caption" style={{ marginTop: '0.75rem', display: 'block' }}>Version B - CTA on top next to search bar</span>
                 <p className="content-text" style={{ marginTop: '1rem' }}>
                     Version B was the UX-backed choice as this was a search functionality which made sense to be in or around the search bar section.
@@ -235,7 +239,7 @@ export default function JobDescriptionParserPage() {
                 <p className="content-text">
                     I also believe this initiative showcases rapid collaborative effort and synergy amongst cross-functional groups, and the incorporation of swift and budget-friendly user studies within the blueprint of product design. I had the opportunity to test and validate my solutions quickly with the focus groups and it was deemed really effective. So much so that it set a precedence of using focus groups for research in ZoomInfo.
                 </p>
-                <Image src="/images/slack.webp" alt="Slack feedback" width={600} height={400} className="content-image" style={{ marginTop: '1.5rem', maxWidth: '600px' }} />
+                <Image src="/images/slack.webp" alt="Slack feedback" width={600} height={400} className="content-image" style={{ marginTop: '1.5rem', maxWidth: '600px', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/slack.webp')} />
             </section>
 
             {/* Bottom Navigation */}
@@ -256,6 +260,8 @@ export default function JobDescriptionParserPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
+
+            <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />
         </div>
     );
 }

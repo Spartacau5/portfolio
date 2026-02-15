@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { analytics } from '@/app/components/GoogleAnalytics';
+import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 
 export default function JnJPage() {
     // Analytics tracking
@@ -17,6 +18,9 @@ export default function JnJPage() {
             challengeSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    // Lightbox
+    const { lightboxSrc, lightboxGallery, openLightbox, closeLightbox } = useLightbox();
 
     // Scroll animation refs
     const processAnim = useScrollAnimation();
@@ -100,8 +104,8 @@ export default function JnJPage() {
                     I started with evaluating the 2020 digital reports and preparing a blueprint for the new websites. During this phase I also compiled recommendations resulting from benchmarking of composite peer-set companies.
                 </p>
                 <div className="stacked-images">
-                    <Image src="/images/2020hp.webp" alt="2020 Health for Humanity Report" width={800} height={500} className="stacked-image" />
-                    <Image src="/images/2020nav.webp" alt="2020 Navigation Review" width={800} height={500} className="stacked-image" />
+                    <Image src="/images/2020hp.webp" alt="2020 Health for Humanity Report" width={800} height={500} className="stacked-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/2020hp.webp', ['/images/2020hp.webp', '/images/2020nav.webp'])} />
+                    <Image src="/images/2020nav.webp" alt="2020 Navigation Review" width={800} height={500} className="stacked-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/2020nav.webp', ['/images/2020hp.webp', '/images/2020nav.webp'])} />
                 </div>
 
                 <h3 className="content-subheading">Areas of Improvements</h3>
@@ -164,14 +168,14 @@ export default function JnJPage() {
                 </p>
 
                 <div className="image-slider">
-                    <Image src="/images/comp1.webp" alt="Competitive research 1" width={400} height={300} className="slider-image" />
-                    <Image src="/images/comp2.webp" alt="Competitive research 2" width={400} height={300} className="slider-image" />
-                    <Image src="/images/comp3.webp" alt="Competitive research 3" width={400} height={300} className="slider-image" />
-                    <Image src="/images/comp4.webp" alt="Competitive research 4" width={400} height={300} className="slider-image" />
-                    <Image src="/images/comp5.webp" alt="Competitive research 5" width={400} height={300} className="slider-image" />
-                    <Image src="/images/comp6.webp" alt="Competitive research 6" width={400} height={300} className="slider-image" />
-                    <Image src="/images/comp7.webp" alt="Competitive research 7" width={400} height={300} className="slider-image" />
-                    <Image src="/images/comp8.webp" alt="Competitive research 8" width={400} height={300} className="slider-image" />
+                    <Image src="/images/comp1.webp" alt="Competitive research 1" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp1.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
+                    <Image src="/images/comp2.webp" alt="Competitive research 2" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp2.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
+                    <Image src="/images/comp3.webp" alt="Competitive research 3" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp3.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
+                    <Image src="/images/comp4.webp" alt="Competitive research 4" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp4.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
+                    <Image src="/images/comp5.webp" alt="Competitive research 5" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp5.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
+                    <Image src="/images/comp6.webp" alt="Competitive research 6" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp6.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
+                    <Image src="/images/comp7.webp" alt="Competitive research 7" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp7.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
+                    <Image src="/images/comp8.webp" alt="Competitive research 8" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp8.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
                 </div>
 
                 <h3 className="content-subheading">Key Takeaways</h3>
@@ -326,11 +330,11 @@ export default function JnJPage() {
 
                 <div className="captioned-images">
                     <div className="captioned-image">
-                        <Image src="/images/v1.webp" alt="Information Architecture Version A" width={600} height={400} className="stacked-image" />
+                        <Image src="/images/v1.webp" alt="Information Architecture Version A" width={600} height={400} className="stacked-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/v1.webp', ['/images/v1.webp', '/images/v2.webp'])} />
                         <span className="image-caption">Version A</span>
                     </div>
                     <div className="captioned-image">
-                        <Image src="/images/v2.webp" alt="Information Architecture Version B" width={600} height={400} className="stacked-image" />
+                        <Image src="/images/v2.webp" alt="Information Architecture Version B" width={600} height={400} className="stacked-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/v2.webp', ['/images/v1.webp', '/images/v2.webp'])} />
                         <span className="image-caption">Version B</span>
                     </div>
                 </div>
@@ -424,6 +428,8 @@ export default function JnJPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
+
+            <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />
         </div>
     );
 }

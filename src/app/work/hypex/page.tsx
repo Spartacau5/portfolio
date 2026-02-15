@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { analytics } from '@/app/components/GoogleAnalytics';
+import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 
 export default function HypexPage() {
     // Analytics tracking
@@ -16,6 +17,9 @@ export default function HypexPage() {
             challengeSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    // Lightbox
+    const { lightboxSrc, lightboxGallery, openLightbox, closeLightbox } = useLightbox();
 
     // Scroll animation refs
     const galleryAnim = useScrollAnimation();
@@ -117,8 +121,8 @@ export default function HypexPage() {
                     <strong>I was provided a rough mockup of the team's vision.</strong>
                 </p>
                 <div className="reference-images">
-                    <Image src="/images/reference1.avif" alt="Reference mockup 1" width={500} height={350} className="reference-image" />
-                    <Image src="/images/reference2.avif" alt="Reference mockup 2" width={500} height={350} className="reference-image" />
+                    <Image src="/images/reference1.avif" alt="Reference mockup 1" width={500} height={350} className="reference-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/reference1.avif', ['/images/reference1.avif', '/images/reference2.avif'])} />
+                    <Image src="/images/reference2.avif" alt="Reference mockup 2" width={500} height={350} className="reference-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/reference2.avif', ['/images/reference1.avif', '/images/reference2.avif'])} />
                 </div>
                 <p className="content-text">
                     The team shared with me their existing wireframes and it was a very basic skeleton which was put together by the CEO and their marketing team when they initially started back in early 2021.
@@ -135,7 +139,7 @@ export default function HypexPage() {
                     Right from the beginning, I wanted a clear vision of the team's expectations on how to visually represent HypeX to the world. I set out to create a Moodboard which took inspiration from the most followed crypto projects in the world at the time.
                 </p>
                 <div className="moodboard-image-container">
-                    <Image src="/images/moodboard.webp" alt="HypeX Moodboard" width={1000} height={700} className="moodboard-image" />
+                    <Image src="/images/moodboard.webp" alt="HypeX Moodboard" width={1000} height={700} className="moodboard-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/moodboard.webp')} />
                 </div>
                 <p className="content-text">
                     I noticed there was a lot of focus on environment design where a mixture of impressive elements come together to create a whole ecosystem which you get transported to instead of just a static web page. This inspired me to take that space galaxy vibe to another level of immersion using 3D elements mixed with 2D.
@@ -152,12 +156,12 @@ export default function HypexPage() {
                 </p>
 
                 <div className="lowfi-gallery">
-                    <Image src="/images/lowfi1.avif" alt="Low-fidelity wireframe 1" width={600} height={400} className="lowfi-main" />
+                    <Image src="/images/lowfi1.avif" alt="Low-fidelity wireframe 1" width={600} height={400} className="lowfi-main" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi1.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
                     <div className="lowfi-grid">
-                        <Image src="/images/lowfi2.avif" alt="Low-fidelity wireframe 2" width={200} height={150} className="lowfi-thumb" />
-                        <Image src="/images/lowfi3.avif" alt="Low-fidelity wireframe 3" width={200} height={150} className="lowfi-thumb" />
-                        <Image src="/images/lowfi4.avif" alt="Low-fidelity wireframe 4" width={200} height={150} className="lowfi-thumb" />
-                        <Image src="/images/lowfi5.avif" alt="Low-fidelity wireframe 5" width={200} height={150} className="lowfi-thumb" />
+                        <Image src="/images/lowfi2.avif" alt="Low-fidelity wireframe 2" width={200} height={150} className="lowfi-thumb" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi2.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
+                        <Image src="/images/lowfi3.avif" alt="Low-fidelity wireframe 3" width={200} height={150} className="lowfi-thumb" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi3.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
+                        <Image src="/images/lowfi4.avif" alt="Low-fidelity wireframe 4" width={200} height={150} className="lowfi-thumb" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi4.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
+                        <Image src="/images/lowfi5.avif" alt="Low-fidelity wireframe 5" width={200} height={150} className="lowfi-thumb" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi5.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
                     </div>
                 </div>
 
@@ -166,7 +170,7 @@ export default function HypexPage() {
                     Once the layout was approved, I designed a high fidelity version which our developers could adopt quickly since time was a major constraint.
                 </p>
                 <div className="highfi-image-container">
-                    <Image src="/images/highfi.webp" alt="High-fidelity design v1" width={1000} height={700} className="highfi-image" />
+                    <Image src="/images/highfi.webp" alt="High-fidelity design v1" width={1000} height={700} className="highfi-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/highfi.webp')} />
                 </div>
 
                 <h3 className="content-subheading">Final Version</h3>
@@ -174,7 +178,7 @@ export default function HypexPage() {
                     Once we satisfied investors with a basic version of what HypeX does, I designed a final version which hit that immersive space environment I wanted to achieve. Our young team of college developers worked hard to bring the designs to life using React components which you can check out at <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="content-link">www.hypex.io<svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
                 </p>
                 <div className="highfi-image-container">
-                    <Image src="/images/finalhighfi.webp" alt="Final high-fidelity design" width={1000} height={700} className="highfi-image" />
+                    <Image src="/images/finalhighfi.webp" alt="Final high-fidelity design" width={1000} height={700} className="highfi-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/finalhighfi.webp')} />
                 </div>
             </section>
 
@@ -196,6 +200,8 @@ export default function HypexPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
+
+            <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />
         </div>
     );
 }

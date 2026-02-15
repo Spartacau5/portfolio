@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { analytics } from '@/app/components/GoogleAnalytics';
+import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 
 export default function MicrosoftPage() {
     // Analytics tracking
@@ -16,6 +17,9 @@ export default function MicrosoftPage() {
             prototypeSection.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    // Lightbox
+    const { lightboxSrc, lightboxGallery, openLightbox, closeLightbox } = useLightbox();
 
     // Scroll animation refs for each section
     const backgroundAnim = useScrollAnimation();
@@ -199,14 +203,14 @@ export default function MicrosoftPage() {
                 <p className="content-text">
                     We conducted 15+ stakeholder interviews across NYC, CA, PA, and TX school districts to get an initial understanding of how the education system operates and to identify any shared pain points.
                 </p>
-                <Image src="/images/participants.png" alt="Research Participants" width={800} height={500} className="content-image" />
+                <Image src="/images/participants.png" alt="Research Participants" width={800} height={500} className="content-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/participants.png')} />
 
                 <p className="content-text" style={{ marginTop: '2.5rem' }}>
                     We also facilitated Co-Design Workshops (7 sessions across 3 rounds, 60-75 minutes each) which ensured our solution was built with and for teachers every step of the process from ideation to prototype.
                 </p>
                 <div className="stacked-images">
-                    <Image src="/images/codesign1.png" alt="Co-Design Workshop 1" width={800} height={500} className="content-image" />
-                    <Image src="/images/codesign2.png" alt="Co-Design Workshop 2" width={800} height={500} className="content-image" />
+                    <Image src="/images/codesign1.png" alt="Co-Design Workshop 1" width={800} height={500} className="content-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/codesign1.png', ['/images/codesign1.png', '/images/codesign2.png'])} />
+                    <Image src="/images/codesign2.png" alt="Co-Design Workshop 2" width={800} height={500} className="content-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/codesign2.png', ['/images/codesign1.png', '/images/codesign2.png'])} />
                 </div>
             </section>
 
@@ -333,7 +337,7 @@ export default function MicrosoftPage() {
                 <p className="content-text">
                     We examined current AI education tools but we quickly found these platforms generalize and try to address foundational classroom needs, but not so much as specialized educators and their needs.
                 </p>
-                <Image src="/images/comp.png" alt="Competitive Research" width={1200} height={600} className="content-image" style={{ marginTop: '1.5rem', width: '100%', maxWidth: 'none' }} />
+                <Image src="/images/comp.png" alt="Competitive Research" width={1200} height={600} className="content-image" style={{ marginTop: '1.5rem', width: '100%', maxWidth: 'none', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp.png')} />
             </section>
 
             {/* Co-Design Principles Section */}
@@ -342,7 +346,7 @@ export default function MicrosoftPage() {
                 <p className="content-text">
                     Now that we had a concept in mind, but we before we started designing we needed a guide to our process. So, we co-created principles that prioritize ethics, adaptability, and educator empowerment and set the foundation of the value we were trying to embody as a product and organization.
                 </p>
-                <Image src="/images/cdp.png" alt="Co-Design Principles" width={1200} height={600} className="content-image" style={{ marginTop: '1.5rem', width: '100%', maxWidth: 'none' }} />
+                <Image src="/images/cdp.png" alt="Co-Design Principles" width={1200} height={600} className="content-image" style={{ marginTop: '1.5rem', width: '100%', maxWidth: 'none', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/cdp.png')} />
             </section>
 
             {/* Final Prototype Section */}
@@ -442,6 +446,8 @@ export default function MicrosoftPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
+
+            <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />
         </div>
     );
 }

@@ -3,8 +3,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
+import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 
 export default function DashboardTalentOSPage() {
+    // Lightbox
+    const { lightboxSrc, lightboxGallery, openLightbox, closeLightbox } = useLightbox();
+
     // Scroll animation refs
     const competitiveAnim = useScrollAnimation();
     const userFlowsAnim = useScrollAnimation();
@@ -80,11 +84,11 @@ export default function DashboardTalentOSPage() {
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginTop: '1.5rem' }}>
                     <div>
-                        <Image src="/images/tracker1.avif" alt="Layoffs.fyi tracker" width={600} height={400} className="content-image" style={{ borderRadius: '16px' }} />
+                        <Image src="/images/tracker1.avif" alt="Layoffs.fyi tracker" width={600} height={400} className="content-image" style={{ borderRadius: '16px', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/tracker1.avif', ['/images/tracker1.avif', '/images/tracker2.avif'])} />
                         <span className="image-caption" style={{ marginTop: '0.75rem', display: 'block' }}>Layoffs.fyi tracker</span>
                     </div>
                     <div>
-                        <Image src="/images/tracker2.avif" alt="TalentTicker.com" width={600} height={400} className="content-image" style={{ borderRadius: '16px' }} />
+                        <Image src="/images/tracker2.avif" alt="TalentTicker.com" width={600} height={400} className="content-image" style={{ borderRadius: '16px', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/tracker2.avif', ['/images/tracker1.avif', '/images/tracker2.avif'])} />
                         <span className="image-caption" style={{ marginTop: '0.75rem', display: 'block' }}>TalentTicker.com</span>
                     </div>
                 </div>
@@ -199,7 +203,7 @@ export default function DashboardTalentOSPage() {
                 <p className="content-text">
                     Although product indecision ultimately halted this idea, the process and output were highly appreciated internally. The project not only highlighted the importance of thoughtful design but also showcased the potential of innovative, user-driven solutions—leaving a lasting impact on the team and reinforcing the value of UX within the organization.
                 </p>
-                <Image src="/images/feedback.webp" alt="Feedback" width={600} height={400} className="content-image" style={{ marginTop: '1.5rem', maxWidth: '600px' }} />
+                <Image src="/images/feedback.webp" alt="Feedback" width={600} height={400} className="content-image" style={{ marginTop: '1.5rem', maxWidth: '600px', cursor: 'zoom-in' }} onClick={() => openLightbox('/images/feedback.webp')} />
             </section>
 
             {/* Bottom Navigation */}
@@ -220,6 +224,8 @@ export default function DashboardTalentOSPage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
+
+            <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />
         </div>
     );
 }
