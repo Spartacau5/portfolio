@@ -79,54 +79,45 @@ export function GridCards() {
           </div>
           <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[20rem] lg:min-h-[25rem] flex flex-col transition-opacity duration-300">
           <div>
-            <h2 className="text-[1rem] lg:text-2xl font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
-            <span className="text-[1rem] lg:text-2xl text-gray-400 leading-relaxed"> – Product Designer. Currently studying{' '}
-              <a href="https://www.newschool.edu/parsons/ms-design-management/" target="_blank" rel="noopener noreferrer" className="bio-link bio-link-lg">
-                Strategic Design
+            <h2 className="text-[0.9rem] lg:text-[1.375rem] font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
+            <span className="text-[0.9rem] lg:text-[1.375rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who ships code. I ask questions before jumping to solutions, and tie design to real outcomes.</span>
+          </div>
+
+          <hr className="my-4 border-gray-200" />
+
+          <div className="space-y-4 text-gray-500 text-[0.75rem] lg:text-base leading-relaxed">
+            <p>Most recently I designed and shipped{' '}
+              <a href="https://tashvi.ai/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                Tashvi
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>, and just finished my{' '}
+              <a href="https://www.newschool.edu/parsons/ms-design-management" target="_blank" rel="noopener noreferrer" className="bio-link">
+                MS in Strategic Design
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>{' '}
               at{' '}
-              <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link bio-link-lg">
+              <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link">
                 Parsons
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>.
-            </span>
-          </div>
-
-          <hr className="my-6 border-gray-200" />
-
-          <div className="space-y-4 text-gray-500 text-[0.75rem] lg:text-base leading-relaxed">
-            <p>I design products and the research that shapes them, helping teams gain clarity on what to build and why it matters.</p>
-
-            <p>Previously at{' '}
-              <Link href="/work/zoominfo" className="bio-link">
-                ZoomInfo
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>{' '}
-              and{' '}
-              <Link href="/work/jnj" className="bio-link">
-                Johnson &amp; Johnson
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>. Most recently consulted for{' '}
-              <Link href="/work/arrive" className="bio-link">
-                Arrive
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>.
             </p>
 
-            <p>When I'm not designing, I'm gaming, making music, or attempting stand-up comedy.</p>
+            <p>Before building my own products, I spent years shipping enterprise software to tens of thousands and scaling design systems - work that taught me to simplify complexity, bridge design and engineering, and make the call when there&apos;s no playbook.</p>
 
-            <p><em className="font-medium">Graduating this May</em> and looking for teams that want a designer who thinks beyond the screen.</p>
+            <p>Outside of work, I&apos;m gaming,{' '}
+              <a href="https://open.spotify.com/artist/3b9yCm5iWBKNIDqq1utESQ" target="_blank" rel="noopener noreferrer" className="bio-link">
+                making music
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>, and exploring New York City.
+            </p>
           </div>
           </div>
         </div>

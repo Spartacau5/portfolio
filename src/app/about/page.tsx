@@ -64,23 +64,42 @@ export default function About() {
                 <div className="about-me-block">
                   <h2 className="work-label">WHERE I&apos;M FROM</h2>
                   <div className="display-heading-2-about">
-                    I was born and raised in India, where I grew up always tinkering with something, convinced the next idea would be the one. Spoiler: it never was, but it trained me to keep iterating.
+                    I was born and raised in India, where I grew up always tinkering with something, convinced the next idea would be the one. Spoiler: it never was, but it taught me to keep iterating.
                   </div>
                 </div>
 
                 <div className="about-me-block">
                   <h2 className="work-label">WHAT I USED TO DO</h2>
                   <div className="display-heading-2-about">
-                    I didn&apos;t take the scenic route to design. I started making app interfaces before I fully understood why they worked, and learned the rest through rapid iteration and real feedback.
+                    Getting my hands dirty is how I work best — I take on things I haven&apos;t done before and figure them out in motion. It&apos;s one of my strongest traits, and it&apos;s what carried me from my first app interfaces to enterprise software at{' '}
+                    <a href="/work/zoominfo" className="bio-link">
+                      ZoomInfo
+                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>{' '}
+                    and{' '}
+                    <a href="/work/jnj" className="bio-link">
+                      Johnson &amp; Johnson
+                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>, used by thousands.
                   </div>
                 </div>
 
                 <div className="about-me-block">
                   <h2 className="work-label">WHAT I DO NOW</h2>
                   <div className="display-heading-2-about">
-                    Finishing my MS in{' '}
+                    I&apos;m the founding designer at{' '}
+                    <a href="https://tashvi.ai/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                      Tashvi.ai
+                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </a>, an AI-native product I designed and shipped from scratch. I also recently wrapped my{' '}
                     <a href="https://www.newschool.edu/parsons/ms-design-management/" target="_blank" rel="noopener noreferrer" className="bio-link">
-                      Strategic Design
+                      MS in Strategic Design
                       <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
@@ -91,36 +110,21 @@ export default function About() {
                       <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                       </svg>
-                    </a>{' '}
-                    where I&apos;m also a{' '}
-                    <a href="https://www.instagram.com/p/DPK1mpMDal3/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank" rel="noopener noreferrer" className="bio-link">
-                      Figma Campus Leader
-                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </a>{' '}
-                    &amp;{' '}
-                    <a href="https://www.newschool.edu/parsons/faculty/sam-mejias/" target="_blank" rel="noopener noreferrer" className="bio-link">
-                      Research Assistant
-                      <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </a>{' '}
-                    helping publish Dean Sam&apos;s next study in ethnography.
+                    </a>.
                   </div>
                 </div>
 
                 <div className="about-me-block">
                   <h2 className="work-label">WHERE I&apos;M AT NOW</h2>
                   <div className="display-heading-2-about">
-                    I&apos;m currently living in Brooklyn. You can find me bouncing between school, client work, and whatever I&apos;m obsessing over (lately it&apos;s making beats and streaming Arc Raiders on YouTube).
+                    I&apos;m in Brooklyn, bouncing between building, client work, and whatever I&apos;m obsessing over (making beats and playing Forza 6).
                   </div>
                 </div>
 
                 <div className="about-me-block">
                   <h2 className="work-label">WHAT I&apos;M LOOKING FOR</h2>
                   <div className="display-heading-2-about">
-                    <em>Graduating this May</em> and looking for teams that want a designer who thinks beyond the screen.
+                    An ambitious team that wants a designer who can shape the vision, think in systems, design with intention, and ship in code.
                   </div>
                 </div>
               </div>
