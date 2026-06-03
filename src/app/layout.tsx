@@ -7,6 +7,7 @@ import "./styles/case-study.css";
 import { CustomCursor } from "./components/CustomCursor";
 import { PageTransition } from "./components/PageTransition";
 import { Header } from "./components/Header";
+import { SiteFooter } from "./components/SiteFooter";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -78,14 +79,7 @@ export default function RootLayout({
         <PageTransition>
           {children}
         </PageTransition>
-        <footer className="text-center pt-8 pb-24 md:pb-8 px-4 text-gray-400 text-sm leading-relaxed">
-          <div>&copy; 2026 Arpit Ahluwalia</div>
-          <div>Designed in Figma &bull; Built with{' '}
-            <a href="https://cursor.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 underline hover:text-gray-600 transition-colors">Cursor</a>
-            {' & '}
-            <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" className="text-gray-400 underline hover:text-gray-600 transition-colors">Claude</a>
-          </div>
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   );

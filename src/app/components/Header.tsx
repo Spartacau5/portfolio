@@ -17,16 +17,20 @@ export function Header() {
   const hasInitialized = useRef(false);
 
   const navItems = [
-    { name: 'Home', href: '/' },
+    { name: 'Work', href: '/' },
+    { name: 'More', href: '/more' },
     { name: 'About', href: '/about' },
-    { name: 'Work', href: '/work' },
   ];
+
+  // The home page renders its own inline nav pill below the intro,
+  // so suppress the fixed pill there to avoid duplication.
+  const isHome = pathname === '/';
 
   // Determine which tab is active
   const getActiveIndex = () => {
-    if (pathname === '/') return 0;
-    if (pathname.startsWith('/about')) return 1;
-    if (pathname.startsWith('/work')) return 2;
+    if (pathname === '/' || pathname.startsWith('/work')) return 0;
+    if (pathname.startsWith('/more')) return 1;
+    if (pathname.startsWith('/about')) return 2;
     return 0;
   };
 
@@ -142,7 +146,9 @@ export function Header() {
         </div>
       </header>
 
-      {/* Single Navigation - positioned at bottom on mobile, center-top on desktop */}
+      {/* Single Navigation - positioned at bottom on mobile, center-top on desktop.
+          Hidden on the home page, which renders its own inline pill below the intro. */}
+      {!isHome && (
       <nav className="fixed z-50 left-0 right-0 bottom-8 md:bottom-auto md:top-4 md:py-2 flex justify-center px-4 pointer-events-none">
         <div className="nav-pill-glass rounded-full px-1 py-1 pointer-events-auto">
           <ul ref={navRef} className="flex items-center gap-0.5 md:gap-1 relative">
@@ -192,6 +198,7 @@ export function Header() {
           </ul>
         </div>
       </nav>
+      )}
     </>
   );
 }

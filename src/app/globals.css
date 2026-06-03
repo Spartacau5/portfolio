@@ -2930,3 +2930,330 @@ body {
     transform: none;
   }
 }
+
+/* ============================================
+   V2 HOME — INTRO / HERO
+   ============================================ */
+.home-intro {
+  margin: 0 8px 28px;
+}
+
+.home-intro-top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.home-intro-text {
+  max-width: 940px;
+}
+
+.home-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.home-blurb {
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: #374151;
+}
+
+.home-blurb strong {
+  font-weight: 700;
+  color: #000;
+}
+
+.journey-arrow {
+  width: 0.85em;
+  height: 0.85em;
+  display: inline-block;
+  vertical-align: -0.06em;
+  margin: 0 0.28em;
+}
+
+.home-intro-cat {
+  flex-shrink: 0;
+  margin-bottom: -10px;
+  position: relative;
+  z-index: 1;
+}
+
+.home-intro-hr {
+  border: 0;
+  border-top: 2px solid #e5e7eb;
+  margin: 8px 0 14px;
+}
+
+.home-availability {
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 40px;
+}
+
+.home-prev-link {
+  color: #374151;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: #c9c9c9;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.home-prev-link:hover {
+  color: #000;
+  text-decoration-color: #000;
+}
+
+/* Inline nav pill (below the intro blurb) */
+.home-nav {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 22px;
+  margin-bottom: -12px;
+}
+
+.home-nav-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+}
+
+.home-nav-item {
+  padding: 8px 22px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9ca3af;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.home-nav-item:hover {
+  color: #4b5563;
+}
+
+.home-nav-item.active {
+  background-color: #e5e7eb;
+  color: #111827;
+}
+
+/* Uniform project tiles — aspect ratio matches the AI Homepage hero video
+   (1776x1080) so that card hugs the video with no letterboxing, and every
+   card shares the same height. */
+.home-tile .grid-card {
+  width: 100%;
+  aspect-ratio: 1776 / 1080;
+}
+
+/* Arrive — first card: ArriveLoop video fills the card (no frame). */
+.arrive-loop-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Arrive — B2B Product Vision Workshops card: framed like a device,
+   centered in the card with the whole video visible. */
+.arrive-vision-video {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 8px solid #000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* ZoomInfo card — gif fills the card, whole graphic visible (no crop).
+   Purple gradient bg (darker top, lighter bottom) so the letterbox areas
+   blend into the gif's purple edges instead of showing white. */
+.zoominfo-card {
+  background: linear-gradient(180deg, #1b0c33 0%, #3a1a63 45%, #6a2eb0 100%);
+  border-color: #2a1550;
+}
+
+.zoominfo-gif {
+  object-fit: contain;
+}
+
+/* AI Homepage card — video fills the card without a frame. */
+.ai-homepage-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tashvi wordmark (no logo asset) */
+.tashvi-wordmark {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111827;
+}
+
+@media (max-width: 767px) {
+  .home-intro-cat {
+    display: none;
+  }
+  .home-title {
+    font-size: 1.5rem;
+  }
+  .home-blurb {
+    font-size: 1rem;
+  }
+}
+
+/* ============================================
+   V2 SITE FOOTER
+   ============================================ */
+.site-footer {
+  width: 100%;
+}
+
+.site-footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px 36px;
+}
+
+.site-footer-hr {
+  border: 0;
+  border-top: 1px solid #e5e7eb;
+  margin-bottom: 28px;
+}
+
+.site-footer-grid {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.site-footer-id {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.site-footer-name-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.site-footer-avatar {
+  border-radius: 9999px;
+}
+
+.site-footer-name {
+  font-weight: 700;
+  color: #111827;
+  font-size: 1.05rem;
+}
+
+.site-footer-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.site-footer-pin {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.site-footer-divider {
+  color: #d1d5db;
+  margin: 0 2px;
+}
+
+.knicks {
+  cursor: default;
+}
+
+.knicks-go,
+.knicks-name {
+  transition: color 0.2s ease;
+}
+
+.knicks:hover .knicks-go {
+  color: #006bb6;
+}
+
+.knicks:hover .knicks-name {
+  color: #f58426;
+}
+
+.site-footer-contact {
+  text-align: right;
+}
+
+.site-footer-cta {
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 14px;
+}
+
+.site-footer-socials {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.site-footer-social {
+  display: inline-flex;
+  align-items: center;
+  color: #6b7280;
+  transition: color 0.2s ease;
+}
+
+.site-footer-social:hover {
+  color: #111827;
+}
+
+.site-footer-social-icon svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.site-footer-meta {
+  text-align: center;
+  margin-top: 44px;
+  color: #b5b5b5;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+
+@media (max-width: 767px) {
+  .site-footer-inner {
+    padding-bottom: 104px;
+  }
+  .site-footer-grid {
+    flex-direction: column;
+  }
+  .site-footer-contact {
+    text-align: left;
+  }
+  .site-footer-socials {
+    justify-content: flex-start;
+  }
+}

@@ -10,6 +10,7 @@ export default function CatAnimation() {
     const [currentFrame, setCurrentFrame] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
     const animationRef = useRef<NodeJS.Timeout | null>(null);
+    const hasAutoPlayed = useRef(false);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [petCount, setPetCount] = useState<number | null>(null);
     const [isHovered, setIsHovered] = useState(false);
@@ -76,18 +77,17 @@ export default function CatAnimation() {
         playAnimationVisual();
     }, [isAnimating, playAnimationVisual]);
 
-    // Auto-play animation once per session on first visit
+    // Auto-play the stretch animation once each time the page loads.
+    // A ref guard ensures it runs a single time per mount (not on every
+    // playAnimationVisual identity change) so it doesn't loop.
     useEffect(() => {
-        if (!imagesLoaded) return;
-        const hasPlayed = sessionStorage.getItem('cat-animation-played');
-        if (!hasPlayed) {
-            sessionStorage.setItem('cat-animation-played', 'true');
-            // Small delay so the page settles before animation starts
-            const timer = setTimeout(() => {
-                playAnimationVisual();
-            }, 500);
-            return () => clearTimeout(timer);
-        }
+        if (!imagesLoaded || hasAutoPlayed.current) return;
+        hasAutoPlayed.current = true;
+        // Small delay so the page settles before animation starts
+        const timer = setTimeout(() => {
+            playAnimationVisual();
+        }, 500);
+        return () => clearTimeout(timer);
     }, [imagesLoaded, playAnimationVisual]);
 
     // Cleanup on unmount

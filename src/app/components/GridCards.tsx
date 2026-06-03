@@ -3,30 +3,37 @@
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-import { MusicPlayer } from './MusicPlayer';
-import { PhotoCarousel } from './PhotoCarousel';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
 import CatAnimation from './CatAnimation';
 import { analytics } from './GoogleAnalytics';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
-  arrive: { name: 'Arrive', subtitle: 'Embedded UX researcher for enterprise product strategy' },
+  parking: { name: 'B2B Parking Planner', subtitle: "Evaluated whether Arrive's B2B offering should expand from parking support to fleet planning tools" },
+  vision: { name: 'B2B Product Vision Workshops', subtitle: 'Facilitated workshops to pressure-test a two-year B2B vision into aligned priorities' },
+  aihomepage: { name: 'AI Homepage', subtitle: 'Reimagined the homepage around an AI-first experience' },
   zoominfo: { name: 'ZoomInfo', subtitle: 'Redesigned how sales & marketing teams hit their number worldwide' },
   jnj: { name: 'Johnson & Johnson', subtitle: 'Designed JnJ\'s 2021 Healthy for Humanity & DEI Reports' },
+  tashvi: { name: 'Tashvi', subtitle: 'Designed and shipped an AI-native product from scratch' },
   hypex: { name: 'HYPEX', subtitle: 'Led marketing and design efforts for an NFT-based trading game' },
-  mtsinai: { name: 'Mt Sinai', subtitle: 'Designed an incident reporting app for hospitals in Africa' },
   microsoft: { name: 'Microsoft', subtitle: "Collab on the future of education with Microsoft's Inclusive Design Team" },
 };
 
+const navItems = [
+  { name: 'Work', href: '/' },
+  { name: 'More', href: '/more' },
+  { name: 'About', href: '/about' },
+];
+
 export function GridCards() {
   const [focusedCard, setFocusedCard] = useState<string | null>(null);
-  const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
   const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
-  const [isArriveHovered, setIsArriveHovered] = useState(false);
-  const arriveVideoRef = useRef<HTMLVideoElement>(null);
+  const [isTashviHovered, setIsTashviHovered] = useState(false);
+  const tashviVideoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const lastTapRef = useRef<Record<string, number>>({});
   const isTouchRef = useRef(false);
 
@@ -52,169 +59,202 @@ export function GridCards() {
     }
   };
 
-  // Reset Arrive video when hover starts
+  // Reset Tashvi video when hover starts
   useEffect(() => {
-    if (isArriveHovered) {
-      if (arriveVideoRef.current) {
-        arriveVideoRef.current.currentTime = 0;
-        arriveVideoRef.current.play();
-      }
+    if (isTashviHovered && tashviVideoRef.current) {
+      tashviVideoRef.current.currentTime = 0;
+      tashviVideoRef.current.play();
     }
-  }, [isArriveHovered]);
+  }, [isTashviHovered]);
 
   return (
     <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
-      <div className="grid-top-bar">
-        <div className="view-controls-div">
-          <Image src="/images/arrow.svg" alt="" width={16} height={16} className="list-icon" />
-          <div className="caption-text-w-icon">Hover around...</div>
-        </div>
-      </div>
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-        {/* Intro/Bio Card */}
-        <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'bio' ? 'opacity-10' : ''}`}>
-          {/* Cat Animation - positioned above the card */}
-          <div className="cat-position-wrapper">
+      {/* Intro / Hero */}
+      <section className="home-intro">
+        <div className="home-intro-top">
+          <div className="home-intro-text">
+            <h1 className="home-title">Arpit Singh Ahluwalia</h1>
+            <p className="home-blurb">
+              I dig into <strong>the why before the what</strong>, and I measure design by the{' '}
+              <strong>outcomes it drives</strong>, not just how it looks. Design is my expertise but
+              I own the whole journey from{' '}
+              <strong className="home-journey">
+                strategy
+                <svg className="journey-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h13M12 5l7 7-7 7" />
+                </svg>
+                research
+                <svg className="journey-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h13M12 5l7 7-7 7" />
+                </svg>
+                design
+                <svg className="journey-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M5 12h13M12 5l7 7-7 7" />
+                </svg>
+                development
+              </strong>.
+            </p>
+          </div>
+          <div className="home-intro-cat">
             <CatAnimation />
           </div>
-          <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[20rem] lg:min-h-[25rem] flex flex-col transition-opacity duration-300">
-          <div>
-            <h2 className="text-[0.9rem] lg:text-[1.375rem] font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
-            <span className="text-[0.9rem] lg:text-[1.375rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who ships code. I ask questions before jumping to solutions, and tie design to real outcomes.</span>
-          </div>
-
-          <hr className="my-4 border-gray-200" />
-
-          <div className="space-y-4 text-gray-500 text-[0.75rem] lg:text-base leading-relaxed">
-            <p>Most recently I designed and shipped{' '}
-              <a href="https://tashvi.ai/" target="_blank" rel="noopener noreferrer" className="bio-link">
-                Tashvi
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>, and just finished my{' '}
-              <a href="https://www.newschool.edu/parsons/ms-design-management" target="_blank" rel="noopener noreferrer" className="bio-link">
-                MS in Strategic Design
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>{' '}
-              at{' '}
-              <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link">
-                Parsons
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>.
-            </p>
-
-            <p>Before building my own products, I spent years shipping enterprise software to tens of thousands and scaling design systems - work that taught me to simplify complexity, bridge design and engineering, and make the call when there&apos;s no playbook.</p>
-
-            <p>Outside of work, I&apos;m gaming,{' '}
-              <a href="https://open.spotify.com/artist/3b9yCm5iWBKNIDqq1utESQ" target="_blank" rel="noopener noreferrer" className="bio-link">
-                making music
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>, and exploring New York City.
-            </p>
-          </div>
-          </div>
         </div>
 
-        {/* Arrive Logo Card */}
-        <div className={`card-wrapper col-span-1 lg:col-span-6 h-full ${focusedCard && focusedCard !== 'arrive' ? 'opacity-10' : ''}`}>
-          <div
-            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-            onMouseEnter={() => setIsArriveHovered(true)}
-            onMouseLeave={() => setIsArriveHovered(false)}
-            onClick={(e) => handleCardClick(e, '/work/arrive')}
-            onTouchEnd={(e) => handleCardTouchEnd(e, 'arrive', '/work/arrive')}
-          >
-            {/* Default logo */}
-            <Image
-              src="/images/arrive-logo.png"
-              alt="Arrive"
-              width={192}
-              height={48}
-              className="w-28 lg:w-48 transition-opacity duration-300"
-              style={{ opacity: isArriveHovered ? 0 : 1 }}
-            />
+        <hr className="home-intro-hr" />
 
-            {/* Hover state - Vision video */}
-            <div
-              className="absolute inset-0 transition-opacity duration-300 flex items-center justify-center"
-              style={{ opacity: isArriveHovered ? 1 : 0, background: '#ffffff', padding: '2rem' }}
-            >
-              <video
-                ref={arriveVideoRef}
-                src="/images/visiontesting.webm"
-                preload="auto"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: 'top',
-                  borderRadius: '16px',
-                  border: '8px solid #000000',
-                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
-                }}
-                autoPlay
-                muted
-                loop
-                playsInline
-              />
-            </div>
+        <p className="home-availability">
+          Currently looking for a new challenge! Previously at{' '}
+          <a href="https://arrive.com/en/newsroom/news/easypark-group-unifies-under-arrive-to-build-the-world-s-leading-global-mobility-platform" target="_blank" rel="noopener noreferrer" className="bio-link">
+            Arrive
+            <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>,{' '}
+          <Link href="/work/zoominfo" className="bio-link">
+            ZoomInfo
+            <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Link>{' '}&amp;{' '}
+          <Link href="/work/jnj" className="bio-link">
+            JnJ
+            <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Link>
+        </p>
 
-            {/* Arrow Button - Bottom Left - Links to case study */}
-            <Link
-              href="/work/arrive"
-              className="card-arrow-btn"
-              onMouseEnter={() => setFocusedCard('arrive')}
-              onMouseLeave={() => setFocusedCard(null)}
-              onClick={() => analytics.trackCaseStudyView('Arrive')}
-            >
-              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-            </Link>
+        {/* Nav pill - below the intro blurb */}
+        <nav className="home-nav">
+          <div className="home-nav-pill">
+            {navItems.map((item) => {
+              const isActive =
+                item.href === '/'
+                  ? pathname === '/' || pathname.startsWith('/work')
+                  : pathname.startsWith(item.href);
+              return (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`home-nav-item ${isActive ? 'active' : ''}`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </div>
-          {/* Description text that appears on focus */}
-          <div className={`card-focus-description ${focusedCard === 'arrive' ? 'visible' : ''}`}>
-            <span className="project-name">{cardDescriptions.arrive.name}</span>
-            <span className="project-subtitle"> — {cardDescriptions.arrive.subtitle}</span>
-          </div>
-        </div>
+        </nav>
+      </section>
 
-        {/* ZoomInfo Logo Card */}
-        <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
+      {/* Uniform 2-column project grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Arrive — B2B Parking Planner */}
+        <div className={`card-wrapper home-tile ${focusedCard && focusedCard !== 'parking' ? 'opacity-10' : ''}`}>
           <div
-            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-            onMouseEnter={() => setIsZoominfoHovered(true)}
-            onMouseLeave={() => setIsZoominfoHovered(false)}
-            onClick={(e) => handleCardClick(e, '/work/zoominfo')}
-            onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
+            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex items-center justify-center overflow-hidden group cursor-pointer"
+            onClick={(e) => handleCardClick(e, '/work/arrive/parking-planner')}
+            onTouchEnd={(e) => handleCardTouchEnd(e, 'parking', '/work/arrive/parking-planner')}
           >
-            {/* Default logo */}
-            <Image
-              src="/images/zoominfo-logo.png"
-              alt="ZoomInfo"
-              width={256}
-              height={64}
-              className="w-36 lg:w-64 transition-opacity duration-300"
-              style={{ opacity: isZoominfoHovered ? 0 : 1 }}
-            />
-
-            {/* Hover video - covers entire card */}
             <video
-              src="/images/zigif.mp4"
-              className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-opacity duration-300"
-              style={{ opacity: isZoominfoHovered ? 1 : 0 }}
+              src="/images/ArriveLoop.mov"
               autoPlay
               muted
               loop
               playsInline
+              className="arrive-loop-video"
             />
+            <Link
+              href="/work/arrive/parking-planner"
+              className="card-arrow-btn"
+              onMouseEnter={() => setFocusedCard('parking')}
+              onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('Arrive — B2B Parking Planner')}
+            >
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </Link>
+          </div>
+          <div className={`card-focus-description ${focusedCard === 'parking' ? 'visible' : ''}`}>
+            <span className="project-name">{cardDescriptions.parking.name}</span>
+            <span className="project-subtitle"> — {cardDescriptions.parking.subtitle}</span>
+          </div>
+        </div>
 
-            {/* Arrow Button - Bottom Left */}
+        {/* Arrive — B2B Product Vision Workshops */}
+        <div className={`card-wrapper home-tile ${focusedCard && focusedCard !== 'vision' ? 'opacity-10' : ''}`}>
+          <div
+            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex items-center justify-center overflow-hidden group cursor-pointer"
+            onClick={(e) => handleCardClick(e, '/work/arrive/vision-testing')}
+            onTouchEnd={(e) => handleCardTouchEnd(e, 'vision', '/work/arrive/vision-testing')}
+          >
+            <video
+              src="/images/vision1.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="arrive-vision-video"
+            />
+            <Link
+              href="/work/arrive/vision-testing"
+              className="card-arrow-btn"
+              onMouseEnter={() => setFocusedCard('vision')}
+              onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('Arrive — B2B Product Vision Workshops')}
+            >
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </Link>
+          </div>
+          <div className={`card-focus-description ${focusedCard === 'vision' ? 'visible' : ''}`}>
+            <span className="project-name">{cardDescriptions.vision.name}</span>
+            <span className="project-subtitle"> — {cardDescriptions.vision.subtitle}</span>
+          </div>
+        </div>
+
+        {/* AI Homepage */}
+        <div className={`card-wrapper home-tile ${focusedCard && focusedCard !== 'aihomepage' ? 'opacity-10' : ''}`}>
+          <div
+            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex items-center justify-center overflow-hidden group cursor-pointer"
+            onClick={(e) => handleCardClick(e, '/work/ai-homepage')}
+            onTouchEnd={(e) => handleCardTouchEnd(e, 'aihomepage', '/work/ai-homepage')}
+          >
+            <video
+              src="/images/Zoominfolooper.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="ai-homepage-video"
+            />
+            <Link
+              href="/work/ai-homepage"
+              className="card-arrow-btn"
+              onMouseEnter={() => setFocusedCard('aihomepage')}
+              onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('AI Homepage')}
+            >
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </Link>
+          </div>
+          <div className={`card-focus-description ${focusedCard === 'aihomepage' ? 'visible' : ''}`}>
+            <span className="project-name">{cardDescriptions.aihomepage.name}</span>
+            <span className="project-subtitle"> — {cardDescriptions.aihomepage.subtitle}</span>
+          </div>
+        </div>
+
+        {/* ZoomInfo */}
+        <div className={`card-wrapper home-tile ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
+          <div
+            className="grid-card zoominfo-card rounded-3xl p-6 lg:p-8 shadow-sm border relative flex items-center justify-center overflow-hidden group cursor-pointer"
+            onClick={(e) => handleCardClick(e, '/work/zoominfo')}
+            onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
+          >
+            <Image
+              src="/images/ZoomInfoGIF.gif"
+              alt="ZoomInfo"
+              fill
+              unoptimized
+              className="zoominfo-gif"
+            />
             <Link
               href="/work/zoominfo"
               className="card-arrow-btn"
@@ -224,35 +264,21 @@ export function GridCards() {
             >
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
-
-            {/* Sublabels that slide up on hover */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full transition-transform duration-500 ease-out">
-              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-3">
-                <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500 w-fit">Redesigned how sales & marketing teams hit their number worldwide</span>
-                <div className="flex gap-2">
-                  <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">UX/UI Designer</span>
-                  <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">Full-Time</span>
-                </div>
-              </div>
-            </div>
           </div>
-          {/* Description text that appears on focus */}
           <div className={`card-focus-description ${focusedCard === 'zoominfo' ? 'visible' : ''}`}>
             <span className="project-name">{cardDescriptions.zoominfo.name}</span>
             <span className="project-subtitle"> — {cardDescriptions.zoominfo.subtitle}</span>
           </div>
         </div>
 
-        {/* Johnson & Johnson Logo Card */}
-        <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
+        {/* Johnson & Johnson */}
+        <div className={`card-wrapper home-tile ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
           <div
-            className="jnj-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            className="jnj-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex items-center justify-center overflow-hidden group cursor-pointer"
             onClick={(e) => handleCardClick(e, '/work/jnj')}
             onTouchEnd={(e) => handleCardTouchEnd(e, 'jnj', '/work/jnj')}
           >
-            <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-44 lg:w-80" />
-
-            {/* Arrow Button - Bottom Left */}
+            <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-44 lg:w-72" />
             <Link
               href="/work/jnj"
               className="card-arrow-btn"
@@ -262,311 +288,72 @@ export function GridCards() {
             >
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
-
-            {/* Sublabels that slide up on hover */}
-            <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full transition-transform duration-500 ease-out">
-              <div className="flex flex-col lg:flex-row lg:justify-between lg:items-end gap-3">
-                <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500 w-fit">Designed JnJ's 2021 Healthy for Humanity & DEI Reports</span>
-                <div className="flex gap-2">
-                  <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">UI Designer</span>
-                  <span className="px-4 py-2 bg-gray-100 rounded-xl text-sm text-gray-500">Contract</span>
-                </div>
-              </div>
-            </div>
           </div>
-          {/* Description text that appears on focus */}
           <div className={`card-focus-description ${focusedCard === 'jnj' ? 'visible' : ''}`}>
             <span className="project-name">{cardDescriptions.jnj.name}</span>
             <span className="project-subtitle"> — {cardDescriptions.jnj.subtitle}</span>
           </div>
         </div>
 
-        {/* HYPEX Card */}
-        <div className={`card-wrapper col-span-1 lg:col-span-6 home-hypex-card ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
+        {/* Tashvi */}
+        <div className={`card-wrapper home-tile ${focusedCard && focusedCard !== 'tashvi' ? 'opacity-10' : ''}`}>
           <div
-            className="hypex-card grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex items-center justify-center overflow-hidden group cursor-pointer"
+            onMouseEnter={() => setIsTashviHovered(true)}
+            onMouseLeave={() => setIsTashviHovered(false)}
+            onClick={(e) => handleCardClick(e, '/work/tashvi')}
+            onTouchEnd={(e) => handleCardTouchEnd(e, 'tashvi', '/work/tashvi')}
+          >
+            <span
+              className="tashvi-wordmark transition-opacity duration-300"
+              style={{ opacity: isTashviHovered ? 0 : 1 }}
+            >
+              Tashvi
+            </span>
+            <video
+              ref={tashviVideoRef}
+              src="/images/tashvi1.mp4"
+              className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-opacity duration-300"
+              style={{ opacity: isTashviHovered ? 1 : 0 }}
+              muted
+              loop
+              playsInline
+            />
+            <Link
+              href="/work/tashvi"
+              className="card-arrow-btn"
+              onMouseEnter={() => setFocusedCard('tashvi')}
+              onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('Tashvi')}
+            >
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </Link>
+          </div>
+          <div className={`card-focus-description ${focusedCard === 'tashvi' ? 'visible' : ''}`}>
+            <span className="project-name">{cardDescriptions.tashvi.name}</span>
+            <span className="project-subtitle"> — {cardDescriptions.tashvi.subtitle}</span>
+          </div>
+        </div>
+
+        {/* HYPEX */}
+        <div className={`card-wrapper home-tile ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
+          <div
+            className="hypex-card grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative flex items-center justify-center overflow-hidden group cursor-pointer"
             onClick={(e) => handleCardClick(e, '/work/hypex')}
             onTouchEnd={(e) => handleCardTouchEnd(e, 'hypex', '/work/hypex')}
           >
             <Image src="/images/hypex-mockup.png" alt="HYPEX" width={400} height={400} className="w-full h-full object-contain relative z-10" />
-
-            {/* Marquee hover effect */}
             <div className="hypex-marquee-container">
               <div className="hypex-marquee-wrapper">
-                {/* Row 1 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 2 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                </div>
-                {/* Row 3 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 4 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 5 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                </div>
-                {/* Row 6 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 7 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 8 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                </div>
-                {/* Row 9 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 10 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 11 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                </div>
-                {/* Row 12 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 13 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 14 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                </div>
-                {/* Row 15 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 16 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
-                {/* Row 17 - Left */}
-                <div className="hypex-marquee-row left">
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                </div>
-                {/* Row 18 - Right */}
-                <div className="hypex-marquee-row right">
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text bold">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                  <span className="hypex-marquee-text">HYPEX</span>
-                </div>
+                {[...Array(12)].map((_, rowIndex) => (
+                  <div key={rowIndex} className={`hypex-marquee-row ${rowIndex % 2 === 0 ? 'left' : 'right'}`}>
+                    {[...Array(12)].map((_, i) => (
+                      <span key={i} className={`hypex-marquee-text ${i % 3 === 1 ? 'bold' : ''}`}>HYPEX</span>
+                    ))}
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* Arrow Button - Bottom Left */}
             <Link
               href="/work/hypex"
               className="card-arrow-btn"
@@ -577,229 +364,43 @@ export function GridCards() {
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
           </div>
-          {/* Description text that appears on focus */}
           <div className={`card-focus-description ${focusedCard === 'hypex' ? 'visible' : ''}`}>
             <span className="project-name">{cardDescriptions.hypex.name}</span>
             <span className="project-subtitle"> — {cardDescriptions.hypex.subtitle}</span>
           </div>
         </div>
 
-        {/* Mount Sinai Card - HIDDEN FOR NOW
-        <div className={`card-wrapper col-span-3 h-full ${focusedCard && focusedCard !== 'mtsinai' ? 'opacity-10' : ''}`}>
-          <div className="grid-card bg-white rounded-3xl pt-8 px-4 pb-0 shadow-sm border border-gray-100 relative h-full min-h-[20rem] flex flex-col items-center overflow-hidden cursor-pointer">
-            <img src="/images/mount-sinai-logo.png" alt="Mount Sinai" className="w-10 mb-1" />
-            <h2 className="text-xl font-black text-gray-900 tracking-tight mb-0">MOUNT SINAI</h2>
-            <p className="text-xs text-[#00b4b4] tracking-tight font-medium mb-2">Incident Reporting App</p>
-            <button
+        {/* Microsoft */}
+        <div className={`card-wrapper home-tile ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
+          <div
+            className={`microsoft-card grid-card bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center ${isMicrosoftHovered ? 'is-hovered' : ''}`}
+            onMouseEnter={() => setIsMicrosoftHovered(true)}
+            onMouseLeave={() => setIsMicrosoftHovered(false)}
+            onClick={(e) => handleCardClick(e, '/work/microsoft')}
+            onTouchEnd={(e) => handleCardTouchEnd(e, 'microsoft', '/work/microsoft')}
+          >
+            <div className="microsoft-bg-container">
+              <MicrosoftGraffiti isHovered={isMicrosoftHovered} />
+            </div>
+            <div className="microsoft-content relative z-10 flex flex-col items-center">
+              <div className="microsoft-logo-container">
+                <Image src="/images/microsoft-full-logo.png" alt="Microsoft" width={128} height={28} className="w-32" />
+              </div>
+              <p className="microsoft-hover-text">Designing an AI-Powered Assistant for Specialized Educators</p>
+            </div>
+            <Link
+              href="/work/microsoft"
               className="card-arrow-btn"
-              onMouseEnter={() => setFocusedCard('mtsinai')}
+              onMouseEnter={() => setFocusedCard('microsoft')}
               onMouseLeave={() => setFocusedCard(null)}
+              onClick={() => analytics.trackCaseStudyView('Microsoft')}
             >
-              <img src="/images/arrow-angle.svg" alt="" className="card-arrow-icon" />
-            </button>
-            <img src="/images/mount-sinai-mockup.png" alt="Mount Sinai App" className="w-60 rounded-t-[2rem] shadow-2xl mt-4 -mb-24" />
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </Link>
           </div>
-          <div className={`card-focus-description low ${focusedCard === 'mtsinai' ? 'visible' : ''}`}>
-            <span className="project-name">{cardDescriptions.mtsinai.name}</span>
-            <span className="project-subtitle"> — {cardDescriptions.mtsinai.subtitle}</span>
-          </div>
-        </div>
-        */}
-
-        {/* Two stacked placeholder divs */}
-        <div className={`col-span-1 lg:col-span-3 flex flex-col gap-4 transition-opacity duration-300 home-microsoft-twitter-stack ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-20' : ''}`}>
-          {/* Microsoft Card */}
-          <div className={`card-wrapper flex-1 basis-1/2 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
-            <div
-              className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[18rem] lg:min-h-[10rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
-              onMouseEnter={() => setIsMicrosoftHovered(true)}
-              onMouseLeave={() => setIsMicrosoftHovered(false)}
-              onClick={(e) => handleCardClick(e, '/work/microsoft')}
-              onTouchEnd={(e) => handleCardTouchEnd(e, 'microsoft', '/work/microsoft')}
-            >
-              {/* Animated graffiti background - individual vectors */}
-              <div className="microsoft-bg-container">
-                <MicrosoftGraffiti isHovered={isMicrosoftHovered} />
-              </div>
-
-              {/* Logo with white background and animated text */}
-              <div className="microsoft-content relative z-10 flex flex-col items-center">
-                <div className="microsoft-logo-container">
-                  <Image src="/images/microsoft-full-logo.png" alt="Microsoft" width={128} height={28} className="w-32" />
-                </div>
-                <p className="microsoft-hover-text">Designing an AI-Powered Assistant for Specialized Educators</p>
-              </div>
-
-              {/* Arrow Button - Bottom Left */}
-              <Link
-                href="/work/microsoft"
-                className="card-arrow-btn"
-                onMouseEnter={() => setFocusedCard('microsoft')}
-                onMouseLeave={() => setFocusedCard(null)}
-                onClick={() => analytics.trackCaseStudyView('Microsoft')}
-              >
-                <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-              </Link>
-            </div>
-            {/* Description text that appears on focus */}
-            <div className={`card-focus-description microsoft-low ${focusedCard === 'microsoft' ? 'visible' : ''}`}>
-              <span className="project-name">{cardDescriptions.microsoft.name}</span>
-              <span className="project-subtitle"> — {cardDescriptions.microsoft.subtitle}</span>
-            </div>
-          </div>
-
-          {/* Twitter Card - duplicated from About page */}
-          <div className={`tile-twitter sm twitter about flex-1 basis-1/2 min-h-[18rem] lg:min-h-0 transition-opacity duration-300 ${focusedCard === 'microsoft' ? 'opacity-10' : ''}`}>
-            <div className="small-app-flex">
-              <div className="twtitter-top-div">
-                <div className="twitter-top-flex">
-                  <a
-                    href="https://twitter.com/HomeyBabaRB"
-                    className="twitter-info-div w-inline-block"
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => analytics.trackSocialClick('Twitter')}
-                  >
-                    <div className="twitter-avi-div">
-                      <Image
-                        src="/images/profilepic.png"
-                        alt="Arpit Ahluwalia"
-                        width={40}
-                        height={40}
-                        className="twitter-img"
-                      />
-                    </div>
-
-                    <div className="twitter-name-div">
-                      <div className="twitter-name" style={{ color: "rgb(0, 0, 0)" }}>
-                        Arpit Ahluwalia
-                      </div>
-                      <div
-                        className="twitter-handle"
-                        style={{ color: "rgb(148, 148, 149)" }}
-                      >
-                        @HomeyBabaRB
-                      </div>
-                    </div>
-                  </a>
-
-                  <div className="small-app-icon-div">
-                    <a
-                      href="https://twitter.com/HomeyBabaRB"
-                      className="app-icon-link w-inline-block"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      <Image
-                        src="/images/twitter-icon-min.png"
-                        alt="Twitter"
-                        width={56}
-                        height={56}
-                        className="small-tile-icon-hover"
-                      />
-                    </a>
-
-                    <div
-                      className="small-app-background"
-                      style={{
-                        transform:
-                          "translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)",
-                        transformStyle: "preserve-3d",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="tweet-div">
-                  <div className="twitter-tweet" style={{ color: "rgb(0, 0, 0)" }}>
-                    cooking up • prev{" "}
-                    <a
-                      href="https://madebycraft.co/about"
-                      className="tweet-link"
-                      style={{ color: "rgb(21, 133, 199)" }}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      @craft
-                    </a>{" "}
-                    <a
-                      href="https://x.com/ZoomInfo"
-                      className="tweet-link"
-                      style={{ color: "rgb(21, 133, 199)" }}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      @zoominfo
-                    </a>{" "}
-                    <a
-                      href="https://x.com/JNJNews?lang=en"
-                      className="tweet-link"
-                      style={{ color: "rgb(21, 133, 199)" }}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      @j&amp;j
-                    </a>{" "}
-                    <a
-                      href="https://x.com/MountSinaiNYC"
-                      className="tweet-link"
-                      style={{ color: "rgb(21, 133, 199)" }}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      @mtsinai
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <a
-                id="twitter-button"
-                data-w-id="ad3c41ab-6071-5e6c-3932-6d9df03bfcd4"
-                href="https://x.com/homeybabaRB"
-                className="twitter-button w-inline-block"
-                style={{
-                  borderColor: "rgb(222, 222, 224)",
-                  backgroundColor: "rgba(0, 0, 0, 0)",
-                }}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <div className="inner-button-flex">
-                  <div className="button-text" style={{ color: "rgb(0, 0, 0)" }}>
-                    Read mid tweets
-                  </div>
-
-                  <div className="arrow-icon-div">
-                    <Image
-                      src="/images/arrow-angle.svg"
-                      alt=""
-                      width={16}
-                      height={16}
-                      className="arrow-icon"
-                      style={{ opacity: 1 }}
-                    />
-                    <Image
-                      src="/images/arrow-hover.svg"
-                      alt=""
-                      width={16}
-                      height={16}
-                      className="arrow-icon-white"
-                    />
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Photos & Spotify Cards - Stacked vertically */}
-        <div className={`col-span-1 lg:col-span-3 flex flex-col gap-4 transition-opacity duration-300 home-photos-spotify-stack ${focusedCard ? 'opacity-5' : ''}`}>
-          <div className="flex-1 min-h-[18rem] lg:min-h-0">
-            <PhotoCarousel />
-          </div>
-          <div className="flex-1 min-h-[16rem] lg:min-h-0">
-            <MusicPlayer />
+          <div className={`card-focus-description ${focusedCard === 'microsoft' ? 'visible' : ''}`}>
+            <span className="project-name">{cardDescriptions.microsoft.name}</span>
+            <span className="project-subtitle"> — {cardDescriptions.microsoft.subtitle}</span>
           </div>
         </div>
       </div>

@@ -32,6 +32,12 @@ yarn-error.log*
 # vercel
 .vercel
 
+# claude code
+.claude/
+
+# windows junk
+nul
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
