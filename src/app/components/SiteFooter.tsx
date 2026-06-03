@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { analytics } from './GoogleAnalytics';
 
 const socials = [
@@ -53,9 +54,11 @@ const socials = [
 ];
 
 export function SiteFooter() {
+  const pathname = usePathname();
+  const isHome = pathname === '/';
   return (
     <footer id="site-footer" className="site-footer">
-      <div className="site-footer-inner">
+      <div className={`site-footer-inner ${isHome ? 'site-footer-inner--wide' : ''}`}>
         <hr className="site-footer-hr" />
 
         <div className="site-footer-grid">

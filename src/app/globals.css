@@ -683,6 +683,7 @@ body {
   }
 
   .container.home {
+    max-width: 1760px;
     padding-top: 8rem;
     padding-bottom: 4rem;
   }
@@ -2935,18 +2936,20 @@ body {
    V2 HOME — INTRO / HERO
    ============================================ */
 .home-intro {
-  margin: 0 8px 28px;
+  margin: 0 8px 20px;
 }
 
 .home-intro-top {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 48px;
+  margin-bottom: 56px;
 }
 
 .home-intro-text {
-  max-width: 940px;
+  flex: 1 1 auto;
+  max-width: 730px;
 }
 
 .home-title {
@@ -2976,24 +2979,37 @@ body {
   margin: 0 0.28em;
 }
 
-.home-intro-cat {
-  flex-shrink: 0;
-  margin-bottom: -10px;
+/* Right-hand media: portrait photo with the cat perched on its top edge */
+.home-intro-media {
+  flex: 0 0 auto;
   position: relative;
-  z-index: 1;
+  width: 320px;
+  max-width: 40%;
+  margin-right: 120px;
 }
 
-.home-intro-hr {
-  border: 0;
-  border-top: 2px solid #e5e7eb;
-  margin: 8px 0 14px;
+.home-intro-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.home-intro-cat {
+  position: absolute;
+  top: 0;
+  left: 12px;
+  z-index: 2;
+  transform: translateY(-100%) scale(0.78);
+  transform-origin: bottom left;
+  pointer-events: auto;
 }
 
 .home-availability {
   color: #374151;
   font-size: 0.95rem;
   line-height: 1.5;
-  margin-bottom: 40px;
+  margin-top: 22px;
 }
 
 .home-prev-link {
@@ -3045,6 +3061,99 @@ body {
   color: #111827;
 }
 
+/* ============================================
+   PROJECT ROWS — media left, writeup right
+   ============================================ */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  margin: 0 8px;
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+}
+
+.project-media {
+  min-width: 0;
+}
+
+.project-writeup {
+  min-width: 0;
+}
+
+.project-writeup-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.project-writeup-tag {
+  margin-top: 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.project-writeup-desc {
+  margin-top: 18px;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: #4b5563;
+  max-width: 46ch;
+}
+
+.project-writeup-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 26px;
+  padding: 10px 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111827;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.project-writeup-cta svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease;
+}
+
+.project-writeup-cta:hover {
+  background-color: #111827;
+  border-color: #111827;
+  color: #fff;
+}
+
+.project-writeup-cta:hover svg {
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 767px) {
+  .projects-list {
+    gap: 40px;
+  }
+  .project-row {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  .project-writeup-desc {
+    max-width: 100%;
+  }
+}
+
 /* Uniform project tiles — aspect ratio matches the AI Homepage hero video
    (1776x1080) so that card hugs the video with no letterboxing, and every
    card shares the same height. */
@@ -3078,11 +3187,13 @@ body {
    Purple gradient bg (darker top, lighter bottom) so the letterbox areas
    blend into the gif's purple edges instead of showing white. */
 .zoominfo-card {
-  background: linear-gradient(180deg, #1b0c33 0%, #3a1a63 45%, #6a2eb0 100%);
-  border-color: #2a1550;
+  background: #fff;
+  border-color: #f3f4f6;
 }
 
 .zoominfo-gif {
+  width: 68%;
+  height: auto;
   object-fit: contain;
 }
 
@@ -3104,8 +3215,20 @@ body {
 }
 
 @media (max-width: 767px) {
-  .home-intro-cat {
-    display: none;
+  .home-intro-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 36px;
+  }
+  .home-intro-text {
+    max-width: 100%;
+  }
+  .home-intro-media {
+    width: 240px;
+    max-width: 70%;
+    align-self: flex-start;
+    margin-top: 8px;
+    margin-right: 0;
   }
   .home-title {
     font-size: 1.5rem;
@@ -3126,6 +3249,10 @@ body {
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 24px 36px;
+}
+
+.site-footer-inner--wide {
+  max-width: 1760px;
 }
 
 .site-footer-hr {
