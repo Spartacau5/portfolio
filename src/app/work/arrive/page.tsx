@@ -2,243 +2,185 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
-import { analytics } from '@/app/components/GoogleAnalytics';
 import PasswordProtect from '@/app/components/PasswordProtect';
+import { WhatArriveDoes } from './WhatArriveDoes';
 
 export default function ArrivePage() {
     // Analytics tracking
     useScrollDepthTracking();
     useTimeOnPage();
 
-    const projectsAnim = useScrollAnimation();
-
-    const scrollToPrototype = () => {
-        const prototypeSection = document.getElementById('prototype-section');
-        if (prototypeSection) {
-            prototypeSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
-
     return (
         <PasswordProtect password="crafty123" storageKey="arrive-auth">
-        <div className="case-study-page">
+        <div className="case-study-page arrive-cs">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
 
-            {/* Hero Section */}
-            <section className="case-study-hero">
-                <h1 className="case-study-title">Arrive</h1>
-                <p className="case-study-company">6-month embedded research engagement shaping B2B product strategy</p>
-            </section>
+            {/* Hero — looping video background with the Arrive logo in white */}
+            <div className="arrive-cs-hero">
+                <video
+                    src="/images/arrive-hero.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="arrive-cs-hero-video"
+                />
+                <Image
+                    src="/images/arrive-logo.png"
+                    alt="Arrive"
+                    width={320}
+                    height={80}
+                    className="arrive-cs-hero-logo"
+                />
+            </div>
 
-            {/* Divider */}
-            <hr className="case-study-divider" />
+            {/* Intro */}
+            <section className="arrive-cs-intro">
+                <h1 className="arrive-cs-title">Making cities more liveable</h1>
+                <p className="arrive-cs-lead">
+                    Transformed fragmented divisional goals into a cohesive 2-year enterprise roadmap
+                    for a $1B+ mobility company. As part of a consultant team of 5 from Craft, I
+                    utilized strategic user research to align sales, operations, and product teams on
+                    future-state B2B features.
+                </p>
 
-            {/* Meta + Description Grid */}
-            <section className="case-study-meta-section">
-                <div className="case-study-meta">
-                    {/* My Role */}
-                    <div className="meta-block">
-                        <span className="meta-label">MY ROLE</span>
-                        <p className="meta-value">UX Researcher</p>
-                    </div>
-
-                    {/* Team */}
-                    <div className="meta-block">
-                        <span className="meta-label">TEAM</span>
-                        <p className="meta-value">2 researchers<br />2 designers<br />1 engagement manager</p>
-                    </div>
-
-                    {/* Timeline */}
-                    <div className="meta-block">
-                        <span className="meta-label">TIMELINE</span>
-                        <p className="meta-value">June - Dec 2025</p>
-                    </div>
-
-                    {/* Scope */}
-                    <div className="meta-block">
-                        <span className="meta-label">SCOPE</span>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '4px' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <span className="meta-value" style={{ margin: 0 }}>US</span>
-                                <span style={{ color: '#d1d5db' }}>—</span>
-                                <a href="https://parkmobile.io/" target="_blank" rel="noopener noreferrer" className="tool-icon-link">
-                                    <img src="/images/parkmobile-logo.png" alt="ParkMobile" style={{ height: '18px', width: 'auto' }} />
-                                    <span className="tool-tooltip">ParkMobile</span>
-                                </a>
-                            </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                                <span className="meta-value" style={{ margin: 0 }}>EU</span>
-                                <span style={{ color: '#d1d5db' }}>—</span>
-                                <a href="https://www.easypark.com/en-is" target="_blank" rel="noopener noreferrer" className="tool-icon-link">
-                                    <img src="/images/easypark-logo.png" alt="EasyPark" style={{ height: '22px', width: 'auto' }} />
-                                    <span className="tool-tooltip">EasyPark</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div className="case-study-description">
-                    {/* Context */}
-                    <div className="description-block">
-                        <span className="meta-label">CONTEXT</span>
-                        <p className="description-text">
-                            A six-month embedded engagement with <a href="https://arrive.com/en" target="_blank" rel="noopener noreferrer" className="content-link">Arrive<svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>, a mobility company expanding from consumer parking into enterprise solutions. I joined through <a href="https://www.madebycraft.co" target="_blank" rel="noopener noreferrer" className="content-link">Craft<svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a> to help Arrive&apos;s B2B team figure out what to build, and get internal alignment on how to get there.
-                        </p>
-                        <p className="description-text">
-                            I worked across product, design, sales leadership, and enterprise customers on three connected initiatives. Each built on the last: starting with evaluating a strategic pivot through testing an MVP concept, evolving into strategic research for future state of B2B integrations, and ending with cross-functional workshops that aligned the organization around a strong 2-year product vision.
-                        </p>
-                    </div>
-
-                    {/* CTA Buttons */}
-                    <div className="case-study-cta">
-                        <button className="cta-button primary" onClick={scrollToPrototype}>View Work</button>
-                    </div>
+                <div className="arrive-cs-meta">
+                    <span className="arrive-cs-meta-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M21 8.5V6.5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4.5" />
+                            <path d="M3 9.5h18M8 3v3M16 3v3" />
+                            <circle cx="17" cy="16.5" r="4.5" />
+                            <path d="M17 14.8v1.7l1.3.9" />
+                        </svg>
+                        July – Dec 2025
+                    </span>
+                    <span className="arrive-cs-meta-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19" />
+                            <circle cx="10" cy="8" r="3.2" />
+                            <path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 5a3.2 3.2 0 0 1 0 6.2" />
+                        </svg>
+                        Emily S, Kieran E, Bri W
+                    </span>
                 </div>
             </section>
 
-            {/* Key Projects Section */}
-            <section id="prototype-section" ref={projectsAnim.ref} className="case-study-content" style={fadeInUp(projectsAnim.isVisible)}>
-                <h2 className="content-heading">Key Projects</h2>
+            {/* What Arrive does / What you see — animated capability card */}
+            <section className="arrive-cs-section">
+                <WhatArriveDoes />
+            </section>
 
-                <div className="project-cards-grid" style={{ display: 'flex', flexDirection: 'column', gap: '3rem' }}>
-                    {/* Project 1: Parking Planner for Dispatchers */}
-                    <div className="project-card-wrapper">
-                        <Link href="/work/arrive/parking-planner" className="project-card has-image fleet-management-card" style={{
-                            display: 'flex',
-                            alignItems: 'flex-start',
-                            justifyContent: 'center',
-                            gap: '2rem',
-                            padding: '3rem 2rem',
-                            background: '#ffffff',
-                            borderRadius: '24px',
-                            minHeight: '400px'
-                        }}>
-                            {/* Dispatcher Video - Tablet style (larger) */}
-                            <video
-                                src="/images/dispatcher.mp4"
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                style={{
-                                    width: '65%',
-                                    maxWidth: '550px',
-                                    borderRadius: '24px',
-                                    border: '8px solid #000000',
-                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
-                                }}
-                            />
-                            {/* Driver MVP Video - Phone style */}
-                            <video
-                                src="/images/driver-mvp.mp4"
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                style={{
-                                    width: '24.2%',
-                                    maxWidth: '200px',
-                                    borderRadius: '12px',
-                                    borderRight: '2px solid #000000',
-                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
-                                }}
-                            />
-                        </Link>
-                        <div className="project-card-info">
-                            <Link href="/work/arrive/parking-planner" className="project-card-title-link">
-                                B2B Parking Planner
-                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            </Link>
-                            <p className="project-card-subtext">
-                                Evaluated whether Arrive's B2B offering should expand from parking support to fleet planning tools, based on research across US and EU.
-                            </p>
-                        </div>
-                    </div>
+            {/* Biz Context */}
+            <section className="arrive-cs-section">
+                <h2 className="arrive-cs-heading">Biz Context</h2>
+                <p className="arrive-cs-text">
+                    Arrive has shown rapid growth acquiring major mobility companies in a short span
+                </p>
+                <div className="arrive-cs-media" />
+            </section>
 
-                    {/* Project 2: Expense Management */}
-                    <div className="project-card-wrapper">
-                        <Link href="/work/arrive/expense-management" className="project-card has-image" style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '3rem',
-                            background: '#ffffff',
-                            borderRadius: '24px',
-                            minHeight: '400px',
-                            overflow: 'hidden'
-                        }}>
-                            <video
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    borderRadius: '24px',
-                                    border: '8px solid #000000',
-                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
-                                }}
-                            >
-                                <source src="/images/em2.mp4" type="video/mp4" />
-                            </video>
-                        </Link>
-                        <div className="project-card-info">
-                            <Link href="/work/arrive/expense-management" className="project-card-title-link">
-                                Expense Management: Future State
-                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            </Link>
-                            <p className="project-card-subtext">
-                                Started by evaluating a Concur integration MVP, then pivoted to define a broader expense management vision based on enterprise needs.
-                            </p>
-                        </div>
-                    </div>
+            {/* The Problem */}
+            <section className="arrive-cs-section">
+                <h2 className="arrive-cs-heading">The Problem</h2>
+                <p className="arrive-cs-text">
+                    With this growth came confusion, lack of clarity and disalignment between
+                    different companies, sectors, and markets
+                </p>
+                <div className="arrive-cs-stat">
+                    <span className="arrive-cs-grade">C+</span>
+                    <p className="arrive-cs-stat-label">
+                        Avg. Grade Letter assigned to platform by senior product leadership
+                    </p>
+                </div>
+            </section>
 
-                    {/* Project 3: B2B Vision Testing */}
-                    <div className="project-card-wrapper">
-                        <Link href="/work/arrive/vision-testing" className="project-card has-image" style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            padding: '3rem',
-                            background: '#ffffff',
-                            borderRadius: '24px',
-                            minHeight: '400px',
-                            overflow: 'hidden'
-                        }}>
-                            <video
-                                autoPlay
-                                loop
-                                muted
-                                playsInline
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    borderRadius: '16px',
-                                    border: '8px solid #000000',
-                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
-                                }}
-                            >
-                                <source src="/images/vision1.mp4" type="video/mp4" />
-                            </video>
-                        </Link>
-                        <div className="project-card-info">
-                            <Link href="/work/arrive/vision-testing" className="project-card-title-link">
-                                B2B Product Vision Workshops
-                                <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                            </Link>
-                            <p className="project-card-subtext">
-                                Designed and facilitated three workshops with Product, Sales, and Leadership to pressure-test a two-year B2B vision, turning fragmented perspectives into aligned priorities globally.
-                            </p>
-                        </div>
+            {/* Strategy */}
+            <section className="arrive-cs-section">
+                <h2 className="arrive-cs-heading">Strategy</h2>
+                <p className="arrive-cs-text">
+                    Alignment between what customers want, what leadership thinks and what
+                    sales/product is hearing every day
+                </p>
+                <p className="arrive-cs-text">
+                    Alignment behind a shared vision which considers all and is made for all.
+                </p>
+            </section>
+
+            {/* Research */}
+            <section className="arrive-cs-section arrive-cs-research">
+                {/* Drivers — image left */}
+                <div className="arrive-cs-row">
+                    <div className="arrive-cs-media" />
+                    <div className="arrive-cs-row-text">
+                        <p className="arrive-cs-row-title">Heard from Drivers: the ones who park every day</p>
+                        <ul className="arrive-cs-list">
+                            <li>Managed recruitment, usability testing, compensation for 25+ Drivers interviews recruited via UserTesting and even Craigslist.</li>
+                        </ul>
                     </div>
+                </div>
+
+                {/* Fleet Managers — image right */}
+                <div className="arrive-cs-row reverse">
+                    <div className="arrive-cs-row-text">
+                        <p className="arrive-cs-row-title">Heard from Fleet Managers: the ones who manage teams and coordinate for their drivers</p>
+                        <p className="arrive-cs-row-note">10+ Enterprise Biz Admins</p>
+                    </div>
+                    <div className="arrive-cs-media" />
+                </div>
+
+                {/* Own teams — image left */}
+                <div className="arrive-cs-row">
+                    <div className="arrive-cs-media" />
+                    <div className="arrive-cs-row-text">
+                        <p className="arrive-cs-row-title">Heard from our own teams: The ones who think about these problems and how to solve them every day</p>
+                        <ul className="arrive-cs-list">
+                            <li>Facilitated 3 workshops to synthesize product, sales and sales leadership knowledge</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            {/* Outcomes */}
+            <section className="arrive-cs-section">
+                <h2 className="arrive-cs-heading">Outcomes</h2>
+                <p className="arrive-cs-text">
+                    A strong B2B vision for where Arrive goes in the next 2 years which created shared
+                    excitement and alignment. To share with new biz, and to retain old biz (reduce churn)
+                </p>
+                <div className="arrive-cs-media arrive-cs-media-tall">
+                    <span className="arrive-cs-media-label">B2B Vision Walkthrough</span>
+                </div>
+            </section>
+
+            {/* 4 Pillars */}
+            <section className="arrive-cs-section">
+                <h2 className="arrive-cs-heading">4 Pillars</h2>
+                <div className="arrive-cs-pillars">
+                    {['Browse', 'Onboard', 'Configuration', 'Analyze'].map((pillar) => (
+                        <div key={pillar} className="arrive-cs-pillar">
+                            <span className="arrive-cs-media-label">{pillar}</span>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Impact */}
+            <section className="arrive-cs-section">
+                <h2 className="arrive-cs-heading">Impact</h2>
+                <p className="arrive-cs-text">
+                    Our 6-month collaboration not only earned trust, long term biz for Craft but also
+                    transformed a tech-led company into a product-led company driven by research,
+                    feedback loops, and iterative sprints. We taught their PMs, Sales how to talk and
+                    make feedback loops with their customers and become better at their job
+                </p>
+                <div className="arrive-cs-stat">
+                    <span className="arrive-cs-grade">A</span>
+                    <p className="arrive-cs-stat-label">
+                        Avg. Grade Letter assigned to vision by senior product leadership
+                    </p>
+                    <p className="arrive-cs-stat-note">12 Enterprise Pilot Sign-ups for new vision</p>
                 </div>
             </section>
 

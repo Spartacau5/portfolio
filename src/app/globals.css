@@ -201,6 +201,15 @@
   position: relative;
 }
 
+/* Home Microsoft/Twitter stack — Twitter's base `.tile-twitter.sm` is a fixed
+   328px wide, which makes it wider than the Microsoft card (which fills the
+   stack column). Force it to match the column width at every breakpoint so
+   both cards line up with each other and the Photos/Spotify column. */
+.home-microsoft-twitter-stack .tile-twitter {
+  width: 100%;
+  min-width: 0;
+}
+
 .microsoft-bg-container {
   position: absolute;
   inset: 0;
@@ -297,6 +306,47 @@
 
 .microsoft-card:not(.is-hovered) .microsoft-hover-text {
   transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* ============================================
+   PROJECT CARD HOVER DESCRIPTION
+   Mirrors the Microsoft card: a line of copy fades in under the logo
+   (or below the mockup, for HYPEX) when the card is hovered.
+   ============================================ */
+.project-hover-text {
+  position: absolute;
+  left: 64px;            /* clears the bottom-left arrow button */
+  right: 16px;           /* even outer inset, matching the arrow's 16px left */
+  bottom: 34px;          /* the arrow button's vertical center (16px + 36px/2) */
+  margin: 0;
+  font-family: Graphik, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #6b7280;
+  text-align: left;
+  line-height: 1.4;
+  opacity: 0;
+  /* translateY(50%) keeps the line(s) centered on the arrow's center
+     regardless of how many lines wrap; the extra 6px is the hover slide-in. */
+  transform: translateY(calc(50% + 6px));
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 20;
+}
+
+.grid-card:hover .project-hover-text {
+  opacity: 1;
+  transform: translateY(50%);
+}
+
+/* JnJ flips to a red background with a white logo on hover,
+   so its hover copy needs to be white too. */
+.jnj-card:hover .project-hover-text {
+  color: #fff;
+}
+
+/* HYPEX sits over the purple marquee on hover, so its copy is white. */
+.hypex-hover-text {
+  color: #fff;
 }
 
 /* Custom Cursor */
