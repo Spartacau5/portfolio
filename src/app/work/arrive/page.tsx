@@ -1,49 +1,51 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
-import PasswordProtect from '@/app/components/PasswordProtect';
 import { WhatArriveDoes } from './WhatArriveDoes';
+import { ArriveHero } from './ArriveHero';
+import { MvpShowcase } from './MvpShowcase';
+import { VisionWalkthrough } from './VisionWalkthrough';
+import { PreviewModal, type PreviewContent } from './PreviewModal';
+
+// Source line. Renders identically whether or not it's clickable; when given an
+// onClick it's a button (resets its own chrome in CSS) that opens the preview.
+function BlockSource({ children, onClick }: { children: React.ReactNode; onClick?: () => void }) {
+    if (!onClick) {
+        return <span className="arrive-cs-block-source">{children}</span>;
+    }
+    return (
+        <button type="button" className="arrive-cs-block-source" onClick={onClick}>
+            {children}
+        </button>
+    );
+}
 
 export default function ArrivePage() {
     // Analytics tracking
     useScrollDepthTracking();
     useTimeOnPage();
 
+    // Preview modal state — null when closed.
+    const [preview, setPreview] = useState<PreviewContent | null>(null);
+
     return (
-        <PasswordProtect password="crafty123" storageKey="arrive-auth">
+        <>
         <div className="case-study-page arrive-cs">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
 
-            {/* Hero — looping video background with the Arrive logo in white */}
-            <div className="arrive-cs-hero">
-                <video
-                    src="/images/arrive-hero.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="arrive-cs-hero-video"
-                />
-                <Image
-                    src="/images/arrive-logo.png"
-                    alt="Arrive"
-                    width={320}
-                    height={80}
-                    className="arrive-cs-hero-logo"
-                />
-            </div>
+            {/* Hero — fills the screen on load, shrinks into place on scroll */}
+            <ArriveHero />
 
             {/* Intro */}
             <section className="arrive-cs-intro">
-                <h1 className="arrive-cs-title">Making cities more liveable</h1>
                 <p className="arrive-cs-lead">
-                    Transformed fragmented divisional goals into a cohesive 2-year enterprise roadmap
-                    for a $1B+ mobility company. As part of a consultant team of 5 from Craft, I
-                    utilized strategic user research to align sales, operations, and product teams on
-                    future-state B2B features.
+                    As external consultants, my team and I utilized strategic research to transform
+                    fragmented divisional goals into a cohesive 2-year enterprise roadmap for a $1B+
+                    mobility platform.
                 </p>
 
                 <div className="arrive-cs-meta">
@@ -68,121 +70,131 @@ export default function ArrivePage() {
             </section>
 
             {/* What Arrive does / What you see — animated capability card */}
-            <section className="arrive-cs-section">
+            <section className="arrive-cs-section arrive-cs-section--card">
                 <WhatArriveDoes />
             </section>
 
             {/* Biz Context */}
-            <section className="arrive-cs-section">
-                <h2 className="arrive-cs-heading">Biz Context</h2>
-                <p className="arrive-cs-text">
-                    Arrive has shown rapid growth acquiring major mobility companies in a short span
-                </p>
-                <div className="arrive-cs-media" />
+            <section className="arrive-cs-block arrive-cs-block--no-divider">
+                <h2 className="arrive-cs-block-label">Context</h2>
+                <div className="arrive-cs-block-body">
+                    <p className="arrive-cs-block-text">
+                        Arrive has shown rapid growth acquiring 6 major mobility companies in a short
+                        span of 4 years.
+                    </p>
+                    <BlockSource
+                        onClick={() =>
+                            setPreview({
+                                type: 'browser',
+                                url: 'https://arrive.com/en/about/about-us#brands',
+                            })
+                        }
+                    >
+                        Company acquisition timeline, 2021–2024
+                    </BlockSource>
+                </div>
             </section>
 
             {/* The Problem */}
-            <section className="arrive-cs-section">
-                <h2 className="arrive-cs-heading">The Problem</h2>
-                <p className="arrive-cs-text">
-                    With this growth came confusion, lack of clarity and disalignment between
-                    different companies, sectors, and markets
-                </p>
-                <div className="arrive-cs-stat">
-                    <span className="arrive-cs-grade">C+</span>
-                    <p className="arrive-cs-stat-label">
-                        Avg. Grade Letter assigned to platform by senior product leadership
+            <section className="arrive-cs-block">
+                <h2 className="arrive-cs-block-label">Problem</h2>
+                <div className="arrive-cs-block-body">
+                    <p className="arrive-cs-block-text">
+                        With this growth came confusion, lack of clarity and disalignment between
+                        different companies, sectors, and markets.
                     </p>
+                    <div className="arrive-cs-block-figure">
+                        <Image
+                            src="/images/grade-platform-before.png"
+                            alt="Senior product leadership grading the platform"
+                            width={2112}
+                            height={895}
+                            className="arrive-cs-block-figure-img"
+                        />
+                    </div>
                 </div>
             </section>
 
             {/* Strategy */}
-            <section className="arrive-cs-section">
-                <h2 className="arrive-cs-heading">Strategy</h2>
-                <p className="arrive-cs-text">
-                    Alignment between what customers want, what leadership thinks and what
-                    sales/product is hearing every day
-                </p>
-                <p className="arrive-cs-text">
-                    Alignment behind a shared vision which considers all and is made for all.
-                </p>
-            </section>
-
-            {/* Research */}
-            <section className="arrive-cs-section arrive-cs-research">
-                {/* Drivers — image left */}
-                <div className="arrive-cs-row">
-                    <div className="arrive-cs-media" />
-                    <div className="arrive-cs-row-text">
-                        <p className="arrive-cs-row-title">Heard from Drivers: the ones who park every day</p>
-                        <ul className="arrive-cs-list">
-                            <li>Managed recruitment, usability testing, compensation for 25+ Drivers interviews recruited via UserTesting and even Craigslist.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                {/* Fleet Managers — image right */}
-                <div className="arrive-cs-row reverse">
-                    <div className="arrive-cs-row-text">
-                        <p className="arrive-cs-row-title">Heard from Fleet Managers: the ones who manage teams and coordinate for their drivers</p>
-                        <p className="arrive-cs-row-note">10+ Enterprise Biz Admins</p>
-                    </div>
-                    <div className="arrive-cs-media" />
-                </div>
-
-                {/* Own teams — image left */}
-                <div className="arrive-cs-row">
-                    <div className="arrive-cs-media" />
-                    <div className="arrive-cs-row-text">
-                        <p className="arrive-cs-row-title">Heard from our own teams: The ones who think about these problems and how to solve them every day</p>
-                        <ul className="arrive-cs-list">
-                            <li>Facilitated 3 workshops to synthesize product, sales and sales leadership knowledge</li>
-                        </ul>
-                    </div>
+            <section className="arrive-cs-block">
+                <h2 className="arrive-cs-block-label">Strategy</h2>
+                <div className="arrive-cs-block-body">
+                    <p className="arrive-cs-block-text">
+                        Collect feedback externally and internally to create alignment between what
+                        leadership thinks, what sales+product hear every day and what customers
+                        actually want.
+                    </p>
+                    <p className="arrive-cs-block-text">
+                        The goal was to craft an end-to-end future state experience which prioritizes
+                        what matters most to deliver customer and business value.
+                    </p>
                 </div>
             </section>
 
-            {/* Outcomes */}
-            <section className="arrive-cs-section">
-                <h2 className="arrive-cs-heading">Outcomes</h2>
-                <p className="arrive-cs-text">
-                    A strong B2B vision for where Arrive goes in the next 2 years which created shared
-                    excitement and alignment. To share with new biz, and to retain old biz (reduce churn)
-                </p>
-                <div className="arrive-cs-media arrive-cs-media-tall">
-                    <span className="arrive-cs-media-label">B2B Vision Walkthrough</span>
+            {/* Process */}
+            <section className="arrive-cs-block">
+                <h2 className="arrive-cs-block-label">Process</h2>
+                <div className="arrive-cs-block-body">
+                    <p className="arrive-cs-block-text">
+                        <strong>Phase 1:</strong> Conducted 30+ interviews with prospective and existing
+                        customers across different user segments to understand customer wants and needs.
+                    </p>
+                    <p className="arrive-cs-block-text">
+                        <strong>Phase 2:</strong> Synthesized insights and developed a 2-year vision for
+                        internal reaction.
+                    </p>
+                    <p className="arrive-cs-block-text">
+                        <strong>Phase 3:</strong> Facilitated 3 workshops with product managers, sales
+                        executives and sales leaders across the US and EU to evaluate and refine the
+                        vision.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        {/* MVP testing showcase — full-bleed; lives outside the case-study
+            column so its max-width / overflow clipping don't apply */}
+        <MvpShowcase />
+
+        <div className="case-study-page arrive-cs">
+            {/* Solution */}
+            <section className="arrive-cs-block arrive-cs-outcomes">
+                <h2 className="arrive-cs-block-label">Solution</h2>
+                <div className="arrive-cs-block-body">
+                    <p className="arrive-cs-block-text">
+                        A strong B2B vision for where Arrive goes in the next 2 years, which created
+                        shared excitement and alignment — to share with new business, and to retain
+                        old business and reduce churn.
+                    </p>
                 </div>
             </section>
 
-            {/* 4 Pillars */}
-            <section className="arrive-cs-section">
-                <h2 className="arrive-cs-heading">4 Pillars</h2>
-                <div className="arrive-cs-pillars">
-                    {['Browse', 'Onboard', 'Configuration', 'Analyze'].map((pillar) => (
-                        <div key={pillar} className="arrive-cs-pillar">
-                            <span className="arrive-cs-media-label">{pillar}</span>
-                        </div>
-                    ))}
-                </div>
-            </section>
+            {/* Vision walkthrough — numbered steps with animated timelines */}
+            <VisionWalkthrough />
 
             {/* Impact */}
-            <section className="arrive-cs-section">
-                <h2 className="arrive-cs-heading">Impact</h2>
-                <p className="arrive-cs-text">
-                    Our 6-month collaboration not only earned trust, long term biz for Craft but also
-                    transformed a tech-led company into a product-led company driven by research,
-                    feedback loops, and iterative sprints. We taught their PMs, Sales how to talk and
-                    make feedback loops with their customers and become better at their job
-                </p>
-                <div className="arrive-cs-stat">
-                    <span className="arrive-cs-grade">A</span>
-                    <p className="arrive-cs-stat-label">
-                        Avg. Grade Letter assigned to vision by senior product leadership
+            <section className="arrive-cs-block arrive-cs-impact">
+                <h2 className="arrive-cs-block-label">Impact</h2>
+                <div className="arrive-cs-block-body">
+                    <p className="arrive-cs-block-text">
+                        Our 6-month collaboration not only earned trust and long-term business for
+                        Craft, but also transformed a tech-led company into a product-led one — driven
+                        by research, feedback loops, and iterative sprints. We taught their PMs and
+                        sales teams how to build feedback loops with their customers and get better at
+                        their jobs.
                     </p>
-                    <p className="arrive-cs-stat-note">12 Enterprise Pilot Sign-ups for new vision</p>
+                    <div className="arrive-cs-block-figure">
+                        <Image
+                            src="/images/grade-platform-after.png"
+                            alt="Senior product leadership grading the vision"
+                            width={2112}
+                            height={895}
+                            className="arrive-cs-block-figure-img"
+                        />
+                    </div>
                 </div>
             </section>
+
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
@@ -198,7 +210,11 @@ export default function ArrivePage() {
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
                 </button>
             </div>
+
         </div>
-        </PasswordProtect>
+
+        {/* Media preview modal (browser / image / video) */}
+        <PreviewModal content={preview} onClose={() => setPreview(null)} />
+        </>
     );
 }

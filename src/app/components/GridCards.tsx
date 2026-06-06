@@ -12,7 +12,7 @@ import { analytics } from './GoogleAnalytics';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
-  arrive: { name: 'Arrive', subtitle: 'Translated high-level market research into a 2-year enterprise product strategy, aligning stakeholders across a $1B+ global mobility ecosystem.' },
+  arrive: { name: 'Arrive', subtitle: 'Transformed fragmented goals into a cohesive 2-year B2B roadmap for a $1B+ mobility company.' },
   zoominfo: { name: 'ZoomInfo', subtitle: "Led the UX redesign of ZoomInfo's core search experience, embedding early AI capabilities into the industry's largest GTM platform." },
   jnj: { name: 'Johnson & Johnson', subtitle: 'Transformed complex global ESG and DEI data into an engaging, compliant visual experience for a Fortune 50 audience.' },
   hypex: { name: 'HYPEX', subtitle: 'Led marketing and design efforts for an NFT-based trading game' },
@@ -48,6 +48,74 @@ export function GridCards() {
     }
   };
 
+  // Slick shared-element transition: the clicked card grows from its current
+  // spot to fill the screen, then we navigate and dissolve the overlay to
+  // reveal the case study's fullscreen hero video underneath. The overlay is a
+  // raw <body> node (not React-managed) so it survives the route change.
+  const expandAndNavigate = (cardEl: HTMLElement, href: string) => {
+    const rect = cardEl.getBoundingClientRect();
+    const overlay = document.createElement('div');
+    overlay.className = 'arrive-expand-overlay';
+    overlay.style.top = rect.top + 'px';
+    overlay.style.left = rect.left + 'px';
+    overlay.style.width = rect.width + 'px';
+    overlay.style.height = rect.height + 'px';
+    overlay.style.borderRadius = '24px';
+
+    const EASE = 'cubic-bezier(0.66, 0, 0.34, 1)';
+    const DUR = 620;
+    overlay.style.transition =
+      `top ${DUR}ms ${EASE}, left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}, ` +
+      `height ${DUR}ms ${EASE}, border-radius ${DUR}ms ${EASE}`;
+
+    // The hero video plays immediately so the card expands straight into the
+    // case study — no static-logo intermediate.
+    const video = document.createElement('video');
+    video.src = '/images/arrive-hero.mp4';
+    video.muted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.className = 'arrive-expand-video';
+    overlay.appendChild(video);
+
+    // No logo during the fill — it only appears once the case study has loaded.
+    document.body.appendChild(overlay);
+    void video.play().catch(() => {});
+
+    // Force a reflow so the starting rect is committed before we expand.
+    void overlay.getBoundingClientRect();
+    requestAnimationFrame(() => {
+      overlay.style.top = '0px';
+      overlay.style.left = '0px';
+      overlay.style.width = '100vw';
+      overlay.style.height = '100vh';
+      overlay.style.borderRadius = '0px';
+    });
+
+    // Navigate once the card has filled the screen, then dissolve into the
+    // identical hero video on the case study page.
+    window.setTimeout(() => router.push(href), DUR);
+    window.setTimeout(() => {
+      overlay.style.transition = 'opacity 0.45s ease';
+      overlay.style.opacity = '0';
+      window.setTimeout(() => overlay.remove(), 500);
+    }, DUR + 160);
+  };
+
+  const handleArriveClick = (e: React.MouseEvent) => {
+    if (isTouchRef.current) {
+      isTouchRef.current = false;
+      return;
+    }
+    if ((e.target as HTMLElement).closest('.card-arrow-btn')) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      router.push('/work/arrive');
+      return;
+    }
+    expandAndNavigate(e.currentTarget as HTMLElement, '/work/arrive');
+  };
+
   return (
     <div className="container home">
       <div className="grid-top-bar">
@@ -65,8 +133,8 @@ export function GridCards() {
           </div>
           <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex flex-col transition-opacity duration-300">
           <div>
-            <h2 className="text-[0.9rem] lg:text-[1.375rem] font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
-            <span className="text-[0.9rem] lg:text-[1.375rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who ships code. I ask questions before jumping to solutions, and tie design to real outcomes.</span>
+            <h2 className="text-[0.85rem] lg:text-[1.25rem] font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
+            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who ships code.<br />I ask questions before jumping to solutions, and connect design work to business outcomes.</span>
           </div>
 
           <hr className="my-4 border-gray-200" />
@@ -112,7 +180,7 @@ export function GridCards() {
         <div className="card-wrapper col-span-1 lg:col-span-6 h-full">
           <div
             className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-            onClick={(e) => handleCardClick(e, '/work/arrive')}
+            onClick={handleArriveClick}
             onTouchEnd={(e) => handleCardTouchEnd(e, 'arrive', '/work/arrive')}
           >
             <Image

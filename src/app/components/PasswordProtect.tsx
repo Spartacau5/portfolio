@@ -14,7 +14,12 @@ export default function PasswordProtect({ children, password, storageKey }: Pass
 
     useEffect(() => {
         setMounted(true);
-    }, []);
+        // Read the unlock flag after mount (not in the useState initializer) so
+        // the server and first client render match — avoids a hydration error.
+        if (storageKey && sessionStorage.getItem(storageKey) === 'true') {
+            setIsUnlocked(true);
+        }
+    }, [storageKey]);
 
     // Go back without smooth scroll animation
     const handleGoBack = () => {
@@ -27,12 +32,7 @@ export default function PasswordProtect({ children, password, storageKey }: Pass
         }, 100);
     };
 
-    const [isUnlocked, setIsUnlocked] = useState(() => {
-        if (storageKey && typeof window !== 'undefined') {
-            return sessionStorage.getItem(storageKey) === 'true';
-        }
-        return false;
-    });
+    const [isUnlocked, setIsUnlocked] = useState(false);
     const [inputValue, setInputValue] = useState('');
     const [error, setError] = useState(false);
     const [isShaking, setIsShaking] = useState(false);

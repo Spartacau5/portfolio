@@ -4,27 +4,32 @@ import { useState, useEffect } from 'react';
 
 // Display order (matches the reference layout).
 const PILLS = [
-    'Dynamic Routing API',
-    'Global Network Management',
-    'Predictive Mobility Algorithms',
-    'Real-time Fleet Tracking',
+    'In-Dash & Voice Integration',
+    'The Arrive Network',
+    'Dynamic Pricing Engine',
+    'Connected & Fleet Parking',
     'Demand Forecasting',
     'Integrated Payments',
     'Seamless Booking Flow',
-    'Optimized Asset Allocation',
-    'Multi-model Integration',
-    'Partnership APIs',
+    'Operator Revenue Optimization',
+    'Multi-Modal Mobility',
+    'White-Label & Partner APIs',
+    'Smart City Integration',
+    'Touchless Entry & Exit',
+    'Real-time Parking Inventory',
+    'Operator Data & Analytics',
 ];
 
-// Only this subset animates, in highlight order. The cascade lights each one
-// white top-to-bottom and finishes on "Multi-model Integration". The other
-// pills stay dim the whole time.
+// One chip per row animates, in highlight order — cascading top-to-bottom and
+// zigzagging left/right across the rows. The other pills stay dim the whole time.
 const HIGHLIGHT_SEQUENCE = [
-    'Dynamic Routing API',
-    'Real-time Fleet Tracking',
-    'Demand Forecasting',
-    'Optimized Asset Allocation',
-    'Multi-model Integration',
+    'In-Dash & Voice Integration',   // row 1 (left)
+    'Dynamic Pricing Engine',        // row 2 (left)
+    'Integrated Payments',           // row 3 (right)
+    'Operator Revenue Optimization', // row 4 (right)
+    'White-Label & Partner APIs',    // row 5 (right)
+    'Smart City Integration',        // row 6 (left)
+    'Real-time Parking Inventory',   // row 7 (left)
 ];
 
 export function WhatArriveDoes() {
@@ -35,7 +40,7 @@ export function WhatArriveDoes() {
     useEffect(() => {
         let timer: ReturnType<typeof setTimeout>;
         if (litCount >= HIGHLIGHT_SEQUENCE.length) {
-            // All highlighted — pause on "Multi-model Integration", then loop.
+            // All highlighted — pause on the last chip, then loop.
             timer = setTimeout(() => setLitCount(0), 2200);
         } else {
             timer = setTimeout(() => setLitCount((c) => c + 1), litCount === 0 ? 900 : 650);
@@ -59,12 +64,15 @@ export function WhatArriveDoes() {
             </div>
             <div className="arrive-split-right">
                 <h3 className="arrive-split-title dark">What you see</h3>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                    src="/images/googlepay.gif"
-                    alt="Arrive surfaced inside the Google Maps parking flow"
-                    className="arrive-split-gif"
-                />
+                {/* Frame crops the gif's built-in top/bottom whitespace */}
+                <div className="arrive-split-gif-frame">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src="/images/googlepay.gif"
+                        alt="Arrive surfaced inside the Google Maps parking flow"
+                        className="arrive-split-gif"
+                    />
+                </div>
             </div>
         </div>
     );

@@ -1,3 +1,6 @@
+/* Gilroy-like geometric sans for the Arrive "What Arrive does" chips */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap');
+
 /* ============================================
    CASE STUDY PAGE STYLES
    ============================================ */
@@ -2380,6 +2383,130 @@
     filter: brightness(0) invert(1);
 }
 
+/* ── Scroll-driven hero (fills screen on load, shrinks to center on scroll) ──
+   See ArriveHero.tsx for the motion logic. The track reserves the scroll
+   runway + settled-hero space; the card is the fixed, viewport-spanning
+   element that shrinks toward the viewport center as you scroll. */
+.arrive-hero-track {
+    position: relative;
+    width: 100%;
+}
+
+.arrive-hero-card {
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* First-paint default = fullscreen; the script takes over on mount. */
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+    overflow: hidden;
+    background: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 30; /* above page content, below the z-50 floating nav */
+    pointer-events: none;
+    transform: translate3d(0, 0, 0);
+    will-change: transform, width, height;
+}
+
+.arrive-hero-logo {
+    /* Logo settles in just after the video, a touch behind the reveal. */
+    animation: arrive-hero-logo-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
+
+/* Logo + fullscreen tagline, stacked and centered over the video. */
+.arrive-hero-center {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    padding: 0 1.5rem;
+}
+
+.arrive-hero-center .arrive-cs-hero-logo {
+    /* Sized relative to the card width, with a high floor so it stays large
+       through the shrink (not just at fullscreen). */
+    width: clamp(300px, 35%, 520px);
+}
+
+.arrive-hero-tagline {
+    font-family: Graphik, sans-serif;
+    font-weight: 500;
+    color: #fff;
+    font-size: clamp(15px, 1.4vw, 22px);
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.28);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+}
+
+@keyframes arrive-hero-reveal {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes arrive-hero-logo-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* While the Arrive hero fills the screen, fade out the floating header + nav;
+   they ease back in once the card drops below the header. */
+body > header,
+body > nav {
+    transition: opacity 0.45s ease;
+}
+
+html.arrive-immersive body > header,
+html.arrive-immersive body > nav {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Shared-element expand: the home card grows to fill the screen on click,
+   playing the hero video so it lands straight on the case study. */
+.arrive-expand-overlay {
+    position: fixed;
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: #d9d9d9;
+    will-change: top, left, width, height, border-radius;
+}
+
+.arrive-expand-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.arrive-expand-logo {
+    position: relative;
+    z-index: 2;
+    width: clamp(150px, 20%, 320px);
+    height: auto;
+    /* White over the video, matching the case study hero. */
+    filter: brightness(0) invert(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* No fullscreen takeover or reveal — render as a normal resting hero. */
+    .arrive-hero-card,
+    .arrive-hero-logo {
+        animation: none;
+    }
+}
+
 /* Image placeholder block (gray) */
 .arrive-cs-media {
     width: 100%;
@@ -2394,6 +2521,21 @@
 
 .arrive-cs-media-tall {
     aspect-ratio: 16 / 9;
+}
+
+/* Full-width media box (same width as the others) but the image is contained
+   and centered, so it stays short with white space on the sides — no crop. */
+.arrive-cs-media-auto {
+    aspect-ratio: 16 / 7;
+    background: transparent;
+    margin-bottom: 3.25rem;
+}
+
+.arrive-cs-media-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
 }
 
 .arrive-cs-media-label {
@@ -2450,6 +2592,11 @@
     flex-wrap: wrap;
 }
 
+/* No divider between the intro meta row and the first content block. */
+.arrive-cs-intro + .arrive-cs-block {
+    border-top: none;
+}
+
 .arrive-cs-meta-item {
     display: inline-flex;
     align-items: center;
@@ -2475,7 +2622,7 @@
 
 .arrive-split-left,
 .arrive-split-right {
-    padding: 2rem 2.5rem;
+    padding: 1.25rem 2.5rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2492,10 +2639,12 @@
 }
 
 .arrive-split-title {
-    font-size: 22px;
+    font-family: Graphik, sans-serif;
+    font-style: normal;
+    font-size: 27px;
     font-weight: 700;
     color: #fff;
-    margin: 1.25rem 0 2rem;
+    margin: 4.5rem 0 1.75rem;
     letter-spacing: -0.01em;
 }
 
@@ -2506,23 +2655,26 @@
 .arrive-pills {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 14px 12px;
     justify-content: center;
     align-content: center;
     flex: 1;
-    max-width: 460px;
+    width: 100%;
+    max-width: 500px;
+    padding: 0.5rem 0 1.5rem;
 }
 
 .arrive-pill {
-    font-size: 14px;
-    font-weight: 600;
+    font-family: 'Poppins', 'Gilroy', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
     line-height: 1;
-    padding: 11px 18px;
+    padding: 11px 22px;
     border-radius: 9999px;
     white-space: nowrap;
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: rgba(255, 255, 255, 0.82);
+    border: 1px solid #fff;
+    color: #fff;
     transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
 }
 
@@ -2532,12 +2684,26 @@
     color: #3a1060;
 }
 
+/* Portrait window that clips only the gif's built-in side whitespace; the gif
+   (a 1000x1000 square with a centered phone) is scaled so its full height fits
+   the window — the whole phone stays visible top-to-bottom, and just the empty
+   left/right margins overflow and get cropped. */
+.arrive-split-gif-frame {
+    width: 100%;
+    max-width: 340px;
+    aspect-ratio: 17 / 28;
+    overflow: hidden;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .arrive-split-gif {
+    height: 100%;
     width: auto;
-    max-width: 100%;
-    max-height: 400px;
-    border-radius: 16px;
-    object-fit: contain;
+    max-width: none;
+    display: block;
 }
 
 @media (max-width: 768px) {
@@ -2554,6 +2720,11 @@
 /* Section — uniform vertical rhythm */
 .arrive-cs-section {
     margin-top: 4.5rem;
+}
+
+/* Extra breathing room below the capability card, before Context */
+.arrive-cs-section--card {
+    margin-bottom: 3rem;
 }
 
 .arrive-cs-heading {
@@ -2606,6 +2777,648 @@
     font-size: 14px;
     color: #4b5563;
     margin: 1rem auto 0;
+}
+
+/* Two-column case-study block — italic serif label on the left, body copy on
+   the right, with an optional serif stat line, an underlined source, and a
+   divider rule above each block. */
+.arrive-cs-block {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 3rem;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 3.25rem 0;
+    border-top: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+/* Same spacing, but no divider line above (e.g. the first block). */
+.arrive-cs-block--no-divider {
+    border-top: none;
+}
+
+/* Impact sits a bit lower so it isn't crowded against the section above. */
+.arrive-cs-impact {
+    margin-top: 6rem;
+}
+
+/* More breathing room above the bottom divider on the Arrive page. */
+.arrive-cs .case-study-bottom-nav {
+    margin-top: 3.5rem;
+}
+
+.arrive-cs-block-label {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.2;
+    color: #111;
+    margin: 0;
+}
+
+.arrive-cs-block-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    min-width: 0;
+    max-width: 560px;
+}
+
+.arrive-cs-block-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1f2937;
+    margin: 0;
+}
+
+.arrive-cs-block-text strong {
+    font-weight: 600;
+    color: #111;
+}
+
+.arrive-cs-block-stat {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 25px;
+    line-height: 1.35;
+    margin: 0.4rem 0 0;
+    /* Purple only in the top-left ~20%, fading to black across to bottom-right */
+    color: #6d2496; /* fallback */
+    background: linear-gradient(to bottom right, #6d2496 0%, #000000 20%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Keep this stat on a single line (overrides the body's wrap width). */
+.arrive-cs-block-stat--oneline {
+    white-space: nowrap;
+    font-size: 22px;
+}
+
+/* Tighter one-line variant for longer stat sentences. */
+.arrive-cs-block-stat--fit {
+    white-space: nowrap;
+    font-size: 18px;
+}
+
+/* Source line uses the site's link design (.bio-link) — black, weight 600,
+   with the diagonal arrow — plus a static underline. */
+.arrive-cs-block-source {
+    font-size: 13px;
+    width: fit-content;
+    margin-top: 0.85rem;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Button variant (opens a preview) — strip native button chrome so it reads as
+   the same inline link. */
+button.arrive-cs-block-source {
+    appearance: none;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 13px;
+    color: inherit;
+    cursor: pointer;
+    text-align: left;
+}
+
+/* Media inside a block keeps its own rhythm via the body's gap */
+.arrive-cs-block-body .arrive-cs-media {
+    margin: 0.25rem 0;
+}
+
+/* Inline figure (e.g. the grade workshop board) shown within a block. Breaks
+   out past the body's text width so it reads larger/taller, rounded 16px like
+   the other media blocks. */
+.arrive-cs-block-figure {
+    margin-top: 0.5rem;
+    /* Pull left past the label gutter (150px label + 3rem gap = 198px) so the
+       figure's left edge lines up with the block label ("Problem"/"Impact").
+       Width keeps the right edge roughly where it was while extending left,
+       so the figure reads larger. */
+    margin-left: -222px;
+    width: calc(100% + 410px);
+    max-width: none;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.arrive-cs-block-figure-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .arrive-cs-block-figure {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+/* Vision synthesis copy + interactive Figma prototype embed. */
+.arrive-cs-prototype-text {
+    max-width: 720px;
+    margin: 0 auto 2.25rem;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.arrive-figma-embed {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+}
+
+.arrive-figma-embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+}
+
+/* Outcomes block needs breathing room below the prototype embed. */
+.arrive-cs-outcomes {
+    margin-top: 4rem;
+}
+
+/* ── Vision walkthrough — numbered steps, each with a looping video and an
+   animated vertical timeline (the fill trickles down the line, lighting each
+   dot, then loops). See VisionWalkthrough.tsx. ── */
+.vw {
+    max-width: 1300px;
+    margin: 2.5rem auto 0;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 6.5rem; /* generous space so each step reads as its own mini section */
+}
+
+.vw-step-heading {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.01em;
+    margin: 0 0 2.75rem;
+}
+
+.vw-step-body {
+    display: grid;
+    /* Video gets the larger share and sits to the left; timeline on the right. */
+    grid-template-columns: 1.55fr 1fr;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+}
+
+.vw-video {
+    border-radius: 14px;
+    overflow: hidden;
+    background: #e5e7eb;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.12);
+}
+
+.vw-video video {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.vw-timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0.25rem 0;
+}
+
+.vw-item {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    column-gap: 1.5rem;
+}
+
+.vw-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vw-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #d4d4d8;
+    flex-shrink: 0;
+    transition: background-color 0.35s ease;
+}
+
+.vw-dot.is-on {
+    background: #111;
+}
+
+.vw-connector {
+    position: relative;
+    width: 2px;
+    flex: 1 1 auto;
+    min-height: 2.75rem;
+    margin: 5px 0;
+    background: #e4e4e7;
+    border-radius: 2px;
+}
+
+.vw-connector-fill {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 0;
+    width: 100%;
+    background: #111;
+    border-radius: 2px;
+}
+
+.vw-text {
+    margin: 0;
+    padding-bottom: 3.5rem;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #1f2937;
+    align-self: start;
+}
+
+.vw-item:last-child .vw-text {
+    padding-bottom: 0;
+}
+
+@media (max-width: 820px) {
+    .vw {
+        gap: 4.5rem;
+    }
+    .vw-step-body {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Vision walkthrough — single full-bleed row of looping videos with captions. */
+.arrive-vision-fullbleed {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    width: 100vw;
+    margin: 1rem -50vw 3rem;
+    background: #f9fafb;
+    text-align: left;
+}
+
+.arrive-vision-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: stretch;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 4vw, 4rem);
+}
+
+.arrive-vision-tile {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.arrive-vision-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 14px;
+    background: #f3f4f6;
+}
+
+.arrive-vision-caption {
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.01em;
+}
+
+/* ============================================================
+   Media preview modal — whiteout backdrop + minimalist browser
+   ============================================================ */
+.preview-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.25rem 2rem;
+    background: rgba(247, 247, 250, 0.82);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    animation: preview-fade 0.2s ease;
+}
+
+@keyframes preview-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.preview-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    z-index: 5;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    color: #111;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.preview-close:hover {
+    background: #fff;
+    transform: scale(1.05);
+}
+
+.preview-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.preview-modal {
+    position: relative;
+    max-width: 1080px;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+    animation: preview-rise 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Browser preview keeps a tall, fixed viewport. */
+.preview-modal--browser {
+    width: 100%;
+    height: 100%;
+}
+
+/* Image / video preview shrink-wraps its content (no empty height). */
+.preview-modal--media {
+    width: auto;
+    height: auto;
+}
+
+@keyframes preview-rise {
+    from { opacity: 0; transform: translateY(14px) scale(0.985); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Browser chrome — just an address bar. Extra right padding leaves room for the
+   close button so the address pill ends before it instead of running underneath. */
+.preview-chrome {
+    flex-shrink: 0;
+    padding: 0.85rem 4.25rem 0.85rem 1.1rem;
+    border-bottom: 1px solid #ececf0;
+    background: #fff;
+}
+
+.preview-url {
+    display: block;
+    padding: 0.55rem 1.1rem;
+    background: #f1f1f4;
+    border-radius: 9999px;
+    font-size: 13px;
+    color: #4b5563;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.preview-viewport {
+    flex: 1;
+    min-height: 0;
+    background: #fff;
+}
+
+.preview-iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 60vh;
+    border: none;
+    display: block;
+}
+
+/* Image / video previews size to their own content. */
+.preview-media {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: min(1080px, 92vw);
+    max-height: 86vh;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .preview-overlay {
+        padding: 1.5rem 0.85rem;
+    }
+    .preview-close {
+        top: 0.6rem;
+        right: 0.6rem;
+    }
+}
+
+/* ============================================================
+   MVP testing showcase — full-bleed band, three persona blocks
+   ============================================================ */
+.arrive-mvp-fullbleed {
+    /* Break out of the centered .case-study-page column to span the viewport */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    width: 100vw;
+    margin: -2.5rem -50vw 4rem;
+    /* Match the case study page background (transparent shows the body's tone) */
+    background: transparent;
+    text-align: left;
+}
+
+.arrive-mvp {
+    display: flex;
+    flex-direction: column;
+    gap: 5.5rem;
+    padding: 1.5rem clamp(2rem, 5vw, 5.5rem);
+    /* Stretch wider than the case study column so the text can sit further left
+       and the media further right without anything crunching. */
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+/* Let the grouping wrapper dissolve so all three personas are direct flex
+   children of .arrive-mvp and share its vertical gap evenly. */
+.arrive-mvp-top {
+    display: contents;
+}
+
+/* Each persona is a uniform stacked row: text left, media in a fixed-width
+   column on the right. Videos are centered in that column so their centers line
+   up; the larger laptop simply overflows the column to the right. */
+.arrive-mvp-persona {
+    display: grid;
+    grid-template-columns: 1fr 600px;
+    align-items: center;
+    gap: clamp(4rem, 9vw, 10rem);
+}
+
+.arrive-mvp-text {
+    min-width: 0;
+}
+
+.arrive-mvp-title {
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #111;
+    margin: 0 0 0.85rem;
+}
+
+.arrive-mvp-accent {
+    color: #6d2496;
+}
+
+.arrive-mvp-lead {
+    font-size: 14px;
+    line-height: 1.55;
+    color: #374151;
+    margin: 0 0 0.85rem;
+}
+
+.arrive-mvp-lead strong {
+    font-weight: 600;
+    color: #111;
+}
+
+.arrive-mvp-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    list-style: disc;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #4b5563;
+}
+
+.arrive-mvp-list li {
+    display: list-item;
+    list-style: disc;
+}
+
+.arrive-mvp-list li::marker {
+    color: #9ca3af;
+}
+
+.arrive-mvp-list li + li {
+    margin-top: 0.4rem;
+}
+
+/* Video frames — clean rounded media with a soft shadow, centered in the media
+   column so all three rows line up consistently. */
+.arrive-mvp-video {
+    position: relative;
+    flex-shrink: 0;
+    justify-self: center;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.14);
+}
+
+.arrive-mvp-video video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.arrive-mvp-video-phone {
+    width: clamp(190px, 15vw, 215px);
+    aspect-ratio: 9 / 19;
+}
+
+.arrive-mvp-video-tablet {
+    width: clamp(440px, 42vw, 600px);
+    aspect-ratio: 4 / 3;
+}
+
+.arrive-mvp-video-laptop {
+    /* Wider than the 600px column — overflows it (centered), flowing right. */
+    width: clamp(560px, 52vw, 780px);
+    aspect-ratio: 16 / 10;
+}
+
+/* Big centered play button for the audio (non-autoplay) video */
+.arrive-mvp-play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 76px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.28);
+    color: #111;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.arrive-mvp-play:hover {
+    transform: scale(1.06);
+    background: #fff;
+}
+
+.arrive-mvp-play svg {
+    width: 30px;
+    height: 30px;
+    margin-left: 4px;
+}
+
+@media (max-width: 1000px) {
+    .arrive-mvp-persona {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
+    .arrive-mvp-video {
+        justify-self: start;
+        width: 100%;
+        max-width: 560px;
+    }
+    .arrive-mvp-video-phone {
+        width: 215px;
+    }
 }
 
 /* Research rows — image + text, alternating sides */
@@ -2704,5 +3517,10 @@
     }
     .arrive-cs-section {
         margin-top: 3.5rem;
+    }
+    .arrive-cs-block {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding-top: 2.5rem;
     }
 }
