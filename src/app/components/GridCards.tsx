@@ -15,6 +15,8 @@ const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
   arrive: { name: 'Arrive', subtitle: 'Transformed fragmented goals into a cohesive 2-year B2B roadmap for a $1B+ mobility company.' },
   zoominfo: { name: 'ZoomInfo', subtitle: "Led the UX redesign of ZoomInfo's core search experience, embedding early AI capabilities into the industry's largest GTM platform." },
   jnj: { name: 'Johnson & Johnson', subtitle: 'Transformed complex global ESG and DEI data into an engaging, compliant visual experience for a Fortune 50 audience.' },
+  tashvi: { name: 'Tashvi.ai', subtitle: 'Built an AI-native platform that turns jewelry sketches into photorealistic renders within seconds.' },
+  offprint: { name: 'Offprint', subtitle: "Designed and shipped a Chrome extension that tracks your prompts’ footprint and helps you shrink it." },
   hypex: { name: 'HYPEX', subtitle: 'Led marketing and design efforts for an NFT-based trading game' },
   mtsinai: { name: 'Mt Sinai', subtitle: 'Designed an incident reporting app for hospitals in Africa' },
   microsoft: { name: 'Microsoft', subtitle: "Collab on the future of education with Microsoft's Inclusive Design Team" },
@@ -204,6 +206,34 @@ export function GridCards() {
           </div>
         </div>
 
+        {/* Tashvi.ai Card */}
+        <div className="card-wrapper col-span-1 lg:col-span-6">
+          <div
+            className="tashvi-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://tashvi.ai/', '_blank'); }}
+            onTouchEnd={() => { isTouchRef.current = true; window.open('https://tashvi.ai/', '_blank'); }}
+          >
+            <span className="try-it-tag">Try it out!</span>
+            <Image
+              src="/images/tashvi-logo.png"
+              alt="Tashvi.ai"
+              width={160}
+              height={160}
+              className="w-28 lg:w-40 object-contain tashvi-logo"
+            />
+            <p className="project-hover-text">{cardDescriptions.tashvi.subtitle}</p>
+            <a
+              href="https://tashvi.ai/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-arrow-btn"
+              onClick={(e) => { e.stopPropagation(); analytics.trackCaseStudyView('Tashvi'); }}
+            >
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </a>
+          </div>
+        </div>
+
         {/* ZoomInfo Logo Card */}
         <div className="card-wrapper col-span-1 lg:col-span-6">
           <div
@@ -218,10 +248,7 @@ export function GridCards() {
               height={64}
               className="w-36 lg:w-64"
             />
-            {/* Description revealed at the bottom on hover */}
             <p className="project-hover-text">{cardDescriptions.zoominfo.subtitle}</p>
-
-            {/* Arrow Button - Bottom Left */}
             <Link
               href="/work/zoominfo"
               className="card-arrow-btn"
@@ -240,10 +267,7 @@ export function GridCards() {
             onTouchEnd={(e) => handleCardTouchEnd(e, 'jnj', '/work/jnj')}
           >
             <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-44 lg:w-80" />
-            {/* Description revealed at the bottom on hover */}
             <p className="project-hover-text">{cardDescriptions.jnj.subtitle}</p>
-
-            {/* Arrow Button - Bottom Left */}
             <Link
               href="/work/jnj"
               className="card-arrow-btn"
@@ -251,6 +275,37 @@ export function GridCards() {
             >
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </Link>
+          </div>
+        </div>
+
+        {/* Offprint Card */}
+        <div className="card-wrapper col-span-1 lg:col-span-6">
+          <div
+            className="offprint-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
+            onTouchEnd={() => { isTouchRef.current = true; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
+          >
+            <span className="try-it-tag">Try it out!</span>
+            <div className="offprint-logo-group">
+              <span className="offprint-card-title">Offprint</span>
+              <Image
+                src="/images/offprint-logo.png"
+                alt="Offprint"
+                width={319}
+                height={319}
+                className="w-20 lg:w-28 object-contain offprint-spin-logo"
+              />
+            </div>
+            <p className="project-hover-text offprint-hover-text">{cardDescriptions.offprint.subtitle}</p>
+            <a
+              href="https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-arrow-btn offprint-arrow-btn"
+              onClick={(e) => { e.stopPropagation(); analytics.trackCaseStudyView('Offprint'); }}
+            >
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon offprint-arrow-icon" />
+            </a>
           </div>
         </div>
 

@@ -4,20 +4,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
-import { analytics } from '@/app/components/GoogleAnalytics';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 
 export default function JnJPage() {
     // Analytics tracking
     useScrollDepthTracking();
     useTimeOnPage();
-
-    const scrollToChallenge = () => {
-        const challengeSection = document.getElementById('challenge-section');
-        if (challengeSection) {
-            challengeSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
 
     // Lightbox
     const { lightboxSrc, lightboxGallery, openLightbox, closeLightbox } = useLightbox();
@@ -36,7 +28,7 @@ export default function JnJPage() {
 
             {/* Hero Section */}
             <section className="case-study-hero">
-                <h1 className="case-study-title">Johnson & Johnson</h1>
+                <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={260} height={72} style={{ height: '72px', width: 'auto', objectFit: 'contain', marginBottom: '0.5rem' }} />
                 <p className="case-study-company">Annual Reports Design</p>
             </section>
 
@@ -85,10 +77,6 @@ export default function JnJPage() {
                         </p>
                     </div>
 
-                    {/* CTA Buttons */}
-                    <div className="case-study-cta">
-                        <button className="cta-button primary" onClick={() => { analytics.trackClick('Read Case Study', 'J&J'); scrollToChallenge(); }}>Read Case Study</button>
-                    </div>
                 </div>
             </section>
 
