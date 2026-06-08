@@ -142,13 +142,7 @@ export function GridCards() {
           <hr className="my-4 border-gray-200" />
 
           <div className="space-y-4 text-gray-500 text-[0.75rem] lg:text-base leading-relaxed">
-            <p>Most recently I designed and shipped{' '}
-              <a href="https://tashvi.ai/" target="_blank" rel="noopener noreferrer" className="bio-link">
-                Tashvi
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>, and just finished my{' '}
+            <p>Most recently, I finished my{' '}
               <a href="https://www.newschool.edu/parsons/ms-design-management" target="_blank" rel="noopener noreferrer" className="bio-link">
                 MS in Strategic Design
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +166,7 @@ export function GridCards() {
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </a>, and exploring New York City.
+              </a>, and exploring New York City. I&apos;m currently looking for new roles!
             </p>
           </div>
           </div>
@@ -206,6 +200,31 @@ export function GridCards() {
           </div>
         </div>
 
+        {/* ZoomInfo Logo Card */}
+        <div className="card-wrapper col-span-1 lg:col-span-6">
+          <div
+            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            onClick={(e) => handleCardClick(e, '/work/zoominfo')}
+            onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
+          >
+            <Image
+              src="/images/zoominfo-logo.png"
+              alt="ZoomInfo"
+              width={256}
+              height={64}
+              className="w-36 lg:w-64"
+            />
+            <p className="project-hover-text">{cardDescriptions.zoominfo.subtitle}</p>
+            <Link
+              href="/work/zoominfo"
+              className="card-arrow-btn"
+              onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
+            >
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </Link>
+          </div>
+        </div>
+
         {/* Tashvi.ai Card */}
         <div className="card-wrapper col-span-1 lg:col-span-6">
           <div
@@ -231,31 +250,6 @@ export function GridCards() {
             >
               <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
             </a>
-          </div>
-        </div>
-
-        {/* ZoomInfo Logo Card */}
-        <div className="card-wrapper col-span-1 lg:col-span-6">
-          <div
-            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-            onClick={(e) => handleCardClick(e, '/work/zoominfo')}
-            onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
-          >
-            <Image
-              src="/images/zoominfo-logo.png"
-              alt="ZoomInfo"
-              width={256}
-              height={64}
-              className="w-36 lg:w-64"
-            />
-            <p className="project-hover-text">{cardDescriptions.zoominfo.subtitle}</p>
-            <Link
-              href="/work/zoominfo"
-              className="card-arrow-btn"
-              onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
-            >
-              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-            </Link>
           </div>
         </div>
 
