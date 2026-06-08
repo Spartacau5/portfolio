@@ -2554,7 +2554,7 @@ html.arrive-immersive body > nav {
     font-family: Georgia, 'Times New Roman', serif;
     font-style: italic;
     font-weight: 500;
-    font-size: 50px;
+    font-size: 64px;
     line-height: 1.1;
     letter-spacing: -0.015em;
     margin: 0 0 1.75rem;
@@ -2564,6 +2564,173 @@ html.arrive-immersive body > nav {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+/* ZoomInfo case study — navy-to-blue gradient override */
+.zi-cs-title {
+    color: #0a1e3c;
+    background: linear-gradient(to top right, #0a1e3c 60%, #1d4ed8 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Design section break — "── DESIGN ──" style separator */
+.zi-design-header {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    max-width: 820px;
+    margin: 5rem auto 0;
+    color: #9ca3af;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-family: Graphik, sans-serif;
+}
+.zi-design-header::before,
+.zi-design-header::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #e5e7eb;
+}
+
+/* Insight block heading (full descriptive title in the body column) */
+.zi-insight-heading {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111;
+    margin: 0 0 0.15rem;
+    line-height: 1.35;
+}
+
+/* Video inside a block body — rounded, full-width relative to body column */
+.zi-block-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    background: #000;
+}
+
+/* Stat callout inside a block body */
+.zi-block-stat {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.35;
+    color: #0a1e3c;
+    margin: 0.25rem 0 0;
+}
+
+/* ── ZoomInfo Design Insight Blocks ─────────────────────────────────
+   Editorial layout: centered title + narrow body, then a wide media
+   element that rises into view on scroll (framer-motion in the .tsx).
+───────────────────────────────────────────────────────────────────── */
+.zi-insight {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 5.5rem 0 0;
+    border-top: 1px solid #e5e7eb;
+    text-align: center;
+}
+
+.zi-insight--first {
+    border-top: none;
+    padding-top: 3rem;
+}
+
+.zi-insight-text {
+    max-width: 520px;
+    margin: 0 auto 3rem;
+}
+
+.zi-insight-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(26px, 3.2vw, 40px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: #111;
+    margin: 0 0 1.15rem;
+}
+
+.zi-insight-body {
+    font-size: 15px;
+    line-height: 1.65;
+    color: #4b5563;
+    font-family: Graphik, sans-serif;
+}
+
+.zi-insight-body p {
+    margin: 0 0 0.65rem;
+}
+
+.zi-insight-body p:last-child {
+    margin: 0;
+}
+
+.zi-insight-media-track {
+    width: 100%;
+}
+
+/* Dark placeholder — mimics a ZI UI screenshot */
+.zi-dark-placeholder {
+    background: #0d1b2a;
+    border-radius: 16px;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.zi-dark-placeholder--tall {
+    min-height: 420px;
+}
+
+.zi-dark-placeholder-label {
+    font-family: Graphik, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: #475569;
+    letter-spacing: 0.02em;
+}
+
+.zi-insight-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+}
+
+.zi-insight-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+    background: #0d1b2a;
+}
+
+@media (max-width: 768px) {
+    .zi-insight {
+        padding-top: 4rem;
+    }
+    .zi-insight--first {
+        padding-top: 2.5rem;
+    }
+    .zi-insight-title {
+        font-size: 28px;
+    }
+    .zi-dark-placeholder {
+        min-height: 240px;
+    }
+    .zi-dark-placeholder--tall {
+        min-height: 300px;
+    }
 }
 
 .arrive-cs-lead,
@@ -2577,6 +2744,7 @@ html.arrive-immersive body > nav {
 .arrive-cs-lead {
     color: #4b5563;
     margin-bottom: 1rem;
+    text-align: justify;
 }
 
 .arrive-cs-sub {
@@ -2587,9 +2755,9 @@ html.arrive-immersive body > nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: 2rem;
     margin-top: 2.25rem;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
 }
 
 /* No divider between the intro meta row and the first content block. */
@@ -2823,7 +2991,7 @@ html.arrive-immersive body > nav {
     flex-direction: column;
     gap: 1.15rem;
     min-width: 0;
-    max-width: 560px;
+    max-width: 660px;
 }
 
 .arrive-cs-block-text {

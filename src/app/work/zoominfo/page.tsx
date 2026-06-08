@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { ZoominfoHero } from './ZoominfoHero';
+import { ZiInsightBlock, DarkPlaceholder } from './ZiDesignInsights';
 
 export default function ZoominfoPage() {
     useScrollDepthTracking();
@@ -12,20 +13,18 @@ export default function ZoominfoPage() {
     return (
         <>
         <div className="case-study-page arrive-cs">
-            {/* Spacer for fixed header */}
             <div className="h-24"></div>
 
-            {/* Hero — fills screen on load, shrinks into place on scroll */}
             <ZoominfoHero />
 
-            {/* Intro */}
+            {/* Hero intro */}
             <section className="arrive-cs-intro">
+                <h1 className="arrive-cs-title zi-cs-title">Where do I even start?</h1>
                 <p className="arrive-cs-lead">
-                    As UX/UI Designer II, I designed across 3 products to support go-to-market
-                    strategies for over 25,000 companies worldwide — eventually leading design
-                    for TalentOS after promotion to Lead Designer.
+                    Redesigned ZoomInfo&apos;s flagship product SalesOS&apos;s cluttered, overlooked
+                    homepage into a clean, search-first start. I led design across 4 two-week
+                    sprints, partnering with a PM and another UX designer.
                 </p>
-
                 <div className="arrive-cs-meta">
                     <span className="arrive-cs-meta-item">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -34,7 +33,7 @@ export default function ZoominfoPage() {
                             <circle cx="17" cy="16.5" r="4.5" />
                             <path d="M17 14.8v1.7l1.3.9" />
                         </svg>
-                        May 2022 – Apr 2024
+                        June – Aug 2023
                     </span>
                     <span className="arrive-cs-meta-item">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -42,41 +41,33 @@ export default function ZoominfoPage() {
                             <circle cx="10" cy="8" r="3.2" />
                             <path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 5a3.2 3.2 0 0 1 0 6.2" />
                         </svg>
-                        UX/UI Designer II → Lead Designer
+                        Kevin (support) · Sean (PM) · Hua Gao (Data Model)
                     </span>
                 </div>
             </section>
 
-            {/* Context */}
-            <section className="arrive-cs-block arrive-cs-block--no-divider">
-                <h2 className="arrive-cs-block-label">Context</h2>
-                <div className="arrive-cs-block-body">
-                    <p className="arrive-cs-block-text">
-                        ZoomInfo is a global B2B intelligence platform that helps sales and
-                        marketing teams identify, target, and engage with the right prospects.
-                        Over 2 years, I embedded across 3 products: TalentOS (recruiting
-                        intelligence), SalesOS (the flagship platform), and ReachOut (Chrome
-                        extension) — working closely with PMs, engineering, and data teams
-                        throughout.
-                    </p>
-                    <div style={{ display: 'flex', gap: '16px', alignItems: 'center', flexWrap: 'wrap', marginTop: '0.5rem' }}>
-                        <Image src="/images/salesos.avif" alt="SalesOS" width={90} height={28} style={{ height: '28px', width: 'auto', objectFit: 'contain' }} />
-                        <Image src="/images/talentos.avif" alt="TalentOS" width={90} height={28} style={{ height: '28px', width: 'auto', objectFit: 'contain' }} />
-                        <Image src="/images/reachout.avif" alt="ReachOut" width={90} height={28} style={{ height: '28px', width: 'auto', objectFit: 'contain' }} />
-                    </div>
-                </div>
-            </section>
-
             {/* Problem */}
-            <section className="arrive-cs-block">
+            <section className="arrive-cs-block arrive-cs-block--no-divider">
                 <h2 className="arrive-cs-block-label">Problem</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
-                        Products were growing fast but unevenly. Recruiter workflows in
-                        TalentOS were fragmented, prospecting lacked SMS integration, and
-                        SalesOS needed deeper AI capabilities to stay competitive. High user
-                        friction was driving low feature adoption across the suite.
+                        After years of constant updates, ZoomInfo&apos;s homepage tried to show
+                        everything at once: an onboarding tracker, integrations, saved searches,
+                        recently viewed contacts, a full recommendations feed, and intent signal
+                        widgets stacked across three columns. Most of it was low-relevance and
+                        hard to configure, so people skipped the homepage and went straight to
+                        what they actually came for: search.
                     </p>
+
+                    <div className="arrive-cs-block-figure" style={{ marginTop: "3rem" }}>
+                        <Image
+                            src="/images/zi-old-homepage.png"
+                            alt="Old SalesOS homepage — cluttered three-column landing"
+                            width={1200}
+                            height={700}
+                            className="arrive-cs-block-figure-img"
+                        />
+                    </div>
                 </div>
             </section>
 
@@ -85,93 +76,66 @@ export default function ZoominfoPage() {
                 <h2 className="arrive-cs-block-label">Strategy</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
-                        Anchor every design decision in user research and usage data.
-                        Work cross-functionally to reduce friction in core workflows —
-                        from search UX to prospecting flows — while maintaining visual
-                        and interaction consistency across all three products.
-                    </p>
-                </div>
-            </section>
-
-            {/* Process */}
-            <section className="arrive-cs-block">
-                <h2 className="arrive-cs-block-label">Process</h2>
-                <div className="arrive-cs-block-body">
-                    <p className="arrive-cs-block-text">
-                        <strong>Phase 1:</strong> Improved Search UX for TalentOS — working
-                        with integrated products Comparably and ReachOut to streamline how
-                        recruiters discover and surface candidates.
+                        The instinct was to make the homepage better — more relevant modules,
+                        smarter recommendations, tighter widgets. But research showed the
+                        homepage wasn&apos;t failing because it had the wrong content. It was
+                        failing because it buried the one thing people valued.
                     </p>
                     <p className="arrive-cs-block-text">
-                        <strong>Phase 2:</strong> Promoted to Lead Designer. Led the
-                        integration of SMS into recruiter prospecting, redesigned the
-                        Projects feature to streamline team workflows, and introduced
-                        advanced organizational tooling.
+                        So we didn&apos;t add. We removed. We turned the homepage into a clean,
+                        search-first start — and made that search something you could begin in
+                        plain language, building on an entity-recognition model the data team
+                        had prototyped with ChatGPT.
                     </p>
-                    <p className="arrive-cs-block-text">
-                        <strong>Phase 3:</strong> Contributed to high-impact SalesOS
-                        initiatives — a major login redesign, AI integrations for ZI
-                        Copilot, and new features for Extension and Chorus.
-                    </p>
-                </div>
-            </section>
-        </div>
-
-        {/* TalentOS product showcase — full-bleed */}
-        <div style={{
-            background: '#0d1b2a',
-            padding: '4rem 1.5rem',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '1.25rem',
-        }}>
-            <p style={{
-                color: '#94a3b8',
-                fontSize: '12px',
-                fontWeight: 500,
-                textTransform: 'uppercase',
-                letterSpacing: '0.1em',
-                margin: 0,
-                fontFamily: 'Graphik, sans-serif',
-            }}>
-                TalentOS — Recruiter Prospecting
-            </p>
-            <video
-                src="/images/Zoominfotalentos.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                style={{
-                    width: '100%',
-                    maxWidth: '960px',
-                    borderRadius: '16px',
-                    display: 'block',
-                    boxShadow: '0 32px 80px rgba(0, 0, 0, 0.5)',
-                }}
-            />
-        </div>
-
-        <div className="case-study-page arrive-cs">
-            {/* Solution */}
-            <section className="arrive-cs-block arrive-cs-block--no-divider arrive-cs-outcomes">
-                <h2 className="arrive-cs-block-label">Solution</h2>
-                <div className="arrive-cs-block-body">
-                    <p className="arrive-cs-block-text">
-                        A research-driven, cross-product approach that reduced prospecting
-                        friction and improved workflow efficiency by approximately 22%,
-                        while building a more consistent design language across the suite.
-                    </p>
-                    <div className="arrive-cs-block-figure" style={{ marginTop: '0.75rem' }}>
+                    <div className="arrive-cs-block-figure">
                         <Image
-                            src="/images/dashboard.avif"
-                            alt="Dashboard for TalentOS — real-time workforce intelligence"
-                            width={900}
-                            height={560}
-                            style={{ width: '100%', height: 'auto', borderRadius: '12px', display: 'block' }}
+                            src="/images/zi-new-homepage.png"
+                            alt="New SalesOS AI homepage — clean, search-first start"
+                            width={1200}
+                            height={700}
+                            className="arrive-cs-block-figure-img"
                         />
                     </div>
+                    <p className="arrive-cs-block-text">
+                        This became the AI homepage — a natural-language front door for SalesOS.
+                    </p>
+                    <p className="arrive-cs-block-text">
+                        We then released this alpha to 15 customers who were interested in this search language pilot, to gather feedback.
+                    </p>
+                </div>
+            </section>
+
+            {/* What we set out to learn */}
+            <section className="arrive-cs-block">
+                <h2 className="arrive-cs-block-label">What we set out to learn</h2>
+                <div className="arrive-cs-block-body">
+                    <p className="arrive-cs-block-text">
+                        A new search experience shipped as a toggleable alpha to a limited set
+                        of SalesOS users, to answer three questions:
+                    </p>
+                    <ol style={{ paddingLeft: '1.25rem', margin: '0', display: 'flex', flexDirection: 'column', gap: '0.5rem', listStyle: 'decimal' }}>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            Do users prefer this natural language search to a traditional advanced search?
+                        </li>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            Does natural language search lead to better outcomes as measured by search conversions, time to value?
+                        </li>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            What types of searches users will enter in a search box without restrictions?
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            {/* Outcomes */}
+            <section className="arrive-cs-block">
+                <h2 className="arrive-cs-block-label">Outcomes</h2>
+                <div className="arrive-cs-block-body">
+                    <p className="zi-block-stat">13 of 15 testers preferred the new homepage to the existing experience.</p>
+                    <p className="arrive-cs-block-text">
+                        The alpha did its job: a clear preference signal, plus a live stream of
+                        real, unrestricted queries to learn the rest from.
+                    </p>
                 </div>
             </section>
 
@@ -180,20 +144,125 @@ export default function ZoominfoPage() {
                 <h2 className="arrive-cs-block-label">Impact</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
-                        Our design work contributed to ZoomInfo&apos;s strongest revenue period —
-                        quarterly revenue exceeded $300M in Q1 2023, reflecting the scale
-                        and adoption of the improvements shipped across all three products.
+                        Ten months later, ZoomInfo shipped Copilot — its flagship AI product,
+                        built on searching the database in plain language. This alpha tested
+                        that bet first, live, with real sellers.
                     </p>
-                    <p className="arrive-cs-block-text">
-                        Beyond the numbers, the work established a model for cross-product
-                        design collaboration at ZoomInfo and set a higher bar for how
-                        research informed every product decision made on the team.
-                    </p>
+                    <ul style={{ paddingLeft: '1.25rem', margin: '1.5rem 0 0', display: 'flex', flexDirection: 'column', gap: '1rem', listStyle: 'disc' }}>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            <strong>Decreased time to value</strong> — by providing users a simplified method of searching, we decreased the effort to find the right companies and contacts for prospecting.
+                        </li>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            <strong>Improved Search UX</strong> — no longer requiring users to learn how to use all of our filters greatly simplified the search experience.
+                        </li>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            <strong>[Marketing] Face the Competition</strong> — According to Google, ZI was perceived as &quot;manual&quot; compared to Apollo.io&apos;s &quot;AI-driven&quot; capabilities. Simplifying search with best-in-class natural language capabilities served as a shot across the bow for Apollo.io and an opportunity to capitalize on market sentiment around AI.
+                        </li>
+                    </ul>
                 </div>
             </section>
 
+            {/* ── DESIGN ────────────────────────────────────────────── */}
+            <div className="zi-design-header" aria-hidden="true">Design</div>
+
+            <ZiInsightBlock
+                isFirst
+                title="Less is More"
+                body={
+                    <p>
+                        The old homepage answered &ldquo;what could we show you?&rdquo; The new one
+                        answers &ldquo;what did you come to do?&rdquo; I cut the modules to a single
+                        instruction in a search field: &ldquo;Describe your perfect contact or
+                        company list,&rdquo; plus worked examples split into Finding Contacts and
+                        Companies. The examples do the onboarding the old page tried to do
+                        with widgets.
+                    </p>
+                }
+                media={
+                    <video
+                        src="/images/zi-new-search.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="zi-block-video"
+                    />
+                }
+            />
+
+            <ZiInsightBlock
+                title="Plain language is messy — design for the bad query"
+                body={
+                    <p>
+                        Open input invites vague, oversized, and broken requests. I designed
+                        the guardrails: a nudge under five words, a warning when a query will
+                        flood results, a 20-second timeout with retry on model failure, a
+                        1024-character ceiling, and prompt truncation before scroll. The
+                        model&apos;s uncertainty lived in the UI, not just the backend.
+                    </p>
+                }
+                media={<Image src="/images/zi-states.png" alt="Possibly too many results and long-prompt states" width={1200} height={800} style={{ width: '100%', height: 'auto', borderRadius: '12px' }} />}
+            />
+
+            <ZiInsightBlock
+                title="If you're running an experiment, design the instrument"
+                body={
+                    <p>
+                        This was an alpha, so the point was the learning. I built feedback
+                        into the flow: thumbs up/down on every result set (up → thank-you
+                        toast; down → a &ldquo;Didn&apos;t like the experience?&rdquo; form), a toggle to
+                        revert to the old homepage with a reason-coded survey on opt-out,
+                        and tracking of the full query alongside its parsed output. Every
+                        interaction was a data point — including from the people who turned
+                        it off.
+                    </p>
+                }
+                media={
+                    <video
+                        src="/images/zi-thumbsup.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="zi-block-video"
+                    />
+                }
+            />
+
+            <ZiInsightBlock
+                title="What we killed"
+                body={
+                    <p>
+                        I designed a Search Assist drawer — the AI as a floating panel over
+                        results, with a live result count and pre-written follow-up suggestions.
+                        Leadership pushed back: splitting attention between a chatbox and the
+                        table felt chair-swivelly, and risky for a user base that ranged widely
+                        in technical comfort. The critique was fair, so we cut it and folded
+                        the good parts into the in-table experience.
+                    </p>
+                }
+                media={
+                    <video
+                        src="/images/zi-future.mp4"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="zi-block-video"
+                    />
+                }
+            />
+
+
+            {/* Footer note */}
+            <p style={{ maxWidth: '520px', margin: '5rem auto 0', textAlign: 'center', fontSize: '15px', lineHeight: '1.65', color: '#6b7280', fontStyle: 'italic', fontFamily: 'Graphik, sans-serif' }}>
+                From research framing through a shipped alpha in sellers&apos; hands, I owned
+                this end to end — and the most important design calls I made were the ones
+                to remove, not add.
+            </p>
+
             {/* Bottom Navigation */}
-            <div className="case-study-bottom-nav">
+            <div className="case-study-bottom-nav" style={{ marginTop: '4rem' }}>
                 <Link href="/" className="back-link">
                     <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
                     Back to Home
