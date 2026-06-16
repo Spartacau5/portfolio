@@ -158,6 +158,29 @@ export function GridCards() {
               </a>.
             </p>
 
+            <p>Currently, I&apos;m looking for new roles and mentoring at{' '}
+              <a href="https://growth.aigany.org/amp/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                AIGA NY
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>. I also graduated with an{' '}
+              <a href="https://www.newschool.edu/parsons/ms-design-management" target="_blank" rel="noopener noreferrer" className="bio-link">
+                MS in Strategic Design
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>{' '}
+              from{' '}
+              <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                Parsons
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>{' '}
+              in June!
+            </p>
+
             <p>Before building my own products, I spent years shipping enterprise software to tens of thousands and scaling design systems - work that taught me to simplify complexity, bridge design and engineering, and make the call when there&apos;s no playbook.</p>
 
             <p>Outside of work, I&apos;m gaming,{' '}
@@ -166,7 +189,7 @@ export function GridCards() {
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </a>, and exploring New York City. I&apos;m currently looking for new roles!
+              </a>, and exploring New York City.
             </p>
           </div>
           </div>
