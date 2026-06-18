@@ -172,7 +172,7 @@ export function Contact() {
                   Download my resume to learn more about my experience and skills.
                 </p>
                 <motion.a
-                  href="https://drive.google.com/file/d/1NQZGgKqecdKRg7RAV-TEtg1VdSdfuYtV/view?usp=sharing"
+                  href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary text-lg inline-flex items-center gap-2"

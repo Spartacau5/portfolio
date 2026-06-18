@@ -130,7 +130,7 @@ export default function ContactPage() {
               </motion.div>
 
               <motion.div variants={itemVariants} className="pt-8">
-                <Link href="https://drive.google.com/file/d/1NQZGgKqecdKRg7RAV-TEtg1VdSdfuYtV/view?usp=sharing">
+                <Link href="/resume.pdf" target="_blank" rel="noopener noreferrer">
                   <motion.button
                     className="btn btn-primary text-lg w-full md:w-auto px-8 py-4"
                     whileHover={{ scale: 1.05 }}
