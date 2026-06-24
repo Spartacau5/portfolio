@@ -1,22 +1,23 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
+import { ZoomInfoLogoLoop } from './ZoomInfoLogoLoop';
 import CatAnimation from './CatAnimation';
 import { analytics } from './GoogleAnalytics';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
-  arrive: { name: 'Arrive', subtitle: 'Transformed fragmented goals into a cohesive 2-year B2B roadmap for a $1B+ mobility company.' },
-  zoominfo: { name: 'ZoomInfo', subtitle: "Led the UX redesign of ZoomInfo's core search experience, embedding early AI capabilities into the industry's largest GTM platform." },
+  arrive: { name: 'Arrive', subtitle: 'Transformed fragmented insights into a cohesive 2-year strategy for a $1B+ mobility company.' },
+  zoominfo: { name: 'ZoomInfo', subtitle: 'Redesigned the core search experience for a Go-To-Market platform used by 35,000 enterprise customers.' },
   jnj: { name: 'Johnson & Johnson', subtitle: 'Transformed complex global ESG and DEI data into an engaging, compliant visual experience for a Fortune 50 audience.' },
   tashvi: { name: 'Tashvi.ai', subtitle: 'Built an AI-native platform that turns jewelry sketches into photorealistic renders within seconds.' },
-  offprint: { name: 'Offprint', subtitle: "Designed and shipped a Chrome extension that tracks your prompts’ footprint and helps you shrink it." },
+  offprint: { name: 'Offprint', subtitle: 'Shipped a Chrome extension that enables you to track and offset your AI carbon footprint.' },
   hypex: { name: 'HYPEX', subtitle: 'Led marketing and design efforts for an NFT-based trading game' },
   mtsinai: { name: 'Mt Sinai', subtitle: 'Designed an incident reporting app for hospitals in Africa' },
   microsoft: { name: 'Microsoft', subtitle: "Collab on the future of education with Microsoft's Inclusive Design Team" },
@@ -24,7 +25,26 @@ const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
 
 export function GridCards() {
   const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
+  const [isMicrosoftAuto, setIsMicrosoftAuto] = useState(false);
   const router = useRouter();
+
+  // Auto-play the Microsoft card's hover animation in a loop: animate in,
+  // hold ~2.6s, animate out, pause, repeat.
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let timer: ReturnType<typeof setTimeout>;
+    let on = false;
+    const tick = () => {
+      on = !on;
+      setIsMicrosoftAuto(on);
+      timer = setTimeout(tick, on ? 2600 : 1500); // visible 2.6s, hidden 1.5s
+    };
+    timer = setTimeout(tick, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Active when hovered or while the auto-loop is in its "in" phase.
+  const isMicrosoftActive = isMicrosoftHovered || isMicrosoftAuto;
   const lastTapRef = useRef<Record<string, number>>({});
   const isTouchRef = useRef(false);
 
@@ -136,44 +156,58 @@ export function GridCards() {
           <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex flex-col transition-opacity duration-300">
           <div>
             <h2 className="text-[0.85rem] lg:text-[1.25rem] font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
-            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who ships code.<br />I ask questions before jumping to solutions, and connect design work to business outcomes.</span>
+            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who ships code.</span>
           </div>
 
           <hr className="my-4 border-gray-200" />
 
           <div className="space-y-4 text-gray-500 text-[0.75rem] lg:text-base leading-relaxed">
-            <p>Currently, I&apos;m looking for new roles and mentoring at{' '}
-              <a href="https://growth.aigany.org/amp/" target="_blank" rel="noopener noreferrer" className="bio-link">
-                AIGA NY
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>. I also graduated with an{' '}
-              <a href="https://www.newschool.edu/parsons/ms-design-management" target="_blank" rel="noopener noreferrer" className="bio-link">
-                MS in Strategic Design
+            <p>I&apos;ve led the end-to-end design journey for 5+ years, shipping enterprise software and delivering delight to thousands of users.</p>
+
+            <p>Recently, I co-founded an{' '}
+              <a href="https://www.tashvi.ai" target="_blank" rel="noopener noreferrer" className="bio-link">
+                AI jewelry-design platform
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>{' '}
-              from{' '}
+              - now upto 11,000+ users - leading design and engineering for gen-AI workflows.</p>
+
+            <p>I hold an M.S. in Strategic Design &amp; Management from{' '}
               <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link">
                 Parsons
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>{' '}
-              in June!
-            </p>
-
-            <p>Before building my own products, I spent years shipping enterprise software to tens of thousands and scaling design systems - work that taught me to simplify complexity, bridge design and engineering, and make the call when there&apos;s no playbook.</p>
-
-            <p>Outside of work, I&apos;m gaming,{' '}
-              <a href="https://open.spotify.com/artist/3b9yCm5iWBKNIDqq1utESQ" target="_blank" rel="noopener noreferrer" className="bio-link">
-                making music
+              and a B.S. in User Experience &amp; Interaction Design from{' '}
+              <a href="https://drexel.edu/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                Drexel
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </a>, and exploring New York City.
+              </a>.
+            </p>
+
+            <p>Outside of work, I mentor at{' '}
+              <a href="https://growth.aigany.org/amp/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                AIGA NY
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>,{' '}
+              <a href="https://open.spotify.com/artist/3b9yCm5iWBKNIDqq1utESQ" target="_blank" rel="noopener noreferrer" className="bio-link">
+                make music
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>, and{' '}
+              <a href="https://forza.net/" target="_blank" rel="noopener noreferrer" className="bio-link">
+                game
+                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>.
             </p>
           </div>
           </div>
@@ -182,17 +216,35 @@ export function GridCards() {
         {/* Arrive Logo Card */}
         <div className="card-wrapper col-span-1 lg:col-span-6 h-full">
           <div
-            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            className="arrive-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] flex items-center justify-center overflow-hidden group cursor-pointer"
             onClick={handleArriveClick}
             onTouchEnd={(e) => handleCardTouchEnd(e, 'arrive', '/work/arrive')}
           >
-            <Image
-              src="/images/arrive-logo.png"
-              alt="Arrive"
-              width={192}
-              height={48}
-              className="w-28 lg:w-48"
-            />
+            {/* Looping hero video with the white logo + tagline centered */}
+            <div className="arrive-card-media">
+              <video
+                src="/images/arrive-hero.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="arrive-card-video"
+              />
+              <div className="arrive-card-center">
+                <Image
+                  src="/images/arrive-logo.png"
+                  alt="Arrive"
+                  width={192}
+                  height={48}
+                  className="arrive-card-logo"
+                />
+                <div className="arrive-card-tagline">Making cities more liveable</div>
+              </div>
+            </div>
+            {/* Glassy category tags, top-right */}
+            <div className="card-tags">
+              <span className="card-tag">UX Research</span>
+            </div>
             {/* Description revealed at the bottom on hover */}
             <p className="project-hover-text">{cardDescriptions.arrive.subtitle}</p>
 
@@ -214,13 +266,11 @@ export function GridCards() {
             onClick={(e) => handleCardClick(e, '/work/zoominfo')}
             onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
           >
-            <Image
-              src="/images/zoominfo-logo.png"
-              alt="ZoomInfo"
-              width={256}
-              height={64}
-              className="w-36 lg:w-64"
-            />
+            <ZoomInfoLogoLoop />
+            {/* Glassy category tag, top-right (dark variant for the light card) */}
+            <div className="card-tags">
+              <span className="card-tag card-tag--dark">UX/UI Design</span>
+            </div>
             <p className="project-hover-text">{cardDescriptions.zoominfo.subtitle}</p>
             <Link
               href="/work/zoominfo"
@@ -239,7 +289,9 @@ export function GridCards() {
             onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://tashvi.ai/', '_blank'); }}
             onTouchEnd={() => { isTouchRef.current = true; window.open('https://tashvi.ai/', '_blank'); }}
           >
-            <span className="try-it-tag">Try it out!</span>
+            <div className="card-tags">
+              <span className="card-tag card-tag--dark">UX Engineering</span>
+            </div>
             <Image
               src="/images/tashvi-logo.png"
               alt="Tashvi.ai"
@@ -268,6 +320,9 @@ export function GridCards() {
             onTouchEnd={(e) => handleCardTouchEnd(e, 'jnj', '/work/jnj')}
           >
             <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-44 lg:w-80" />
+            <div className="card-tags">
+              <span className="card-tag card-tag--dark">UX/UI Design</span>
+            </div>
             <p className="project-hover-text">{cardDescriptions.jnj.subtitle}</p>
             <Link
               href="/work/jnj"
@@ -286,7 +341,9 @@ export function GridCards() {
             onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
             onTouchEnd={() => { isTouchRef.current = true; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
           >
-            <span className="try-it-tag">Try it out!</span>
+            <div className="card-tags">
+              <span className="card-tag card-tag--dark">UX Engineering</span>
+            </div>
             <div className="offprint-logo-group">
               <span className="offprint-card-title">Offprint</span>
               <Image
@@ -296,6 +353,7 @@ export function GridCards() {
                 height={319}
                 className="w-20 lg:w-28 object-contain offprint-spin-logo"
               />
+              <span className="offprint-card-subtitle">Chrome Extension</span>
             </div>
             <p className="project-hover-text offprint-hover-text">{cardDescriptions.offprint.subtitle}</p>
             <a
@@ -318,6 +376,9 @@ export function GridCards() {
             onTouchEnd={(e) => handleCardTouchEnd(e, 'hypex', '/work/hypex')}
           >
             <Image src="/images/hypex-mockup.png" alt="HYPEX" width={400} height={400} className="w-full h-full object-contain relative z-10" />
+            <div className="card-tags" style={{ zIndex: 20 }}>
+              <span className="card-tag card-tag--dark">UI Design</span>
+            </div>
 
             {/* Marquee hover effect */}
             <div className="hypex-marquee-container">
@@ -636,7 +697,7 @@ export function GridCards() {
           {/* Microsoft Card */}
           <div className="card-wrapper flex-1 basis-1/2">
             <div
-              className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[18rem] lg:min-h-[10rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
+              className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[18rem] lg:min-h-[10rem] ${isMicrosoftActive ? 'is-hovered' : ''}`}
               onMouseEnter={() => setIsMicrosoftHovered(true)}
               onMouseLeave={() => setIsMicrosoftHovered(false)}
               onClick={(e) => handleCardClick(e, '/work/microsoft')}
@@ -644,7 +705,11 @@ export function GridCards() {
             >
               {/* Animated graffiti background - individual vectors */}
               <div className="microsoft-bg-container">
-                <MicrosoftGraffiti isHovered={isMicrosoftHovered} />
+                <MicrosoftGraffiti isHovered={isMicrosoftActive} />
+              </div>
+
+              <div className="card-tags" style={{ zIndex: 20 }}>
+                <span className="card-tag card-tag--dark">UX Research</span>
               </div>
 
               {/* Logo with white background and animated text */}
@@ -652,7 +717,7 @@ export function GridCards() {
                 <div className="microsoft-logo-container">
                   <Image src="/images/microsoft-full-logo.png" alt="Microsoft" width={128} height={28} className="w-32" />
                 </div>
-                <p className="microsoft-hover-text">Designing an AI-Powered Assistant for Specialized Educators</p>
+                <p className="microsoft-hover-text">Designed an AI-Powered Assistant for Specialized Educators.</p>
               </div>
 
               {/* Arrow Button - Bottom Left */}

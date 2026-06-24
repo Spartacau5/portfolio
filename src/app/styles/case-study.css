@@ -2387,6 +2387,52 @@
    See ArriveHero.tsx for the motion logic. The track reserves the scroll
    runway + settled-hero space; the card is the fixed, viewport-spanning
    element that shrinks toward the viewport center as you scroll. */
+/* Home grid Arrive card: looping hero video with the white logo + tagline,
+   mirroring the case-study hero so the click expands seamlessly into it. */
+.arrive-card-media {
+    position: absolute;
+    inset: 0;
+    border-radius: 1.5rem; /* matches the card's rounded-3xl */
+    overflow: hidden;
+    background: #d9d9d9;
+}
+
+.arrive-card-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.arrive-card-center {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    text-align: center;
+    padding: 0 1.5rem;
+}
+
+.arrive-card-logo {
+    width: clamp(110px, 40%, 220px);
+    height: auto;
+    filter: brightness(0) invert(1); /* purple mark -> white over the video */
+}
+
+.arrive-card-tagline {
+    font-family: Graphik, sans-serif;
+    font-weight: 500;
+    color: #fff;
+    font-size: clamp(11px, 1vw, 15px);
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.3);
+}
+
 .arrive-hero-track {
     position: relative;
     width: 100%;
@@ -2449,6 +2495,80 @@
 @keyframes arrive-hero-reveal {
     from { opacity: 0; }
     to   { opacity: 1; }
+}
+
+/* Close button — floats top-right over the fullscreen video, fades on scroll. */
+.arrive-hero-close {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 41;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 9999px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.32);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    /* opacity is driven by scroll in JS; transition keeps it buttery. */
+    transition: opacity 0.4s ease, background 0.2s ease, transform 0.2s ease;
+}
+
+.arrive-hero-close:hover {
+    background: rgba(0, 0, 0, 0.55);
+    transform: scale(1.06);
+}
+
+/* Scroll hint — bouncing chevrons over a label, centered at the bottom. */
+.arrive-scroll-hint {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 40;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    pointer-events: none;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
+    transition: opacity 0.4s ease;
+}
+
+.arrive-scroll-arrows {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0;
+}
+
+.arrive-scroll-arrows svg {
+    display: block;
+}
+
+.arrive-scroll-arrows svg:nth-child(2) {
+    margin-top: -7px;
+}
+
+/* Smooth, unhurried bounce — both chevrons move in sync. */
+.arrive-scroll-arrows svg {
+    animation: arrive-chevron-bounce 1.9s ease-in-out infinite;
+}
+
+@keyframes arrive-chevron-bounce {
+    0%, 100% { transform: translateY(0); opacity: 0.65; }
+    50%      { transform: translateY(6px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .arrive-hero-close,
+    .arrive-scroll-hint { display: none; }
+    .arrive-scroll-arrows svg { animation: none; }
 }
 
 @keyframes arrive-hero-logo-in {
@@ -3690,5 +3810,94 @@ button.arrive-cs-block-source {
         grid-template-columns: 1fr;
         gap: 1rem;
         padding-top: 2.5rem;
+    }
+}
+
+/* ================================================================
+   ARRIVE & ZOOMINFO — ADDITIONAL MOBILE RESPONSIVE FIXES
+   ================================================================ */
+
+/* ── Meta row: allow chips to wrap on narrow phones ── */
+@media (max-width: 580px) {
+    .arrive-cs-meta {
+        flex-wrap: wrap;
+        gap: 0.75rem 1.25rem;
+        justify-content: center;
+    }
+}
+
+/* ── Lead text: justified copy looks bad in narrow columns ── */
+@media (max-width: 580px) {
+    .arrive-cs-lead {
+        text-align: left;
+    }
+}
+
+/* ── Hero logo: 300px floor is too wide in the narrow settled card on phones ── */
+@media (max-width: 480px) {
+    .arrive-hero-center .arrive-cs-hero-logo {
+        width: clamp(160px, 50vw, 260px);
+    }
+}
+
+/* ── Arrive title: slightly tighter at true phone sizes ── */
+@media (max-width: 480px) {
+    .arrive-cs-title {
+        font-size: 26px;
+    }
+}
+
+/* ── "What Arrive does" split card: reduce huge top margin after stacking ── */
+@media (max-width: 768px) {
+    .arrive-split-title {
+        font-size: 22px;
+        margin-top: 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+    .arrive-pill {
+        font-size: 13px;
+        padding: 9px 16px;
+    }
+}
+
+/* ── MVP showcase: clamp minimums (440px, 560px) exceed phone viewport ── */
+@media (max-width: 600px) {
+    .arrive-mvp {
+        padding: 1rem 1.25rem;
+        gap: 3.5rem;
+    }
+    .arrive-mvp-video-tablet,
+    .arrive-mvp-video-laptop {
+        width: 100%;
+        max-width: 100%;
+    }
+    .arrive-mvp-video-phone {
+        width: clamp(130px, 38vw, 215px);
+    }
+}
+
+/* ── ZoomInfo: design divider + impact section spacing on mobile ── */
+@media (max-width: 768px) {
+    .zi-design-header {
+        margin-top: 3.5rem;
+    }
+    .arrive-cs-impact {
+        margin-top: 3.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .zi-insight {
+        padding-top: 3rem;
+    }
+    .zi-insight--first {
+        padding-top: 1.5rem;
+    }
+    .zi-design-header {
+        margin-top: 2.5rem;
+    }
+    /* Vision walkthrough: tighter step gap on phones */
+    .vw {
+        gap: 3.5rem;
     }
 }

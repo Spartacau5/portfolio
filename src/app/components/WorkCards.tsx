@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
+import { ZoomInfoLogoLoop } from './ZoomInfoLogoLoop';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
@@ -135,14 +136,12 @@ export function WorkCards() {
                         onClick={(e) => handleCardClick(e, '/work/zoominfo')}
                         onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
                     >
-                        <Image
-                            src="/images/zoominfo-logo.png"
-                            alt="ZoomInfo"
-                            width={256}
-                            height={64}
-                            className="w-36 lg:w-64 transition-opacity duration-300"
+                        <div
+                            className="transition-opacity duration-300"
                             style={{ opacity: isZoominfoHovered ? 0 : 1 }}
-                        />
+                        >
+                            <ZoomInfoLogoLoop />
+                        </div>
                         <video
                             src="/images/zigif.mp4"
                             className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-opacity duration-300"

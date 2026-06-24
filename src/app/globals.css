@@ -338,7 +338,7 @@
   margin: 0;
   font-family: Graphik, sans-serif;
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 500;
   color: #6b7280;
   text-align: left;
   line-height: 1.4;
@@ -359,6 +359,47 @@
    so its hover copy needs to be white too. */
 .jnj-card:hover .project-hover-text {
   color: #fff;
+}
+
+/* Glassy category tags, pinned to a card's top-right corner. */
+.card-tags {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 3;
+  display: flex;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.card-tag {
+  font-family: Graphik, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 10px;
+  white-space: nowrap;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Dark variant — for tags over light card backgrounds. */
+.card-tag--dark {
+  color: #1f2937;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Arrive card sits over the hero video, so its hover copy is white for
+   legibility. */
+.arrive-card:hover .project-hover-text {
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
 }
 
 /* HYPEX sits over the purple marquee on hover, so its copy is white. */
@@ -387,13 +428,19 @@
   color: #fff;
 }
 
-/* Offprint card — white default, electric blue on hover */
-.offprint-card {
-  transition: background-color 0.4s ease, border-color 0.4s ease;
-}
-.offprint-card:hover {
+/* Offprint card — entrance: white → blue, then title & subtitle settle in */
+.offprint-card.grid-card {
   background-color: #1668FF;
   border-color: #1668FF;
+  animation: offprint-bg-fill 8s linear infinite;
+}
+
+/* 1. Hold white with only the logo showing, fill to blue, hold, then ease back */
+@keyframes offprint-bg-fill {
+  0%, 12%   { background-color: #fff; border-color: #f3f4f6; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  30%       { background-color: #1668FF; border-color: #1668FF; }
+  84%       { background-color: #1668FF; border-color: #1668FF; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+  98%, 100% { background-color: #fff; border-color: #f3f4f6; }
 }
 
 /* Tick-rotation: smooth 45° snap with hold between each step */
@@ -417,7 +464,6 @@
   100%    { transform: rotate(360deg); }
 }
 .offprint-spin-logo {
-  animation: offprint-logo-tick 8s linear infinite;
   display: block;
 }
 
@@ -427,24 +473,53 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  transform: translateY(-24px);
+  transform: translateY(0);
 }
 
-/* "Offprint" title: hidden by default, fades in white on hover */
+/* 2. "Offprint" title drops in from above the logo and settles */
 .offprint-card-title {
-  font-family: 'Gilroy', 'Graphik', system-ui, -apple-system, sans-serif;
-  font-size: 1.75rem;
-  font-weight: 800;
+  font-family: 'Neue Montreal', 'Graphik', system-ui, -apple-system, sans-serif;
+  font-size: 1.85rem;
+  font-weight: 600;
   color: #fff;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   line-height: 1;
   white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.3s ease;
   pointer-events: none;
+  animation: offprint-title-drop 8s linear infinite;
 }
-.offprint-card:hover .offprint-card-title {
-  opacity: 1;
+@keyframes offprint-title-drop {
+  0%, 16%   { opacity: 0; transform: translateY(-46px); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  42%, 76%  { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0); }
+  90%, 100% { opacity: 0; transform: translateY(-46px); }
+}
+
+/* 3. "Chrome Extension" subheader rises in from below, after the title settles */
+.offprint-card-subtitle {
+  font-family: 'Neue Montreal', 'Graphik', system-ui, -apple-system, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: offprint-subtitle-rise 8s linear infinite;
+}
+@keyframes offprint-subtitle-rise {
+  0%, 36%   { opacity: 0; transform: translateY(46px); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
+  50%, 76%  { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0); }
+  88%, 100% { opacity: 0; transform: translateY(46px); }
+}
+
+/* Respect reduced-motion: show the final blue state with no entrance motion */
+@media (prefers-reduced-motion: reduce) {
+  .offprint-card.grid-card,
+  .offprint-card-title,
+  .offprint-card-subtitle {
+    animation: none;
+  }
 }
 
 /* Offprint hover description */
@@ -545,14 +620,9 @@ body {
   inset: 0;
   background-color: #8b5cf6;
   overflow: hidden;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  opacity: 1;
   z-index: 5;
   border-radius: 24px;
-}
-
-.hypex-card:hover .hypex-marquee-container {
-  opacity: 1;
 }
 
 /* HYPEX tall card for WorkCards page */

@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from 'react';
@@ -107,16 +106,38 @@ export function Header() {
       {/* Top Header - Profile pic and LinkedIn */}
       <header className="fixed top-0 left-0 right-0 z-50 pt-4 pb-4 md:pt-5 md:pb-2">
         <div className="w-full max-w-[1400px] mx-auto px-4 md:px-6 flex items-center justify-between">
-          {/* Profile Picture - Left */}
-          <Link href="/" className="flex-shrink-0" onClick={(e) => handleNavClick(e, '/')}>
-            <Image
-              src="/images/profilepic.png"
-              alt="Profile"
-              width={56}
-              height={56}
-              className="rounded-full w-11 h-11 md:w-[52px] md:h-[52px]"
-            />
-          </Link>
+          {/* Resume Icon - Left: opens the resume PDF in a new tab */}
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative flex-shrink-0 transition-colors duration-200 text-[#A3A3A3] hover:text-gray-700 cursor-pointer p-2 -m-2"
+            aria-label="Download Resume"
+            onClick={() => analytics.trackResumeDownload('resume')}
+          >
+            <svg
+              className="w-8 h-8 md:w-9 md:h-9"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+              <path d="M14 3v5h5" />
+              <path d="M9 13h6" />
+              <path d="M9 17h6" />
+              <path d="M9 9h1.5" />
+            </svg>
+            {/* Tooltip — left-aligned to stay on-screen at the left edge */}
+            <span
+              className="pointer-events-none absolute left-0 top-full -mt-0.5 whitespace-nowrap rounded-md bg-black/80 px-2.5 py-1 text-xs text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+            >
+              Download Resume
+            </span>
+          </a>
 
           {/* Spacer for LinkedIn alignment on mobile */}
           <div className="md:hidden w-8 h-8" />
@@ -126,7 +147,7 @@ export function Header() {
             href="https://www.linkedin.com/in/arpitahluwalia/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 transition-colors duration-200 text-[#C9C9C9] hover:text-[#0077B5] cursor-pointer p-2 -m-2 -mt-2"
+            className="group relative flex-shrink-0 transition-colors duration-200 text-[#C9C9C9] hover:text-[#0077B5] cursor-pointer p-2 -m-2 -mt-2"
             aria-label="LinkedIn Profile"
             onClick={() => analytics.trackSocialClick('LinkedIn')}
           >
@@ -138,6 +159,12 @@ export function Header() {
             >
               <path d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472L341.91,330.654L341.91,330.654z"/>
             </svg>
+            {/* Tooltip — matches the cat tooltip design (right-aligned to stay on-screen) */}
+            <span
+              className="pointer-events-none absolute right-0 top-full mt-1.5 whitespace-nowrap rounded-md bg-black/80 px-2.5 py-1 text-xs text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+            >
+              Connect with me on LinkedIn!
+            </span>
           </a>
         </div>
       </header>

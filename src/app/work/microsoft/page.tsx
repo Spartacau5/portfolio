@@ -61,12 +61,6 @@ export default function MicrosoftPage() {
                         <p className="meta-value">January - May 2025</p>
                     </div>
 
-                    {/* Team */}
-                    <div className="meta-block">
-                        <span className="meta-label">TEAM</span>
-                        <p className="meta-value">Alana Rhodin<br />Yash Sonwaney<br />Azelia Shankar</p>
-                    </div>
-
                     {/* Stakeholders */}
                     <div className="meta-block">
                         <span className="meta-label">STAKEHOLDERS</span>

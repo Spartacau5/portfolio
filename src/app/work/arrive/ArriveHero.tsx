@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 /**
  * Scroll-driven hero for the Arrive case study.
@@ -18,14 +19,24 @@ import Image from 'next/image';
  *  - `.arrive-hero-track` reserves the settled height + runway + a small gap.
  */
 export function ArriveHero() {
+    const router = useRouter();
     const trackRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
     const taglineRef = useRef<HTMLDivElement>(null);
+    const closeRef = useRef<HTMLButtonElement>(null);
+    const hintRef = useRef<HTMLDivElement>(null);
+
+    const handleClose = () => {
+        if (window.history.length > 1) router.back();
+        else router.push('/work');
+    };
 
     useEffect(() => {
         const track = trackRef.current;
         const card = cardRef.current;
         const tagline = taglineRef.current;
+        const closeBtn = closeRef.current;
+        const hint = hintRef.current;
         if (!track || !card) return;
 
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -96,6 +107,18 @@ export function ArriveHero() {
             // the screen; reveal it once the card has dropped below the header.
             const immersive = !reduce && dock < 0.999 && top < 64;
             document.documentElement.classList.toggle('arrive-immersive', immersive);
+
+            // Overlay UI (close button + scroll hint) live only while the video
+            // fills the screen and slickly fade away as the user starts scrolling.
+            if (closeBtn) {
+                const o = reduce ? 0 : 1 - clamp(s / 120, 0, 1);
+                closeBtn.style.opacity = String(o);
+                closeBtn.style.pointerEvents = o < 0.05 ? 'none' : 'auto';
+            }
+            if (hint) {
+                const o = reduce ? 0 : 1 - clamp(s / 200, 0, 1);
+                hint.style.opacity = String(o);
+            }
         };
 
         const onScroll = () => {
@@ -141,6 +164,31 @@ export function ArriveHero() {
                     <div className="arrive-hero-tagline" ref={taglineRef}>
                         Making cities more liveable
                     </div>
+                </div>
+            </div>
+
+            {/* Close button — visible while the video fills the screen, fades on scroll */}
+            <button
+                type="button"
+                className="arrive-hero-close"
+                ref={closeRef}
+                onClick={handleClose}
+                aria-label="Close"
+            >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                </svg>
+            </button>
+
+            {/* Scroll hint — two bouncing chevrons over a label, fades on scroll */}
+            <div className="arrive-scroll-hint" ref={hintRef} aria-hidden="true">
+                <div className="arrive-scroll-arrows">
+                    <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+                        <path d="M2 2l11 11L24 2" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <svg width="26" height="16" viewBox="0 0 26 16" fill="none">
+                        <path d="M2 2l11 11L24 2" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                 </div>
             </div>
         </div>
