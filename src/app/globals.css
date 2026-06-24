@@ -559,6 +559,15 @@
   }
 }
 
+/* Suppress the blinking text-insertion caret everywhere except real form
+   fields. There's nothing to type into on the site outside of inputs, so a
+   stray caret (from focus or caret-browsing) is just confusing UX. Real
+   inputs/textareas keep a visible caret so users can see where they type, and
+   text selection/highlighting is unaffected by caret-color. */
+*:not(input):not(textarea) {
+  caret-color: transparent;
+}
+
 /* Show default cursor on touch devices */
 @media (hover: none) and (pointer: coarse) {
   .custom-cursor {
