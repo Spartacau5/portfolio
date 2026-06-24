@@ -95,14 +95,14 @@ export function BrandLoopVideo({
             ceiling = setTimeout(finish, (cap + 3) * 1000);
         };
 
-        function cleanup() {
+        const cleanup = () => {
             clearInterval(interval);
             if (ceiling) clearTimeout(ceiling);
             vid.removeEventListener('ended', onEnded);
             vid.removeEventListener('error', onError);
             vid.removeEventListener('timeupdate', onTimeUpdate);
             vid.removeEventListener('loadedmetadata', armCeiling);
-        }
+        };
 
         vid.addEventListener('ended', onEnded);
         vid.addEventListener('error', onError);
