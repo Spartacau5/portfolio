@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useAnimationControls, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
+import { BrandLoopVideo } from './BrandLoopVideo';
 
 /**
  * Looping ZoomInfo brand sequence for the work card.
@@ -40,49 +41,6 @@ const videoFade = {
 export function ZoomInfoLogoLoop({ className = '' }: { className?: string }) {
     const reduceMotion = useReducedMotion();
     const [showVideo, setShowVideo] = useState(false);
-    const videoRef = useRef<HTMLVideoElement>(null);
-
-    // Drive the video phase defensively: explicitly start playback (the bare
-    // `autoPlay` attribute can be silently dropped when the element mounts mid
-    // crossfade, e.g. on a refresh), and run a watchdog so a stalled or blocked
-    // video can never freeze the loop — we always fall back to the logo.
-    useEffect(() => {
-        if (!showVideo) return;
-        const vid = videoRef.current;
-        if (!vid) return;
-
-        let cancelled = false;
-        const advance = () => {
-            if (!cancelled) setShowVideo(false);
-        };
-
-        // Always restart from the first frame and force playback.
-        try {
-            vid.currentTime = 0;
-        } catch {
-            /* currentTime may throw before metadata loads; safe to ignore */
-        }
-        const attemptPlay = () => {
-            const p = vid.play();
-            if (p && typeof p.catch === 'function') {
-                p.catch(() => {
-                    // Autoplay was blocked/interrupted — retry once on the next
-                    // frame; if it still won't play the watchdog will recover.
-                    if (!cancelled) requestAnimationFrame(() => vid.play().catch(() => {}));
-                });
-            }
-        };
-        attemptPlay();
-
-        // Hard ceiling on the video phase: VIDEO_END_TIME plus headroom for
-        // buffering. If onTimeUpdate/onEnded never fire, this keeps the loop alive.
-        const watchdog = setTimeout(advance, (VIDEO_END_TIME + 2.5) * 1000);
-
-        return () => {
-            cancelled = true;
-            clearTimeout(watchdog);
-        };
-    }, [showVideo]);
 
     return (
         <div className={`absolute inset-0 ${className}`}>
@@ -97,27 +55,11 @@ export function ZoomInfoLogoLoop({ className = '' }: { className?: string }) {
                         exit="exit"
                         transition={{ duration: CROSSFADE, ease: 'easeInOut' }}
                     >
-                        <video
-                            ref={videoRef}
+                        <BrandLoopVideo
                             src="/images/zoominfo-loop.mp4"
                             className="h-full w-full rounded-3xl object-cover"
-                            autoPlay
-                            muted
-                            playsInline
-                            preload="auto"
-                            onTimeUpdate={(e) => {
-                                const vid = e.currentTarget;
-                                // Freeze a couple of frames before the very end so the
-                                // crossfade starts from the last content frame, not black.
-                                if (vid.currentTime >= VIDEO_END_TIME) {
-                                    vid.pause();
-                                    setShowVideo(false);
-                                }
-                            }}
-                            onEnded={() => setShowVideo(false)}
-                            // If the source errors out, don't strand the loop — hand
-                            // straight back to the logo so it keeps cycling.
-                            onError={() => setShowVideo(false)}
+                            freezeBefore={VIDEO_END_TIME}
+                            onDone={() => setShowVideo(false)}
                         />
                     </motion.div>
                 ) : (

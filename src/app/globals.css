@@ -407,119 +407,32 @@
   color: #fff;
 }
 
-/* Tashvi card — white default, dark green bg on hover with cream logo */
-.tashvi-card {
-  transition: background-color 0.4s ease, border-color 0.4s ease;
-}
-.tashvi-card:hover {
-  background-color: #143231;
-  border-color: #143231;
-}
-.tashvi-logo {
-  /* Default: darken the cream logo to #143231 dark green */
-  filter: brightness(0) saturate(100%) invert(13%) sepia(46%) saturate(700%) hue-rotate(140deg) brightness(90%) contrast(97%);
-  transition: filter 0.4s ease;
-}
-.tashvi-card:hover .tashvi-logo {
-  /* Hover: restore natural cream color (#FAF3D2) */
-  filter: none;
-}
-.tashvi-card:hover .project-hover-text {
-  color: #fff;
-}
+/* Offprint card — the looping logo→video sequence is driven by
+   <OffprintLogoLoop>; these classes only carry the title/subtitle typography. */
 
-/* Offprint card — entrance: white → blue, then title & subtitle settle in */
-.offprint-card.grid-card {
-  background-color: #1668FF;
-  border-color: #1668FF;
-  animation: offprint-bg-fill 8s linear infinite;
-}
-
-/* 1. Hold white with only the logo showing, fill to blue, hold, then ease back */
-@keyframes offprint-bg-fill {
-  0%, 12%   { background-color: #fff; border-color: #f3f4f6; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
-  30%       { background-color: #1668FF; border-color: #1668FF; }
-  84%       { background-color: #1668FF; border-color: #1668FF; animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
-  98%, 100% { background-color: #fff; border-color: #f3f4f6; }
-}
-
-/* Tick-rotation: smooth 45° snap with hold between each step */
-@keyframes offprint-logo-tick {
-  0%      { transform: rotate(0deg);   animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-  3.125%  { transform: rotate(45deg);  animation-timing-function: step-end; }
-  12.5%   { transform: rotate(45deg);  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-  15.625% { transform: rotate(90deg);  animation-timing-function: step-end; }
-  25%     { transform: rotate(90deg);  animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-  28.125% { transform: rotate(135deg); animation-timing-function: step-end; }
-  37.5%   { transform: rotate(135deg); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-  40.625% { transform: rotate(180deg); animation-timing-function: step-end; }
-  50%     { transform: rotate(180deg); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-  53.125% { transform: rotate(225deg); animation-timing-function: step-end; }
-  62.5%   { transform: rotate(225deg); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-  65.625% { transform: rotate(270deg); animation-timing-function: step-end; }
-  75%     { transform: rotate(270deg); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-  78.125% { transform: rotate(315deg); animation-timing-function: step-end; }
-  87.5%   { transform: rotate(315deg); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
-  90.625% { transform: rotate(360deg); animation-timing-function: step-end; }
-  100%    { transform: rotate(360deg); }
-}
-.offprint-spin-logo {
-  display: block;
-}
-
-/* Title + logo stacked so title appears directly above the icon */
-.offprint-logo-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  transform: translateY(0);
-}
-
-/* 2. "Offprint" title drops in from above the logo and settles */
+/* "Offprint" title */
 .offprint-card-title {
   font-family: 'Neue Montreal', 'Graphik', system-ui, -apple-system, sans-serif;
   font-size: 1.85rem;
   font-weight: 600;
-  color: #fff;
+  color: #000;
   letter-spacing: -0.04em;
   line-height: 1;
   white-space: nowrap;
   pointer-events: none;
-  animation: offprint-title-drop 8s linear infinite;
-}
-@keyframes offprint-title-drop {
-  0%, 16%   { opacity: 0; transform: translateY(-46px); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
-  42%, 76%  { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0); }
-  90%, 100% { opacity: 0; transform: translateY(-46px); }
 }
 
-/* 3. "Chrome Extension" subheader rises in from below, after the title settles */
+/* "Chrome Extension" subheader */
 .offprint-card-subtitle {
   font-family: 'Neue Montreal', 'Graphik', system-ui, -apple-system, sans-serif;
   font-size: 0.75rem;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   line-height: 1;
   white-space: nowrap;
   pointer-events: none;
-  animation: offprint-subtitle-rise 8s linear infinite;
-}
-@keyframes offprint-subtitle-rise {
-  0%, 36%   { opacity: 0; transform: translateY(46px); animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); }
-  50%, 76%  { opacity: 1; transform: translateY(0); animation-timing-function: cubic-bezier(0.7, 0, 0.84, 0); }
-  88%, 100% { opacity: 0; transform: translateY(46px); }
-}
-
-/* Respect reduced-motion: show the final blue state with no entrance motion */
-@media (prefers-reduced-motion: reduce) {
-  .offprint-card.grid-card,
-  .offprint-card-title,
-  .offprint-card-subtitle {
-    animation: none;
-  }
 }
 
 /* Offprint hover description */

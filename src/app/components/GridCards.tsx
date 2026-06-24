@@ -8,6 +8,8 @@ import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
 import { ZoomInfoLogoLoop } from './ZoomInfoLogoLoop';
+import { TashviLogoLoop } from './TashviLogoLoop';
+import { OffprintLogoLoop } from './OffprintLogoLoop';
 import CatAnimation from './CatAnimation';
 import { analytics } from './GoogleAnalytics';
 
@@ -28,8 +30,9 @@ export function GridCards() {
   const [isMicrosoftAuto, setIsMicrosoftAuto] = useState(false);
   const router = useRouter();
 
-  // Auto-play the Microsoft card's hover animation in a loop: animate in,
-  // hold ~2.6s, animate out, pause, repeat.
+  // Auto-play the Microsoft card's animation in a perfect loop: the graffiti
+  // background draws in with the sub-text, holds ~2.6s, animates out, pauses,
+  // and repeats forever.
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     let timer: ReturnType<typeof setTimeout>;
@@ -289,16 +292,10 @@ export function GridCards() {
             onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://tashvi.ai/', '_blank'); }}
             onTouchEnd={() => { isTouchRef.current = true; window.open('https://tashvi.ai/', '_blank'); }}
           >
+            <TashviLogoLoop />
             <div className="card-tags">
               <span className="card-tag card-tag--dark">UX Engineering</span>
             </div>
-            <Image
-              src="/images/tashvi-logo.png"
-              alt="Tashvi.ai"
-              width={160}
-              height={160}
-              className="w-28 lg:w-40 object-contain tashvi-logo"
-            />
             <p className="project-hover-text">{cardDescriptions.tashvi.subtitle}</p>
             <a
               href="https://tashvi.ai/"
@@ -341,19 +338,9 @@ export function GridCards() {
             onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
             onTouchEnd={() => { isTouchRef.current = true; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
           >
+            <OffprintLogoLoop />
             <div className="card-tags">
               <span className="card-tag card-tag--dark">UX Engineering</span>
-            </div>
-            <div className="offprint-logo-group">
-              <span className="offprint-card-title">Offprint</span>
-              <Image
-                src="/images/offprint-logo.png"
-                alt="Offprint"
-                width={319}
-                height={319}
-                className="w-20 lg:w-28 object-contain offprint-spin-logo"
-              />
-              <span className="offprint-card-subtitle">Chrome Extension</span>
             </div>
             <p className="project-hover-text offprint-hover-text">{cardDescriptions.offprint.subtitle}</p>
             <a
