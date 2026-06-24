@@ -6,25 +6,41 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
 import { ZoomInfoLogoLoop } from './ZoomInfoLogoLoop';
+import { analytics } from './GoogleAnalytics';
 
-// Card data for focus state
+// Card hover descriptions — kept in sync with the home page cards.
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
-    arrive: { name: 'Arrive', subtitle: 'Embedded UX researcher for enterprise product strategy' },
-    zoominfo: { name: 'ZoomInfo', subtitle: 'Redesigned how sales & marketing teams hit their number worldwide' },
-    jnj: { name: 'Johnson & Johnson', subtitle: 'Designed JnJ\'s 2021 Healthy for Humanity & DEI Reports' },
+    arrive: { name: 'Arrive', subtitle: 'Transformed fragmented insights into a cohesive 2-year strategy for a $1B+ mobility company.' },
+    zoominfo: { name: 'ZoomInfo', subtitle: 'Redesigned the core search experience for a Go-To-Market platform used by 35,000 enterprise customers.' },
+    jnj: { name: 'Johnson & Johnson', subtitle: 'Transformed complex global ESG and DEI data into an engaging, compliant visual experience for a Fortune 50 audience.' },
     hypex: { name: 'HYPEX', subtitle: 'Led marketing and design efforts for an NFT-based trading game' },
     microsoft: { name: 'Microsoft', subtitle: "Collab on the future of education with Microsoft's Inclusive Design Team" },
 };
 
 export function WorkCards() {
-    const [focusedCard, setFocusedCard] = useState<string | null>(null);
-    const [isZoominfoHovered, setIsZoominfoHovered] = useState(false);
     const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
-    const [isArriveHovered, setIsArriveHovered] = useState(false);
-    const arriveVideoRef = useRef<HTMLVideoElement>(null);
+    const [isMicrosoftAuto, setIsMicrosoftAuto] = useState(false);
     const router = useRouter();
     const lastTapRef = useRef<Record<string, number>>({});
     const isTouchRef = useRef(false);
+
+    // Auto-play the Microsoft card's hover animation in a loop: animate in,
+    // hold ~2.6s, animate out, pause, repeat.
+    useEffect(() => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        let timer: ReturnType<typeof setTimeout>;
+        let on = false;
+        const tick = () => {
+            on = !on;
+            setIsMicrosoftAuto(on);
+            timer = setTimeout(tick, on ? 2600 : 1500); // visible 2.6s, hidden 1.5s
+        };
+        timer = setTimeout(tick, 800);
+        return () => clearTimeout(timer);
+    }, []);
+
+    // Active when hovered or while the auto-loop is in its "in" phase.
+    const isMicrosoftActive = isMicrosoftHovered || isMicrosoftAuto;
 
     const handleCardClick = (e: React.MouseEvent, href: string) => {
         if (isTouchRef.current) {
@@ -48,18 +64,73 @@ export function WorkCards() {
         }
     };
 
-    // Reset Arrive video when hover starts
-    useEffect(() => {
-        if (isArriveHovered) {
-            if (arriveVideoRef.current) {
-                arriveVideoRef.current.currentTime = 0;
-                arriveVideoRef.current.play();
-            }
+    // Slick shared-element transition: the clicked card grows from its current
+    // spot to fill the screen, then we navigate and dissolve the overlay to
+    // reveal the case study's fullscreen hero video underneath. The overlay is a
+    // raw <body> node (not React-managed) so it survives the route change.
+    const expandAndNavigate = (cardEl: HTMLElement, href: string) => {
+        const rect = cardEl.getBoundingClientRect();
+        const overlay = document.createElement('div');
+        overlay.className = 'arrive-expand-overlay';
+        overlay.style.top = rect.top + 'px';
+        overlay.style.left = rect.left + 'px';
+        overlay.style.width = rect.width + 'px';
+        overlay.style.height = rect.height + 'px';
+        overlay.style.borderRadius = '24px';
+
+        const EASE = 'cubic-bezier(0.66, 0, 0.34, 1)';
+        const DUR = 620;
+        overlay.style.transition =
+            `top ${DUR}ms ${EASE}, left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}, ` +
+            `height ${DUR}ms ${EASE}, border-radius ${DUR}ms ${EASE}`;
+
+        // The hero video plays immediately so the card expands straight into the
+        // case study — no static-logo intermediate.
+        const video = document.createElement('video');
+        video.src = '/images/arrive-hero.mp4';
+        video.muted = true;
+        video.loop = true;
+        video.autoplay = true;
+        video.playsInline = true;
+        video.className = 'arrive-expand-video';
+        overlay.appendChild(video);
+
+        document.body.appendChild(overlay);
+        void video.play().catch(() => {});
+
+        // Force a reflow so the starting rect is committed before we expand.
+        void overlay.getBoundingClientRect();
+        requestAnimationFrame(() => {
+            overlay.style.top = '0px';
+            overlay.style.left = '0px';
+            overlay.style.width = '100vw';
+            overlay.style.height = '100vh';
+            overlay.style.borderRadius = '0px';
+        });
+
+        window.setTimeout(() => router.push(href), DUR);
+        window.setTimeout(() => {
+            overlay.style.transition = 'opacity 0.45s ease';
+            overlay.style.opacity = '0';
+            window.setTimeout(() => overlay.remove(), 500);
+        }, DUR + 160);
+    };
+
+    const handleArriveClick = (e: React.MouseEvent) => {
+        if (isTouchRef.current) {
+            isTouchRef.current = false;
+            return;
         }
-    }, [isArriveHovered]);
+        if ((e.target as HTMLElement).closest('.card-arrow-btn')) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            router.push('/work/arrive');
+            return;
+        }
+        expandAndNavigate(e.currentTarget as HTMLElement, '/work/arrive');
+    };
 
     return (
-        <div className={`container home ${focusedCard ? 'has-focus' : ''}`}>
+        <div className="container home">
             <div className="grid-top-bar">
                 <div className="view-controls-div">
                     <Image src="/images/arrow.svg" alt="" width={16} height={16} className="list-icon" />
@@ -69,100 +140,68 @@ export function WorkCards() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
                 {/* Row 1: Arrive + ZoomInfo */}
                 {/* Arrive Logo Card */}
-                <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'arrive' ? 'opacity-10' : ''}`}>
+                <div className="card-wrapper col-span-1 lg:col-span-6">
                     <div
-                        className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-                        onMouseEnter={() => setIsArriveHovered(true)}
-                        onMouseLeave={() => setIsArriveHovered(false)}
-                        onClick={(e) => handleCardClick(e, '/work/arrive')}
+                        className="arrive-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+                        onClick={handleArriveClick}
                         onTouchEnd={(e) => handleCardTouchEnd(e, 'arrive', '/work/arrive')}
                     >
-                        {/* Default logo */}
-                        <Image
-                            src="/images/arrive-logo.png"
-                            alt="Arrive"
-                            width={192}
-                            height={48}
-                            className="w-28 lg:w-48 transition-opacity duration-300"
-                            style={{ opacity: isArriveHovered ? 0 : 1 }}
-                        />
-
-                        {/* Hover state - Vision video */}
-                        <div
-                            className="absolute inset-0 transition-opacity duration-300 flex items-center justify-center"
-                            style={{ opacity: isArriveHovered ? 1 : 0, background: '#ffffff', padding: '2rem' }}
-                        >
+                        {/* Looping hero video with the white logo + tagline centered */}
+                        <div className="arrive-card-media">
                             <video
-                                ref={arriveVideoRef}
-                                src="/images/visiontesting.webm"
-                                preload="auto"
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                    objectFit: 'cover',
-                                    objectPosition: 'top',
-                                    borderRadius: '16px',
-                                    border: '8px solid #000000',
-                                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04)'
-                                }}
+                                src="/images/arrive-hero.mp4"
                                 autoPlay
                                 muted
                                 loop
                                 playsInline
+                                className="arrive-card-video"
                             />
+                            <div className="arrive-card-center">
+                                <Image
+                                    src="/images/arrive-logo.png"
+                                    alt="Arrive"
+                                    width={192}
+                                    height={48}
+                                    className="arrive-card-logo"
+                                />
+                                <div className="arrive-card-tagline">Making cities more liveable</div>
+                            </div>
                         </div>
-
+                        {/* Glassy category tags, top-right */}
+                        <div className="card-tags">
+                            <span className="card-tag">UX Research</span>
+                        </div>
+                        <p className="project-hover-text">{cardDescriptions.arrive.subtitle}</p>
                         <Link
                             href="/work/arrive"
                             className="card-arrow-btn"
-                            onMouseEnter={() => setFocusedCard('arrive')}
-                            onMouseLeave={() => setFocusedCard(null)}
+                            onClick={() => analytics.trackCaseStudyView('Arrive')}
                         >
                             <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
                         </Link>
-                    </div>
-                    <div className={`card-focus-description ${focusedCard === 'arrive' ? 'visible' : ''}`}>
-                        <span className="project-name">{cardDescriptions.arrive.name}</span>
-                        <span className="project-subtitle"> — {cardDescriptions.arrive.subtitle}</span>
                     </div>
                 </div>
 
                 {/* ZoomInfo Logo Card */}
-                <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'zoominfo' ? 'opacity-10' : ''}`}>
+                <div className="card-wrapper col-span-1 lg:col-span-6">
                     <div
                         className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-                        onMouseEnter={() => setIsZoominfoHovered(true)}
-                        onMouseLeave={() => setIsZoominfoHovered(false)}
                         onClick={(e) => handleCardClick(e, '/work/zoominfo')}
                         onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
                     >
-                        <div
-                            className="transition-opacity duration-300"
-                            style={{ opacity: isZoominfoHovered ? 0 : 1 }}
-                        >
-                            <ZoomInfoLogoLoop />
+                        <ZoomInfoLogoLoop />
+                        {/* Glassy category tag, top-right (dark variant for the light card) */}
+                        <div className="card-tags">
+                            <span className="card-tag card-tag--dark">UX/UI Design</span>
                         </div>
-                        <video
-                            src="/images/zigif.mp4"
-                            className="absolute inset-0 w-full h-full object-cover rounded-3xl transition-opacity duration-300"
-                            style={{ opacity: isZoominfoHovered ? 1 : 0 }}
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                        />
+                        <p className="project-hover-text">{cardDescriptions.zoominfo.subtitle}</p>
                         <Link
                             href="/work/zoominfo"
                             className="card-arrow-btn"
-                            onMouseEnter={() => setFocusedCard('zoominfo')}
-                            onMouseLeave={() => setFocusedCard(null)}
+                            onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
                         >
                             <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
                         </Link>
-                    </div>
-                    <div className={`card-focus-description ${focusedCard === 'zoominfo' ? 'visible' : ''}`}>
-                        <span className="project-name">{cardDescriptions.zoominfo.name}</span>
-                        <span className="project-subtitle"> — {cardDescriptions.zoominfo.subtitle}</span>
                     </div>
                 </div>
 
@@ -170,32 +209,31 @@ export function WorkCards() {
                 {/* Left Column: J&J + Microsoft stacked */}
                 <div className="col-span-1 lg:col-span-6 flex flex-col gap-4">
                     {/* Johnson & Johnson Logo Card */}
-                    <div className={`card-wrapper flex-1 ${focusedCard && focusedCard !== 'jnj' ? 'opacity-10' : ''}`}>
+                    <div className="card-wrapper flex-1">
                         <div
                             className="jnj-card grid-card h-full bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
                             onClick={(e) => handleCardClick(e, '/work/jnj')}
                             onTouchEnd={(e) => handleCardTouchEnd(e, 'jnj', '/work/jnj')}
                         >
-                            <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={256} height={64} className="jnj-logo w-44 lg:w-64" />
+                            <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-44 lg:w-72" />
+                            <div className="card-tags">
+                                <span className="card-tag card-tag--dark">UX/UI Design</span>
+                            </div>
+                            <p className="project-hover-text">{cardDescriptions.jnj.subtitle}</p>
                             <Link
                                 href="/work/jnj"
                                 className="card-arrow-btn"
-                                onMouseEnter={() => setFocusedCard('jnj')}
-                                onMouseLeave={() => setFocusedCard(null)}
+                                onClick={() => analytics.trackCaseStudyView('Johnson & Johnson')}
                             >
                                 <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
                             </Link>
                         </div>
-                        <div className={`card-focus-description ${focusedCard === 'jnj' ? 'visible' : ''}`}>
-                            <span className="project-name">{cardDescriptions.jnj.name}</span>
-                            <span className="project-subtitle"> — {cardDescriptions.jnj.subtitle}</span>
-                        </div>
                     </div>
 
                     {/* Microsoft Card */}
-                    <div className={`card-wrapper flex-1 ${focusedCard && focusedCard !== 'microsoft' ? 'opacity-10' : ''}`}>
+                    <div className="card-wrapper flex-1">
                         <div
-                            className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[16rem] lg:min-h-[20rem] ${isMicrosoftHovered ? 'is-hovered' : ''}`}
+                            className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[16rem] lg:min-h-[20rem] ${isMicrosoftActive ? 'is-hovered' : ''}`}
                             onMouseEnter={() => setIsMicrosoftHovered(true)}
                             onMouseLeave={() => setIsMicrosoftHovered(false)}
                             onClick={(e) => handleCardClick(e, '/work/microsoft')}
@@ -203,7 +241,11 @@ export function WorkCards() {
                         >
                             {/* Animated graffiti background */}
                             <div className="microsoft-bg-container">
-                                <MicrosoftGraffiti isHovered={isMicrosoftHovered} />
+                                <MicrosoftGraffiti isHovered={isMicrosoftActive} />
+                            </div>
+
+                            <div className="card-tags" style={{ zIndex: 20 }}>
+                                <span className="card-tag card-tag--dark">UX Research</span>
                             </div>
 
                             {/* Logo with white background and animated text */}
@@ -211,27 +253,22 @@ export function WorkCards() {
                                 <div className="microsoft-logo-container">
                                     <Image src="/images/microsoft-full-logo.png" alt="Microsoft" width={128} height={28} className="w-32" />
                                 </div>
-                                <p className="microsoft-hover-text">Designing an AI-Powered Assistant for Specialized Educators</p>
+                                <p className="microsoft-hover-text">Designed an AI-Powered Assistant for Specialized Educators.</p>
                             </div>
 
                             <Link
                                 href="/work/microsoft"
                                 className="card-arrow-btn"
-                                onMouseEnter={() => setFocusedCard('microsoft')}
-                                onMouseLeave={() => setFocusedCard(null)}
+                                onClick={() => analytics.trackCaseStudyView('Microsoft')}
                             >
                                 <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
                             </Link>
-                        </div>
-                        <div className={`card-focus-description ${focusedCard === 'microsoft' ? 'visible' : ''}`}>
-                            <span className="project-name">{cardDescriptions.microsoft.name}</span>
-                            <span className="project-subtitle"> — {cardDescriptions.microsoft.subtitle}</span>
                         </div>
                     </div>
                 </div>
 
                 {/* Right Column: HYPEX Card - Full height to match J&J + Microsoft */}
-                <div className={`card-wrapper col-span-1 lg:col-span-6 ${focusedCard && focusedCard !== 'hypex' ? 'opacity-10' : ''}`}>
+                <div className="card-wrapper col-span-1 lg:col-span-6">
                     <div
                         className="hypex-card hypex-tall grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative flex items-center justify-center overflow-hidden group cursor-pointer"
                         onClick={(e) => handleCardClick(e, '/work/hypex')}
@@ -239,10 +276,14 @@ export function WorkCards() {
                     >
                         <Image src="/images/hypex-mockup.png" alt="HYPEX" width={400} height={400} className="w-full h-full object-contain relative z-10" />
 
-                        {/* Marquee hover effect */}
+                        <div className="card-tags" style={{ zIndex: 20 }}>
+                            <span className="card-tag card-tag--dark">UI Design</span>
+                        </div>
+
+                        {/* Marquee background effect */}
                         <div className="hypex-marquee-container">
                             <div className="hypex-marquee-wrapper">
-                                {[...Array(12)].map((_, rowIndex) => (
+                                {[...Array(18)].map((_, rowIndex) => (
                                     <div key={rowIndex} className={`hypex-marquee-row ${rowIndex % 2 === 0 ? 'left' : 'right'}`}>
                                         {[...Array(12)].map((_, i) => (
                                             <span key={i} className={`hypex-marquee-text ${i % 3 === 1 ? 'bold' : ''}`}>HYPEX</span>
@@ -252,18 +293,16 @@ export function WorkCards() {
                             </div>
                         </div>
 
+                        {/* Description below the mockup, revealed on hover */}
+                        <p className="project-hover-text hypex-hover-text">{cardDescriptions.hypex.subtitle}</p>
+
                         <Link
                             href="/work/hypex"
                             className="card-arrow-btn"
-                            onMouseEnter={() => setFocusedCard('hypex')}
-                            onMouseLeave={() => setFocusedCard(null)}
+                            onClick={() => analytics.trackCaseStudyView('HypeX')}
                         >
                             <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
                         </Link>
-                    </div>
-                    <div className={`card-focus-description ${focusedCard === 'hypex' ? 'visible' : ''}`}>
-                        <span className="project-name">{cardDescriptions.hypex.name}</span>
-                        <span className="project-subtitle"> — {cardDescriptions.hypex.subtitle}</span>
                     </div>
                 </div>
             </div>
