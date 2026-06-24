@@ -302,27 +302,60 @@
   justify-content: center;
 }
 
-/* Animated text below logo */
+/* Text area below the logo — the default sub-header and the project
+   description occupy the same spot and crossfade as the animation advances. */
+.microsoft-subtext {
+  position: relative;
+  width: 240px;
+  min-height: 38px;
+}
+
+.microsoft-subheader,
 .microsoft-hover-text {
-  font-family: Graphik, sans-serif;
-  font-size: 13px;
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  font-family: 'Neue Montreal', 'Graphik', system-ui, -apple-system, sans-serif;
+  font-size: 13.5px;
   font-weight: 500;
-  color: #6b7280;
+  letter-spacing: -0.01em;
+  color: #4b5563;
   text-align: center;
-  max-width: 200px;
   line-height: 1.4;
+}
+
+/* Default sub-header — visible at rest, slides down and out as it advances.
+   Timed to match the graffiti background drawing in/out (~0.7s). */
+.microsoft-subheader {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s,
+    transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+}
+
+.microsoft-card.is-hovered .microsoft-subheader {
   opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity 0.3s ease 0.35s, transform 0.3s ease 0.35s;
+  transform: translateY(10px);
+  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Project description — fades in once the sub-header has cleared out */
+.microsoft-hover-text {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .microsoft-card.is-hovered .microsoft-hover-text {
   opacity: 1;
   transform: translateY(0);
-}
-
-.microsoft-card:not(.is-hovered) .microsoft-hover-text {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s,
+    transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s;
 }
 
 /* ============================================
@@ -2907,9 +2940,13 @@ body {
       height: 140px;
     }
 
+    .microsoft-subtext {
+      width: 180px;
+    }
+
+    .microsoft-subheader,
     .microsoft-hover-text {
       font-size: 11px;
-      max-width: 160px;
     }
 
     /* Card description - hidden on mobile */

@@ -5,6 +5,17 @@ import Image from 'next/image';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { ZoominfoHero } from './ZoominfoHero';
 import { ZiInsightBlock, DarkPlaceholder } from './ZiDesignInsights';
+import { ZiProblemAnimation } from './ZiProblemAnimation';
+import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+
+const NAV_ITEMS: CaseStudyNavItem[] = [
+    { id: 'problem', label: 'Problem' },
+    { id: 'strategy', label: 'Strategy' },
+    { id: 'goals', label: 'Goals' },
+    { id: 'outcomes', label: 'Outcomes' },
+    { id: 'impact', label: 'Impact' },
+    { id: 'design', label: 'Design' },
+];
 
 export default function ZoominfoPage() {
     useScrollDepthTracking();
@@ -17,13 +28,15 @@ export default function ZoominfoPage() {
 
             <ZoominfoHero />
 
+            {/* Sticky section nav — reveals once the hero docks (see CSS). */}
+            <CaseStudyNav items={NAV_ITEMS} />
+
             {/* Hero intro */}
             <section className="arrive-cs-intro">
-                <h1 className="arrive-cs-title zi-cs-title">Where do I even start?</h1>
+                <h1 className="arrive-cs-title zi-cs-title">Redesigning SalesOS: Zoominfo&apos;s flagship product</h1>
                 <p className="arrive-cs-lead">
-                    Redesigned ZoomInfo&apos;s flagship product SalesOS&apos;s cluttered, overlooked
-                    homepage into a clean, search-first start. I led design across 4 two-week
-                    sprints, partnering with a PM and another UX designer.
+                    Redesigned the industry&apos;s leading Go-To-Market platform into a clean
+                    AI-enabled, search-first experience.
                 </p>
                 <div className="arrive-cs-meta">
                     <span className="arrive-cs-meta-item">
@@ -47,7 +60,7 @@ export default function ZoominfoPage() {
             </section>
 
             {/* Problem */}
-            <section className="arrive-cs-block arrive-cs-block--no-divider">
+            <section id="problem" className="arrive-cs-block arrive-cs-block--no-divider">
                 <h2 className="arrive-cs-block-label">Problem</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -60,19 +73,13 @@ export default function ZoominfoPage() {
                     </p>
 
                     <div className="arrive-cs-block-figure" style={{ marginTop: "3rem" }}>
-                        <Image
-                            src="/images/zi-old-homepage.png"
-                            alt="Old SalesOS homepage — cluttered three-column landing"
-                            width={1200}
-                            height={700}
-                            className="arrive-cs-block-figure-img"
-                        />
+                        <ZiProblemAnimation />
                     </div>
                 </div>
             </section>
 
             {/* Strategy */}
-            <section className="arrive-cs-block">
+            <section id="strategy" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Strategy</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -106,7 +113,7 @@ export default function ZoominfoPage() {
             </section>
 
             {/* What we set out to learn */}
-            <section className="arrive-cs-block">
+            <section id="goals" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">What we set out to learn</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -128,7 +135,7 @@ export default function ZoominfoPage() {
             </section>
 
             {/* Outcomes */}
-            <section className="arrive-cs-block">
+            <section id="outcomes" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Outcomes</h2>
                 <div className="arrive-cs-block-body">
                     <p className="zi-block-stat">13 of 15 testers preferred the new homepage to the existing experience.</p>
@@ -140,7 +147,7 @@ export default function ZoominfoPage() {
             </section>
 
             {/* Impact */}
-            <section className="arrive-cs-block arrive-cs-impact">
+            <section id="impact" className="arrive-cs-block arrive-cs-impact">
                 <h2 className="arrive-cs-block-label">Impact</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -163,7 +170,7 @@ export default function ZoominfoPage() {
             </section>
 
             {/* ── DESIGN ────────────────────────────────────────────── */}
-            <div className="zi-design-header" aria-hidden="true">Design</div>
+            <div id="design" className="zi-design-header">Design</div>
 
             <ZiInsightBlock
                 isFirst

@@ -704,7 +704,12 @@ export function GridCards() {
                 <div className="microsoft-logo-container">
                   <Image src="/images/microsoft-full-logo.png" alt="Microsoft" width={128} height={28} className="w-32" />
                 </div>
-                <p className="microsoft-hover-text">Designed an AI-Powered Assistant for Specialized Educators.</p>
+                <div className="microsoft-subtext">
+                  {/* Default sub-header — crossfades out as the animation goes forward */}
+                  <p className="microsoft-subheader">External Engagement Studio</p>
+                  {/* Project description — crossfades in with the SVG background */}
+                  <p className="microsoft-hover-text">Designed an AI-Powered Assistant for Specialized Educators.</p>
+                </div>
               </div>
 
               {/* Arrow Button - Bottom Left */}

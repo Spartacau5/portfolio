@@ -9,6 +9,7 @@ import { ArriveHero } from './ArriveHero';
 import { MvpShowcase } from './MvpShowcase';
 import { VisionWalkthrough } from './VisionWalkthrough';
 import { PreviewModal, type PreviewContent } from './PreviewModal';
+import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 
 // Source line. Renders identically whether or not it's clickable; when given an
 // onClick it's a button (resets its own chrome in CSS) that opens the preview.
@@ -22,6 +23,15 @@ function BlockSource({ children, onClick }: { children: React.ReactNode; onClick
         </button>
     );
 }
+
+const NAV_ITEMS: CaseStudyNavItem[] = [
+    { id: 'overview', label: 'Overview' },
+    { id: 'problem', label: 'Problem' },
+    { id: 'strategy', label: 'Strategy' },
+    { id: 'process', label: 'Process' },
+    { id: 'solution', label: 'Solution' },
+    { id: 'impact', label: 'Impact' },
+];
 
 export default function ArrivePage() {
     // Analytics tracking
@@ -40,32 +50,43 @@ export default function ArrivePage() {
             {/* Hero — fills the screen on load, shrinks into place on scroll */}
             <ArriveHero />
 
+            {/* Sticky section nav — reveals once the hero docks (see CSS). */}
+            <CaseStudyNav items={NAV_ITEMS} />
+
             {/* Intro */}
             <section className="arrive-cs-intro">
+                {/* Section header — eyebrow tag + title */}
+                <header className="arrive-cs-header">
+                    <p className="arrive-cs-eyebrow">Craft X Arrive &bull; Contract</p>
+                    <h1 className="arrive-cs-heading">The future of mobility solutions</h1>
+                </header>
+
                 <p className="arrive-cs-lead">
                     As external consultants, my team and I utilized strategic research to transform
                     fragmented divisional goals into a cohesive 2-year enterprise roadmap for a $1B+
                     mobility platform.
                 </p>
 
-                <div className="arrive-cs-meta">
-                    <span className="arrive-cs-meta-item">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M21 8.5V6.5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4.5" />
-                            <path d="M3 9.5h18M8 3v3M16 3v3" />
-                            <circle cx="17" cy="16.5" r="4.5" />
-                            <path d="M17 14.8v1.7l1.3.9" />
-                        </svg>
-                        July – Dec 2025
-                    </span>
-                    <span className="arrive-cs-meta-item">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M16 19v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 17.5V19" />
-                            <circle cx="10" cy="8" r="3.2" />
-                            <path d="M20 19v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 5a3.2 3.2 0 0 1 0 6.2" />
-                        </svg>
-                        Emily S, Kieran E, Bri W
-                    </span>
+                {/* Project meta — Role / Timeline / Team / Skills */}
+                <div className="arrive-cs-info">
+                    <div className="arrive-cs-info-block">
+                        <span className="arrive-cs-info-label">ROLE</span>
+                        <p className="arrive-cs-info-value">UX Researcher &amp; Strategist</p>
+                    </div>
+                    <div className="arrive-cs-info-block">
+                        <span className="arrive-cs-info-label">TIMELINE</span>
+                        <p className="arrive-cs-info-value">July – Dec 2025</p>
+                    </div>
+                    <div className="arrive-cs-info-block">
+                        <span className="arrive-cs-info-label">TEAM</span>
+                        <p className="arrive-cs-info-value">2 Researchers, 2 Designers</p>
+                    </div>
+                    <div className="arrive-cs-info-block">
+                        <span className="arrive-cs-info-label">SKILLS</span>
+                        <p className="arrive-cs-info-value">
+                            User Research, Strategy, Interviewing, Workshop Facilitation
+                        </p>
+                    </div>
                 </div>
             </section>
 
@@ -75,7 +96,7 @@ export default function ArrivePage() {
             </section>
 
             {/* Biz Context */}
-            <section className="arrive-cs-block arrive-cs-block--no-divider">
+            <section id="overview" className="arrive-cs-block arrive-cs-block--no-divider">
                 <h2 className="arrive-cs-block-label">Context</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -96,7 +117,7 @@ export default function ArrivePage() {
             </section>
 
             {/* The Problem */}
-            <section className="arrive-cs-block">
+            <section id="problem" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Problem</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -116,7 +137,7 @@ export default function ArrivePage() {
             </section>
 
             {/* Strategy */}
-            <section className="arrive-cs-block">
+            <section id="strategy" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Strategy</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -132,7 +153,7 @@ export default function ArrivePage() {
             </section>
 
             {/* Process */}
-            <section className="arrive-cs-block">
+            <section id="process" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Process</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -158,7 +179,7 @@ export default function ArrivePage() {
 
         <div className="case-study-page arrive-cs">
             {/* Solution */}
-            <section className="arrive-cs-block arrive-cs-outcomes">
+            <section id="solution" className="arrive-cs-block arrive-cs-outcomes">
                 <h2 className="arrive-cs-block-label">Solution</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
@@ -173,7 +194,7 @@ export default function ArrivePage() {
             <VisionWalkthrough />
 
             {/* Impact */}
-            <section className="arrive-cs-block arrive-cs-impact">
+            <section id="impact" className="arrive-cs-block arrive-cs-impact">
                 <h2 className="arrive-cs-block-label">Impact</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">

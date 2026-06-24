@@ -1589,14 +1589,26 @@
     width: 14px;
     height: 14px;
     transform: rotate(180deg);
+    /* Strip the SVG's orange so it reads as the same gray as the link text;
+       the opacity fades pure black to match the #6b7280 label tone. */
+    filter: brightness(0);
     opacity: 0.5;
+    transition: opacity 0.2s;
 }
 
 .top-arrow {
     width: 14px;
     height: 14px;
     transform: rotate(-45deg);
+    filter: brightness(0);
     opacity: 0.5;
+    transition: opacity 0.2s;
+}
+
+/* On hover, deepen the arrow to solid black to match the darker text. */
+.back-link:hover .back-arrow,
+.back-link:hover .top-arrow {
+    opacity: 1;
 }
 
 .right-arrow {
@@ -2347,7 +2359,7 @@
 /* Centered single-column layout. Every text block shares one centered
    column width (--cs-w) so left/right edges line up across all sections. */
 .arrive-cs {
-    --cs-w: 640px;
+    --cs-w: 880px;
     max-width: 1340px;
     text-align: center;
 }
@@ -2580,12 +2592,13 @@
    they ease back in once the card drops below the header. */
 body > header,
 body > nav {
-    transition: opacity 0.45s ease;
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 html.arrive-immersive body > header,
 html.arrive-immersive body > nav {
     opacity: 0;
+    transform: translateY(-14px);
     pointer-events: none;
 }
 
@@ -2670,6 +2683,126 @@ html.arrive-immersive body > nav {
     margin: 0 auto;
 }
 
+/* Section header — eyebrow tag + serif title, sat above the project meta. */
+.arrive-cs-header {
+    max-width: var(--cs-w);
+    margin: 0 auto 2.5rem;
+    text-align: left;
+}
+
+.arrive-cs-eyebrow {
+    font-family: Graphik, 'Neue Montreal', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: #94a0ad;
+    margin: 0 0 0.85rem;
+}
+
+.arrive-cs-heading {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-weight: 400;
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: #33414f;
+    margin: 0;
+}
+
+@media (max-width: 580px) {
+    .arrive-cs-header {
+        margin-bottom: 2rem;
+    }
+}
+
+/* ── Sticky case-study section nav (left rail) ──────────────────────────
+   Fixed to the left gutter; scroll-spy highlights the active section. */
+.cs-side-nav {
+    position: fixed;
+    /* Aligns the rail's top with the top edge of the docked hero card
+       (REST_TOP = 95px in ArriveHero/ZoominfoHero). */
+    top: 95px;
+    left: clamp(1.5rem, 4vw, 3.5rem);
+    z-index: 40;
+    max-width: 260px;
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+/* Hidden while the immersive hero (Arrive/ZoomInfo) fills the screen; fades
+   in alongside the top nav once the hero docks. */
+html.arrive-immersive .cs-side-nav {
+    opacity: 0;
+    transform: translateX(-8px);
+    pointer-events: none;
+}
+
+/* "← BACK" link above the section list. */
+.cs-side-nav-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 2.25rem;
+    font-family: Graphik, 'Neue Montreal', system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #4b5563;
+    text-decoration: none;
+}
+
+.cs-side-nav-back svg {
+    width: 18px;
+    height: 18px;
+    color: #f1592b; /* orange arrow */
+}
+
+.cs-side-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+}
+
+.cs-side-nav-item {
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+    font-family: Graphik, 'Neue Montreal', system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.3;
+    color: #9aa0a8;
+    transition: color 0.2s ease;
+}
+
+.cs-side-nav-item:hover {
+    color: #4b5563;
+}
+
+.cs-side-nav-item.is-active {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+/* Smooth-scroll targets land below the fixed global header. */
+.arrive-cs-block,
+.zi-design-header {
+    scroll-margin-top: 110px;
+}
+
+/* No room for the rail beside the centered column on smaller screens. */
+@media (max-width: 1200px) {
+    .cs-side-nav {
+        display: none;
+    }
+}
+
 .arrive-cs-title {
     font-family: Georgia, 'Times New Roman', serif;
     font-style: italic;
@@ -2693,6 +2826,97 @@ html.arrive-immersive body > nav {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+/* ── Problem-section annotated homepage animation ───────────────────── */
+.zi-anno {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.zi-anno-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.zi-anno-hl {
+    position: absolute;
+    border-radius: 10px;
+    background: rgba(164, 132, 247, 0.34);
+    box-shadow: inset 0 0 0 2px rgba(124, 92, 246, 0.4);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.zi-anno-note-wrap {
+    position: absolute;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 3;
+    line-height: normal;
+}
+
+.zi-anno-note {
+    position: relative;
+    background: #37474f;
+    color: #fff;
+    border-radius: 11px;
+    padding: 13px 16px 14px;
+    width: max-content;
+    max-width: 220px;
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.22);
+    font-family: Graphik, 'Neue Montreal', system-ui, sans-serif;
+}
+
+.zi-anno-note-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #c7f0cb;
+    color: #1f3b24;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-bottom: 9px;
+}
+
+.zi-anno-note-text {
+    display: block;
+    font-size: 13.5px;
+    line-height: 1.35;
+    white-space: nowrap;
+}
+
+.zi-anno-note-caret {
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 11px;
+    height: 11px;
+    margin-left: -5.5px;
+    background: #37474f;
+    transform: rotate(45deg);
+    border-radius: 2px;
+}
+
+/* Notes get cramped over the shrunken image on phones. */
+@media (max-width: 640px) {
+    .zi-anno-note {
+        padding: 5px 8px 6px;
+        max-width: 130px;
+    }
+    .zi-anno-note-chip {
+        font-size: 9px;
+        margin-bottom: 3px;
+    }
+    .zi-anno-note-text {
+        font-size: 10px;
+    }
 }
 
 /* Design section break — "── DESIGN ──" style separator */
@@ -2863,14 +3087,59 @@ html.arrive-immersive body > nav {
 
 .arrive-cs-lead {
     color: #4b5563;
-    margin-bottom: 1rem;
-    text-align: justify;
+    font-size: 17px;
+    line-height: 1.7;
+    margin-bottom: 2.75rem;
+    text-align: left;
+    max-width: var(--cs-w);
 }
 
 .arrive-cs-sub {
     color: #6b7280;
 }
 
+/* Project meta — Role / Timeline / Team / Skills, sat below the lead copy.
+   Left-aligned, separated from the lead by a hairline divider for a clean,
+   editorial feel. */
+.arrive-cs-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    max-width: var(--cs-w);
+    margin: 0 auto;
+    padding-top: 2.25rem;
+    border-top: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+.arrive-cs-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    text-align: left;
+}
+
+.arrive-cs-info-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+}
+
+.arrive-cs-info-value {
+    font-size: 15px;
+    color: #1f2937;
+    margin: 0;
+    line-height: 1.55;
+}
+
+/* No divider between the intro and the first content block. */
+.arrive-cs-intro + .arrive-cs-block {
+    border-top: none;
+}
+
+/* Icon meta row (still used by the ZoomInfo case study). */
 .arrive-cs-meta {
     display: flex;
     align-items: center;
@@ -2878,11 +3147,6 @@ html.arrive-immersive body > nav {
     gap: 2rem;
     margin-top: 2.25rem;
     flex-wrap: nowrap;
-}
-
-/* No divider between the intro meta row and the first content block. */
-.arrive-cs-intro + .arrive-cs-block {
-    border-top: none;
 }
 
 .arrive-cs-meta-item {
@@ -3013,13 +3277,6 @@ html.arrive-immersive body > nav {
 /* Extra breathing room below the capability card, before Context */
 .arrive-cs-section--card {
     margin-bottom: 3rem;
-}
-
-.arrive-cs-heading {
-    font-size: 24px;
-    font-weight: 700;
-    color: #111;
-    margin: 0 0 1.25rem;
 }
 
 .arrive-cs-text {
@@ -3817,8 +4074,14 @@ button.arrive-cs-block-source {
    ARRIVE & ZOOMINFO — ADDITIONAL MOBILE RESPONSIVE FIXES
    ================================================================ */
 
-/* ── Meta row: allow chips to wrap on narrow phones ── */
+/* ── Project meta grid: drop to two columns on narrow phones ── */
 @media (max-width: 580px) {
+    .arrive-cs-info {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    /* Icon meta row (ZoomInfo): allow chips to wrap on narrow phones */
     .arrive-cs-meta {
         flex-wrap: wrap;
         gap: 0.75rem 1.25rem;

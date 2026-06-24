@@ -40,6 +40,25 @@ export function ArriveHero() {
         if (!track || !card) return;
 
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Start every load at the fullscreen top. Browsers restore the previous
+        // scroll position on refresh, which — combined with the tall scroll
+        // runway we set below — would otherwise drop the hero into a broken
+        // mid-shrink state (video stuck fullscreen, content unreachable, nav
+        // showing). Forcing a clean top makes a refresh behave exactly like
+        // entering the case study from the home page.
+        const html = document.documentElement;
+        const prevRestoration = history.scrollRestoration;
+        try { history.scrollRestoration = 'manual'; } catch { /* unsupported */ }
+        const hadSmooth = html.classList.contains('scroll-smooth');
+        if (hadSmooth) html.classList.remove('scroll-smooth'); // jump, don't animate
+        window.scrollTo(0, 0);
+        if (hadSmooth) requestAnimationFrame(() => html.classList.add('scroll-smooth'));
+        // Hide the floating nav immediately so it never flashes over the
+        // fullscreen video before the first scroll frame paints. With reduced
+        // motion the hero docks instantly, so the nav should stay visible.
+        if (!reduce) html.classList.add('arrive-immersive');
+
         const clamp = (v: number, a: number, b: number) => Math.min(Math.max(v, a), b);
         const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
         // Smooth start, but a non-zero finishing slope (no flat tail) so the card
@@ -104,8 +123,9 @@ export function ArriveHero() {
             }
 
             // Hide the floating nav/header while the card still covers the top of
-            // the screen; reveal it once the card has dropped below the header.
-            const immersive = !reduce && dock < 0.999 && top < 64;
+            // the screen; reveal it as soon as the card starts dropping away from
+            // the very top (earlier in the scroll, so the header isn't delayed).
+            const immersive = !reduce && dock < 0.999 && top < 28;
             document.documentElement.classList.toggle('arrive-immersive', immersive);
 
             // Overlay UI (close button + scroll hint) live only while the video
@@ -137,6 +157,7 @@ export function ArriveHero() {
             cancelAnimationFrame(raf);
             cancelAnimationFrame(settle);
             window.clearTimeout(revealTimer);
+            try { history.scrollRestoration = prevRestoration; } catch { /* unsupported */ }
             document.documentElement.classList.remove('arrive-immersive');
         };
     }, []);

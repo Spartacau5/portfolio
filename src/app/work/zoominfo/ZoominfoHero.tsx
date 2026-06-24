@@ -12,6 +12,25 @@ export function ZoominfoHero() {
         if (!track || !card) return;
 
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // Start every load at the fullscreen top. Browsers restore the previous
+        // scroll position on refresh, which — combined with the tall scroll
+        // runway we set below — would otherwise drop the hero into a broken
+        // mid-shrink state (hero stuck fullscreen, content unreachable, nav
+        // showing). Forcing a clean top makes a refresh behave exactly like
+        // entering the case study from the home page.
+        const html = document.documentElement;
+        const prevRestoration = history.scrollRestoration;
+        try { history.scrollRestoration = 'manual'; } catch { /* unsupported */ }
+        const hadSmooth = html.classList.contains('scroll-smooth');
+        if (hadSmooth) html.classList.remove('scroll-smooth'); // jump, don't animate
+        window.scrollTo(0, 0);
+        if (hadSmooth) requestAnimationFrame(() => html.classList.add('scroll-smooth'));
+        // Hide the floating nav immediately so it never flashes over the
+        // fullscreen hero before the first scroll frame paints. With reduced
+        // motion the hero docks instantly, so the nav should stay visible.
+        if (!reduce) html.classList.add('arrive-immersive');
+
         const clamp = (v: number, a: number, b: number) => Math.min(Math.max(v, a), b);
         const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
         const shape = (t: number) => Math.pow(t, 1.4);
@@ -70,6 +89,7 @@ export function ZoominfoHero() {
             window.removeEventListener('resize', layout);
             cancelAnimationFrame(raf);
             cancelAnimationFrame(settle);
+            try { history.scrollRestoration = prevRestoration; } catch { /* unsupported */ }
             document.documentElement.classList.remove('arrive-immersive');
         };
     }, []);
