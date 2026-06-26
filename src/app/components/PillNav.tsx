@@ -8,7 +8,7 @@ export function PillNav() {
 
   const navItems = [
     { name: 'Home', href: '/' },
-    { name: 'Work', href: '/work' },
+    { name: 'Play', href: '/work' },
     { name: 'About', href: '/about' },
   ];
 

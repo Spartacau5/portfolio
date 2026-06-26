@@ -8,15 +8,17 @@ import { MusicPlayer } from './MusicPlayer';
 import { PhotoCarousel } from './PhotoCarousel';
 import { MicrosoftGraffiti } from './MicrosoftGraffiti';
 import { ZoomInfoLogoLoop } from './ZoomInfoLogoLoop';
+import { FleetLogoLoop } from './FleetLogoLoop';
 import { TashviLogoLoop } from './TashviLogoLoop';
-import { OffprintLogoLoop } from './OffprintLogoLoop';
 import CatAnimation from './CatAnimation';
 import { analytics } from './GoogleAnalytics';
 
 // Card data for focus state
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
   arrive: { name: 'Arrive', subtitle: 'Transformed fragmented insights into a cohesive 2-year strategy for a $1B+ mobility company.' },
+  'fleet-management': { name: 'Fleet Management', subtitle: 'Led the research and strategy that validated product-market fit for a parking-planner MVP.' },
   zoominfo: { name: 'ZoomInfo', subtitle: 'Redesigned the core search experience for a Go-To-Market platform used by 35,000 enterprise customers.' },
+  abx: { name: 'ABX', subtitle: 'Standardized a scalable, intuitive onboarding UX across 12 core features from 4 different enterprise products.' },
   jnj: { name: 'Johnson & Johnson', subtitle: 'Transformed complex global ESG and DEI data into an engaging, compliant visual experience for a Fortune 50 audience.' },
   tashvi: { name: 'Tashvi.ai', subtitle: 'Built an AI-native platform that turns jewelry sketches into photorealistic renders within seconds.' },
   offprint: { name: 'Offprint', subtitle: 'Shipped a Chrome extension that enables you to track and offset your AI carbon footprint.' },
@@ -31,7 +33,7 @@ export function GridCards() {
   const router = useRouter();
 
   // Auto-play the Microsoft card's animation in a perfect loop: the graffiti
-  // background draws in with the sub-text, holds ~2.6s, animates out, pauses,
+  // background draws in with the sub-text, holds ~4.5s, animates out, pauses,
   // and repeats forever.
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -40,7 +42,7 @@ export function GridCards() {
     const tick = () => {
       on = !on;
       setIsMicrosoftAuto(on);
-      timer = setTimeout(tick, on ? 2600 : 1500); // visible 2.6s, hidden 1.5s
+      timer = setTimeout(tick, on ? 4500 : 3200); // visible 4.5s, hidden 3.2s
     };
     timer = setTimeout(tick, 800);
     return () => clearTimeout(timer);
@@ -77,7 +79,7 @@ export function GridCards() {
   // spot to fill the screen, then we navigate and dissolve the overlay to
   // reveal the case study's fullscreen hero video underneath. The overlay is a
   // raw <body> node (not React-managed) so it survives the route change.
-  const expandAndNavigate = (cardEl: HTMLElement, href: string) => {
+  const expandAndNavigate = (cardEl: HTMLElement, href: string, videoSrc = '/images/arrive-hero.mp4') => {
     const rect = cardEl.getBoundingClientRect();
     const overlay = document.createElement('div');
     overlay.className = 'arrive-expand-overlay';
@@ -96,7 +98,7 @@ export function GridCards() {
     // The hero video plays immediately so the card expands straight into the
     // case study — no static-logo intermediate.
     const video = document.createElement('video');
-    video.src = '/images/arrive-hero.mp4';
+    video.src = videoSrc;
     video.muted = true;
     video.loop = true;
     video.autoplay = true;
@@ -141,6 +143,7 @@ export function GridCards() {
     expandAndNavigate(e.currentTarget as HTMLElement, '/work/arrive');
   };
 
+
   return (
     <div className="container home">
       <div className="grid-top-bar">
@@ -159,7 +162,7 @@ export function GridCards() {
           <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex flex-col transition-opacity duration-300">
           <div>
             <h2 className="text-[0.85rem] lg:text-[1.25rem] font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
-            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who ships code.</span>
+            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who <em>engineers</em>.</span>
           </div>
 
           <hr className="my-4 border-gray-200" />
@@ -174,7 +177,7 @@ export function GridCards() {
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>{' '}
-              - now upto 11,000+ users - leading design and engineering for gen-AI workflows.</p>
+              (now upto 11,000+ users), leading design and engineering for gen-AI workflows.</p>
 
             <p>I hold an M.S. in Strategic Design &amp; Management from{' '}
               <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link">
@@ -210,16 +213,41 @@ export function GridCards() {
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </a>.
+              </a>. Currently, looking for new roles!
             </p>
           </div>
+          </div>
+        </div>
+
+        {/* ZoomInfo Logo Card */}
+        <div className="card-wrapper col-span-1 lg:col-span-6">
+          <div
+            className="zoominfo-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            data-cursor-label="View Case Study"
+            onClick={(e) => handleCardClick(e, '/work/zoominfo')}
+            onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
+          >
+            <ZoomInfoLogoLoop />
+            {/* Glassy category tag, top-right (dark variant for the light card) */}
+            <div className="card-tags">
+              <span className="card-tag card-tag--dark">UX/UI Design</span>
+            </div>
+            <p className="project-hover-text">{cardDescriptions.zoominfo.subtitle}</p>
+            <Link
+              href="/work/zoominfo"
+              className="card-arrow-btn"
+              onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
+            >
+              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </Link>
           </div>
         </div>
 
         {/* Arrive Logo Card */}
         <div className="card-wrapper col-span-1 lg:col-span-6 h-full">
           <div
-            className="arrive-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            className="arrive-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            data-cursor-label="View Case Study"
             onClick={handleArriveClick}
             onTouchEnd={(e) => handleCardTouchEnd(e, 'arrive', '/work/arrive')}
           >
@@ -262,26 +290,25 @@ export function GridCards() {
           </div>
         </div>
 
-        {/* ZoomInfo Logo Card */}
-        <div className="card-wrapper col-span-1 lg:col-span-6">
+        {/* Fleet Management Logo Card */}
+        <div className="card-wrapper col-span-1 lg:col-span-6 h-full">
           <div
-            className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-            onClick={(e) => handleCardClick(e, '/work/zoominfo')}
-            onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
+            className="fleet-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative h-full min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-default"
+            data-cursor-label="Coming soon"
           >
-            <ZoomInfoLogoLoop />
-            {/* Glassy category tag, top-right (dark variant for the light card) */}
+            {/* Looping Arrive logo -> parking-planner video -> logo sequence */}
+            <FleetLogoLoop />
+            {/* Glassy category tag, top-right (frosted variant, matching Tashvi) */}
             <div className="card-tags">
-              <span className="card-tag card-tag--dark">UX/UI Design</span>
+              <span className="card-tag card-tag--dark">UX Research</span>
             </div>
-            <p className="project-hover-text">{cardDescriptions.zoominfo.subtitle}</p>
-            <Link
-              href="/work/zoominfo"
-              className="card-arrow-btn"
-              onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
-            >
-              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-            </Link>
+            {/* Description revealed at the bottom on hover */}
+            <p className="project-hover-text">{cardDescriptions['fleet-management'].subtitle}</p>
+
+            {/* Locked - Bottom Left - case study not yet published, no navigation */}
+            <span className="card-arrow-btn" aria-label="Case study locked">
+              <Image src="/images/lock.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+            </span>
           </div>
         </div>
 
@@ -289,6 +316,7 @@ export function GridCards() {
         <div className="card-wrapper col-span-1 lg:col-span-6">
           <div
             className="tashvi-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            data-cursor-label="View Website"
             onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://tashvi.ai/', '_blank'); }}
             onTouchEnd={() => { isTouchRef.current = true; window.open('https://tashvi.ai/', '_blank'); }}
           >
@@ -313,6 +341,7 @@ export function GridCards() {
         <div className="card-wrapper col-span-1 lg:col-span-6">
           <div
             className="jnj-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            data-cursor-label="View Case Study"
             onClick={(e) => handleCardClick(e, '/work/jnj')}
             onTouchEnd={(e) => handleCardTouchEnd(e, 'jnj', '/work/jnj')}
           >
@@ -331,34 +360,11 @@ export function GridCards() {
           </div>
         </div>
 
-        {/* Offprint Card */}
-        <div className="card-wrapper col-span-1 lg:col-span-6">
-          <div
-            className="offprint-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-            onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
-            onTouchEnd={() => { isTouchRef.current = true; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
-          >
-            <OffprintLogoLoop />
-            <div className="card-tags">
-              <span className="card-tag card-tag--dark">UX Engineering</span>
-            </div>
-            <p className="project-hover-text offprint-hover-text">{cardDescriptions.offprint.subtitle}</p>
-            <a
-              href="https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card-arrow-btn offprint-arrow-btn"
-              onClick={(e) => { e.stopPropagation(); analytics.trackCaseStudyView('Offprint'); }}
-            >
-              <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon offprint-arrow-icon" />
-            </a>
-          </div>
-        </div>
-
         {/* HYPEX Card */}
         <div className="card-wrapper col-span-1 lg:col-span-6 home-hypex-card">
           <div
-            className="hypex-card grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            className="hypex-card grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+            data-cursor-label="View Case Study"
             onClick={(e) => handleCardClick(e, '/work/hypex')}
             onTouchEnd={(e) => handleCardTouchEnd(e, 'hypex', '/work/hypex')}
           >
@@ -685,6 +691,7 @@ export function GridCards() {
           <div className="card-wrapper flex-1 basis-1/2">
             <div
               className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[18rem] lg:min-h-[10rem] ${isMicrosoftActive ? 'is-hovered' : ''}`}
+              data-cursor-label="View Case Study"
               onMouseEnter={() => setIsMicrosoftHovered(true)}
               onMouseLeave={() => setIsMicrosoftHovered(false)}
               onClick={(e) => handleCardClick(e, '/work/microsoft')}
@@ -705,8 +712,6 @@ export function GridCards() {
                   <Image src="/images/microsoft-full-logo.png" alt="Microsoft" width={128} height={28} className="w-32" />
                 </div>
                 <div className="microsoft-subtext">
-                  {/* Default sub-header — crossfades out as the animation goes forward */}
-                  <p className="microsoft-subheader">External Engagement Studio</p>
                   {/* Project description — crossfades in with the SVG background */}
                   <p className="microsoft-hover-text">Designed an AI-Powered Assistant for Specialized Educators.</p>
                 </div>

@@ -6,6 +6,21 @@ import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { analytics } from '@/app/components/GoogleAnalytics';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
+import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+
+const NAV_ITEMS: CaseStudyNavItem[] = [
+    { id: 'challenge-section', label: 'Challenge' },
+    { id: 'moodboard', label: 'Moodboard' },
+    {
+        id: 'wireframing',
+        label: 'Wireframing',
+        children: [
+            { id: 'lowfi', label: 'Low-Fidelity' },
+            { id: 'highfi', label: 'High Fidelity v1' },
+            { id: 'final-version', label: 'Final Version' },
+        ],
+    },
+];
 
 export default function HypexPage() {
     // Analytics tracking
@@ -31,6 +46,9 @@ export default function HypexPage() {
         <div className="case-study-page">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
+
+            {/* Sticky section nav */}
+            <CaseStudyNav items={NAV_ITEMS} />
 
             {/* Hero Section */}
             <section className="case-study-hero">
@@ -133,7 +151,7 @@ export default function HypexPage() {
             </section>
 
             {/* Moodboard Section */}
-            <section ref={moodboardAnim.ref} className="case-study-content" style={fadeInUp(moodboardAnim.isVisible)}>
+            <section ref={moodboardAnim.ref} id="moodboard" className="case-study-content" style={fadeInUp(moodboardAnim.isVisible)}>
                 <h2 className="content-heading">Moodboard</h2>
                 <p className="content-text">
                     Right from the beginning, I wanted a clear vision of the team's expectations on how to visually represent HypeX to the world. I set out to create a Moodboard which took inspiration from the most followed crypto projects in the world at the time.
@@ -147,10 +165,10 @@ export default function HypexPage() {
             </section>
 
             {/* Wireframing Section */}
-            <section ref={wireframeAnim.ref} className="case-study-content" style={fadeInUp(wireframeAnim.isVisible)}>
+            <section ref={wireframeAnim.ref} id="wireframing" className="case-study-content" style={fadeInUp(wireframeAnim.isVisible)}>
                 <h2 className="content-heading">Wireframing</h2>
 
-                <h3 className="content-subheading">Low-Fidelity</h3>
+                <h3 id="lowfi" className="content-subheading">Low-Fidelity</h3>
                 <p className="content-text">
                     I started with redesigning the old version I was provided (or v0 as I called it) into a low/mid-fidelity version to better understand the layout, structure and flow of the landing page.
                 </p>
@@ -165,7 +183,7 @@ export default function HypexPage() {
                     </div>
                 </div>
 
-                <h3 className="content-subheading">High Fidelity v1</h3>
+                <h3 id="highfi" className="content-subheading">High Fidelity v1</h3>
                 <p className="content-text">
                     Once the layout was approved, I designed a high fidelity version which our developers could adopt quickly since time was a major constraint.
                 </p>
@@ -173,7 +191,7 @@ export default function HypexPage() {
                     <Image src="/images/highfi.webp" alt="High-fidelity design v1" width={1000} height={700} className="highfi-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/highfi.webp')} />
                 </div>
 
-                <h3 className="content-subheading">Final Version</h3>
+                <h3 id="final-version" className="content-subheading">Final Version</h3>
                 <p className="content-text">
                     Once we satisfied investors with a basic version of what HypeX does, I designed a final version which hit that immersive space environment I wanted to achieve. Our young team of college developers worked hard to bring the designs to life using React components which you can check out at <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="content-link">www.hypex.io<svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
                 </p>

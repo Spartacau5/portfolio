@@ -5,6 +5,24 @@ import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
+import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+
+const NAV_ITEMS: CaseStudyNavItem[] = [
+    {
+        id: 'process',
+        label: 'Process',
+        children: [
+            { id: 'site-review', label: '2020 Site Review' },
+            { id: 'areas-of-improvement', label: 'Areas of Improvements' },
+            { id: 'competitive-research', label: 'Competitive Research' },
+            { id: 'key-takeaways', label: 'Key Takeaways' },
+        ],
+    },
+    { id: 'audiences', label: 'Understanding our Audiences' },
+    { id: 'ia', label: 'Information Architecture' },
+    { id: 'wireframing', label: 'Wireframing' },
+    { id: 'takeaways', label: 'Takeaways' },
+];
 
 export default function JnJPage() {
     // Analytics tracking
@@ -25,6 +43,9 @@ export default function JnJPage() {
         <div className="case-study-page">
             {/* Spacer for fixed header */}
             <div className="h-24"></div>
+
+            {/* Sticky section nav */}
+            <CaseStudyNav items={NAV_ITEMS} />
 
             {/* Hero Section */}
             <section className="case-study-hero">
@@ -81,13 +102,13 @@ export default function JnJPage() {
             </section>
 
             {/* Process Section */}
-            <section ref={processAnim.ref} id="challenge-section" className="case-study-content" style={fadeInUp(processAnim.isVisible)}>
+            <section ref={processAnim.ref} id="process" className="case-study-content" style={fadeInUp(processAnim.isVisible)}>
                 <h2 className="content-heading">Process</h2>
                 <p className="content-text">
                     To start with, I wanted to learn the context for these reports and go through previous years reports to understand what works well and more importantly what doesn't.
                 </p>
 
-                <h3 className="content-subheading-large">2020 Site Review</h3>
+                <h3 id="site-review" className="content-subheading-large">2020 Site Review</h3>
                 <p className="content-text">
                     I started with evaluating the 2020 digital reports and preparing a blueprint for the new websites. During this phase I also compiled recommendations resulting from benchmarking of composite peer-set companies.
                 </p>
@@ -96,7 +117,7 @@ export default function JnJPage() {
                     <Image src="/images/2020nav.webp" alt="2020 Navigation Review" width={800} height={500} className="stacked-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/2020nav.webp', ['/images/2020hp.webp', '/images/2020nav.webp'])} />
                 </div>
 
-                <h3 className="content-subheading">Areas of Improvements</h3>
+                <h3 id="areas-of-improvement" className="content-subheading">Areas of Improvements</h3>
 
                 <div className="improvement-grid">
                     {/* Visual Impact */}
@@ -150,7 +171,7 @@ export default function JnJPage() {
                     </div>
                 </div>
 
-                <h3 className="content-subheading-large">Competitive Research</h3>
+                <h3 id="competitive-research" className="content-subheading-large">Competitive Research</h3>
                 <p className="content-text">
                     After researching both online and print versions of reports by 15 companies, I compiled key takeaways and recommendations to discuss with my project lead. The themes of a simplified navigation, visually-appealing graphics, and a strong narrative guiding the report, remained consistent and validated our existing research.
                 </p>
@@ -166,7 +187,7 @@ export default function JnJPage() {
                     <Image src="/images/comp8.webp" alt="Competitive research 8" width={400} height={300} className="slider-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/comp8.webp', ['/images/comp1.webp', '/images/comp2.webp', '/images/comp3.webp', '/images/comp4.webp', '/images/comp5.webp', '/images/comp6.webp', '/images/comp7.webp', '/images/comp8.webp'])} />
                 </div>
 
-                <h3 className="content-subheading">Key Takeaways</h3>
+                <h3 id="key-takeaways" className="content-subheading">Key Takeaways</h3>
 
                 <p className="content-text">
                     <strong>1. Insight-Centered Storytelling</strong>
@@ -198,7 +219,7 @@ export default function JnJPage() {
             </section>
 
             {/* Understanding our Audiences Section */}
-            <section ref={audienceAnim.ref} className="case-study-content" style={fadeInUp(audienceAnim.isVisible)}>
+            <section ref={audienceAnim.ref} id="audiences" className="case-study-content" style={fadeInUp(audienceAnim.isVisible)}>
                 <h2 className="content-heading">Understanding our Audiences</h2>
                 <p className="content-text">
                     After understanding the UI requirements, I connected with stakeholders from JnJ to better understand the target user types for these type of reports and I learnt a lot more than I initially thought this would intended/designed for.
@@ -310,7 +331,7 @@ export default function JnJPage() {
             </section>
 
             {/* Developing Information Architecture Section */}
-            <section ref={iaAnim.ref} className="case-study-content" style={fadeInUp(iaAnim.isVisible)}>
+            <section ref={iaAnim.ref} id="ia" className="case-study-content" style={fadeInUp(iaAnim.isVisible)}>
                 <h2 className="content-heading">Developing Information Architecture</h2>
                 <p className="content-text">
                     From our research on past microsites and competitors, I designed 2 versions of the information architecture with simplified navigation, clear language, and intuitive groupings that aligned with user expectations. Since 2020 was a big year in healthcare in terms of COVID and J&J's frontline involvement in developing a vaccine, we wanted to highlight that work and stories but also not take away from all the other important global initiatives they focused on that year including work towards solving HIV, TB, Ebola and more.
@@ -333,7 +354,7 @@ export default function JnJPage() {
             </section>
 
             {/* Wireframing Section */}
-            <section ref={wireframeAnim.ref} className="case-study-content" style={fadeInUp(wireframeAnim.isVisible)}>
+            <section ref={wireframeAnim.ref} id="wireframing" className="case-study-content" style={fadeInUp(wireframeAnim.isVisible)}>
                 <h2 className="content-heading">Wireframing</h2>
                 <p className="content-text">
                     I completed pixel-perfect mid-fidelity designs for both mobile and desktop screens, covering every page in the main navigation. These designs were handed off to the team at JK for high-fidelity polish, ensuring a smooth transition in the design process. I then collaborated closely with JK's designers, providing ongoing graphic support and ensuring the visual direction aligned with the project goals. This iterative process ensured a cohesive and polished final product.
@@ -391,7 +412,7 @@ export default function JnJPage() {
             </section>
 
             {/* Takeaways Section */}
-            <section ref={takeawaysAnim.ref} className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
+            <section ref={takeawaysAnim.ref} id="takeaways" className="case-study-content" style={fadeInUp(takeawaysAnim.isVisible)}>
                 <h2 className="content-heading">Takeaways</h2>
                 <p className="content-text">
                     Working on Johnson & Johnson's website as a fresh graduate was an incredible experience. It was one of my first large-scale projects for a major company, with high expectations and standards. I enjoyed conducting impactful user research, including competitive analysis and A/B testing, and designing the information architecture. Through mid-fidelity designs, I decided the entire hierarchy and layout for the reports, receiving positive validation through constant feedback from the talented designers at JK and J&J. Ultimately, the final prototype for both websites was well received and approved for development, which was very satisfying as I lived up to the team's high standards and contributed to the success of the project.

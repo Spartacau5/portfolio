@@ -1,134 +1,18 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { MicrosoftGraffiti } from './MicrosoftGraffiti';
-import { ZoomInfoLogoLoop } from './ZoomInfoLogoLoop';
+import { OffprintLogoLoop } from './OffprintLogoLoop';
+import { MusicPlayer } from './MusicPlayer';
+import { IMessageChat } from './IMessageChat';
 import { analytics } from './GoogleAnalytics';
 
-// Card hover descriptions — kept in sync with the home page cards.
+// Card hover descriptions for the Play page cards.
 const cardDescriptions: Record<string, { name: string; subtitle: string }> = {
-    arrive: { name: 'Arrive', subtitle: 'Transformed fragmented insights into a cohesive 2-year strategy for a $1B+ mobility company.' },
-    zoominfo: { name: 'ZoomInfo', subtitle: 'Redesigned the core search experience for a Go-To-Market platform used by 35,000 enterprise customers.' },
-    jnj: { name: 'Johnson & Johnson', subtitle: 'Transformed complex global ESG and DEI data into an engaging, compliant visual experience for a Fortune 50 audience.' },
-    hypex: { name: 'HYPEX', subtitle: 'Led marketing and design efforts for an NFT-based trading game' },
-    microsoft: { name: 'Microsoft', subtitle: "Collab on the future of education with Microsoft's Inclusive Design Team" },
+    abx: { name: 'ABX', subtitle: 'Standardized a scalable, intuitive onboarding UX across 12 core features from 4 different enterprise products.' },
+    offprint: { name: 'Offprint', subtitle: 'Shipped a Chrome extension that enables you to track and offset your AI carbon footprint.' },
 };
 
 export function WorkCards() {
-    const [isMicrosoftHovered, setIsMicrosoftHovered] = useState(false);
-    const [isMicrosoftAuto, setIsMicrosoftAuto] = useState(false);
-    const router = useRouter();
-    const lastTapRef = useRef<Record<string, number>>({});
-    const isTouchRef = useRef(false);
-
-    // Auto-play the Microsoft card's hover animation in a loop: animate in,
-    // hold ~2.6s, animate out, pause, repeat.
-    useEffect(() => {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        let timer: ReturnType<typeof setTimeout>;
-        let on = false;
-        const tick = () => {
-            on = !on;
-            setIsMicrosoftAuto(on);
-            timer = setTimeout(tick, on ? 2600 : 1500); // visible 2.6s, hidden 1.5s
-        };
-        timer = setTimeout(tick, 800);
-        return () => clearTimeout(timer);
-    }, []);
-
-    // Active when hovered or while the auto-loop is in its "in" phase.
-    const isMicrosoftActive = isMicrosoftHovered || isMicrosoftAuto;
-
-    const handleCardClick = (e: React.MouseEvent, href: string) => {
-        if (isTouchRef.current) {
-            isTouchRef.current = false;
-            return;
-        }
-        if ((e.target as HTMLElement).closest('.card-arrow-btn')) return;
-        router.push(href);
-    };
-
-    const handleCardTouchEnd = (e: React.TouchEvent, cardKey: string, href: string) => {
-        isTouchRef.current = true;
-        const now = Date.now();
-        const lastTap = lastTapRef.current[cardKey] || 0;
-        if (now - lastTap < 300) {
-            e.preventDefault();
-            router.push(href);
-            lastTapRef.current[cardKey] = 0;
-        } else {
-            lastTapRef.current[cardKey] = now;
-        }
-    };
-
-    // Slick shared-element transition: the clicked card grows from its current
-    // spot to fill the screen, then we navigate and dissolve the overlay to
-    // reveal the case study's fullscreen hero video underneath. The overlay is a
-    // raw <body> node (not React-managed) so it survives the route change.
-    const expandAndNavigate = (cardEl: HTMLElement, href: string) => {
-        const rect = cardEl.getBoundingClientRect();
-        const overlay = document.createElement('div');
-        overlay.className = 'arrive-expand-overlay';
-        overlay.style.top = rect.top + 'px';
-        overlay.style.left = rect.left + 'px';
-        overlay.style.width = rect.width + 'px';
-        overlay.style.height = rect.height + 'px';
-        overlay.style.borderRadius = '24px';
-
-        const EASE = 'cubic-bezier(0.66, 0, 0.34, 1)';
-        const DUR = 620;
-        overlay.style.transition =
-            `top ${DUR}ms ${EASE}, left ${DUR}ms ${EASE}, width ${DUR}ms ${EASE}, ` +
-            `height ${DUR}ms ${EASE}, border-radius ${DUR}ms ${EASE}`;
-
-        // The hero video plays immediately so the card expands straight into the
-        // case study — no static-logo intermediate.
-        const video = document.createElement('video');
-        video.src = '/images/arrive-hero.mp4';
-        video.muted = true;
-        video.loop = true;
-        video.autoplay = true;
-        video.playsInline = true;
-        video.className = 'arrive-expand-video';
-        overlay.appendChild(video);
-
-        document.body.appendChild(overlay);
-        void video.play().catch(() => {});
-
-        // Force a reflow so the starting rect is committed before we expand.
-        void overlay.getBoundingClientRect();
-        requestAnimationFrame(() => {
-            overlay.style.top = '0px';
-            overlay.style.left = '0px';
-            overlay.style.width = '100vw';
-            overlay.style.height = '100vh';
-            overlay.style.borderRadius = '0px';
-        });
-
-        window.setTimeout(() => router.push(href), DUR);
-        window.setTimeout(() => {
-            overlay.style.transition = 'opacity 0.45s ease';
-            overlay.style.opacity = '0';
-            window.setTimeout(() => overlay.remove(), 500);
-        }, DUR + 160);
-    };
-
-    const handleArriveClick = (e: React.MouseEvent) => {
-        if (isTouchRef.current) {
-            isTouchRef.current = false;
-            return;
-        }
-        if ((e.target as HTMLElement).closest('.card-arrow-btn')) return;
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            router.push('/work/arrive');
-            return;
-        }
-        expandAndNavigate(e.currentTarget as HTMLElement, '/work/arrive');
-    };
-
     return (
         <div className="container home">
             <div className="grid-top-bar">
@@ -137,173 +21,119 @@ export function WorkCards() {
                     <div className="caption-text-w-icon">Hover around...</div>
                 </div>
             </div>
+
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-                {/* Row 1: Arrive + ZoomInfo */}
-                {/* Arrive Logo Card */}
+                {/* Row 1: ABX (Onboarding Framework) + Offprint */}
+
+                {/* ABX — Onboarding Framework (coming soon) */}
                 <div className="card-wrapper col-span-1 lg:col-span-6">
                     <div
-                        className="arrive-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-                        onClick={handleArriveClick}
-                        onTouchEnd={(e) => handleCardTouchEnd(e, 'arrive', '/work/arrive')}
+                        className="abx-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-default"
+                        data-cursor-label="Coming soon"
                     >
-                        {/* Looping hero video with the white logo + tagline centered */}
-                        <div className="arrive-card-media">
-                            <video
-                                src="/images/arrive-hero.mp4"
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                className="arrive-card-video"
-                            />
-                            <div className="arrive-card-center">
-                                <Image
-                                    src="/images/arrive-logo.png"
-                                    alt="Arrive"
-                                    width={192}
-                                    height={48}
-                                    className="arrive-card-logo"
-                                />
-                                <div className="arrive-card-tagline">Making cities more liveable</div>
-                            </div>
-                        </div>
-                        {/* Glassy category tags, top-right */}
-                        <div className="card-tags">
-                            <span className="card-tag">UX Research</span>
-                        </div>
-                        <p className="project-hover-text">{cardDescriptions.arrive.subtitle}</p>
-                        <Link
-                            href="/work/arrive"
-                            className="card-arrow-btn"
-                            onClick={() => analytics.trackCaseStudyView('Arrive')}
-                        >
-                            <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-                        </Link>
-                    </div>
-                </div>
-
-                {/* ZoomInfo Logo Card */}
-                <div className="card-wrapper col-span-1 lg:col-span-6">
-                    <div
-                        className="grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-                        onClick={(e) => handleCardClick(e, '/work/zoominfo')}
-                        onTouchEnd={(e) => handleCardTouchEnd(e, 'zoominfo', '/work/zoominfo')}
-                    >
-                        <ZoomInfoLogoLoop />
-                        {/* Glassy category tag, top-right (dark variant for the light card) */}
-                        <div className="card-tags">
-                            <span className="card-tag card-tag--dark">UX/UI Design</span>
-                        </div>
-                        <p className="project-hover-text">{cardDescriptions.zoominfo.subtitle}</p>
-                        <Link
-                            href="/work/zoominfo"
-                            className="card-arrow-btn"
-                            onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
-                        >
-                            <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Row 2: J&J + Microsoft stacked on left, HYPEX tall on right */}
-                {/* Left Column: J&J + Microsoft stacked */}
-                <div className="col-span-1 lg:col-span-6 flex flex-col gap-4">
-                    {/* Johnson & Johnson Logo Card */}
-                    <div className="card-wrapper flex-1">
-                        <div
-                            className="jnj-card grid-card h-full bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[16rem] lg:min-h-[20rem] flex items-center justify-center overflow-hidden group cursor-pointer"
-                            onClick={(e) => handleCardClick(e, '/work/jnj')}
-                            onTouchEnd={(e) => handleCardTouchEnd(e, 'jnj', '/work/jnj')}
-                        >
-                            <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={320} height={80} className="jnj-logo w-44 lg:w-72" />
-                            <div className="card-tags">
-                                <span className="card-tag card-tag--dark">UX/UI Design</span>
-                            </div>
-                            <p className="project-hover-text">{cardDescriptions.jnj.subtitle}</p>
-                            <Link
-                                href="/work/jnj"
-                                className="card-arrow-btn"
-                                onClick={() => analytics.trackCaseStudyView('Johnson & Johnson')}
-                            >
-                                <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-                            </Link>
-                        </div>
-                    </div>
-
-                    {/* Microsoft Card */}
-                    <div className="card-wrapper flex-1">
-                        <div
-                            className={`microsoft-card grid-card h-full bg-white rounded-3xl overflow-hidden shadow-sm border border-gray-100 cursor-pointer relative flex items-center justify-center min-h-[16rem] lg:min-h-[20rem] ${isMicrosoftActive ? 'is-hovered' : ''}`}
-                            onMouseEnter={() => setIsMicrosoftHovered(true)}
-                            onMouseLeave={() => setIsMicrosoftHovered(false)}
-                            onClick={(e) => handleCardClick(e, '/work/microsoft')}
-                            onTouchEnd={(e) => handleCardTouchEnd(e, 'microsoft', '/work/microsoft')}
-                        >
-                            {/* Animated graffiti background */}
-                            <div className="microsoft-bg-container">
-                                <MicrosoftGraffiti isHovered={isMicrosoftActive} />
-                            </div>
-
-                            <div className="card-tags" style={{ zIndex: 20 }}>
-                                <span className="card-tag card-tag--dark">UX Research</span>
-                            </div>
-
-                            {/* Logo with white background and animated text */}
-                            <div className="microsoft-content relative z-10 flex flex-col items-center">
-                                <div className="microsoft-logo-container">
-                                    <Image src="/images/microsoft-full-logo.png" alt="Microsoft" width={128} height={28} className="w-32" />
-                                </div>
-                                <p className="microsoft-hover-text">Designed an AI-Powered Assistant for Specialized Educators.</p>
-                            </div>
-
-                            <Link
-                                href="/work/microsoft"
-                                className="card-arrow-btn"
-                                onClick={() => analytics.trackCaseStudyView('Microsoft')}
-                            >
-                                <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-                            </Link>
-                        </div>
-                    </div>
-                </div>
-
-                {/* Right Column: HYPEX Card - Full height to match J&J + Microsoft */}
-                <div className="card-wrapper col-span-1 lg:col-span-6">
-                    <div
-                        className="hypex-card hypex-tall grid-card bg-white rounded-3xl p-4 lg:p-6 shadow-sm border border-gray-100 hover:shadow-md transition-all duration-500 relative flex items-center justify-center overflow-hidden group cursor-pointer"
-                        onClick={(e) => handleCardClick(e, '/work/hypex')}
-                        onTouchEnd={(e) => handleCardTouchEnd(e, 'hypex', '/work/hypex')}
-                    >
-                        <Image src="/images/hypex-mockup.png" alt="HYPEX" width={400} height={400} className="w-full h-full object-contain relative z-10" />
-
+                        <div className="abx-card-bg" aria-hidden="true" />
                         <div className="card-tags" style={{ zIndex: 20 }}>
-                            <span className="card-tag card-tag--dark">UI Design</span>
+                            <span className="card-tag card-tag--dark">Design Systems</span>
                         </div>
-
-                        {/* Marquee background effect */}
-                        <div className="hypex-marquee-container">
-                            <div className="hypex-marquee-wrapper">
-                                {[...Array(18)].map((_, rowIndex) => (
-                                    <div key={rowIndex} className={`hypex-marquee-row ${rowIndex % 2 === 0 ? 'left' : 'right'}`}>
-                                        {[...Array(12)].map((_, i) => (
-                                            <span key={i} className={`hypex-marquee-text ${i % 3 === 1 ? 'bold' : ''}`}>HYPEX</span>
-                                        ))}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Description below the mockup, revealed on hover */}
-                        <p className="project-hover-text hypex-hover-text">{cardDescriptions.hypex.subtitle}</p>
-
-                        <Link
-                            href="/work/hypex"
-                            className="card-arrow-btn"
-                            onClick={() => analytics.trackCaseStudyView('HypeX')}
-                        >
-                            <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon" />
-                        </Link>
+                        <p className="project-hover-text">{cardDescriptions.abx.subtitle}</p>
+                        {/* Locked - case study not yet published, no navigation */}
+                        <span className="card-arrow-btn" aria-label="Case study locked">
+                            <Image src="/images/lock.svg" alt="" width={16} height={16} className="card-arrow-icon" />
+                        </span>
                     </div>
+                </div>
+
+                {/* Offprint Card */}
+                <div className="card-wrapper col-span-1 lg:col-span-6">
+                    <div
+                        className="offprint-card grid-card bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative min-h-[18rem] lg:min-h-[25rem] flex items-center justify-center overflow-hidden group cursor-pointer"
+                        data-cursor-label="Try Extension"
+                        onClick={(e) => { if ((e.target as HTMLElement).closest('.card-arrow-btn')) return; window.open('https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', '_blank'); }}
+                    >
+                        <OffprintLogoLoop />
+                        <div className="card-tags">
+                            <span className="card-tag card-tag--dark">UX Engineering</span>
+                        </div>
+                        <p className="project-hover-text offprint-hover-text">{cardDescriptions.offprint.subtitle}</p>
+                        <a
+                            href="https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="card-arrow-btn offprint-arrow-btn"
+                            onClick={(e) => { e.stopPropagation(); analytics.trackCaseStudyView('Offprint'); }}
+                        >
+                            <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="card-arrow-icon offprint-arrow-icon" />
+                        </a>
+                    </div>
+                </div>
+
+                {/* Row 2: Twitter + Spotify side by side (left) · Chat (right) — natural sizes */}
+                <div className="col-span-1 lg:col-span-12 play-personal-row">
+                    <div className="play-ts-group">
+                    {/* Twitter Card */}
+                    <div className="tile-twitter sm twitter about">
+                        <div className="small-app-flex">
+                            <div className="twtitter-top-div">
+                                <div className="twitter-top-flex">
+                                    <a
+                                        href="https://twitter.com/HomeyBabaRB"
+                                        className="twitter-info-div w-inline-block"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        onClick={() => analytics.trackSocialClick('Twitter')}
+                                    >
+                                        <div className="twitter-avi-div">
+                                            <Image src="/images/profilepic.png" alt="Arpit Ahluwalia" width={40} height={40} className="twitter-img" />
+                                        </div>
+                                        <div className="twitter-name-div">
+                                            <div className="twitter-name" style={{ color: 'rgb(0, 0, 0)' }}>Arpit Ahluwalia</div>
+                                            <div className="twitter-handle" style={{ color: 'rgb(148, 148, 149)' }}>@HomeyBabaRB</div>
+                                        </div>
+                                    </a>
+                                    <div className="small-app-icon-div">
+                                        <a href="https://twitter.com/HomeyBabaRB" className="app-icon-link w-inline-block" target="_blank" rel="noreferrer">
+                                            <Image src="/images/twitter-icon-min.png" alt="Twitter" width={56} height={56} className="small-tile-icon-hover" />
+                                        </a>
+                                        <div
+                                            className="small-app-background"
+                                            style={{ transform: 'translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)', transformStyle: 'preserve-3d' }}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="tweet-div">
+                                    <div className="twitter-tweet" style={{ color: 'rgb(0, 0, 0)' }}>
+                                        cooking up • prev{' '}
+                                        <a href="https://madebycraft.co/about" className="tweet-link" style={{ color: 'rgb(21, 133, 199)' }} target="_blank" rel="noreferrer">@craft</a>{' '}
+                                        <a href="https://x.com/ZoomInfo" className="tweet-link" style={{ color: 'rgb(21, 133, 199)' }} target="_blank" rel="noreferrer">@zoominfo</a>{' '}
+                                        <a href="https://x.com/JNJNews?lang=en" className="tweet-link" style={{ color: 'rgb(21, 133, 199)' }} target="_blank" rel="noreferrer">@j&amp;j</a>{' '}
+                                        <a href="https://x.com/MountSinaiNYC" className="tweet-link" style={{ color: 'rgb(21, 133, 199)' }} target="_blank" rel="noreferrer">@mtsinai</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a
+                                href="https://x.com/homeybabaRB"
+                                className="twitter-button w-inline-block"
+                                style={{ borderColor: 'rgb(222, 222, 224)', backgroundColor: 'rgba(0, 0, 0, 0)' }}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                <div className="inner-button-flex">
+                                    <div className="button-text" style={{ color: 'rgb(0, 0, 0)' }}>Read mid tweets</div>
+                                    <div className="arrow-icon-div">
+                                        <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="arrow-icon" style={{ opacity: 1 }} />
+                                        <Image src="/images/arrow-hover.svg" alt="" width={16} height={16} className="arrow-icon-white" />
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    {/* Spotify / Apple Music Card */}
+                    <MusicPlayer />
+                    </div>
+
+                    {/* Contact chat */}
+                    <IMessageChat />
                 </div>
             </div>
         </div>

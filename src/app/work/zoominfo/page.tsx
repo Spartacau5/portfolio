@@ -4,17 +4,41 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { ZoominfoHero } from './ZoominfoHero';
-import { ZiInsightBlock, DarkPlaceholder } from './ZiDesignInsights';
 import { ZiProblemAnimation } from './ZiProblemAnimation';
+import { ZiReferenceCollage } from './ZiReferenceCollage';
+import { ZiUserFlow } from './ZiUserFlow';
+import { ZiRequirements } from './ZiRequirements';
+import { ZiDesignProcess } from './ZiDesignProcess';
+import { ZiZoomImage } from './ZiZoomImage';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
-    { id: 'problem', label: 'Problem' },
-    { id: 'strategy', label: 'Strategy' },
-    { id: 'goals', label: 'Goals' },
+    { id: 'background', label: 'Background' },
+    { id: 'problem', label: 'Opportunity' },
+    {
+        id: 'strategy',
+        label: 'Solution',
+        children: [
+            { id: 'sol-homepage', label: 'New AI Homepage' },
+            { id: 'sol-continue', label: 'Continue search' },
+            { id: 'sol-feedback', label: 'Feedback' },
+        ],
+    },
     { id: 'outcomes', label: 'Outcomes' },
     { id: 'impact', label: 'Impact' },
-    { id: 'design', label: 'Design' },
+    {
+        id: 'design',
+        label: 'Design Process',
+        children: [
+            { id: 'understanding-the-work', label: 'Understanding the Work' },
+            { id: 'gathering-references', label: 'Gathering References' },
+            { id: 'user-flow', label: 'Mapping out user flow' },
+            { id: 'states', label: 'States. States. States' },
+            { id: 'dev-handoff', label: 'Dev Handoff' },
+            { id: 'bugs', label: 'Bugs & Improvements' },
+            { id: 'playground', label: 'Playground' },
+        ],
+    },
 ];
 
 export default function ZoominfoPage() {
@@ -59,9 +83,9 @@ export default function ZoominfoPage() {
                 </div>
             </section>
 
-            {/* Problem */}
-            <section id="problem" className="arrive-cs-block arrive-cs-block--no-divider">
-                <h2 className="arrive-cs-block-label">Problem</h2>
+            {/* Background */}
+            <section id="background" className="arrive-cs-block arrive-cs-block--no-divider">
+                <h2 className="arrive-cs-block-label">Background</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
                         After years of constant updates, ZoomInfo&apos;s homepage tried to show
@@ -78,59 +102,112 @@ export default function ZoominfoPage() {
                 </div>
             </section>
 
-            {/* Strategy */}
-            <section id="strategy" className="arrive-cs-block">
-                <h2 className="arrive-cs-block-label">Strategy</h2>
+            {/* Opportunity */}
+            <section id="problem" className="arrive-cs-block">
+                <h2 className="arrive-cs-block-label">Opportunity</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
-                        The instinct was to make the homepage better — more relevant modules,
-                        smarter recommendations, tighter widgets. But research showed the
-                        homepage wasn&apos;t failing because it had the wrong content. It was
-                        failing because it buried the one thing people valued.
+                        As part of a data team offsite, an entity recognition model using ChatGPT
+                        was created that translates natural language into an Advanced Search query.
+                        Given the excitement around AI/ChatGPT and the potential this feature, and
+                        Advanced Entity Recognition, had to simplify the overall search experience,
+                        I led the design to test this capability on a limited set of SalesOS users
+                        to determine:
                     </p>
+                    <ol style={{ paddingLeft: '1.25rem', margin: '0', display: 'flex', flexDirection: 'column', gap: '0.5rem', listStyle: 'decimal' }}>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            <strong>Do users prefer this natural language search to a traditional advanced search?</strong>
+                        </li>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            <strong>Does natural language search lead to better outcomes as measured by search conversions, time to value?</strong>
+                        </li>
+                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
+                            <strong>What types of searches users will enter in a search box without restrictions?</strong>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            {/* Solution */}
+            <section id="strategy" className="arrive-cs-block">
+                <h2 className="arrive-cs-block-label">Solution</h2>
+                <div className="arrive-cs-block-body">
+                    {/* New AI homepage */}
+                    <h3 id="sol-homepage" className="zi-sol-subhead">
+                        New AI homepage — a natural-language front door for SalesOS.
+                    </h3>
                     <p className="arrive-cs-block-text">
-                        So we didn&apos;t add. We removed. We turned the homepage into a clean,
-                        search-first start — and made that search something you could begin in
-                        plain language, building on an entity-recognition model the data team
-                        had prototyped with ChatGPT.
+                        I cut the modules to a single instruction in a search field:
+                        &ldquo;Describe your perfect contact or company list,&rdquo; with working
+                        examples split into finding Contacts or Companies. The examples do the
+                        onboarding the old page tried to do with widgets.
                     </p>
                     <div className="arrive-cs-block-figure">
-                        <Image
-                            src="/images/zi-new-homepage.png"
-                            alt="New SalesOS AI homepage — clean, search-first start"
-                            width={1200}
-                            height={700}
+                        <video
+                            src="/images/zi-new-search.mp4"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="arrive-cs-block-figure-img"
+                        />
+                    </div>
+
+                    {/* Continue or refine search query */}
+                    <h3 id="sol-continue" className="zi-sol-subhead">
+                        Continue or refine search query
+                    </h3>
+                    <p className="arrive-cs-block-text">
+                        After landing in search results, I wanted users to keep working in the
+                        familiar search UX and their filters — while also being able to edit or
+                        add to their query inline, without having to go back to the homepage
+                        again.
+                    </p>
+                    <div className="arrive-cs-block-figure">
+                        <video
+                            src="/images/chip.mp4"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="arrive-cs-block-figure-img"
+                        />
+                    </div>
+
+                    {/* Didn't like it? Let us know */}
+                    <h3 id="sol-feedback" className="zi-sol-subhead">
+                        Didn&apos;t like it? Let us know
+                    </h3>
+                    <p className="arrive-cs-block-text">
+                        I built feedback into the flow: thumbs up/down on every result set
+                        (up → thank-you toast; down → a &ldquo;Didn&apos;t like the
+                        experience?&rdquo; form)
+                    </p>
+                    <div className="arrive-cs-block-figure">
+                        <video
+                            src="/images/feedback.mp4"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
                             className="arrive-cs-block-figure-img"
                         />
                     </div>
                     <p className="arrive-cs-block-text">
-                        This became the AI homepage — a natural-language front door for SalesOS.
+                        If a user toggles to revert to the old homepage, I added a quick survey
+                        to understand why. Every interaction was a data point — including from
+                        the people who turned it off.
                     </p>
-                    <p className="arrive-cs-block-text">
-                        We then released this alpha to 15 customers who were interested in this search language pilot, to gather feedback.
-                    </p>
-                </div>
-            </section>
-
-            {/* What we set out to learn */}
-            <section id="goals" className="arrive-cs-block">
-                <h2 className="arrive-cs-block-label">What we set out to learn</h2>
-                <div className="arrive-cs-block-body">
-                    <p className="arrive-cs-block-text">
-                        A new search experience shipped as a toggleable alpha to a limited set
-                        of SalesOS users, to answer three questions:
-                    </p>
-                    <ol style={{ paddingLeft: '1.25rem', margin: '0', display: 'flex', flexDirection: 'column', gap: '0.5rem', listStyle: 'decimal' }}>
-                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
-                            Do users prefer this natural language search to a traditional advanced search?
-                        </li>
-                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
-                            Does natural language search lead to better outcomes as measured by search conversions, time to value?
-                        </li>
-                        <li className="arrive-cs-block-text" style={{ margin: 0 }}>
-                            What types of searches users will enter in a search box without restrictions?
-                        </li>
-                    </ol>
+                    <div className="arrive-cs-block-figure">
+                        <video
+                            src="/images/off.mp4"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="arrive-cs-block-figure-img"
+                        />
+                    </div>
                 </div>
             </section>
 
@@ -138,24 +215,36 @@ export default function ZoominfoPage() {
             <section id="outcomes" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Outcomes</h2>
                 <div className="arrive-cs-block-body">
-                    <p className="zi-block-stat">13 of 15 testers preferred the new homepage to the existing experience.</p>
                     <p className="arrive-cs-block-text">
-                        The alpha did its job: a clear preference signal, plus a live stream of
-                        real, unrestricted queries to learn the rest from.
+                        We released the alpha to 15 customers in the search-language pilot to gather feedback.
                     </p>
+                    <p className="zi-block-stat">13 of 15 testers preferred the new homepage to the existing experience.</p>
+                    <ul className="zi-quotes">
+                        <li className="zi-quote">
+                            <p className="zi-quote-text">&ldquo;[Google-like search] could be very useful in the long-term&rdquo;</p>
+                            <span className="zi-quote-author">Customer, Microsoft</span>
+                        </li>
+                        <li className="zi-quote">
+                            <p className="zi-quote-text">&ldquo;[Natural Language] would be beneficial&rdquo;</p>
+                            <span className="zi-quote-author">Customer, Siemens</span>
+                        </li>
+                        <li className="zi-quote">
+                            <p className="zi-quote-text">&ldquo;We think that our users could easily use ChatGPT search with a few examples [paraphrased]&rdquo;</p>
+                            <span className="zi-quote-author">ZI SalesOS AE Team</span>
+                        </li>
+                        <li className="zi-quote">
+                            <p className="zi-quote-text">&ldquo;Natural language search would be very useful for me&rdquo;</p>
+                            <span className="zi-quote-author">Customer, ConneXus</span>
+                        </li>
+                    </ul>
                 </div>
             </section>
 
             {/* Impact */}
-            <section id="impact" className="arrive-cs-block arrive-cs-impact">
+            <section id="impact" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Impact</h2>
                 <div className="arrive-cs-block-body">
-                    <p className="arrive-cs-block-text">
-                        Ten months later, ZoomInfo shipped Copilot — its flagship AI product,
-                        built on searching the database in plain language. This alpha tested
-                        that bet first, live, with real sellers.
-                    </p>
-                    <ul style={{ paddingLeft: '1.25rem', margin: '1.5rem 0 0', display: 'flex', flexDirection: 'column', gap: '1rem', listStyle: 'disc' }}>
+                    <ul style={{ paddingLeft: '1.25rem', margin: '0', display: 'flex', flexDirection: 'column', gap: '1rem', listStyle: 'disc' }}>
                         <li className="arrive-cs-block-text" style={{ margin: 0 }}>
                             <strong>Decreased time to value</strong> — by providing users a simplified method of searching, we decreased the effort to find the right companies and contacts for prospecting.
                         </li>
@@ -170,103 +259,184 @@ export default function ZoominfoPage() {
             </section>
 
             {/* ── DESIGN ────────────────────────────────────────────── */}
-            <div id="design" className="zi-design-header">Design</div>
+            <div id="design" className="zi-design-header">Design Process</div>
 
-            <ZiInsightBlock
-                isFirst
-                title="Less is More"
-                body={
-                    <p>
-                        The old homepage answered &ldquo;what could we show you?&rdquo; The new one
-                        answers &ldquo;what did you come to do?&rdquo; I cut the modules to a single
-                        instruction in a search field: &ldquo;Describe your perfect contact or
-                        company list,&rdquo; plus worked examples split into Finding Contacts and
-                        Companies. The examples do the onboarding the old page tried to do
-                        with widgets.
-                    </p>
-                }
-                media={
-                    <video
-                        src="/images/zi-new-search.mp4"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="zi-block-video"
+            {/* Understanding the Work — product requirements + design process */}
+            <section id="understanding-the-work" className="zi-insight zi-insight--first">
+                <div className="zi-insight-text">
+                    <h3 className="zi-insight-title">Understanding the Work</h3>
+                    <div className="zi-insight-body">
+                        <p>
+                            Working with the PM, we turned the alpha&apos;s goals into a shared
+                            spec — the product requirements for what it had to do — while I
+                            followed our team&apos;s end-to-end design process to get there.
+                        </p>
+                    </div>
+                </div>
+                <div className="zi-uw-grid">
+                    <ZiRequirements />
+                    <ZiDesignProcess />
+                </div>
+            </section>
+
+            {/* Gathering References */}
+            <section id="gathering-references" className="zi-insight">
+                <div className="zi-insight-text">
+                    <h3 className="zi-insight-title">Gathering References</h3>
+                    <div className="zi-insight-body">
+                        <p>
+                            Before designing, I studied how leading products were framing AI-driven
+                            search and chat — pulling patterns and inspiration from these references.
+                        </p>
+                    </div>
+                </div>
+                <ZiReferenceCollage />
+            </section>
+
+            {/* Mapping out user flow */}
+            <section id="user-flow" className="zi-insight">
+                <div className="zi-insight-text">
+                    <h3 className="zi-insight-title">Mapping out user flow</h3>
+                    <div className="zi-insight-body">
+                        <p>
+                            Before touching pixels, I mapped the end-to-end journey — how a user
+                            enters AI search, acts on results, refines with follow-ups, and can
+                            always toggle back to classic search.
+                        </p>
+                    </div>
+                </div>
+                <ZiUserFlow />
+            </section>
+
+            {/* States. States. States */}
+            <section id="states" className="zi-insight">
+                <div className="zi-insight-text">
+                    <h3 className="zi-insight-title">States. States. States</h3>
+                    <div className="zi-insight-body">
+                        <p>
+                            The happy path was the easy part — the real design work lived in the
+                            edge cases. Open input invites vague, oversized, and broken requests,
+                            so I detailed every state of the search experience down to the pixel:
+                            the default prompt, the &ldquo;too few words&rdquo; nudge, single- and
+                            multi-line overflow, character limits, and exact widths and spacing —
+                            so the model&apos;s uncertainty lived in the UI, and nothing was left
+                            to interpretation at handoff.
+                        </p>
+                    </div>
+                </div>
+                <div className="zi-states-fullbleed">
+                    <ZiZoomImage
+                        src="/images/zi-states-full.png"
+                        alt="Detailed designs for every state of the search input — default, too-few-words nudge, single-line, and multi-line overflow"
+                        width={5065}
+                        height={2031}
+                        sizes="100vw"
+                        quality={100}
+                        unoptimized
+                        className="zi-states-full-img"
                     />
-                }
-            />
+                </div>
+            </section>
 
-            <ZiInsightBlock
-                title="Plain language is messy — design for the bad query"
-                body={
-                    <p>
-                        Open input invites vague, oversized, and broken requests. I designed
-                        the guardrails: a nudge under five words, a warning when a query will
-                        flood results, a 20-second timeout with retry on model failure, a
-                        1024-character ceiling, and prompt truncation before scroll. The
-                        model&apos;s uncertainty lived in the UI, not just the backend.
-                    </p>
-                }
-                media={<Image src="/images/zi-states.png" alt="Possibly too many results and long-prompt states" width={1200} height={800} style={{ width: '100%', height: 'auto', borderRadius: '12px' }} />}
-            />
 
-            <ZiInsightBlock
-                title="If you're running an experiment, design the instrument"
-                body={
-                    <p>
-                        This was an alpha, so the point was the learning. I built feedback
-                        into the flow: thumbs up/down on every result set (up → thank-you
-                        toast; down → a &ldquo;Didn&apos;t like the experience?&rdquo; form), a toggle to
-                        revert to the old homepage with a reason-coded survey on opt-out,
-                        and tracking of the full query alongside its parsed output. Every
-                        interaction was a data point — including from the people who turned
-                        it off.
-                    </p>
-                }
-                media={
-                    <video
-                        src="/images/zi-thumbsup.mp4"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="zi-block-video"
+            {/* Dev Handoff */}
+            <section id="dev-handoff" className="zi-insight">
+                <div className="zi-insight-text">
+                    <h3 className="zi-insight-title">Dev Handoff</h3>
+                    <div className="zi-insight-body">
+                        <p>
+                            I annotated every card so dev understood the nuances up front —
+                            cutting down the back-and-forth of chasing each other down for
+                            calls and keeping the build moving efficiently.
+                        </p>
+                    </div>
+                </div>
+                <div className="zi-handoff-figure">
+                    <ZiZoomImage
+                        src="/images/zi-dev-handoff.jpg"
+                        alt="Developer handoff — annotated specs and redlines for the search experience"
+                        width={2224}
+                        height={934}
+                        sizes="(max-width: 860px) 100vw, 820px"
+                        quality={100}
+                        unoptimized
+                        className="zi-states-full-img"
                     />
-                }
-            />
+                </div>
+            </section>
 
-            <ZiInsightBlock
-                title="What we killed"
-                body={
-                    <p>
-                        I designed a Search Assist drawer — the AI as a floating panel over
-                        results, with a live result count and pre-written follow-up suggestions.
-                        Leadership pushed back: splitting attention between a chatbox and the
-                        table felt chair-swivelly, and risky for a user base that ranged widely
-                        in technical comfort. The critique was fair, so we cut it and folded
-                        the good parts into the in-table experience.
-                    </p>
-                }
-                media={
-                    <video
-                        src="/images/zi-future.mp4"
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="zi-block-video"
+            {/* Bugs & Improvements */}
+            <section id="bugs" className="zi-insight">
+                <div className="zi-insight-text">
+                    <h3 className="zi-insight-title">Bugs &amp; Improvements</h3>
+                    <div className="zi-insight-body">
+                        <p>
+                            I kept iterating on what dev shipped to Staging — there are almost
+                            always discrepancies to catch and refine. Alongside the fixes, I
+                            logged JIRA tickets for future enhancements as new decisions were
+                            approved through leadership.
+                        </p>
+                    </div>
+                </div>
+                <div className="zi-states-fullbleed">
+                    <ZiZoomImage
+                        src="/images/zi-bugs.jpg"
+                        alt="Bugs and improvements tracked and resolved during the alpha"
+                        width={13694}
+                        height={3346}
+                        sizes="100vw"
+                        quality={100}
+                        className="zi-states-full-img"
                     />
-                }
-            />
+                </div>
+            </section>
 
+            {/* Future Concepts */}
+            <section id="playground" className="zi-insight zi-future">
+                <div className="zi-insight-text">
+                    <h3 className="zi-insight-title">Playground</h3>
+                </div>
+                <div className="zi-future-list">
+                    <div className="zi-future-item">
+                        <h4 className="zi-future-item-title">
+                            <span className="zi-future-num">#1</span> Ai Chatbot
+                        </h4>
+                        <p className="zi-future-text">
+                            I tried an AI Chatbot experience as a floating panel over results, with
+                            a live result count and pre-written follow-up suggestions. Leadership
+                            pushed back as they felt splitting attention between a chatbox and the
+                            table was a lot.
+                        </p>
+                        <video
+                            src="/images/chatdrawer.mp4"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="zi-insight-video"
+                        />
+                    </div>
+                    <div className="zi-future-item">
+                        <h4 className="zi-future-item-title">
+                            <span className="zi-future-num">#2</span> Search via Filters
+                        </h4>
+                        <p className="zi-future-text">
+                            I also tried adding AI queries within the filters panel since that&apos;s
+                            the most used part of the search UX — but it felt like over-complicating
+                            rather than simplifying the experience.
+                        </p>
+                        <video
+                            src="/images/smartfilters.mp4"
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="zi-insight-video"
+                        />
+                    </div>
+                </div>
+            </section>
 
-            {/* Footer note */}
-            <p style={{ maxWidth: '520px', margin: '5rem auto 0', textAlign: 'center', fontSize: '15px', lineHeight: '1.65', color: '#6b7280', fontStyle: 'italic', fontFamily: 'Graphik, sans-serif' }}>
-                From research framing through a shipped alpha in sellers&apos; hands, I owned
-                this end to end — and the most important design calls I made were the ones
-                to remove, not add.
-            </p>
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav" style={{ marginTop: '4rem' }}>

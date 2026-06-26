@@ -8,6 +8,9 @@ export interface CaseStudyNavItem {
     id: string;
     /** label shown in the nav */
     label: string;
+    /** optional sub-sections — revealed as a collapsible mini-nav when the
+     *  parent (or one of these children) is the active section. */
+    children?: CaseStudyNavItem[];
 }
 
 /**
@@ -35,7 +38,9 @@ export function CaseStudyNav({
     const rafRef = useRef(0);
 
     useEffect(() => {
-        const sections = items
+        // Flatten parents + children so scroll-spy tracks every section.
+        const flat = items.flatMap((i) => [i, ...(i.children ?? [])]);
+        const sections = flat
             .map((i) => document.getElementById(i.id))
             .filter((el): el is HTMLElement => !!el);
         if (!sections.length) return;
@@ -81,17 +86,38 @@ export function CaseStudyNav({
                 Back
             </Link>
             <ul className="cs-side-nav-list">
-                {items.map((item) => (
-                    <li key={item.id}>
-                        <button
-                            type="button"
-                            className={`cs-side-nav-item ${active === item.id ? 'is-active' : ''}`}
-                            onClick={() => handleClick(item.id)}
-                        >
-                            {item.label}
-                        </button>
-                    </li>
-                ))}
+                {items.map((item) => {
+                    const childActive = item.children?.some((c) => c.id === active) ?? false;
+                    // Parent counts as active (and its mini-nav expands) when it
+                    // or any of its children is the current section.
+                    const open = active === item.id || childActive;
+                    return (
+                        <li key={item.id}>
+                            <button
+                                type="button"
+                                className={`cs-side-nav-item ${open ? 'is-active' : ''}`}
+                                onClick={() => handleClick(item.id)}
+                            >
+                                {item.label}
+                            </button>
+                            {item.children && (
+                                <ul className={`cs-side-nav-sublist ${open ? 'is-open' : ''}`}>
+                                    {item.children.map((child) => (
+                                        <li key={child.id}>
+                                            <button
+                                                type="button"
+                                                className={`cs-side-nav-subitem ${active === child.id ? 'is-active' : ''}`}
+                                                onClick={() => handleClick(child.id)}
+                                            >
+                                                {child.label}
+                                            </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                        </li>
+                    );
+                })}
             </ul>
         </nav>
     );

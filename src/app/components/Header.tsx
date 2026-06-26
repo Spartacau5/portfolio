@@ -18,14 +18,15 @@ export function Header() {
   const navItems = [
     { name: 'Home', href: '/' },
     { name: 'About', href: '/about' },
-    { name: 'Work', href: '/work' },
+    { name: 'Play', href: '/work' },
   ];
 
-  // Determine which tab is active
+  // Determine which tab is active. Case studies live under /work/<slug> but are
+  // reached from Home, so only the /work index itself lights up "Play" — the
+  // case-study sub-pages keep "Home" active.
   const getActiveIndex = () => {
-    if (pathname === '/') return 0;
     if (pathname.startsWith('/about')) return 1;
-    if (pathname.startsWith('/work')) return 2;
+    if (pathname === '/work') return 2;
     return 0;
   };
 
@@ -33,10 +34,12 @@ export function Header() {
 
   // Smooth scroll to top handler for same-page navigation
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    // Check if we're already on this page
+    // Check if we're already on this page. /work is exact (case-study
+    // sub-pages are not the Play page), /about stays prefix-matched.
     const isCurrentPage =
       (href === '/' && pathname === '/') ||
-      (href !== '/' && pathname.startsWith(href));
+      (href === '/work' && pathname === '/work') ||
+      (href === '/about' && pathname.startsWith('/about'));
 
     if (isCurrentPage && window.scrollY > 0) {
       e.preventDefault();

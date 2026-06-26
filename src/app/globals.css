@@ -86,7 +86,7 @@
 
 .grid-card:hover {
  /* transform: scale(0.98); */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.13);
 }
 
 /* Card wrapper for focus system */
@@ -227,6 +227,24 @@
   min-width: 0;
 }
 
+/* Play page row 2 — Twitter + Spotify side by side, contact chat to the right.
+   The Webflow tiles keep their natural fixed sizes (same as the other pages);
+   the row simply lays them out and wraps gracefully when space runs out. */
+.play-personal-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.play-ts-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
 .microsoft-bg-container {
   position: absolute;
   inset: 0;
@@ -332,30 +350,29 @@
 .microsoft-subheader {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s,
-    transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) 0.35s;
+  transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.6s,
+    transform 1.3s cubic-bezier(0.4, 0, 0.2, 1) 0.6s;
 }
 
 .microsoft-card.is-hovered .microsoft-subheader {
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 1.3s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Project description — fades in once the sub-header has cleared out */
+/* Sub-text animates in/out in lockstep with the graffiti background —
+   matching durations/easings, no delay. */
 .microsoft-hover-text {
   opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(6px);
+  transition: opacity 0.55s ease-in, transform 0.7s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
 .microsoft-card.is-hovered .microsoft-hover-text {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s,
-    transform 1s cubic-bezier(0.4, 0, 0.2, 1) 0.8s;
+  transition: opacity 0.7s ease-out, transform 0.85s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 /* ============================================
@@ -386,6 +403,44 @@
 .grid-card:hover .project-hover-text {
   opacity: 1;
   transform: translateY(50%);
+}
+
+/* ZoomInfo & Tashvi sit over busy light video backgrounds, so their hover
+   copy can clash. A white scrim fades in along the bottom on hover — fully
+   transparent at the top and solid white at the bottom — so the description
+   reads cleanly while still blending into the running video above it. */
+.zoominfo-card::after,
+.tashvi-card::after,
+.fleet-card::after {
+  content: '';
+  position: absolute;
+  /* Overshoot the edges by 1px and use NO radius of our own — the card's
+     overflow:hidden + rounded corners clip the scrim to the exact card shape.
+     (Giving the scrim its own radius offsets it from the clip edge and leaves
+     a thin crescent where the rounded video underneath peeks through.) */
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  height: 38%;
+  /* Stay clear until just above the text, then ramp quickly to fully opaque
+     white at the very bottom (1.0 — anything less lets the red show through). */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.92) 78%,
+    rgba(255, 255, 255, 1) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 9; /* above the video, below the arrow (10) and hover copy (20) */
+}
+
+.zoominfo-card:hover::after,
+.tashvi-card:hover::after,
+.fleet-card:hover::after {
+  opacity: 1;
 }
 
 /* JnJ flips to a red background with a white logo on hover,
@@ -428,9 +483,46 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+/* Solid, high-contrast pill for cards over busy light video (e.g. Fleet
+   Management). White text on a near-opaque dark slate reads clearly against
+   any frame of the footage — AA contrast in both light and dark regions. */
+.card-tag--solid {
+  color: #fff;
+  background: rgba(17, 24, 39, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
 /* Arrive card sits over the hero video, so its hover copy is white for
    legibility. */
 .arrive-card:hover .project-hover-text {
+  color: #fff;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Fleet Management sits over a light parking-app video. A white scrim fades
+   in on hover (see ::after rule above), so its copy reads as dark slate
+   instead of white — overrides the shared .arrive-card white rule. */
+.fleet-card:hover .project-hover-text {
+  color: #111827;
+  text-shadow: none;
+}
+
+/* ABX card — static navigation SVG filling the card background, clipped to the
+   card's rounded corners by the parent's overflow:hidden. */
+.abx-card-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #000514;
+  background-image: url('/images/abx-nav.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Dark card, so its hover copy is white for legibility. */
+.abx-card:hover .project-hover-text {
   color: #fff;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
 }
@@ -477,12 +569,8 @@
 /* Custom Cursor */
 .custom-cursor {
   position: fixed;
-  top: -12px;
-  left: -12px;
-  width: 24px;
-  height: 24px;
-  background-color: #d1d5db;
-  border-radius: 50%;
+  top: 0;
+  left: 0;
   pointer-events: none;
   z-index: 99999;
   opacity: 0;
@@ -492,6 +580,68 @@
 
 .custom-cursor.visible {
   opacity: 1;
+}
+
+/* The visual — a dot by default, centered on the pointer. Morphs into a
+   labeled black pill when the parent gets `.is-labeled` (set on hover of an
+   element declaring data-cursor-label). */
+.custom-cursor-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 24px;
+  height: 24px;
+  padding: 0;
+  background-color: #d1d5db;
+  color: #fff;
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: min-width 0.22s ease, height 0.22s ease, padding 0.22s ease,
+    background-color 0.22s ease;
+}
+
+/* Label icons — only the one matching data-cursor-icon shows, inside the pill. */
+.custom-cursor-inner .cc-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  display: none;
+}
+
+.custom-cursor.is-labeled[data-cursor-icon='eye'] .cc-icon--eye,
+.custom-cursor.is-labeled[data-cursor-icon='arrow'] .cc-icon--arrow,
+.custom-cursor.is-labeled[data-cursor-icon='lock'] .cc-icon--lock {
+  display: block;
+}
+
+.custom-cursor-label {
+  font-family: Graphik, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: opacity 0.15s ease, max-width 0.22s ease;
+}
+
+.custom-cursor.is-labeled .custom-cursor-inner {
+  min-width: 0;
+  height: 36px;
+  padding: 0 20px;
+  background-color: #111;
+}
+
+.custom-cursor.is-labeled .custom-cursor-label {
+  opacity: 1;
+  max-width: 340px;
 }
 
 /* Hide default cursor on desktop */
