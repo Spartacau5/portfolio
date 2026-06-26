@@ -4118,6 +4118,17 @@ html.arrive-immersive .cs-side-nav {
     color: #111;
 }
 
+.arrive-cs-block-text a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: opacity 0.15s ease;
+}
+
+.arrive-cs-block-text a:hover {
+    opacity: 0.7;
+}
+
 .arrive-cs-block-stat {
     font-family: Georgia, 'Times New Roman', serif;
     font-style: italic;
@@ -4196,8 +4207,26 @@ button.arrive-cs-block-source {
     display: block;
 }
 
+/* Caption sits under the figure and matches its left offset / width so the
+   text centers beneath the image rather than the narrower body column. */
+.arrive-cs-figure-caption {
+    margin-top: 0;
+    margin-bottom: 0.4rem;
+    margin-left: -222px;
+    width: calc(100% + 410px);
+    text-align: center;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--muted, #666);
+}
+
 @media (max-width: 768px) {
     .arrive-cs-block-figure {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .arrive-cs-figure-caption {
         width: 100%;
         margin-left: 0;
     }
@@ -4897,5 +4926,363 @@ button.arrive-cs-block-source {
     /* Vision walkthrough: tighter step gap on phones */
     .vw {
         gap: 3.5rem;
+    }
+}
+
+/* ----------------------------------------------------------------------------
+   Strategy methodology — "combine two signals into one strategy" diagram
+---------------------------------------------------------------------------- */
+.arrive-cs-method {
+    /* Break out wider than the prose column so the diagram reads large. The
+       label column (150px) + grid gap (3rem) are reclaimed on the left, plus a
+       little extra breathing room on each side. */
+    width: calc(100% + 150px + 3rem + 160px);
+    margin: 0 0 0 calc(-150px - 3rem - 80px);
+}
+
+/* Keep the surrounding prose readable even though the figure itself is wider. */
+.arrive-cs-method-title,
+.arrive-cs-method-lead,
+.arrive-cs-method-note {
+    margin-left: calc(150px + 3rem + 80px);
+}
+
+.arrive-cs-method-title {
+    font-size: clamp(21px, 2.8vw, 31px);
+    line-height: 1.12;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #0b0b0c;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.arrive-cs-method-lead {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4b5563;
+    max-width: 620px;
+    margin-top: 0;
+    margin-bottom: 1.6rem;
+}
+
+.arrive-cs-method-note {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #4b5563;
+    max-width: 620px;
+    margin-top: 1.6rem;
+    margin-bottom: 0;
+}
+
+/* Diagram stage */
+.sig-stage {
+    border: 1px solid #ececf0;
+    border-radius: 18px;
+    background: #fbfbfd;
+    padding: 8px 12px;
+}
+
+.sig-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.sig-grouplabel {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    fill: #9ca3af;
+}
+
+/* Connectors */
+.sig-path {
+    fill: none;
+    stroke-width: 1.5;
+    transition: stroke 0.35s ease, opacity 0.35s ease;
+    opacity: 0.45;
+}
+.sig-path--external {
+    stroke: #d6d8ee;
+}
+.sig-path--internal {
+    stroke: #dadde2;
+}
+.sig-path.is-active {
+    opacity: 1;
+}
+.sig-path--external.is-active {
+    stroke: #a5abec;
+}
+.sig-path--internal.is-active {
+    stroke: #b7bcc6;
+}
+
+/* Source chips */
+.sig-chip {
+    fill: #f3f4f8;
+    stroke: #e6e7ee;
+    stroke-width: 1;
+    transition: fill 0.3s ease, stroke 0.3s ease;
+}
+.sig-source--external .sig-chip {
+    fill: #eef0ff;
+    stroke: #e2e4fb;
+}
+.sig-chip-label {
+    text-anchor: middle;
+    font-size: 15px;
+    font-weight: 500;
+    fill: #6b7280;
+    transition: fill 0.3s ease;
+}
+.sig-source--external .sig-chip-label {
+    fill: #4b53c4;
+}
+
+.sig-source.is-lit .sig-chip {
+    fill: #fff;
+    stroke: #c8ccf3;
+}
+.sig-source--external.is-lit .sig-chip {
+    stroke: #9aa1ec;
+}
+.sig-source.is-lit .sig-chip-label {
+    fill: #111827;
+}
+.sig-source--external.is-lit .sig-chip-label {
+    fill: #312e9e;
+}
+
+/* Travelling pulses */
+.sig-dot {
+    transition: opacity 0.12s linear;
+}
+.sig-dot--external {
+    fill: #6366f1;
+}
+.sig-dot--internal {
+    fill: #6b7280;
+}
+
+/* Distilled node */
+.sig-node-halo {
+    fill: #6366f1;
+}
+.sig-node-box {
+    fill: #0b0b0c;
+    transition: fill 0.4s ease;
+}
+.sig-node.is-full .sig-node-box {
+    fill: #131318;
+}
+.sig-node-title {
+    text-anchor: middle;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    fill: #ffffff;
+}
+
+/* Once the case-study block collapses to a single column there's no label
+   column to reclaim — drop the break-out so nothing overflows. */
+@media (max-width: 768px) {
+    .arrive-cs-method {
+        width: 100%;
+        margin-left: 0;
+    }
+    .arrive-cs-method-title,
+    .arrive-cs-method-lead,
+    .arrive-cs-method-note {
+        margin-left: 0;
+    }
+    .vr {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 640px) {
+    .sig-stage {
+        padding: 4px 6px;
+    }
+    .sig-chip-label {
+        font-size: 16px;
+    }
+    .sig-grouplabel {
+        font-size: 15px;
+    }
+    .sig-node-title {
+        font-size: 18px;
+    }
+}
+
+/* ----------------------------------------------------------------------------
+   Impact feedback — rotating internal reactions to the B2B vision
+---------------------------------------------------------------------------- */
+.vr {
+    /* Match the Impact figure's break-out exactly (margin-left: -222px;
+       width: calc(100% + 410px)) so the carousel lines up under the image and
+       the arrows sit at the image's left/right edges. */
+    width: calc(100% + 410px);
+    margin: 2rem 0 0 -222px;
+}
+
+.vr-stage {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.vr-arrow {
+    width: 38px;
+    height: 38px;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    background: #fff;
+    color: #6b7280;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+.vr-arrow:hover {
+    color: #111827;
+    border-color: #c7c9d1;
+    background: #fafafb;
+}
+.vr-arrow svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* The quote card: the quote reads large on the left/full width, with the
+   person attributed in the bottom-right. */
+.vr-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    min-height: 220px;
+    padding: 0 1rem;
+    animation: vrFade 0.5s ease;
+}
+
+@keyframes vrFade {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.vr-quote {
+    position: relative;
+    margin: 0;
+    padding-left: 3.25rem;
+}
+.vr-mark {
+    position: absolute;
+    left: 0;
+    top: -1.6rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 92px;
+    line-height: 1;
+    color: #e3e4ea;
+    user-select: none;
+}
+.vr-text {
+    font-size: clamp(19px, 1.9vw, 26px);
+    line-height: 1.5;
+    color: #1f2937;
+    margin: 0;
+    max-width: 50ch;
+}
+
+/* Bottom-right attribution: name/role right-aligned, avatar to the right. */
+.vr-attribution {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.9rem;
+    margin-top: auto;
+}
+.vr-person-meta {
+    text-align: right;
+}
+.vr-avatar {
+    width: 56px;
+    height: 56px;
+    flex: none;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+.vr-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
+}
+.vr-role {
+    font-size: 14px;
+    color: #9ca3af;
+    margin: 0.15rem 0 0;
+}
+.vr-source {
+    font-size: 12px;
+    color: #b6b9c2;
+    margin: 0.2rem 0 0;
+}
+
+.vr-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1.75rem;
+}
+.vr-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    border: none;
+    padding: 0;
+    background: #d8dae1;
+    cursor: pointer;
+    transition: background 0.2s ease, width 0.2s ease;
+}
+.vr-dot.is-active {
+    width: 22px;
+    background: #6366f1;
+}
+
+@media (max-width: 640px) {
+    .vr-stage {
+        grid-template-columns: 1fr;
+    }
+    .vr-arrow {
+        display: none;
+    }
+    .vr-card {
+        gap: 1.25rem;
+        padding: 0;
+        min-height: 0;
+    }
+    .vr-avatar {
+        width: 48px;
+        height: 48px;
+        font-size: 15px;
+    }
+    .vr-quote {
+        padding-left: 0;
+    }
+    .vr-mark {
+        display: none;
     }
 }

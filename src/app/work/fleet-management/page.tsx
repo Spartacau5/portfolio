@@ -96,8 +96,10 @@ export default function ArrivePage() {
                 <h2 className="arrive-cs-block-label">Context</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
-                        Arrive has shown rapid growth acquiring 6 major mobility companies in a short
-                        span of 4 years.
+                        Arrive (formerly EasyPark Group) is a leading global mobility platform —
+                        parent of EasyPark, ParkMobile, Flowbird, RingGo, and Parkopedia — across
+                        90+ countries and 20,000+ cities. It had shown rapid growth acquiring 6
+                        major mobility companies in a short span of 4 years.
                     </p>
                     <BlockSource
                         onClick={() =>
@@ -118,7 +120,20 @@ export default function ArrivePage() {
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
                         With this growth came confusion, lack of clarity and disalignment between
-                        different companies, sectors, and markets.
+                        different companies, sectors, and markets. They didn&apos;t have a clear
+                        roadmap of where their B2B business was heading. They had the technology and
+                        the market, but what they didn&apos;t have was a product practice: the
+                        feedback loops, rapid research, and design-led discovery that turns a hunch
+                        into the right bet. So Arrive partnered with{' '}
+                        <a
+                            href="https://www.madebycraft.co"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Craft
+                        </a>
+                        , a strategic digital research &amp; design agency, to pressure-test where
+                        its B2B business should go — and that&apos;s where I came in.
                     </p>
                     <div className="arrive-cs-block-figure">
                         <Image

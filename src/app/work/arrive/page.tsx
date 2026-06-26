@@ -6,8 +6,9 @@ import Image from 'next/image';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { WhatArriveDoes } from './WhatArriveDoes';
 import { ArriveHero } from './ArriveHero';
-import { MvpShowcase } from './MvpShowcase';
 import { VisionWalkthrough } from './VisionWalkthrough';
+import { SignalSynthesis } from './SignalSynthesis';
+import { VisionReactions } from './VisionReactions';
 import { PreviewModal, type PreviewContent } from './PreviewModal';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 
@@ -100,8 +101,10 @@ export default function ArrivePage() {
                 <h2 className="arrive-cs-block-label">Context</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
-                        Arrive has shown rapid growth acquiring 6 major mobility companies in a short
-                        span of 4 years.
+                        Arrive (formerly EasyPark Group) is a leading global mobility platform —
+                        parent of EasyPark, ParkMobile, Flowbird, RingGo, and Parkopedia — across
+                        90+ countries and 20,000+ cities. It had shown rapid growth acquiring 6
+                        major mobility companies in a short span of 4 years.
                     </p>
                     <BlockSource
                         onClick={() =>
@@ -122,7 +125,26 @@ export default function ArrivePage() {
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
                         With this growth came confusion, lack of clarity and disalignment between
-                        different companies, sectors, and markets.
+                        different companies, sectors, and markets. They didn&apos;t have a clear
+                        roadmap of where their B2B business was heading. They had the technology and
+                        the market, but what they didn&apos;t have was a product practice: the
+                        feedback loops, rapid research, and design-led discovery that turns a hunch
+                        into the right bet. So Arrive partnered with{' '}
+                        <a
+                            href="https://www.madebycraft.co"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="content-link"
+                        >
+                            Craft
+                            <svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        </a>
+                        , a strategic digital research &amp; design agency, to pressure-test where
+                        its B2B business should go — and that&apos;s where I came in.
+                    </p>
+                    <p className="arrive-cs-figure-caption">
+                        Before we started, I asked Arrive&apos;s product team to grade their existing
+                        B2B platform
                     </p>
                     <div className="arrive-cs-block-figure">
                         <Image
@@ -140,15 +162,18 @@ export default function ArrivePage() {
             <section id="strategy" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Strategy</h2>
                 <div className="arrive-cs-block-body">
-                    <p className="arrive-cs-block-text">
-                        Collect feedback externally and internally to create alignment between what
-                        leadership thinks, what sales+product hear every day and what customers
-                        actually want.
-                    </p>
-                    <p className="arrive-cs-block-text">
-                        The goal was to craft an end-to-end future state experience which prioritizes
-                        what matters most to deliver customer and business value.
-                    </p>
+                    {/* Methodology — two kinds of signal converging into one strategy */}
+                    <figure className="arrive-cs-method">
+                        <h3 className="arrive-cs-method-title">
+                            Combine internal insights with external signals into one strategy.
+                        </h3>
+                        <SignalSynthesis />
+                        <figcaption className="arrive-cs-method-note">
+                            The vision was only credible because it triangulated two kinds of truth —
+                            what customers do, and what the people closest to them know. I gathered
+                            both, then distilled them into one picture the whole org could react to.
+                        </figcaption>
+                    </figure>
                 </div>
             </section>
 
@@ -157,27 +182,29 @@ export default function ArrivePage() {
                 <h2 className="arrive-cs-block-label">Process</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
-                        <strong>Phase 1:</strong> Conducted 30+ interviews with prospective and existing
-                        customers across different user segments to understand customer wants and needs.
+                        I ran 3 structured workshops across the US and EU to develop, evaluate and
+                        refine Arrive&apos;s 2-year business product vision — pressure testing an
+                        end-to-end future state experience, aligning on success criteria, and
+                        prioritizing what matters most to deliver customer and business value.
                     </p>
                     <p className="arrive-cs-block-text">
-                        <strong>Phase 2:</strong> Synthesized insights and developed a 2-year vision for
-                        internal reaction.
+                        <strong>#1 Product Workshop:</strong> Worked with product managers to stress
+                        test the vision against what was technically feasible and where the roadmap
+                        was already heading, surfacing the bets worth making first.
                     </p>
                     <p className="arrive-cs-block-text">
-                        <strong>Phase 3:</strong> Facilitated 3 workshops with product managers, sales
-                        executives and sales leaders across the US and EU to evaluate and refine the
-                        vision.
+                        <strong>#2 Sales Workshop:</strong> Brought in sales executives — closest to
+                        the customer every day — to gut check the vision against real objections,
+                        deal blockers, and the value props that actually move business.
+                    </p>
+                    <p className="arrive-cs-block-text">
+                        <strong>#3 Sales Leadership Workshop:</strong> Aligned sales leaders on
+                        priorities and trade-offs, securing buy-in on the direction and the success
+                        criteria the org would be measured against.
                     </p>
                 </div>
             </section>
-        </div>
 
-        {/* MVP testing showcase — full-bleed; lives outside the case-study
-            column so its max-width / overflow clipping don't apply */}
-        <MvpShowcase />
-
-        <div className="case-study-page arrive-cs">
             {/* Solution */}
             <section id="solution" className="arrive-cs-block arrive-cs-outcomes">
                 <h2 className="arrive-cs-block-label">Solution</h2>
@@ -213,6 +240,9 @@ export default function ArrivePage() {
                             className="arrive-cs-block-figure-img"
                         />
                     </div>
+
+                    {/* Internal reactions when the B2B vision was shared */}
+                    <VisionReactions />
                 </div>
             </section>
 
