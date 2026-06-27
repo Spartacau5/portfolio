@@ -13,7 +13,7 @@ import { ZiZoomImage } from './ZiZoomImage';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
-    { id: 'background', label: 'Background' },
+    { id: 'background', label: 'Problem' },
     { id: 'problem', label: 'Opportunity' },
     {
         id: 'strategy',
@@ -85,7 +85,7 @@ export default function ZoominfoPage() {
 
             {/* Background */}
             <section id="background" className="arrive-cs-block arrive-cs-block--no-divider">
-                <h2 className="arrive-cs-block-label">Background</h2>
+                <h2 className="arrive-cs-block-label">Problem</h2>
                 <div className="arrive-cs-block-body">
                     <p className="arrive-cs-block-text">
                         After years of constant updates, ZoomInfo&apos;s homepage tried to show
