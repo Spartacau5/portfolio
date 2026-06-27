@@ -2841,6 +2841,8 @@ html.arrive-immersive .cs-side-nav {
 
 /* Smooth-scroll targets land below the fixed global header. */
 .arrive-cs-block,
+.arrive-cs-accordion-item,
+.vw-step-block,
 .zi-design-header,
 .zi-insight,
 .zi-sol-subhead,
@@ -3869,6 +3871,16 @@ html.arrive-immersive .cs-side-nav {
     line-height: 1.55;
 }
 
+/* Full-width meta row (e.g. My role) sits under the four-column strip and
+   flows across the whole strip rather than wrapping early. */
+.arrive-cs-info-block--wide {
+    grid-column: 1 / -1;
+}
+.arrive-cs-info-block--wide .arrive-cs-info-value {
+    max-width: none;
+    color: #374151;
+}
+
 /* No divider between the intro and the first content block. */
 .arrive-cs-intro + .arrive-cs-block {
     border-top: none;
@@ -4073,6 +4085,12 @@ html.arrive-immersive .cs-side-nav {
     text-align: left;
 }
 
+/* The Process accordion already carries its own bottom padding, so trim the
+   section's so the gap to the Solution divider isn't doubled up. */
+#process {
+    padding-bottom: 1.25rem;
+}
+
 /* Same spacing, but no divider line above (e.g. the first block). */
 .arrive-cs-block--no-divider {
     border-top: none;
@@ -4113,20 +4131,156 @@ html.arrive-immersive .cs-side-nav {
     margin: 0;
 }
 
+/* Collapsible Process sub-sections */
+.arrive-cs-accordion {
+    gap: 0;
+    max-width: 660px;
+}
+
+.arrive-cs-accordion-item {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.arrive-cs-accordion-item:last-child {
+    border-bottom: none;
+}
+
+.arrive-cs-accordion-item:first-child .arrive-cs-accordion-summary {
+    padding-top: 0;
+}
+
+.arrive-cs-accordion-summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1.05rem 0.25rem;
+    user-select: none;
+    /* button reset */
+    width: 100%;
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+}
+
+.arrive-cs-accordion-summary::-webkit-details-marker {
+    display: none;
+}
+
+.arrive-cs-accordion-num {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #111;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrive-cs-accordion-title {
+    flex: 1 1 auto;
+    font-size: 17px;
+    font-weight: 600;
+    color: #111;
+    letter-spacing: -0.01em;
+}
+
+.arrive-cs-accordion-icon {
+    flex: 0 0 auto;
+    width: 11px;
+    height: 11px;
+    border-right: 2px solid #6b7280;
+    border-bottom: 2px solid #6b7280;
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+    margin-right: 0.4rem;
+}
+
+.arrive-cs-accordion-item.is-open .arrive-cs-accordion-icon {
+    transform: rotate(-135deg);
+}
+
+/* Animated panel — max-height is driven in JS so it can settle to `none` /
+   `overflow: visible` once open (inner figures break out horizontally). */
+.arrive-cs-accordion-panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.arrive-cs-accordion-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.15rem;
+    padding: 0.1rem 0.25rem 1.45rem;
+}
+
 .arrive-cs-block-text strong {
     font-weight: 600;
     color: #111;
 }
 
-.arrive-cs-block-text a {
+.arrive-cs-block-list {
+    margin: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1f2937;
+}
+/* Flex layout drops the default list markers — restore bullets manually. */
+.arrive-cs-block-list li {
+    position: relative;
+    padding-left: 1.1rem;
+}
+.arrive-cs-block-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: currentColor;
+    opacity: 0.55;
+}
+
+/* Plain anchors fall back to a simple underline; content-links keep their own
+   (hover-animated underline + arrow) treatment and must not be overridden. */
+.arrive-cs-block-text a:not(.content-link) {
     color: inherit;
     text-decoration: underline;
     text-underline-offset: 2px;
     transition: opacity 0.15s ease;
 }
 
-.arrive-cs-block-text a:hover {
+.arrive-cs-block-text a:not(.content-link):hover {
     opacity: 0.7;
+}
+
+/* Button that opens the media preview — reset its chrome so the shared
+   .content-link styling (animated underline + arrow) renders identically to a
+   real text link. */
+.arrive-cs-inline-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    /* Inherit type metrics but NOT weight — let .content-link supply weight 500
+       so it matches the other text links. */
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    cursor: pointer;
 }
 
 .arrive-cs-block-stat {
@@ -4205,6 +4359,58 @@ button.arrive-cs-block-source {
     width: 100%;
     height: auto;
     display: block;
+}
+
+/* Initial-concept flow — four looping zone videos, one per row. */
+.arrive-cs-flow-videos {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.arrive-cs-flow-video {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+.arrive-cs-flow-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid #ececf1;
+    background: #000;
+}
+.arrive-cs-flow-video figcaption {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #111;
+    text-align: center;
+}
+
+/* Inline Figma embed — full vision frame viewers can scroll/zoom within. */
+.arrive-cs-figma {
+    overflow: visible;
+}
+
+.arrive-cs-figma-frame {
+    width: 100%;
+    height: 70vh;
+    min-height: 460px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    background: #f5f5f5;
+    display: block;
+}
+
+.arrive-cs-pdf-caption {
+    margin: 0.55rem 0 0;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--muted, #666);
 }
 
 /* Caption sits under the figure and matches its left offset / width so the
@@ -4937,7 +5143,7 @@ button.arrive-cs-block-source {
        label column (150px) + grid gap (3rem) are reclaimed on the left, plus a
        little extra breathing room on each side. */
     width: calc(100% + 150px + 3rem + 160px);
-    margin: 0 0 0 calc(-150px - 3rem - 80px);
+    margin: 0 0 2.25rem calc(-150px - 3rem - 80px);
 }
 
 /* Keep the surrounding prose readable even though the figure itself is wider. */
@@ -5072,15 +5278,29 @@ button.arrive-cs-block-source {
     fill: #6366f1;
 }
 .sig-node-box {
-    fill: #0b0b0c;
-    transition: fill 0.4s ease;
+    fill: url(#sigNodeGrad);
+    stroke: rgba(255, 255, 255, 0.1);
+    stroke-width: 1;
+    transition: stroke 0.4s ease;
 }
 .sig-node.is-full .sig-node-box {
-    fill: #131318;
+    stroke: rgba(165, 171, 236, 0.45);
+}
+.sig-node-sheen {
+    stroke: rgba(255, 255, 255, 0.14);
+    stroke-width: 1;
+    stroke-linecap: round;
+}
+.sig-node-eyebrow {
+    text-anchor: middle;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    fill: #9499e8;
 }
 .sig-node-title {
     text-anchor: middle;
-    font-size: 17px;
+    font-size: 19px;
     font-weight: 700;
     letter-spacing: -0.01em;
     fill: #ffffff;
@@ -5284,5 +5504,945 @@ button.arrive-cs-block-source {
     }
     .vr-mark {
         display: none;
+    }
+}
+
+/* ================================================================
+   Sales Workshop (#4) — what we did, told in the site's own voice
+   ================================================================ */
+.sw {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    --p: #6d2496;
+    --ink: #0b0b0c;
+    --muted: #6b7280;
+    --faint: #9ca3af;
+    --line: #ececf1;
+}
+
+/* Eyebrow shared with activities — matches the diagram group labels */
+.sw-hmw-eyebrow,
+.sw-act-num,
+.sw-backlog-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--faint);
+}
+
+/* Framing question — Georgia italic with the brand purple→ink fade, the same
+   treatment as the case-study stat lines. */
+.sw-hmw {
+    margin: 0;
+    padding: 0;
+}
+.sw-hmw-eyebrow {
+    display: block;
+    margin-bottom: 0.6rem;
+}
+.sw-hmw-q {
+    margin: 0;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    font-size: clamp(19px, 2.6vw, 26px);
+    line-height: 1.32;
+    color: #6d2496;
+    background: linear-gradient(to bottom right, #6d2496 0%, #000000 45%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.sw-lead {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #1f2937;
+}
+
+/* Three reaction lenses — neutral chips with a small brand dot */
+.sw-lenses {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+}
+.sw-lenses li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    font-size: 13px;
+    color: #4b5563;
+    background: #f4f4f6;
+    border: 1px solid #e6e7ee;
+    border-radius: 999px;
+    padding: 0.4rem 0.9rem 0.4rem 0.75rem;
+}
+.sw-lenses li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--p);
+}
+
+/* Activity blocks */
+.sw-act {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--line);
+}
+/* First activity follows the intro/framing content — no divider above it */
+.sw-act:first-of-type {
+    border-top: none;
+}
+.sw-act-head {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+.sw-act-num {
+    color: var(--p);
+}
+.sw-act-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+}
+.sw-act-desc {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #374151;
+}
+.sw-act-desc em {
+    font-style: italic;
+    color: #111;
+}
+
+/* Activity 1 — many criteria distilled to three (top → bottom) */
+.sw-converge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 1.6rem 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fafafb;
+}
+.sw-stickies {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    width: 168px;
+}
+.sw-sticky {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    background: #f1ecf4;
+    box-shadow: inset 0 0 0 1px rgba(109, 36, 150, 0.06);
+    animation: swStickyPulse 4.5s ease-in-out infinite;
+}
+/* Staggered so a handful read "dark" at any moment, like notes filling in. */
+.sw-sticky:nth-child(1) { animation-delay: 0s; }
+.sw-sticky:nth-child(2) { animation-delay: 1.6s; }
+.sw-sticky:nth-child(3) { animation-delay: 0.8s; }
+.sw-sticky:nth-child(4) { animation-delay: 2.9s; }
+.sw-sticky:nth-child(5) { animation-delay: 2.1s; }
+.sw-sticky:nth-child(6) { animation-delay: 0.4s; }
+.sw-sticky:nth-child(7) { animation-delay: 3.4s; }
+.sw-sticky:nth-child(8) { animation-delay: 1.2s; }
+.sw-sticky:nth-child(9) { animation-delay: 2.5s; }
+.sw-sticky:nth-child(10) { animation-delay: 0.6s; }
+.sw-sticky:nth-child(11) { animation-delay: 3.1s; }
+.sw-sticky:nth-child(12) { animation-delay: 1.9s; }
+
+@keyframes swStickyPulse {
+    0%, 100% { background: #f1ecf4; }   /* lightest */
+    22% { background: #a878c4; }         /* ramp to a darker shade */
+    55% { background: #a878c4; }         /* hold there for a beat */
+    78% { background: #f1ecf4; }         /* settle back to lightest */
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sw-sticky {
+        animation: none;
+    }
+    .sw-sticky:nth-child(3n + 1) { background: #e6dbee; }
+    .sw-sticky:nth-child(4n) { background: #d8c7e4; }
+}
+
+.sw-converge-arrow {
+    display: flex;
+    justify-content: center;
+}
+.sw-converge-arrow span {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+    position: relative;
+    padding: 1.4rem 0;
+}
+.sw-converge-arrow span::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 0.9rem;
+    background: #d6d3da;
+}
+.sw-converge-arrow span::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 6px solid #d6d3da;
+}
+
+.sw-top3 {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0.7rem;
+    width: 100%;
+}
+/* Figma-style sticky notes: flat lavender square, soft drop shadow, dark text
+   pinned top-left, barely-there corner radius. */
+.sw-top3-card {
+    flex: 1 1 0;
+    display: flex;
+    align-items: flex-start;
+    padding: 1.3rem 1.35rem 1.5rem;
+    min-height: 168px;
+    background: #cbb4ee;
+    border: none;
+    border-radius: 3px;
+    box-shadow:
+        0 1px 1px rgba(60, 22, 90, 0.10),
+        0 10px 22px rgba(60, 22, 90, 0.16),
+        0 24px 36px rgba(60, 22, 90, 0.08);
+}
+.sw-top3-title {
+    margin: 0 0 0.55rem;
+    font-size: 16px;
+    font-weight: 700;
+    color: #2c2336;
+    line-height: 1.3;
+}
+.sw-top3-body {
+    margin: 0;
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: #5d5470;
+}
+
+/* Activity 2 — backlog flies from a pile into the priority pyramid */
+.sw-backlog-label {
+    display: block;
+    margin-bottom: 0.8rem;
+}
+
+.fp {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    /* Reclaim the block's label gutter on the left so the stage breathes. */
+    width: calc(100% + 80px);
+    margin-left: -80px;
+}
+
+.fp-stage {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1000 / 940;
+    background: var(--ink);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.fp-pyramid {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+.fp-pyramid-outline {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.22);
+    stroke-width: 1.25;
+    vector-effect: non-scaling-stroke;
+}
+.fp-pyramid-div {
+    stroke: rgba(255, 255, 255, 0.12);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+}
+
+.fp-tier-label {
+    position: absolute;
+    left: 50%;
+    /* bottom-aligned to its top% so the text sits just above the divider line */
+    transform: translate(-50%, calc(-100% - 6px));
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.fp-card {
+    position: absolute;
+    left: var(--bx);
+    top: var(--by);
+    transform: translate(-50%, -50%) rotate(var(--r));
+    width: clamp(104px, 16%, 158px);
+    padding: 8px 10px;
+    background: #fff;
+    border-radius: 7px;
+    border-left: 3px solid var(--accent);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    transition:
+        left 0.85s cubic-bezier(0.22, 0.61, 0.36, 1),
+        top 0.85s cubic-bezier(0.22, 0.61, 0.36, 1),
+        transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition-delay: var(--d);
+    will-change: left, top, transform;
+}
+.fp-stage.is-sorted .fp-card {
+    left: var(--sx);
+    top: var(--sy);
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+.fp-card-title {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 600;
+    line-height: 1.25;
+    color: #111;
+    letter-spacing: -0.01em;
+}
+
+.fp-replay {
+    align-self: flex-end;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 12.5px;
+    color: var(--muted);
+    transition: color 0.15s ease;
+}
+.fp-replay:hover {
+    color: var(--p);
+}
+.fp-replay svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* Activity 3 — three feedback lenses, as clean editorial cards */
+.sw-feedback {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+.sw-fb {
+    --fb: #5b6470;
+    --fb-soft: #eef0f2;
+    display: flex;
+    flex-direction: column;
+    padding: 1.4rem 1.3rem;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+}
+.sw-fb--valuable { --fb: #6d2496; --fb-soft: #f3ebf8; }
+.sw-fb--concerning { --fb: #a9762d; --fb-soft: #f7efe2; }
+.sw-fb--missing { --fb: #5b6470; --fb-soft: #eef0f2; }
+
+.sw-fb-head {
+    display: flex;
+    align-items: center;
+}
+.sw-fb-label {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 650;
+    color: var(--fb);
+    letter-spacing: -0.01em;
+}
+.sw-fb-hint {
+    margin: 0.7rem 0 0;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--faint);
+}
+.sw-fb-list {
+    list-style: none;
+    margin: 1rem 0 0;
+    padding: 0;
+}
+.sw-fb-list li {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #374151;
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--line);
+}
+.sw-fb-list li:first-child {
+    padding-top: 0;
+    border-top: none;
+}
+.sw-fb-list li:last-child {
+    padding-bottom: 0;
+}
+
+@media (max-width: 720px) {
+    .sw-top3 {
+        flex-direction: column;
+    }
+    .fp {
+        width: 100%;
+        margin-left: 0;
+    }
+    .fp-stage {
+        aspect-ratio: 4 / 5;
+    }
+    .fp-card {
+        width: clamp(92px, 28%, 130px);
+    }
+    .fp-card-title {
+        font-size: 10.5px;
+    }
+    .sw-feedback {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================================================
+   #5 — Sales Leadership: criteria carryover, board toggle, debates
+   ================================================================ */
+
+/* Activity 1 — inherited criteria + the two leadership added */
+.lp-criteria {
+    display: grid;
+    grid-template-columns: 1fr auto 1.15fr;
+    gap: 1.1rem;
+    align-items: start;
+    padding: 1.4rem;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fafafb;
+}
+.lp-crit-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+}
+.lp-crit-tag {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--faint);
+}
+.lp-crit-tag--new {
+    color: var(--p);
+}
+.lp-crit-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+/* Both columns render as Post-it stickies — green for what Sales carried over,
+   yellow for what leadership added — echoing the FigJam workshop board. */
+.lp-crit {
+    border-radius: 2px;
+    padding: 0.85rem 0.9rem;
+    font-size: 13px;
+    line-height: 1.45;
+    border: none;
+    box-shadow: 0 7px 16px -6px rgba(17, 17, 17, 0.28);
+}
+.lp-crit--kept {
+    background: #2fe3a3;
+    color: #0f3a2b;
+    font-weight: 500;
+}
+.lp-crit--kept:nth-child(odd) { transform: rotate(-1.2deg); }
+.lp-crit--kept:nth-child(even) { transform: rotate(1deg); }
+.lp-crit--new {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: #ffe600;
+    color: #4a4200;
+    --tilt: 0deg;
+    /* hidden until scrolled into view */
+    opacity: 0;
+    transform: translateY(14px) rotate(var(--tilt));
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.lp-crit--new:nth-child(1) { --tilt: -1.5deg; }
+.lp-crit--new:nth-child(2) { --tilt: 1.4deg; }
+.lp-crit-list.is-revealed .lp-crit--new {
+    opacity: 1;
+    transform: rotate(var(--tilt));
+}
+.lp-crit-badge {
+    align-self: flex-start;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #4a4200;
+    background: rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    padding: 1px 6px;
+}
+.lp-crit-title {
+    font-weight: 700;
+    color: #2a2500;
+    font-size: 13.5px;
+}
+.lp-crit-body {
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: #6b5e08;
+}
+.lp-crit-plus {
+    align-self: center;
+    font-size: 22px;
+    color: #c4b1d6;
+}
+
+/* Activity 2 — board toggle, taller square stage, the "not needed" tray */
+.fp-toggle {
+    align-self: flex-start;
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    background: #f1eef5;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+}
+.fp-toggle button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 12.5px;
+    color: var(--muted);
+    padding: 6px 15px;
+    border-radius: 999px;
+    transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+}
+.fp-toggle button.is-on {
+    background: #fff;
+    color: #111;
+    font-weight: 600;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.fp-stage--tall {
+    aspect-ratio: 1 / 1;
+}
+
+.lp-tier-label {
+    position: absolute;
+    right: 16px;
+    transform: translateY(-50%);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.38);
+    pointer-events: none;
+}
+
+.lp-tray {
+    position: absolute;
+    left: 16%;
+    right: 16%;
+    top: 75%;
+    bottom: 5%;
+    border: 1.5px dashed rgba(255, 255, 255, 0.16);
+    border-radius: 14px;
+    transition: border-color 0.4s ease, background 0.4s ease;
+}
+.lp-tray.is-active {
+    border-color: rgba(154, 160, 168, 0.5);
+    background: rgba(255, 255, 255, 0.02);
+}
+.lp-tray-label {
+    position: absolute;
+    left: 50%;
+    top: 73.5%;
+    transform: translate(-50%, -100%);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.fp-card-tag {
+    display: block;
+    margin-top: 3px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+.lp-card.is-up {
+    box-shadow: 0 0 0 2px #6d2496, 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+.lp-card.is-up .fp-card-tag {
+    color: #6d2496;
+}
+.lp-card.is-down,
+.lp-card.is-tray {
+    box-shadow: 0 0 0 1px rgba(154, 160, 168, 0.7), 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+.lp-card.is-down .fp-card-title,
+.lp-card.is-tray .fp-card-title {
+    color: #6b7280;
+}
+.lp-card.is-down .fp-card-tag,
+.lp-card.is-tray .fp-card-tag {
+    color: #9aa0a8;
+}
+
+.fp-caption {
+    margin: 0;
+    font-size: 12.5px;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* The two contention debates */
+.lp-contention {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+.lp-deb {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1.2rem;
+    background: #fff;
+    border-top: 2px solid var(--dir);
+}
+.lp-deb--up {
+    --dir: #6d2496;
+}
+.lp-deb--down {
+    --dir: #8a8f9a;
+}
+.lp-deb-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+}
+.lp-deb-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: #111;
+}
+.lp-deb-move {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--dir);
+    white-space: nowrap;
+}
+.lp-deb-arrow {
+    width: 0;
+    height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+}
+.lp-deb--up .lp-deb-arrow {
+    border-bottom: 6px solid var(--dir);
+}
+.lp-deb--down .lp-deb-arrow {
+    border-top: 6px solid var(--dir);
+}
+.lp-deb-sides {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.9rem;
+}
+.lp-deb-side {
+    display: flex;
+    gap: 0.65rem;
+    align-items: baseline;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    background: #fafafb;
+    border: 1px solid var(--line);
+    font-size: 12.5px;
+}
+.lp-deb-region {
+    flex: 0 0 auto;
+    min-width: 58px;
+    font-weight: 700;
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.lp-deb-side--for .lp-deb-region {
+    color: #6d2496;
+}
+.lp-deb-side--against .lp-deb-region {
+    color: #8a8f9a;
+}
+.lp-deb-stance {
+    color: #374151;
+    line-height: 1.4;
+}
+.lp-deb-resolution {
+    margin: 0;
+    padding-top: 0.85rem;
+    border-top: 1px dashed var(--line);
+    font-size: 13px;
+    line-height: 1.55;
+    color: #374151;
+}
+
+@media (max-width: 720px) {
+    .lp-criteria {
+        grid-template-columns: 1fr;
+    }
+    .lp-crit-plus {
+        padding: 0.2rem 0;
+    }
+    .lp-contention {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================================================================
+   #6 — Synthesis: overlap matrix, resolutions, per-flow board
+   ================================================================ */
+
+/* Overlap matrix — themes × the three workshops */
+.syn-overlap {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+}
+.syn-ov-row {
+    display: grid;
+    grid-template-columns: 1fr repeat(3, 84px);
+    align-items: center;
+    padding: 0 1rem;
+    border-top: 1px solid var(--line);
+}
+.syn-ov-row:first-child {
+    border-top: none;
+}
+.syn-ov-row--head {
+    background: #fafafb;
+}
+.syn-ov-theme {
+    padding: 0.7rem 0;
+    font-size: 13.5px;
+    color: #374151;
+    line-height: 1.35;
+}
+.syn-ov-row--head .syn-ov-theme {
+    min-height: 0;
+}
+.syn-ov-ws {
+    text-align: center;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--faint);
+    padding: 0.6rem 0;
+}
+.syn-ov-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.syn-ov-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: inset 0 0 0 1.5px #d9d3e0;
+}
+.syn-ov-dot.is-on {
+    background: var(--p);
+    box-shadow: 0 0 0 4px rgba(109, 36, 150, 0.10);
+}
+
+/* The flow board — light panel, pill toggle, execution cards */
+.syn-board {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.4rem;
+    border-radius: 16px;
+    border: 1px solid var(--line);
+    background: #fafafb;
+}
+.syn-toggle {
+    margin-bottom: 0.2rem;
+}
+.syn-col-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--faint);
+}
+
+.syn-exec-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.7rem;
+}
+.syn-exec-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1rem 1.05rem;
+}
+.syn-exec-head {
+    margin: 0 0 0.6rem;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+.syn-exec-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.syn-exec-list li {
+    position: relative;
+    padding-left: 0.85rem;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: #374151;
+}
+.syn-exec-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--p);
+    opacity: 0.55;
+}
+
+/* Closing — circulated company-wide */
+.syn-circulate {
+    padding: 1.5rem 1.6rem;
+    border-radius: 16px;
+    background: #f4f4f6;
+    border: 1px solid var(--line);
+}
+.syn-circulate-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--p);
+    margin-bottom: 0.7rem;
+}
+.syn-circulate-body {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #374151;
+}
+.syn-circulate-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 1.1rem;
+    padding: 0.5rem 0.9rem;
+    border-radius: 9px;
+    background: var(--p);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.18s ease;
+}
+.syn-circulate-download:hover {
+    background: #58157d;
+}
+.syn-circulate-download svg {
+    width: 14px;
+    height: 14px;
+}
+
+@media (max-width: 720px) {
+    .syn-board {
+        width: 100%;
+        margin-left: 0;
+    }
+    .syn-exec-grid {
+        grid-template-columns: 1fr;
+    }
+    .syn-ov-row {
+        grid-template-columns: 1fr repeat(3, 56px);
     }
 }

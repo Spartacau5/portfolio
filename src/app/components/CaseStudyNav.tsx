@@ -29,10 +29,14 @@ export function CaseStudyNav({
     items,
     backHref = '/',
     className = '',
+    onSelect,
 }: {
     items: CaseStudyNavItem[];
     backHref?: string;
     className?: string;
+    /** Fires with the target id on any nav click — lets the page react (e.g.
+     *  expand a collapsed accordion step) before/while it scrolls into view. */
+    onSelect?: (id: string) => void;
 }) {
     const [active, setActive] = useState(items[0]?.id ?? '');
     const rafRef = useRef(0);
@@ -74,7 +78,12 @@ export function CaseStudyNav({
     }, [items]);
 
     const handleClick = (id: string) => {
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        onSelect?.(id);
+        // Let any layout change from onSelect (e.g. expanding an accordion) settle
+        // before measuring the scroll target.
+        requestAnimationFrame(() => {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
     };
 
     return (

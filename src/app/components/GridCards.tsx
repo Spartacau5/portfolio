@@ -161,14 +161,14 @@ export function GridCards() {
           </div>
           <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex flex-col transition-opacity duration-300">
           <div>
-            <h2 className="text-[0.85rem] lg:text-[1.25rem] font-bold text-gray-900 inline leading-relaxed">Arpit Singh Ahluwalia</h2>
-            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – I&apos;m a product designer who <em>engineers</em>.</span>
+            <h2 className="text-[0.85rem] lg:text-[1.25rem] font-bold text-gray-900 inline leading-relaxed">Arpit Ahluwalia</h2>
+            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – Designer, Engineer, Strategist</span>
           </div>
 
           <hr className="my-4 border-gray-200" />
 
           <div className="space-y-4 text-gray-500 text-[0.75rem] lg:text-base leading-relaxed">
-            <p>I&apos;ve led the end-to-end design journey for 5+ years, shipping enterprise software and delivering delight to thousands of users.</p>
+            <p>For 5+ years, I&apos;ve helped startups and enterprise teams turn complexity into intuitive products used by millions — blending user research, product strategy, and engineering to ship software people love.</p>
 
             <p>Recently, I co-founded an{' '}
               <a href="https://www.tashvi.ai" target="_blank" rel="noopener noreferrer" className="bio-link">
@@ -177,25 +177,17 @@ export function GridCards() {
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>{' '}
-              (now upto 11,000+ users), leading design and engineering for gen-AI workflows.</p>
+              (11,000+ users), leading design and engineering for gen-AI workflows.</p>
 
-            <p>I hold an M.S. in Strategic Design &amp; Management from{' '}
-              <a href="https://www.newschool.edu/parsons/" target="_blank" rel="noopener noreferrer" className="bio-link">
-                Parsons
+            <p>I&apos;ve also led UX research and product strategy for a{' '}
+              <Link href="/work/arrive" className="bio-link">
+                $1B+ global mobility brand
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </a>{' '}
-              and a B.S. in User Experience &amp; Interaction Design from{' '}
-              <a href="https://drexel.edu/" target="_blank" rel="noopener noreferrer" className="bio-link">
-                Drexel
-                <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>.
-            </p>
+              </Link>, turning customer insights into clear roadmaps.</p>
 
-            <p>Outside of work, I mentor at{' '}
+            <p>Outside of work, I mentor designers at{' '}
               <a href="https://growth.aigany.org/amp/" target="_blank" rel="noopener noreferrer" className="bio-link">
                 AIGA NY
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -213,7 +205,7 @@ export function GridCards() {
                 <svg className="bio-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
-              </a>. Currently, looking for new roles!
+              </a>. <em>Currently, looking for new roles!</em>
             </p>
           </div>
           </div>
@@ -274,7 +266,7 @@ export function GridCards() {
             </div>
             {/* Glassy category tags, top-right */}
             <div className="card-tags">
-              <span className="card-tag">UX Research</span>
+              <span className="card-tag">Research &amp; Strategy</span>
             </div>
             {/* Description revealed at the bottom on hover */}
             <p className="project-hover-text">{cardDescriptions.arrive.subtitle}</p>
@@ -300,7 +292,7 @@ export function GridCards() {
             <FleetLogoLoop />
             {/* Glassy category tag, top-right (frosted variant, matching Tashvi) */}
             <div className="card-tags">
-              <span className="card-tag card-tag--dark">UX Research</span>
+              <span className="card-tag card-tag--dark">UX/UI Design</span>
             </div>
             {/* Description revealed at the bottom on hover */}
             <p className="project-hover-text">{cardDescriptions['fleet-management'].subtitle}</p>

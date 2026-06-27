@@ -7,6 +7,7 @@ import { useEffect, useRef } from 'react';
 const STEPS = [
     {
         n: 1,
+        id: 'solution-browse',
         label: 'Browse',
         src: '/images/arrive-vision1.mp4',
         start: 8,
@@ -18,6 +19,7 @@ const STEPS = [
     },
     {
         n: 2,
+        id: 'solution-onboard',
         label: 'Onboard',
         src: '/images/arrive-vision2.mp4',
         start: 7,
@@ -29,6 +31,7 @@ const STEPS = [
     },
     {
         n: 3,
+        id: 'solution-configure',
         label: 'Configuration',
         src: '/images/arrive-vision3.mp4',
         start: 9,
@@ -39,6 +42,7 @@ const STEPS = [
     },
     {
         n: 4,
+        id: 'solution-analyze',
         label: 'Analyze',
         src: '/images/arrive-vision4.mp4',
         start: 14,
@@ -170,7 +174,7 @@ export function VisionWalkthrough() {
     return (
         <section className="vw" ref={rootRef}>
             {STEPS.map((step) => (
-                <div className="vw-step-block" key={step.n}>
+                <div className="vw-step-block" id={step.id} key={step.n}>
                     <h3 className="vw-step-heading">
                         {step.n}. {step.label}
                     </h3>

@@ -2,11 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 
-// Two kinds of truth converge into one strategy. The left column carries the
-// signal sources (external = the people who park, internal = the people who
-// sell it); each one periodically fires a pulse that travels along its
-// connector into the central node, which charges up as signals land — then the
-// whole thing resets and loops.
+// Two kinds of truth converge into one strategy. The two columns up top carry
+// the signal sources side by side (external = the people who park, internal =
+// the people who sell it); each one periodically fires a pulse that travels
+// down its connector into the centered node at the bottom, which charges up as
+// signals land — then the whole thing resets and loops.
 
 type Group = 'external' | 'internal';
 
@@ -22,25 +22,27 @@ interface Source {
 const CHIP_H = 40;
 
 const SOURCES: Source[] = [
-    { id: 'drivers', label: 'Drivers · the core persona', group: 'external', x: 60, y: 86, w: 236 },
-    { id: 'dispatch', label: 'Dispatchers & fleet managers', group: 'external', x: 60, y: 142, w: 276 },
-    { id: 'admins', label: 'B2B admins · expense & optimization', group: 'external', x: 60, y: 198, w: 322 },
-    { id: 'product', label: 'Product', group: 'internal', x: 60, y: 312, w: 110 },
-    { id: 'sales', label: 'Sales', group: 'internal', x: 182, y: 312, w: 92 },
-    { id: 'marketing', label: 'Marketing', group: 'internal', x: 286, y: 312, w: 128 },
+    // External column (left)
+    { id: 'drivers', label: 'Drivers · the core persona', group: 'external', x: 70, y: 70, w: 236 },
+    { id: 'dispatch', label: 'Dispatchers & fleet managers', group: 'external', x: 70, y: 126, w: 276 },
+    { id: 'admins', label: 'B2B admins · expense & optimization', group: 'external', x: 70, y: 182, w: 322 },
+    // Internal column (right)
+    { id: 'product', label: 'Product', group: 'internal', x: 610, y: 70, w: 120 },
+    { id: 'sales', label: 'Sales', group: 'internal', x: 610, y: 126, w: 120 },
+    { id: 'marketing', label: 'Marketing', group: 'internal', x: 610, y: 182, w: 120 },
 ];
 
-// Node anchor (left-center of the dark card) every connector converges to.
-const TARGET = { x: 700, y: 230 };
+// Node anchor (top-center of the dark card) every connector converges down to.
+const TARGET = { x: 500, y: 330 };
 
 function anchorOf(s: Source) {
-    return { x: s.x + s.w, y: s.y + CHIP_H / 2 };
+    return { x: s.x + s.w / 2, y: s.y + CHIP_H };
 }
 
 function pathOf(s: Source) {
     const a = anchorOf(s);
-    const dx = TARGET.x - a.x;
-    return `M ${a.x} ${a.y} C ${a.x + dx * 0.5} ${a.y}, ${TARGET.x - dx * 0.5} ${TARGET.y}, ${TARGET.x} ${TARGET.y}`;
+    const dy = TARGET.y - a.y;
+    return `M ${a.x} ${a.y} C ${a.x} ${a.y + dy * 0.45}, ${TARGET.x} ${TARGET.y - dy * 0.45}, ${TARGET.x} ${TARGET.y}`;
 }
 
 // Timing (ms) for one loop of the synthesis.
@@ -163,16 +165,20 @@ export function SignalSynthesis() {
     return (
         <div className="sig" ref={rootRef}>
             <div className="sig-stage">
-                <svg className="sig-svg" viewBox="0 0 1000 420" role="img" aria-label="Diagram: external and internal signals converging into a cohesive 2-year B2B roadmap">
+                <svg className="sig-svg" viewBox="0 0 1000 480" role="img" aria-label="Diagram: external and internal signals converging into a cohesive 2-year B2B roadmap">
                     <defs>
                         <filter id="sigGlow" x="-50%" y="-50%" width="200%" height="200%">
                             <feGaussianBlur stdDeviation="14" />
                         </filter>
+                        <linearGradient id="sigNodeGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stopColor="#23232c" />
+                            <stop offset="1" stopColor="#0a0a0c" />
+                        </linearGradient>
                     </defs>
 
                     {/* Column labels */}
-                    <text className="sig-grouplabel" x="60" y="66">EXTERNAL — THE PEOPLE WHO PARK</text>
-                    <text className="sig-grouplabel" x="60" y="292">INTERNAL — THE PEOPLE WHO SELL IT</text>
+                    <text className="sig-grouplabel" x="70" y="50">EXTERNAL — THE PEOPLE WHO PARK</text>
+                    <text className="sig-grouplabel" x="610" y="50">INTERNAL — THE PEOPLE WHO SELL IT</text>
 
                     {/* Connectors */}
                     <g className="sig-paths">
@@ -190,20 +196,23 @@ export function SignalSynthesis() {
                     <rect
                         ref={haloRef}
                         className="sig-node-halo"
-                        x="700"
-                        y="168"
-                        width="262"
-                        height="124"
-                        rx="18"
+                        x="346"
+                        y="328"
+                        width="308"
+                        height="136"
+                        rx="24"
                         filter="url(#sigGlow)"
                         style={{ opacity: 0.12 }}
                     />
 
                     {/* The converged-roadmap node */}
                     <g className="sig-node" ref={nodeRef}>
-                        <rect className="sig-node-box" x="700" y="170" width="260" height="120" rx="18" />
-                        <text className="sig-node-title" x="830" y="226">A cohesive 2-year</text>
-                        <text className="sig-node-title" x="830" y="250">B2B roadmap</text>
+                        <rect className="sig-node-box" x="350" y="330" width="300" height="132" rx="22" />
+                        {/* thin top highlight for depth */}
+                        <line className="sig-node-sheen" x1="372" y1="331.5" x2="628" y2="331.5" />
+                        <text className="sig-node-eyebrow" x="500" y="372">THE OUTCOME</text>
+                        <text className="sig-node-title" x="500" y="407">A cohesive 2-year</text>
+                        <text className="sig-node-title" x="500" y="432">B2B roadmap</text>
                     </g>
 
                     {/* Source chips */}
