@@ -162,7 +162,7 @@ export function GridCards() {
           <div className="bg-white rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-100 relative flex flex-col transition-opacity duration-300">
           <div>
             <h2 className="text-[0.85rem] lg:text-[1.25rem] font-bold text-gray-900 inline leading-relaxed">Arpit Ahluwalia</h2>
-            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – Designer, Engineer, Strategist</span>
+            <span className="text-[0.85rem] lg:text-[1.25rem] text-gray-400 leading-relaxed"> – Designing products from strategy to code.</span>
           </div>
 
           <hr className="my-4 border-gray-200" />
