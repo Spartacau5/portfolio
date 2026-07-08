@@ -439,17 +439,13 @@ export default function ZoominfoPage() {
 
 
             {/* Bottom Navigation */}
-            <div className="case-study-bottom-nav" style={{ marginTop: '4rem' }}>
-                <Link href="/" className="back-link">
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
-                    Back to Home
-                </Link>
+            <div className="case-study-bottom-nav">
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"
                 >
                     Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
                 </button>
             </div>
         </div>

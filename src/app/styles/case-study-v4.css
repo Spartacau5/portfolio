@@ -1,0 +1,797 @@
+/* ============================================================
+   V4 CASE STUDIES — align legacy + arrive-cs pages with Work /
+   More / About typography, tags, links, and squared UI
+   ============================================================ */
+
+/* ---- Base page shell (J&J, HYPEX, etc.) ---- */
+.case-study-page {
+  /* Drop Graphik from the fallback stack — old case-study.css sets it explicitly */
+  --font-sans: 'Geist', Arial, sans-serif;
+  --font-display: 'Neue Haas Grotesk', 'Geist', Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  max-width: 1780px;
+  margin: 0 auto;
+  padding: clamp(96px, 14vh, 120px) clamp(24px, 4vw, 64px) 0;
+  font-family: var(--font-sans);
+  color: #32404f;
+  overflow-x: hidden;
+}
+
+.case-study-page:not(.arrive-cs) > .h-24 {
+  display: none;
+}
+
+/* J&J, HYPEX, Microsoft… — narrower column, offset from fixed side nav */
+.case-study-page:not(.arrive-cs) {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1201px) {
+  .case-study-page:not(.arrive-cs) {
+    --cs-rail: 320px;
+    --cs-col: 900px;
+    max-width: var(--cs-col);
+    /* Center column in viewport while keeping clear of the fixed side nav */
+    margin-left: max(var(--cs-rail), calc(50vw - var(--cs-col) / 2));
+    margin-right: auto;
+  }
+}
+
+/* ---- Hero ---- */
+.case-study-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(34px, 5vw, 48px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: #111;
+  margin: 0 0 0.35rem;
+}
+
+.case-study-company {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: #8c8c8c;
+  margin: 0;
+}
+
+.case-study-hero .cs-tag,
+.arrive-cs-intro .cs-tag {
+  margin-top: 0.85rem;
+}
+
+.arrive-cs-intro .cs-tag {
+  display: inline-block;
+}
+
+.case-study-divider {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  margin: 1.25rem 0 2rem;
+}
+
+/* ---- Meta labels (MY ROLE, TIMELINE…) — match wg-tag / ab-intro-lead ---- */
+.case-study-page .meta-label,
+.arrive-cs-info-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #000;
+  margin-bottom: 0.35rem;
+}
+
+.case-study-page .meta-value,
+.arrive-cs-info-value {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: #32404f;
+  margin: 0;
+}
+
+/* ---- Shared tag pill (optional on heroes) ---- */
+.cs-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: #6f6f6f;
+  border: 1px solid #d7d7d7;
+  padding: 3px 8px;
+  line-height: 1.4;
+  border-radius: 0;
+  white-space: nowrap;
+}
+
+/* Eyebrow on Arrive reads as a tag */
+.arrive-cs-eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6f6f6f;
+  border: 1px solid #d7d7d7;
+  padding: 3px 8px;
+  line-height: 1.4;
+  margin: 0 0 1rem;
+}
+
+/* ---- Links — match About ab-link / content-link (no blue) ---- */
+.case-study-page .meta-link,
+.case-study-page .meta-value.link,
+.case-study-page .book-link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  display: inline;
+}
+
+.case-study-page .meta-link::after,
+.case-study-page .meta-value.link::after,
+.case-study-page .book-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.case-study-page .meta-link:hover::after,
+.case-study-page .meta-value.link:hover::after,
+.case-study-page .book-link:hover::after {
+  width: 100%;
+}
+
+.case-study-page .content-link {
+  color: inherit;
+  font-weight: 500;
+}
+
+.case-study-page .content-link::after {
+  background: currentColor;
+  transition: width 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.case-study-page .content-link-arrow {
+  width: 0.6em;
+  height: 0.6em;
+}
+
+/* ---- Body copy ---- */
+.case-study-page .description-text,
+.case-study-page .content-text,
+.case-study-page .content-lead,
+.arrive-cs-block-text,
+.arrive-cs-lead,
+.arrive-cs-text {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.65;
+  color: #7e8790;
+}
+
+.case-study-page .content-text strong,
+.arrive-cs-block-text strong {
+  color: #32404f;
+  font-weight: 600;
+}
+
+/* ---- Section headings ---- */
+.case-study-page .content-heading,
+.arrive-cs-heading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(24px, 3vw, 28px);
+  letter-spacing: -0.01em;
+  color: #333;
+  margin: 0 0 1rem;
+}
+
+.case-study-page .content-subheading {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #333;
+  font-size: 18px;
+}
+
+.case-study-page .content-subheading-large {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #333;
+  font-size: 20px;
+}
+
+/* Arrive / ZoomInfo block labels — display instead of italic serif */
+.arrive-cs-block-label {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+  font-size: clamp(22px, 2.5vw, 26px);
+  letter-spacing: -0.01em;
+  color: #333;
+}
+
+.arrive-cs-heading {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+}
+
+/* Gradient titles on arrive-cs intro (ZoomInfo, legacy arrive title) */
+.arrive-cs-title {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+}
+
+.arrive-cs-lead {
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: #8c8c8c;
+  line-height: 1.55;
+}
+
+/* ZoomInfo-style intro — title + lead centered (no arrive-cs-header block) */
+.arrive-cs-intro:not(:has(.arrive-cs-header)) {
+  text-align: center;
+}
+
+.arrive-cs-intro:not(:has(.arrive-cs-header)) .arrive-cs-lead {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---- CTAs — squared, mono ---- */
+.case-study-page .cta-button {
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.7rem 1.25rem;
+}
+
+.case-study-page .cta-button.primary {
+  background: #111;
+  color: #fff;
+  border: 1px solid #111;
+}
+
+.case-study-page .cta-button.primary:hover {
+  background: #333;
+  border-color: #333;
+}
+
+.case-study-page .cta-button.secondary {
+  background: transparent;
+  color: #111;
+  border: 1px solid #d7d7d7;
+}
+
+.case-study-page .cta-button.secondary:hover {
+  border-color: #111;
+  background: transparent;
+}
+
+/* ---- Side nav rail ---- */
+.cs-side-nav-back {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: #9b9b9b;
+}
+
+.cs-side-nav-back svg {
+  color: #111;
+}
+
+.cs-side-nav-item,
+.cs-side-nav-subitem {
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
+.cs-side-nav-item.is-active,
+.cs-side-nav-subitem.is-active {
+  color: #111;
+  font-weight: 500;
+}
+
+/* ---- Bottom nav ---- */
+.case-study-page .case-study-bottom-nav {
+  border-top: none;
+  margin-top: 2.5rem;
+  padding: 0 0 30px;
+  justify-content: flex-end;
+}
+
+/* Bottom-nav padding supplies the gap; don't double up with footer margin */
+body:has(.case-study-page) .site-footer {
+  margin-top: 0;
+}
+
+.case-study-page .back-link {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #9b9b9b;
+}
+
+.case-study-page .back-link:hover {
+  color: #111;
+}
+
+/* ---- Arrive / ZoomInfo layout container ---- */
+.arrive-cs.case-study-page {
+  --cs-w: 1100px;
+  max-width: 1780px;
+  padding-left: clamp(24px, 4vw, 64px);
+  padding-right: clamp(24px, 4vw, 64px);
+}
+
+.arrive-cs-block-body,
+.arrive-cs-accordion {
+  max-width: min(820px, 100%);
+}
+
+.arrive-cs-meta-item {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: #7e8790;
+}
+
+/* Accordion — squared step numbers */
+.arrive-cs-accordion-num {
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+.arrive-cs-accordion-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: #333;
+}
+
+.arrive-cs-accordion-item {
+  border-bottom-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Hero video card — squared */
+.arrive-cs-hero {
+  border-radius: 0;
+}
+
+/* ============================================================
+   TYPOGRAPHY SWEEP — replace Graphik / Georgia serif / italic
+   editorial styles with V4 display + sans + mono
+   ============================================================ */
+
+/* Base: everything inside case studies inherits sans unless overridden */
+.case-study-page,
+.arrive-cs {
+  font-family: var(--font-sans);
+}
+
+/* Mono eyebrows / section labels */
+.case-study-page :is(
+  .zi-design-header,
+  .zi-ref-cap,
+  .zi-dark-placeholder-label,
+  .sw-eyebrow,
+  .sw-hmw-eyebrow
+) {
+  font-family: var(--font-mono) !important;
+  font-style: normal !important;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6f6f6f;
+}
+
+.zi-design-header {
+  font-size: 11px;
+}
+
+/* Display section titles — no italic serif */
+.case-study-page :is(
+  .zi-insight-title,
+  .zi-future-header,
+  .zi-insight-heading,
+  .arrive-cs-method-title,
+  .improvement-title,
+  .audience-title,
+  .quote-category,
+  .method-label,
+  .project-card-title
+) {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #333;
+}
+
+.zi-insight-title {
+  font-size: clamp(24px, 2.8vw, 34px);
+  line-height: 1.15;
+  color: #111;
+}
+
+.zi-future-header {
+  font-size: clamp(22px, 2.4vw, 28px);
+}
+
+/* Stat / emphasis lines — display, keep brand gradients where set */
+.case-study-page :is(
+  .zi-block-stat,
+  .arrive-cs-block-stat,
+  .sw-hmw-q
+) {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+}
+
+/* Pull quotes — match About .ab-quote-body */
+.case-study-page :is(
+  .zi-quote-text,
+  .vr-text,
+  .quote-text,
+  .standalone-quote .quote-text,
+  .insight-quote-text
+) {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+  font-size: clamp(20px, 2vw, 26px);
+  line-height: 1.25;
+  letter-spacing: -0.012em;
+  color: #32404f;
+}
+
+.zi-quote-text {
+  color: #32404f;
+}
+
+/* Quote attribution — mono caps like About testimonials */
+.case-study-page :is(
+  .zi-quote-author,
+  .quote-attribution,
+  .vr-source
+) {
+  font-family: var(--font-mono) !important;
+  font-style: normal !important;
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #8c9099;
+}
+
+.case-study-page :is(.vr-name, .vr-role) {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+}
+
+.vr-name {
+  font-weight: 500;
+  color: #111;
+}
+
+.vr-role {
+  color: #8c9099;
+}
+
+.vr-mark {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  color: rgba(0, 0, 0, 0.06);
+}
+
+/* Body / UI copy — sans (override Graphik) */
+.case-study-page :is(
+  .zi-insight-body,
+  .zi-future-text,
+  .zi-future-item-title,
+  .zi-sol-subhead,
+  .arrive-cs-method-lead,
+  .arrive-cs-method-note,
+  .showcase-caption,
+  .image-caption,
+  .improvement-description,
+  .improvement-number,
+  .audience-description,
+  .opportunity-description,
+  .opportunity-quote,
+  .description-text,
+  .content-text,
+  .content-lead,
+  .meta-value,
+  .project-card-subtext,
+  .arrive-cs-media-label,
+  .arrive-cs-figure-caption,
+  .arrive-cs-pdf-caption,
+  .zi-anno-note,
+  .zi-anno-note-text,
+  .sw-lead,
+  .arrive-card-tagline
+) {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+}
+
+.case-study-page :is(
+  .showcase-caption,
+  .image-caption,
+  .arrive-cs-figure-caption,
+  .arrive-cs-pdf-caption,
+  .opportunity-quote
+) {
+  font-size: 13px;
+  color: #8c9099;
+}
+
+.case-study-page .content-text.italic {
+  font-style: normal !important;
+  color: #7e8790;
+}
+
+.zi-sol-subhead,
+.zi-future-item-title {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Cards & grids — squared to match site */
+.case-study-page :is(
+  .improvement-card,
+  .audience-card,
+  .method-card,
+  .standalone-quote,
+  .opportunity-card
+) {
+  border-radius: 0;
+}
+
+.case-study-page :is(
+  .stacked-image,
+  .reference-image,
+  .highfi-image,
+  .lowfi-main,
+  .lowfi-thumb,
+  .slider-image,
+  .moodboard-image,
+  .showcase-video,
+  .zi-block-video,
+  .zi-insight-img,
+  .zi-insight-video,
+  .zi-reqs-panel,
+  .zi-proc,
+  .zi-anno,
+  .arrive-cs-hero-video,
+  .arrive-cs-block-figure-img,
+  .arrive-vision-video,
+  .arrive-split-gif,
+  .vw-video,
+  .vw-video video,
+  .preview-frame iframe,
+  img,
+  video,
+  iframe
+) {
+  border-radius: 0 !important;
+}
+
+.case-study-page :is(
+  .video-showcase,
+  .highfi-image-container,
+  .moodboard-image-container,
+  .captioned-image,
+  .prototype-desktop,
+  .prototype-mobile,
+  .vw-video,
+  .arrive-split-gif-frame,
+  .arrive-hero-card,
+  .opportunity-image
+) {
+  border-radius: 0 !important;
+}
+
+.case-study-page .vr-avatar {
+  border-radius: 0 !important;
+}
+
+/* ZoomInfo design-process panels */
+.case-study-page :is(
+  .zi-reqs-panel-title,
+  .zi-proc-title
+) {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #111;
+}
+
+.case-study-page :is(
+  .zi-reqs-panel-sub,
+  .zi-proc-sub,
+  .zi-req-text,
+  .zi-req-note,
+  .zi-proc-name,
+  .zi-proc-summary,
+  .zi-proc-steps li,
+  .zi-proc-milestone,
+  .arrive-cs-block-text,
+  .arrive-split-title,
+  .arrive-hero-tagline,
+  .fp-caption
+) {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+}
+
+.case-study-page :is(
+  .zi-req-pill,
+  .zi-proc-num,
+  .zi-proc-milestone-label
+) {
+  font-family: var(--font-mono) !important;
+  font-style: normal !important;
+}
+
+.case-study-page .sw-converge-arrow span {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+}
+
+.zi-proc-name {
+  font-weight: 600;
+  color: #111;
+}
+
+/* ============================================================
+   ARRIVE WORKSHOP / VISION / SYNTHESIS — full V4 font map
+   ============================================================ */
+
+/* Display headings */
+.case-study-page :is(
+  .vw-step-heading,
+  .arrive-vision-caption,
+  .sw-act-title,
+  .sw-top3-title,
+  .arrive-split-title,
+  .syn-exec-head,
+  .lp-deb-title,
+  .prototype-title
+) {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* Mono labels / eyebrows / pills */
+.case-study-page :is(
+  .sw-act-num,
+  .sw-backlog-label,
+  .sw-fb-label,
+  .fp-tier-label,
+  .fp-replay,
+  .syn-col-title,
+  .syn-circulate-label,
+  .syn-ov-ws,
+  .lp-crit-tag,
+  .lp-crit-badge,
+  .sig-grouplabel,
+  .sig-node-eyebrow
+) {
+  font-family: var(--font-mono) !important;
+  font-style: normal !important;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Sans body across interactive modules */
+.case-study-page :is(
+  .vw-text,
+  .sw-lead,
+  .sw-act-desc,
+  .sw-top3-body,
+  .sw-fb-hint,
+  .sw-fb-list li,
+  .sw-lenses li,
+  .fp-card-title,
+  .fp-toggle button,
+  .syn-exec-list li,
+  .syn-circulate-body,
+  .syn-ov-theme,
+  .lp-crit,
+  .lp-crit-body,
+  .lp-deb-resolution,
+  .lp-deb-move,
+  .arrive-hero-tagline,
+  .arrive-pill,
+  .arrive-cs-block-list,
+  .arrive-cs-block-list li,
+  .arrive-cs-figure-caption,
+  .zi-ref-cap,
+  .zi-dark-placeholder-label,
+  .zi-dark-placeholder-text,
+  .zi-future-text
+) {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+}
+
+.case-study-page :is(.sw-act-desc em, em) {
+  font-style: normal !important;
+  font-family: var(--font-sans) !important;
+  color: inherit;
+}
+
+/* SVG diagram labels */
+.case-study-page .sig-svg :is(text, tspan) {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+}
+
+.case-study-page .sig-node-title {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600;
+}
+
+/* Side nav — explicit sans (case-study.css sets Graphik) */
+.case-study-page :is(
+  .cs-side-nav-item,
+  .cs-side-nav-subitem
+) {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+}
+
+/* Kill inline legacy font styles on sub-pages */
+.case-study-page [style*="font-style: italic"],
+.case-study-page [style*="fontStyle: 'italic'"],
+.case-study-page [style*='fontStyle: "italic"'],
+.case-study-page [style*='fontStyle: "italic"'] {
+  font-style: normal !important;
+  font-family: var(--font-sans) !important;
+}
+
+.case-study-page [style*="Georgia"],
+.case-study-page [style*="Graphik"] {
+  font-family: var(--font-sans) !important;
+  font-style: normal !important;
+}
+
+/* Root shell — must win over case-study.css Graphik base */
+.case-study-page {
+  font-family: var(--font-sans) !important;
+}

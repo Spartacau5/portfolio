@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 
 interface LightboxProps {
     src: string | null;
@@ -8,15 +8,23 @@ interface LightboxProps {
     onClose: () => void;
 }
 
+function altFromSrc(src: string): string {
+    const base = src.split('/').pop()?.replace(/\.[^.]+$/, '') ?? 'image';
+    return base.replace(/[-_]+/g, ' ').trim() || 'Portfolio image';
+}
+
 export function Lightbox({ src, gallery, onClose }: LightboxProps) {
     const [currentSrc, setCurrentSrc] = useState(src);
 
-    // Sync with external src changes
     useEffect(() => {
         setCurrentSrc(src);
     }, [src]);
 
     const index = gallery.length > 0 && currentSrc ? gallery.indexOf(currentSrc) : -1;
+    const imageAlt = useMemo(
+        () => (currentSrc ? altFromSrc(currentSrc) : 'Portfolio image'),
+        [currentSrc]
+    );
 
     const goNext = useCallback(() => {
         if (gallery.length > 0 && index < gallery.length - 1) {
@@ -38,13 +46,20 @@ export function Lightbox({ src, gallery, onClose }: LightboxProps) {
             if (e.key === 'ArrowLeft') goPrev();
         };
         window.addEventListener('keydown', handleKey);
-        return () => window.removeEventListener('keydown', handleKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            window.removeEventListener('keydown', handleKey);
+            document.body.style.overflow = '';
+        };
     }, [src, onClose, goNext, goPrev]);
 
     if (!src) return null;
 
     return (
         <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Image viewer"
             onClick={onClose}
             style={{
                 position: 'fixed',
@@ -59,8 +74,8 @@ export function Lightbox({ src, gallery, onClose }: LightboxProps) {
                 animation: 'lightboxFadeIn 0.2s ease',
             }}
         >
-            {/* Close button */}
             <button
+                type="button"
                 onClick={onClose}
                 style={{
                     position: 'absolute',
@@ -75,14 +90,14 @@ export function Lightbox({ src, gallery, onClose }: LightboxProps) {
                     padding: '8px',
                     zIndex: 1,
                 }}
-                aria-label="Close"
+                aria-label="Close image viewer"
             >
                 &#x2715;
             </button>
 
-            {/* Previous button */}
             {gallery.length > 1 && index > 0 && (
                 <button
+                    type="button"
                     onClick={(e) => { e.stopPropagation(); goPrev(); }}
                     style={{
                         position: 'absolute',
@@ -96,20 +111,20 @@ export function Lightbox({ src, gallery, onClose }: LightboxProps) {
                         cursor: 'pointer',
                         width: '48px',
                         height: '48px',
-                        borderRadius: '50%',
+                        borderRadius: '0',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}
-                    aria-label="Previous"
+                    aria-label="Previous image"
                 >
                     &#x2039;
                 </button>
             )}
 
-            {/* Next button */}
             {gallery.length > 1 && index < gallery.length - 1 && (
                 <button
+                    type="button"
                     onClick={(e) => { e.stopPropagation(); goNext(); }}
                     style={{
                         position: 'absolute',
@@ -123,12 +138,12 @@ export function Lightbox({ src, gallery, onClose }: LightboxProps) {
                         cursor: 'pointer',
                         width: '48px',
                         height: '48px',
-                        borderRadius: '50%',
+                        borderRadius: '0',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}
-                    aria-label="Next"
+                    aria-label="Next image"
                 >
                     &#x203A;
                 </button>
@@ -136,20 +151,21 @@ export function Lightbox({ src, gallery, onClose }: LightboxProps) {
 
             <img
                 src={currentSrc || ''}
-                alt=""
+                alt={imageAlt}
                 onClick={(e) => e.stopPropagation()}
                 style={{
                     maxWidth: '90vw',
                     maxHeight: '85vh',
                     objectFit: 'contain',
-                    borderRadius: '12px',
+                    borderRadius: '0',
                     cursor: 'default',
                 }}
             />
 
-            {/* Gallery counter */}
             {gallery.length > 1 && (
                 <div
+                    role="status"
+                    aria-live="polite"
                     onClick={(e) => e.stopPropagation()}
                     style={{
                         position: 'absolute',

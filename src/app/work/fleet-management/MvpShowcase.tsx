@@ -79,7 +79,7 @@ export function MvpShowcase() {
                             </ul>
                         </div>
                         <div className="arrive-mvp-video arrive-mvp-video-tablet">
-                            <video src="/images/mvp-dispatcher.mp4" autoPlay loop muted playsInline />
+                            <video src="/images/mvp-dispatcher-opt.mp4" autoPlay loop muted playsInline preload="metadata" aria-hidden="true" />
                         </div>
                     </article>
                 </div>

@@ -54,6 +54,7 @@ export default function HypexPage() {
             <section className="case-study-hero">
                 <h1 className="case-study-title">HYPEX</h1>
                 <p className="case-study-company">NFT Trading Game</p>
+                <span className="cs-tag">UI Design</span>
             </section>
 
             {/* Divider */}
@@ -107,7 +108,7 @@ export default function HypexPage() {
                         <button className="cta-button primary" onClick={() => { analytics.trackClick('Read Case Study', 'HypeX'); scrollToChallenge(); }}>Read Case Study</button>
                         <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="cta-button secondary" onClick={() => analytics.trackExternalLink('https://www.hypex.io', 'HypeX Website')}>
                             Website
-                            <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="cta-arrow" />
+                            <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="cta-arrow" aria-hidden="true" />
                         </a>
                     </div>
                 </div>
@@ -202,20 +203,12 @@ export default function HypexPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <Link href="/" className="back-link">
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
-                    Back to Home
-                </Link>
-                <Link href="/work/microsoft" className="back-link">
-                    Next: Microsoft
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
-                </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"
                 >
                     Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
                 </button>
             </div>
 

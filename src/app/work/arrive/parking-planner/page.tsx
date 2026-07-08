@@ -973,7 +973,7 @@ export default function ParkingPlannerMVPPage() {
 
                 {/* Video - full width */}
                 <video
-                    src="/images/rec1.mp4"
+                    src="/images/rec1-opt.mp4"
                     autoPlay
                     muted
                     loop
@@ -2134,20 +2134,12 @@ export default function ParkingPlannerMVPPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <Link href="/work/arrive" className="back-link">
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
-                    Back to Arrive
-                </Link>
-                <Link href="/work/arrive/expense-management" className="back-link">
-                    Next: Expense Management Case Study
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
-                </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"
                 >
                     Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
                 </button>
             </div>
 

@@ -179,6 +179,7 @@ function LogoReveal({
                         width={2548}
                         height={492}
                         priority
+                        aria-hidden="true"
                         onLoad={measure}
                         className="h-[18px] w-auto max-w-none lg:h-8 shrink-0"
                     />

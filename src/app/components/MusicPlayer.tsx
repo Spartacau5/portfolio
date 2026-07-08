@@ -26,7 +26,7 @@ interface SpotifyEmbedController {
   destroy: () => void;
 }
 
-export function MusicPlayer() {
+export function MusicPlayer({ embedHeight = 352, fill = false }: { embedHeight?: number; fill?: boolean }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const controllerRef = useRef<SpotifyEmbedController | null>(null);
   const initializedRef = useRef(false);
@@ -34,14 +34,32 @@ export function MusicPlayer() {
   const spotifyPlayingRef = useRef(false);
   const lastDispatchRef = useRef(0);
 
+  const resolveHeight = useCallback(() => {
+    if (!fill) return embedHeight;
+    const cover = containerRef.current?.closest('.mg-cover');
+    if (cover instanceof HTMLElement && cover.clientHeight > 0) {
+      return cover.clientHeight;
+    }
+    return embedHeight;
+  }, [fill, embedHeight]);
+
   const initController = useCallback((IFrameAPI: SpotifyIFrameAPI) => {
     if (!containerRef.current || initializedRef.current) return;
+
+    const height = resolveHeight();
+    if (fill && height < 200) {
+      requestAnimationFrame(() => initController(IFrameAPI));
+      return;
+    }
+
     initializedRef.current = true;
 
     IFrameAPI.createController(
       containerRef.current,
       {
         uri: 'spotify:artist:3b9yCm5iWBKNIDqq1utESQ',
+        width: '100%',
+        height: String(height),
       },
       (controller: SpotifyEmbedController) => {
         controllerRef.current = controller;
@@ -62,7 +80,7 @@ export function MusicPlayer() {
         });
       }
     );
-  }, []);
+  }, [fill, resolveHeight]);
 
   useEffect(() => {
     const handleOtherAudio = (e: Event) => {

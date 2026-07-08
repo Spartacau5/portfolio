@@ -51,6 +51,7 @@ export default function JnJPage() {
             <section className="case-study-hero">
                 <Image src="/images/jnj-logo.png" alt="Johnson & Johnson" width={260} height={72} style={{ height: '72px', width: 'auto', objectFit: 'contain', marginBottom: '0.5rem' }} />
                 <p className="case-study-company">Annual Reports Design</p>
+                <span className="cs-tag">UX/UI Design</span>
             </section>
 
             {/* Divider */}
@@ -75,7 +76,7 @@ export default function JnJPage() {
                     <div className="meta-block">
                         <span className="meta-label">TEAM</span>
                         <p className="meta-value">
-                            <a href="https://www.linkedin.com/in/christopher-holewski-06745b59/" target="_blank" rel="noopener noreferrer" className="meta-link">Christopher Holewski</a><br />Design Lead
+                            <a href="https://www.linkedin.com/in/christopher-holewski-06745b59/" target="_blank" rel="noopener noreferrer" className="content-link">Christopher Holewski<svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a><br />Design Lead
                         </p>
                     </div>
 
@@ -421,20 +422,12 @@ export default function JnJPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <Link href="/" className="back-link">
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
-                    Back to Home
-                </Link>
-                <Link href="/work/hypex" className="back-link">
-                    Next: HYPEX
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="right-arrow" />
-                </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"
                 >
                     Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
                 </button>
             </div>
 

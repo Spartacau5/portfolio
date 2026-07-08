@@ -230,16 +230,12 @@ export default function ArrivePage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <Link href="/" className="back-link">
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="back-arrow" />
-                    Back to Home
-                </Link>
                 <button
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     className="back-link"
                 >
                     Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" />
+                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
                 </button>
             </div>
 

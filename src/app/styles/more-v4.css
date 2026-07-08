@@ -1,0 +1,297 @@
+/* ============================================================
+   V4 MORE — animated intro + mixed 2/3-col squared grid
+   ============================================================ */
+
+.mg-home {
+  max-width: 1780px;
+  margin: 0 auto;
+  padding: clamp(140px, 21vh, 240px) clamp(24px, 4vw, 64px) 72px;
+}
+@media (max-width: 767px) {
+  .mg-home { padding-top: 140px; }
+  .mg-meta-row {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px 12px;
+  }
+  .mg-tag { margin-left: auto; }
+}
+
+/* ---- Animated intro ---- */
+.mg-intro {
+  max-width: 1000px;
+  /* More heading wraps — trim gap so card row aligns with Work (wg-intro) */
+  margin-bottom: calc(clamp(140px, 21vh, 240px) - 3.25rem);
+}
+.mg-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #111;
+  margin: 0 0 22px;
+}
+.mg-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: #6b6b6b;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+.mg-sub-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #ececec;
+  color: #2a2a2a;
+  font-weight: 500;
+  padding: 4px 11px;
+  border-radius: 0;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+.mg-sub-chip:hover { background: #e0e0e0; }
+.mg-sub-chip svg { width: 14px; height: 14px; }
+
+/* ---- Mixed grid ---- */
+.mg-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 52px 44px;
+}
+.mg-span-3 { grid-column: span 3; }
+.mg-span-2 { grid-column: span 2; }
+/* Single-column feed on tablet + mobile */
+@media (max-width: 1024px) {
+  .mg-grid { grid-template-columns: 1fr; gap: 44px; }
+  .mg-span-3, .mg-span-2 { grid-column: auto; }
+}
+
+/* ---- Card ---- */
+.mg-card { display: flex; flex-direction: column; }
+.mg-cover {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 10;
+  padding: clamp(20px, 2vw, 34px);
+  overflow: hidden;
+  border-radius: 0;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #eef2f7;
+  cursor: pointer;
+  text-decoration: none;
+  transition: filter 0.35s ease;
+}
+.mg-cover:hover { filter: saturate(1.05); }
+.mg-cover--plain { cursor: default; }
+.mg-cover--tall { aspect-ratio: 4 / 3; }
+.mg-cover--square { aspect-ratio: 1 / 1; }
+.mg-cover--light { background: #eef2f7; }
+
+.mg-cover-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.10);
+  background: #fff;
+}
+.mg-cover-inner :is(video, img) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0 !important;
+  display: block;
+}
+.mg-cover-inner--contain :is(video, img) {
+  object-fit: contain;
+}
+.mg-cover-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+}
+
+/* Placeholder cover — label centered on the gradient */
+.mg-placeholder {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.42);
+  text-align: center;
+}
+
+/* Spotify player — same 4:3 cover as neighbors; maroon bg blends iframe corners */
+.mg-cover--music {
+  --mg-spotify-bg: #821414;
+  padding: 0;
+  background: var(--mg-spotify-bg);
+  overflow: hidden;
+  border: none;
+}
+.mg-cover--music.mg-cover--tall {
+  aspect-ratio: 4 / 3;
+}
+.mg-cover--music > * { width: 100%; height: 100%; }
+.mg-cover--music .tile.sm.music.about {
+  min-width: 0 !important;
+  height: 100% !important;
+  max-height: none !important;
+  overflow: hidden;
+  border-radius: 0 !important;
+  background: var(--mg-spotify-bg) !important;
+}
+.mg-cover--music .spotify-embed-wrapper {
+  height: 100% !important;
+  border-radius: 0 !important;
+  background: var(--mg-spotify-bg) !important;
+}
+.mg-cover--music .spotify-embed-wrapper iframe,
+.mg-cover--music #spotify-embed iframe {
+  height: 100% !important;
+  border-radius: 0 !important;
+}
+.mg-cover--music #spotify-embed {
+  height: 100%;
+  border-radius: 0 !important;
+  overflow: hidden;
+  background: var(--mg-spotify-bg);
+}
+
+/* Full-bleed media covers (no inset frame) */
+.mg-cover--bleed {
+  padding: 0;
+  background: #0b0b0c;
+  border: none;
+}
+.mg-cover--bleed.mg-cover--light {
+  background: #eef2f7;
+}
+.mg-bleed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.mg-bleed--zoom {
+  transform: scale(1.10) translateY(8px);
+  transform-origin: center center;
+}
+.mg-cover--bleed .mg-bleed {
+  object-fit: cover;
+}
+
+/* YouTube short — scaled to cover a horizontal card, clicks pass through */
+.mg-yt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border: 0;
+  pointer-events: none;
+}
+.mg-yt-hit { position: absolute; inset: 0; z-index: 2; }
+
+/* ---- Mount Sinai composition ---- */
+.mg-compose {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: clamp(18px, 2.4vw, 30px);
+}
+.mg-sinai-head { display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 1; }
+.mg-sinai-head svg { width: 46px; height: 46px; }
+.mg-sinai-word {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-size: clamp(18px, 2vw, 26px);
+  color: #0b0b0c;
+  margin-top: 8px;
+  line-height: 1;
+}
+.mg-sinai-sub {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(12px, 1.1vw, 15px);
+  color: #03949d;
+  margin-top: 5px;
+}
+.mg-sinai-phone {
+  position: absolute;
+  bottom: -7%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 52%;
+  height: auto;
+  z-index: 0;
+}
+
+/* ---- Microsoft x Parsons composition ---- */
+.mg-ms-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  z-index: 1;
+}
+.mg-ms-logos img { height: 26px; width: auto; object-fit: contain; }
+.mg-ms-logos .ms-x { font-family: var(--font-sans); font-weight: 600; color: #333; font-size: 15px; }
+.mg-ms-phone {
+  position: absolute;
+  bottom: -6%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 58%;
+  height: auto;
+  z-index: 0;
+}
+
+/* ---- Meta ---- */
+.mg-meta { padding-top: 14px; }
+.mg-meta-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+.mg-card-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.3;
+  color: #141414;
+  margin: 0;
+}
+.mg-card-sub {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #8c8c8c;
+  margin: 0;
+}
+.mg-tag {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: #6f6f6f;
+  border: 1px solid #d7d7d7;
+  padding: 3px 8px;
+  line-height: 1.4;
+  white-space: nowrap;
+  flex-shrink: 0;
+  border-radius: 0;
+}
