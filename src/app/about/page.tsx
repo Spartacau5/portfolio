@@ -100,6 +100,7 @@ const EXPERIENCE = [
 ];
 const LEADERSHIP = [
   { year: 'Present', org: 'AIGA NY', role: 'Mentor' },
+  { year: '2026', org: 'HackAI @ UTAustin', role: 'Judge' },
   { year: '2025', org: 'Figma', role: 'Campus Leader' },
   { year: '2021', org: 'TEDxDrexelU', role: 'Vice-President' },
 ];
