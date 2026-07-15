@@ -3338,7 +3338,7 @@ body {
   padding: 10px 16px;
   background: #111;
   color: #fff;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 13px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -3370,9 +3370,8 @@ body {
 }
 
 .site-nav__mono {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-family: var(--font-display); /* Neue Haas Grotesk — same as main headers */
+  letter-spacing: 0.02em;
   font-size: 14px;
   line-height: 1;
   font-weight: 400;
@@ -3527,10 +3526,10 @@ body {
   }
   .site-nav__mobile-contact .diamond { font-size: 12px; }
   .site-nav__mobile-contact:hover { color: #111; }
-  .site-nav__mono { font-size: 12px; letter-spacing: 0.04em; }
+  .site-nav__mono { font-size: 12px; letter-spacing: 0.03em; }
   .site-nav__mobile-panel .site-nav__mono {
     font-size: 15px;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
   }
 }
 
@@ -3547,11 +3546,11 @@ body {
   border-top: 1px solid rgba(0, 0, 0, 0.06);
 }
 .site-footer__mono {
-  font-family: var(--font-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.07em;
-  font-size: 13.5px;
+  font-family: var(--font-display); /* Neue Haas Grotesk — same as main headers */
+  letter-spacing: 0.02em;
+  font-size: 14px;
   line-height: 1;
+  font-weight: 400;
   color: #9b9b9b;
 }
 .site-footer__credit .heart {

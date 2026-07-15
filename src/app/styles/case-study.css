@@ -4125,7 +4125,7 @@ html.arrive-immersive .cs-side-nav {
 }
 
 .arrive-cs-block-text {
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1.6;
     color: #1f2937;
     margin: 0;
@@ -4186,7 +4186,7 @@ html.arrive-immersive .cs-side-nav {
 
 .arrive-cs-accordion-title {
     flex: 1 1 auto;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 600;
     color: #111;
     letter-spacing: -0.01em;
@@ -4233,7 +4233,7 @@ html.arrive-immersive .cs-side-nav {
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1.6;
     color: #1f2937;
 }
@@ -5154,7 +5154,7 @@ button.arrive-cs-block-source {
 }
 
 .arrive-cs-method-title {
-    font-size: clamp(21px, 2.8vw, 31px);
+    font-size: clamp(17px, 2.2vw, 25px);
     line-height: 1.12;
     font-weight: 800;
     letter-spacing: -0.02em;
@@ -5164,7 +5164,7 @@ button.arrive-cs-block-source {
 }
 
 .arrive-cs-method-lead {
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1.6;
     color: #4b5563;
     max-width: 620px;
@@ -5173,7 +5173,7 @@ button.arrive-cs-block-source {
 }
 
 .arrive-cs-method-note {
-    font-size: 16px;
+    font-size: 13px;
     line-height: 1.6;
     color: #4b5563;
     max-width: 620px;

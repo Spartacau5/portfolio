@@ -44,7 +44,7 @@
 .case-study-title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(34px, 5vw, 48px);
+  font-size: clamp(27px, 4vw, 38px);
   line-height: 1.06;
   letter-spacing: -0.02em;
   color: #111;
@@ -53,7 +53,7 @@
 
 .case-study-company {
   font-family: var(--font-sans);
-  font-size: clamp(15px, 1.4vw, 18px);
+  font-size: clamp(13px, 1.15vw, 15px);
   color: #8c8c8c;
   margin: 0;
 }
@@ -76,8 +76,8 @@
 /* ---- Meta labels (MY ROLE, TIMELINE…) — match wg-tag / ab-intro-lead ---- */
 .case-study-page .meta-label,
 .arrive-cs-info-label {
-  font-family: var(--font-mono);
-  font-size: 13px;
+  font-family: var(--font-display);
+  font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -88,7 +88,7 @@
 .case-study-page .meta-value,
 .arrive-cs-info-value {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 12px;
   line-height: 1.55;
   color: #32404f;
   margin: 0;
@@ -97,13 +97,13 @@
 /* ---- Shared tag pill (optional on heroes) ---- */
 .cs-tag {
   display: inline-block;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   text-transform: uppercase;
-  font-size: 10.5px;
+  font-size: 9px;
   letter-spacing: 0.06em;
   color: #6f6f6f;
   border: 1px solid #d7d7d7;
-  padding: 3px 8px;
+  padding: 2px 7px;
   line-height: 1.4;
   border-radius: 0;
   white-space: nowrap;
@@ -112,8 +112,8 @@
 /* Eyebrow on Arrive reads as a tag */
 .arrive-cs-eyebrow {
   display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-family: var(--font-display);
+  font-size: 9px;
   font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -193,7 +193,7 @@
 .arrive-cs-heading {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(24px, 3vw, 28px);
+  font-size: clamp(19px, 2.4vw, 22px);
   letter-spacing: -0.01em;
   color: #333;
   margin: 0 0 1rem;
@@ -204,7 +204,7 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   color: #333;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .case-study-page .content-subheading-large {
@@ -212,7 +212,7 @@
   font-weight: 600;
   letter-spacing: -0.01em;
   color: #333;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 /* Arrive / ZoomInfo block labels — display instead of italic serif */
@@ -220,7 +220,7 @@
   font-family: var(--font-display) !important;
   font-style: normal !important;
   font-weight: 600;
-  font-size: clamp(22px, 2.5vw, 26px);
+  font-size: clamp(18px, 2vw, 21px);
   letter-spacing: -0.01em;
   color: #333;
 }
@@ -236,13 +236,13 @@
   font-family: var(--font-display) !important;
   font-style: normal !important;
   font-weight: 600;
-  font-size: clamp(36px, 5vw, 56px);
+  font-size: clamp(29px, 4vw, 45px);
   line-height: 1.06;
   letter-spacing: -0.02em;
 }
 
 .arrive-cs-lead {
-  font-size: clamp(15px, 1.4vw, 18px);
+  font-size: clamp(13px, 1.15vw, 15px);
   color: #8c8c8c;
   line-height: 1.55;
 }
@@ -261,12 +261,12 @@
 /* ---- CTAs — squared, mono ---- */
 .case-study-page .cta-button {
   border-radius: 0;
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-display);
+  font-size: 10px;
   font-weight: 400;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 0.7rem 1.25rem;
+  padding: 0.58rem 1rem;
 }
 
 .case-study-page .cta-button.primary {
@@ -293,7 +293,7 @@
 
 /* ---- Side nav rail ---- */
 .cs-side-nav-back {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.06em;
@@ -307,7 +307,7 @@
 .cs-side-nav-item,
 .cs-side-nav-subitem {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .cs-side-nav-item.is-active,
@@ -330,7 +330,7 @@ body:has(.case-study-page) .site-footer {
 }
 
 .case-study-page .back-link {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 12px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -356,15 +356,15 @@ body:has(.case-study-page) .site-footer {
 
 .arrive-cs-meta-item {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 11px;
   color: #7e8790;
 }
 
 /* Accordion — squared step numbers */
 .arrive-cs-accordion-num {
   border-radius: 0;
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-display);
+  font-size: 9px;
   letter-spacing: 0.04em;
 }
 
@@ -402,7 +402,7 @@ body:has(.case-study-page) .site-footer {
   .sw-eyebrow,
   .sw-hmw-eyebrow
 ) {
-  font-family: var(--font-mono) !important;
+  font-family: var(--font-display) !important;
   font-style: normal !important;
   font-weight: 400;
   letter-spacing: 0.06em;
@@ -411,7 +411,7 @@ body:has(.case-study-page) .site-footer {
 }
 
 .zi-design-header {
-  font-size: 11px;
+  font-size: 9px;
 }
 
 /* Display section titles — no italic serif */
@@ -434,13 +434,13 @@ body:has(.case-study-page) .site-footer {
 }
 
 .zi-insight-title {
-  font-size: clamp(24px, 2.8vw, 34px);
+  font-size: clamp(19px, 2.2vw, 27px);
   line-height: 1.15;
   color: #111;
 }
 
 .zi-future-header {
-  font-size: clamp(22px, 2.4vw, 28px);
+  font-size: clamp(18px, 1.9vw, 22px);
 }
 
 /* Stat / emphasis lines — display, keep brand gradients where set */
@@ -467,7 +467,7 @@ body:has(.case-study-page) .site-footer {
   font-family: var(--font-display) !important;
   font-style: normal !important;
   font-weight: 600;
-  font-size: clamp(20px, 2vw, 26px);
+  font-size: clamp(16px, 1.6vw, 21px);
   line-height: 1.25;
   letter-spacing: -0.012em;
   color: #32404f;
@@ -483,10 +483,10 @@ body:has(.case-study-page) .site-footer {
   .quote-attribution,
   .vr-source
 ) {
-  font-family: var(--font-mono) !important;
+  font-family: var(--font-display) !important;
   font-style: normal !important;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 9px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #8c9099;
@@ -551,7 +551,7 @@ body:has(.case-study-page) .site-footer {
   .arrive-cs-pdf-caption,
   .opportunity-quote
 ) {
-  font-size: 13px;
+  font-size: 11px;
   color: #8c9099;
 }
 
@@ -660,7 +660,7 @@ body:has(.case-study-page) .site-footer {
   .zi-proc-num,
   .zi-proc-milestone-label
 ) {
-  font-family: var(--font-mono) !important;
+  font-family: var(--font-display) !important;
   font-style: normal !important;
 }
 
@@ -710,7 +710,7 @@ body:has(.case-study-page) .site-footer {
   .sig-grouplabel,
   .sig-node-eyebrow
 ) {
-  font-family: var(--font-mono) !important;
+  font-family: var(--font-display) !important;
   font-style: normal !important;
   font-weight: 400;
   letter-spacing: 0.06em;

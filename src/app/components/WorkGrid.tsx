@@ -230,14 +230,14 @@ export function WorkGrid() {
             style={{ background: GRADIENTS.fleet, cursor: 'default' }}
             data-cursor-label="Coming soon"
             role="img"
-            aria-label="Fleet Management case study — coming soon"
+            aria-label="EasyPark case study — coming soon"
           >
             <div className="wg-cover-inner">
               <FleetLogoLoop />
             </div>
           </div>
           <Meta
-            title="Fleet Management"
+            title="EasyPark"
             sub="Led the research and strategy that validated product-market fit for a parking-planner MVP."
             tag="UX/UI Design"
           />
@@ -292,7 +292,7 @@ export function WorkGrid() {
               alt="HYPEX"
               width={500}
               height={400}
-              className="wg-cover-img"
+              className="wg-cover-img wg-cover-img--hypex"
             />
           </Link>
           <Meta
