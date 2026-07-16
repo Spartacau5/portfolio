@@ -12,7 +12,6 @@ import { ArriveLogoMarquee } from './ArriveLogoMarquee';
 import { analytics } from './GoogleAnalytics';
 import { ExpandableChip } from './ExpandableChip';
 import { ChipTrail, type ChipTrailHandle } from './ChipTrail';
-import { PasswordGate } from './PasswordGate';
 
 // V4 landing (WORK). Six case-study cards: squared gradient cover with the
 // project title / subtitle / tag always visible below it.
@@ -118,7 +117,6 @@ function Meta({ title, sub, tag }: { title: string; sub: string; tag: string }) 
 export function WorkGrid() {
   const afterDesignerTrail = useRef<ChipTrailHandle>(null);
   const afterBrooklynTrail = useRef<ChipTrailHandle>(null);
-  const [zoomGateOpen, setZoomGateOpen] = useState(false);
 
   return (
     <div className="wg-home">
@@ -157,23 +155,20 @@ export function WorkGrid() {
           <CatAnimation />
         </div>
         <div className="wg-grid">
-        {/* ZoomInfo — locked; opens the password gate */}
+        {/* ZoomInfo */}
         <article className="wg-card">
-          <button
-            type="button"
+          <Link
+            href="/work/zoominfo"
             className="wg-cover"
             style={{ background: GRADIENTS.zoominfo }}
-            data-cursor-label="Locked · Enter password"
-            aria-label="ZoomInfo case study — enter password to unlock"
-            onClick={() => {
-              analytics.trackCaseStudyView('ZoomInfo');
-              setZoomGateOpen(true);
-            }}
+            data-cursor-label="View Case Study"
+            aria-label="ZoomInfo case study"
+            onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
           >
             <div className="wg-cover-inner">
               <ZoomInfoLogoLoop />
             </div>
-          </button>
+          </Link>
           <Meta
             title="ZoomInfo"
             sub="Redesigned the core search experience for a Go-To-Market platform used by 35,000 enterprise customers."
@@ -303,13 +298,6 @@ export function WorkGrid() {
         </article>
         </div>
       </div>
-
-      <PasswordGate
-        open={zoomGateOpen}
-        onClose={() => setZoomGateOpen(false)}
-        password="Alohomora"
-        redirectTo="/work/zoominfo"
-      />
     </div>
   );
 }
