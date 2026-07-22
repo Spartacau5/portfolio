@@ -406,17 +406,18 @@ button.wg-cover { appearance: none; -webkit-appearance: none; font: inherit; tex
 .wg-jnj-stack { position: relative; width: 100%; height: 100%; }
 .wg-jnj-stack :is(.wg-jnj-back, .wg-jnj-front) {
   position: absolute;
-  width: auto;
+  /* Percentage widths (not intrinsic size) so the mockups scale with the card
+     instead of sitting tiny in opposite corners on large cards. */
   height: auto;
-  max-width: 66%;
+  max-width: none;
   object-fit: contain;
   border-radius: 0;
   /* drop-shadow follows the image's alpha (the mockups are transparent PNGs),
      so the shadow hugs the actual content instead of the rectangular box */
   filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.22));
 }
-.wg-jnj-back { right: 0; top: 2%; }
-.wg-jnj-front { left: 0; bottom: 2%; max-width: 62%; }
+.wg-jnj-back { width: 62%; right: 2%; top: 5%; }
+.wg-jnj-front { width: 58%; left: 2%; bottom: 5%; }
 
 /* ---- Arrive brand marquee ---- */
 .wg-marquee {
