@@ -116,7 +116,7 @@ function Meta({ title, sub, tag }: { title: string; sub: string; tag: string }) 
 
 export function WorkGrid() {
   const afterDesignerTrail = useRef<ChipTrailHandle>(null);
-  const afterBrooklynTrail = useRef<ChipTrailHandle>(null);
+  const afterDcTrail = useRef<ChipTrailHandle>(null);
 
   return (
     <div className="wg-home">
@@ -135,14 +135,14 @@ export function WorkGrid() {
           <ChipTrail ref={afterDesignerTrail}>
             based in
             <ExpandableChip
-              label="Brooklyn, New York"
-              icon="🗽"
+              label="Washington, DC"
+              icon="🏛️"
               iconMono
-              expandedText=" Go Knicks! ♕"
-              endSymbol=""
-              onTrailBounce={(phase) => afterBrooklynTrail.current?.bounce(phase)}
+              expandedText=" Go DC United!"
+              endSymbol="⚽"
+              onTrailBounce={(phase) => afterDcTrail.current?.bounce(phase)}
             />
-            <ChipTrail ref={afterBrooklynTrail} className="wg-chip-trail--status">
+            <ChipTrail ref={afterDcTrail} className="wg-chip-trail--status">
               <AvailabilityStatus />
             </ChipTrail>
           </ChipTrail>

@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "Arpit Ahluwalia's Portfolio",
-  description: "Strategic Designer based in Brooklyn blending aesthetics, creativity, and usability in my solutions. Here's all my creative work ranging from design strategy, UX/UI, graphic design, photography, music production, and more.",
+  description: "Strategic Designer based in Washington, DC blending aesthetics, creativity, and usability in my solutions. Here's all my creative work ranging from design strategy, UX/UI, graphic design, photography, music production, and more.",
   keywords: ["UX Design", "UI Design", "Strategic Design", "Product Design", "Portfolio", "Arpit Ahluwalia"],
   authors: [{ name: "Arpit Ahluwalia" }],
   icons: {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: "Arpit Ahluwalia's Portfolio",
-    description: "Strategic Designer based in Brooklyn blending aesthetics, creativity, and usability in my solutions.",
+    description: "Strategic Designer based in Washington, DC blending aesthetics, creativity, and usability in my solutions.",
     url: "https://www.arpitahluwalia.com/",
     siteName: "Arpit Ahluwalia",
     images: [
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Arpit Ahluwalia's Portfolio",
-    description: "Strategic Designer based in Brooklyn blending aesthetics, creativity, and usability in my solutions.",
+    description: "Strategic Designer based in Washington, DC blending aesthetics, creativity, and usability in my solutions.",
     images: ["https://www.arpitahluwalia.com/og-image.png"],
   },
 };
