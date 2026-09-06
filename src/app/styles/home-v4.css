@@ -166,8 +166,6 @@
   font-size: 1.05em;
   line-height: 1;
   flex-shrink: 0;
-  /* Match the chip icons: emoji end-symbols render desaturated. */
-  filter: grayscale(1) contrast(1.15);
 }
 .wg-chip--expandable.is-complete {
   padding-right: 11px;
