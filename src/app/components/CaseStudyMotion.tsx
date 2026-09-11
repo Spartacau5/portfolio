@@ -60,8 +60,8 @@ const PART_SELECTOR = [
   '.vw-timeline',
 ].join(', ');
 
-const TEXT_CLASSES = new Set(['arrive-cs-block-text', 'content-text']);
-const SECTION_FADE_SKIP = new Set([
+const TEXT_CLASSES = ['arrive-cs-block-text', 'content-text'];
+const SECTION_FADE_SKIP = [
   'arrive-cs-title',
   'arrive-cs-lead',
   'arrive-cs-block-label',
@@ -74,16 +74,13 @@ const SECTION_FADE_SKIP = new Set([
   'content-lead',
   'arrive-cs-block-text',
   'content-text',
-]);
+];
 
 const MAX_PARTS = 7;
 const STAGGER_MS = 70;
 
-function hasClass(el: Element, names: Set<string>) {
-  for (const name of names) {
-    if (el.classList.contains(name)) return true;
-  }
-  return false;
+function hasClass(el: Element, names: readonly string[]) {
+  return names.some((name) => el.classList.contains(name));
 }
 
 function pickParts(section: HTMLElement) {
