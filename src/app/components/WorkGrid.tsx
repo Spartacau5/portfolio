@@ -10,8 +10,9 @@ import { FleetLogoLoop } from './FleetLogoLoop';
 import { TashviLogoLoop } from './TashviLogoLoop';
 import { ArriveLogoMarquee } from './ArriveLogoMarquee';
 import { analytics } from './GoogleAnalytics';
-import { ExpandableChip } from './ExpandableChip';
+import { ExpandableChip, type ExpandableChipHandle } from './ExpandableChip';
 import { ChipTrail, type ChipTrailHandle } from './ChipTrail';
+import { ScrollReveal } from './ScrollReveal';
 
 // V4 landing (WORK). Six case-study cards: squared gradient cover with the
 // project title / subtitle / tag always visible below it.
@@ -117,6 +118,30 @@ function Meta({ title, sub, tag }: { title: string; sub: string; tag: string }) 
 export function WorkGrid() {
   const afterDesignerTrail = useRef<ChipTrailHandle>(null);
   const afterBrooklynTrail = useRef<ChipTrailHandle>(null);
+  const designerChip = useRef<ExpandableChipHandle>(null);
+
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const key = 'aa-chip-hint';
+    try {
+      if (sessionStorage.getItem(key)) return;
+    } catch {
+      /* continue — still hint once this visit */
+    }
+
+    // Wait for the intro rise to settle, then open once so the chip reads as interactive.
+    const timer = window.setTimeout(() => {
+      if (designerChip.current?.isOpen()) {
+        try { sessionStorage.setItem(key, '1'); } catch { /* ignore */ }
+        return;
+      }
+      designerChip.current?.expand();
+      try { sessionStorage.setItem(key, '1'); } catch { /* ignore */ }
+    }, 1200);
+
+    return () => window.clearTimeout(timer);
+  }, []);
 
   return (
     <div className="wg-home">
@@ -126,9 +151,10 @@ export function WorkGrid() {
         <motion.p className="wg-subtitle" variants={introItem}>
           I&apos;m a
           <ExpandableChip
-            label="UX designer"
+            ref={designerChip}
+            label="Product Designer"
             icon="❁"
-            expandedText=" crafting intuitive, research-driven experiences"
+            expandedText=" turning complex problems into products people can actually use."
             endSymbol="☺"
             onTrailBounce={(phase) => afterDesignerTrail.current?.bounce(phase)}
           />
@@ -147,6 +173,9 @@ export function WorkGrid() {
             </ChipTrail>
           </ChipTrail>
         </motion.p>
+        <motion.p className="wg-tagline" variants={introItem}>
+          I design and build AI-powered experiences for complex enterprise workflows.
+        </motion.p>
       </motion.header>
 
       {/* Cards */}
@@ -156,7 +185,7 @@ export function WorkGrid() {
         </div>
         <div className="wg-grid">
         {/* ZoomInfo */}
-        <article className="wg-card">
+        <ScrollReveal as="article" className="wg-card" delay={0}>
           <Link
             href="/work/zoominfo"
             className="wg-cover"
@@ -174,10 +203,10 @@ export function WorkGrid() {
             sub="Redesigned the core search experience for a Go-To-Market platform used by 35,000 enterprise customers."
             tag="UX/UI Design"
           />
-        </article>
+        </ScrollReveal>
 
         {/* Arrive */}
-        <article className="wg-card">
+        <ScrollReveal as="article" className="wg-card" delay={0.06}>
           <Link
             href="/work/arrive"
             className="wg-cover"
@@ -193,10 +222,10 @@ export function WorkGrid() {
             sub="Transformed fragmented insights into a cohesive 2-year strategy for a $1B+ mobility company."
             tag="Research & Strategy"
           />
-        </article>
+        </ScrollReveal>
 
         {/* Tashvi.ai */}
-        <article className="wg-card">
+        <ScrollReveal as="article" className="wg-card" delay={0}>
           <a
             href="https://tashvi.ai/"
             target="_blank"
@@ -216,10 +245,10 @@ export function WorkGrid() {
             sub="Built an AI-native platform that turns jewelry sketches into photorealistic renders within seconds."
             tag="UX Engineering"
           />
-        </article>
+        </ScrollReveal>
 
         {/* Fleet Management — case study not yet published */}
-        <article className="wg-card">
+        <ScrollReveal as="article" className="wg-card" delay={0.06}>
           <div
             className="wg-cover"
             style={{ background: GRADIENTS.fleet, cursor: 'default' }}
@@ -236,10 +265,10 @@ export function WorkGrid() {
             sub="Led the research and strategy that validated product-market fit for a parking-planner MVP."
             tag="UX/UI Design"
           />
-        </article>
+        </ScrollReveal>
 
         {/* Johnson & Johnson */}
-        <article className="wg-card">
+        <ScrollReveal as="article" className="wg-card" delay={0}>
           <Link
             href="/work/jnj"
             className="wg-cover"
@@ -270,10 +299,10 @@ export function WorkGrid() {
             sub="Transformed complex global ESG and DEI data into an engaging, compliant visual experience for a Fortune 50 audience."
             tag="UX/UI Design"
           />
-        </article>
+        </ScrollReveal>
 
         {/* HYPEX */}
-        <article className="wg-card">
+        <ScrollReveal as="article" className="wg-card" delay={0.06}>
           <Link
             href="/work/hypex"
             className="wg-cover"
@@ -295,7 +324,7 @@ export function WorkGrid() {
             sub="Led marketing and design efforts for an NFT-based trading game."
             tag="UI Design"
           />
-        </article>
+        </ScrollReveal>
         </div>
       </div>
     </div>

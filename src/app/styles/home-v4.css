@@ -49,6 +49,13 @@
   gap: 8px;
   margin: 0;
 }
+.wg-tagline {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 1.15vw, 15px);
+  line-height: 1.45;
+  color: #6b6b6b;
+  margin: 10px 0 0;
+}
 .wg-chip-trail {
   display: inline-flex;
   align-items: center;
@@ -438,6 +445,9 @@ button.wg-cover { appearance: none; -webkit-appearance: none; font: inherit; tex
   min-width: 100%;
   animation: wg-marquee-scroll 34s linear infinite;
   will-change: transform;
+}
+.wg-marquee-track--lenis {
+  animation: none;
 }
 .wg-marquee-track img {
   height: 34px;

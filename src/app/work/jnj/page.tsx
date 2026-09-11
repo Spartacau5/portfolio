@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
@@ -422,13 +423,7 @@ export default function JnJPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="back-link"
-                >
-                    Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
-                </button>
+                <ScrollToTopButton />
             </div>
 
             <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />

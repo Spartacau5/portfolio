@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useCallback, useEffect, useMemo } from 'react';
+import { useLenis } from 'lenis/react';
 
 interface LightboxProps {
     src: string | null;
@@ -15,6 +16,7 @@ function altFromSrc(src: string): string {
 
 export function Lightbox({ src, gallery, onClose }: LightboxProps) {
     const [currentSrc, setCurrentSrc] = useState(src);
+    const lenis = useLenis();
 
     useEffect(() => {
         setCurrentSrc(src);
@@ -47,11 +49,13 @@ export function Lightbox({ src, gallery, onClose }: LightboxProps) {
         };
         window.addEventListener('keydown', handleKey);
         document.body.style.overflow = 'hidden';
+        lenis?.stop();
         return () => {
             window.removeEventListener('keydown', handleKey);
             document.body.style.overflow = '';
+            lenis?.start();
         };
-    }, [src, onClose, goNext, goPrev]);
+    }, [src, onClose, goNext, goPrev, lenis]);
 
     if (!src) return null;
 

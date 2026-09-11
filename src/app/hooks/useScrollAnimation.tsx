@@ -34,10 +34,16 @@ export function useScrollAnimation(threshold = 0.1) {
 
 // Helper function to generate fade-in-up animation styles
 export function fadeInUp(isVisible: boolean, delay = 0): React.CSSProperties {
+    const reduce =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+        return { opacity: 1, transform: 'none' };
+    }
     return {
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
-        transition: `opacity 0.8s ease-out ${delay}s, transform 0.8s ease-out ${delay}s`,
+        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
+        transition: `opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1) ${delay}s`,
     };
 }
 

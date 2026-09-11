@@ -10,6 +10,9 @@ import "./styles/password-gate.css";
 import { CustomCursor } from "./components/CustomCursor";
 import { PageTransition } from "./components/PageTransition";
 import { Header } from "./components/Header";
+import { SmoothScroll } from "./components/SmoothScroll";
+import { CaseStudyMotion } from "./components/CaseStudyMotion";
+import { ScrollEnhancements } from "./components/ScrollEnhancements";
 import { GoogleAnalytics } from "./components/GoogleAnalytics";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -70,8 +73,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body className="antialiased">
+        <SmoothScroll>
         <a href="#main-content" className="skip-link">
           Skip to main content
         </a>
@@ -83,6 +87,8 @@ export default function RootLayout({
         <PageTransition>
           {children}
         </PageTransition>
+        <CaseStudyMotion />
+        <ScrollEnhancements />
         <footer className="site-footer">
           <div className="site-footer__mono site-footer__credit">
             Developed with <span className="heart" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></span>
@@ -93,6 +99,7 @@ export default function RootLayout({
             <a className="site-footer__link" href="https://github.com/Spartacau5" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">GitHub</a>
           </div>
         </footer>
+        </SmoothScroll>
       </body>
     </html>
   );

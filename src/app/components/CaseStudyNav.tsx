@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { useLenis } from 'lenis/react';
+import { HEADER_SCROLL_OFFSET, scrollToTarget } from '../lib/lenisScroll';
 
 export interface CaseStudyNavItem {
     /** id of the target <section> on the page */
@@ -40,6 +42,7 @@ export function CaseStudyNav({
 }) {
     const [active, setActive] = useState(items[0]?.id ?? '');
     const rafRef = useRef(0);
+    const lenis = useLenis();
 
     useEffect(() => {
         // Flatten parents + children so scroll-spy tracks every section.
@@ -82,7 +85,8 @@ export function CaseStudyNav({
         // Let any layout change from onSelect (e.g. expanding an accordion) settle
         // before measuring the scroll target.
         requestAnimationFrame(() => {
-            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const el = document.getElementById(id);
+            if (el) scrollToTarget(lenis, el, { offset: HEADER_SCROLL_OFFSET });
         });
     };
 

@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useLenis } from 'lenis/react';
 import { analytics } from './GoogleAnalytics';
+import { scrollToTop } from '../lib/lenisScroll';
 
 // V4 universal nav — flat, full-width, squared. Geist Mono, uppercase.
 // WORK = landing (/), ABOUT = /about, MORE = /more, RESUME opens the PDF,
@@ -19,7 +21,48 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/arpitahluwalia/';
 
 export function Header() {
   const pathname = usePathname();
+  const lenis = useLenis();
   const [menuOpen, setMenuOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
+  const lastY = useRef(0);
+  const hidden = useRef(false);
+  const menuOpenRef = useRef(false);
+  menuOpenRef.current = menuOpen;
+
+  useLenis((instance) => {
+    const bar = progressRef.current;
+    if (bar) bar.style.transform = `scaleX(${instance.progress})`;
+
+    const nav = headerRef.current;
+    if (!nav) return;
+    const y = instance.scroll;
+    const goingDown = y > lastY.current + 6;
+    const goingUp = y < lastY.current - 2;
+    lastY.current = y;
+
+    if (menuOpenRef.current || y < 90) {
+      if (hidden.current) {
+        hidden.current = false;
+        nav.classList.remove('is-hidden');
+      }
+      return;
+    }
+    if (goingDown && !hidden.current) {
+      hidden.current = true;
+      nav.classList.add('is-hidden');
+    } else if (goingUp && hidden.current) {
+      hidden.current = false;
+      nav.classList.remove('is-hidden');
+    }
+  });
+
+  useEffect(() => {
+    hidden.current = false;
+    headerRef.current?.classList.remove('is-hidden');
+    lastY.current = 0;
+    if (progressRef.current) progressRef.current.style.transform = 'scaleX(0)';
+  }, [pathname]);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -27,10 +70,13 @@ export function Header() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
+    if (menuOpen) lenis?.stop();
+    else lenis?.start();
     return () => {
       document.body.style.overflow = '';
+      lenis?.start();
     };
-  }, [menuOpen]);
+  }, [menuOpen, lenis]);
 
   // WORK stays lit on the landing page and every case-study sub-page,
   // since those are reached from the Work grid.
@@ -55,11 +101,11 @@ export function Header() {
         (href === '/more' && pathname.startsWith('/more'));
       if (onThisPage && window.scrollY > 0) {
         e.preventDefault();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        scrollToTop(lenis);
       }
       setMenuOpen(false);
     },
-    [pathname]
+    [pathname, lenis]
   );
 
   const renderNavLink = (item: (typeof NAV_ITEMS)[number], className: string) =>
@@ -89,7 +135,11 @@ export function Header() {
     );
 
   return (
-    <header className={`site-nav${menuOpen ? ' is-open' : ''}`}>
+    <>
+    <div className="site-progress" aria-hidden="true">
+      <div ref={progressRef} className="site-progress__bar" />
+    </div>
+    <header ref={headerRef} className={`site-nav${menuOpen ? ' is-open' : ''}`}>
       {/* Left — logo (masked so it recolours grey → black on hover) */}
       <Link href="/" className="site-nav__brand" aria-label="Arpit Ahluwalia — home">
         <span className="site-nav__logo" aria-hidden="true" />
@@ -154,5 +204,6 @@ export function Header() {
         </a>
       </div>
     </header>
+    </>
   );
 }

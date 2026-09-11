@@ -45,7 +45,7 @@ export function PageTransition({ children }: PageTransitionProps) {
             className="relative mt-4 md:mt-0"
             style={{
                 opacity: isNavigating ? 0.7 : 1,
-                transition: 'opacity 0.15s ease-out'
+                transition: 'opacity 0.15s cubic-bezier(0.22, 1, 0.36, 1)'
             }}
         >
             {displayChildren}

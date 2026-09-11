@@ -1,0 +1,642 @@
+/* ============================================================
+   /present — standalone walkthrough deck.
+   Ported from arpit-walkthrough.html, re-skinned to the site's
+   design system: Neue Haas / Geist type, monochrome ink on warm
+   off-white, squared corners. ONE motion primitive: type (and
+   media) rising out of a mask on a single easing curve.
+   Everything is scoped under .pr-root and prefixed pr- so it can
+   never touch the rest of the site.
+   ============================================================ */
+
+/* --- gated site-chrome hide (inert unless <html> has .pr-presenting,
+       which the page component adds on mount and removes on unmount) --- */
+html.pr-presenting .site-nav,
+html.pr-presenting .site-footer,
+html.pr-presenting .skip-link,
+html.pr-presenting .custom-cursor {
+  display: none !important;
+}
+html.pr-presenting,
+html.pr-presenting body {
+  overflow: hidden;
+  background: #f9fafb;
+}
+html.pr-presenting * {
+  cursor: auto !important;
+}
+
+.pr-root {
+  /* the site's own palette — gray-50 canvas, near-black ink, grey scale */
+  --pr-bg: #f9fafb;
+  --pr-ink: #111111;
+  --pr-body: #333333;
+  --pr-muted: #6b6b6b;
+  --pr-faint: #9b9b9b;
+  --pr-line: #e5e7eb;
+  --pr-chip: #ececec;
+  --pr-accent: #111111;     /* black is the site's interactive accent */
+  --pr-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: var(--pr-bg);
+  color: var(--pr-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+.pr-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pr-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(28px, 5.5vw, 96px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.pr-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* the one motion primitive: content rises out of a mask */
+.pr-mask {
+  overflow: hidden;
+  display: block;
+  padding-bottom: 0.08em;
+}
+.pr-rise {
+  display: block;
+  transform: translateY(115%);
+}
+
+/* ---- type ---- */
+.pr-eyebrow {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(11px, 1.1vw, 14px);
+  letter-spacing: 0.24em;
+  color: var(--pr-faint);
+  font-weight: 500;
+  margin-bottom: clamp(20px, 3vh, 40px);
+}
+
+.pr-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 6.4vw, 92px);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: var(--pr-ink);
+}
+.pr-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 4.2vw, 58px);
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.025em;
+  color: var(--pr-ink);
+  max-width: 17ch;
+}
+.pr-lede {
+  font-family: var(--font-sans);
+  font-size: clamp(16px, 1.9vw, 27px);
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  max-width: 24ch;
+  margin-top: clamp(18px, 2.6vh, 30px);
+  color: var(--pr-body);
+}
+/* emphasis = the site's interactive black, one weight heavier —
+   pops against grey body copy without introducing a foreign colour */
+.pr-em {
+  color: var(--pr-ink);
+  font-weight: 600;
+}
+
+/* ---- rows ---- */
+.pr-rows {
+  margin-top: clamp(24px, 4vh, 48px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.6vh, 18px);
+  max-width: 46ch;
+}
+.pr-row {
+  font-size: clamp(15px, 1.35vw, 19px);
+  line-height: 1.45;
+  color: var(--pr-body);
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+}
+.pr-row-k {
+  color: var(--pr-ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  min-width: 1.6ch;
+}
+.pr-row-v { color: var(--pr-body); }
+
+/* ---- metrics ---- */
+.pr-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(28px, 4vw, 64px);
+  margin-top: clamp(24px, 4vh, 44px);
+}
+.pr-metric { display: flex; flex-direction: column; gap: 6px; }
+.pr-num {
+  font-family: var(--font-display);
+  font-size: clamp(26px, 3.4vw, 46px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  color: var(--pr-ink);
+}
+.pr-lbl {
+  font-family: var(--font-sans);
+  font-size: clamp(12px, 1.1vw, 15px);
+  color: var(--pr-muted);
+  max-width: 16ch;
+  line-height: 1.35;
+}
+
+/* ---- contact ---- */
+.pr-contact {
+  margin-top: clamp(28px, 4vh, 48px);
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(16px, 2.4vw, 36px);
+  font-size: clamp(15px, 1.5vw, 20px);
+}
+.pr-contact a {
+  color: var(--pr-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--pr-line);
+  padding-bottom: 2px;
+  transition: border-color 0.3s var(--pr-ease), color 0.3s var(--pr-ease);
+}
+.pr-contact a:hover,
+.pr-contact a:focus-visible { border-color: var(--pr-ink); }
+
+/* ---- split layout w/ real project screenshot ---- */
+.pr-split {
+  display: flex;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pr-split > .pr-col {
+  flex: 1 1 340px;
+  min-width: min(100%, 320px);
+}
+.pr-media {
+  flex: 1 1 380px;
+  min-width: min(100%, 320px);
+  overflow: hidden;          /* acts as the rise mask for the frame */
+  display: block;
+}
+/* Frame = a site gradient card (squared) with the screenshot floating on it,
+   exactly like the Work grid covers. Gradient is set inline per project. */
+.pr-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: min(46vw, 620px);
+  aspect-ratio: 16 / 10;
+  margin-left: auto;
+  padding: clamp(18px, 2.2vw, 32px);
+  background: #eef2f7;                        /* fallback; real gradient inline */
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.pr-shot {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+}
+
+/* Website subtitle w/ expand-collapse chips, on the intro slide */
+.pr-subtitle {
+  font-family: var(--font-sans);
+  font-size: clamp(15px, 1.5vw, 20px);
+  line-height: 1.5;
+  color: var(--pr-muted);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  max-width: 30ch;
+  margin-top: clamp(20px, 3vh, 34px);
+}
+
+/* Tag pill under each project header — mirrors .wg-tag */
+.pr-tag {
+  display: inline-block;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.06em;
+  color: #6f6f6f;
+  border: 1px solid #d7d7d7;
+  padding: 3px 9px;
+  line-height: 1.4;
+  margin-top: clamp(14px, 2vh, 22px);
+}
+
+/* The petting cat — perches in the intro like it does on the first Work card */
+.pr-cat {
+  position: absolute;
+  top: clamp(96px, 16vh, 190px);
+  right: clamp(40px, 8vw, 150px);
+  width: clamp(120px, 12vw, 154px);
+  z-index: 4;
+}
+@media (max-width: 900px) {
+  .pr-cat {
+    top: auto;
+    bottom: clamp(70px, 12vh, 130px);
+    right: clamp(20px, 6vw, 40px);
+    width: clamp(104px, 26vw, 128px);
+  }
+}
+
+/* ---- chrome: counter, label, playhead, hint ---- */
+.pr-label {
+  position: fixed;
+  top: clamp(24px, 4vh, 44px);
+  left: clamp(24px, 4vw, 56px);
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pr-faint);
+  z-index: 10;
+}
+.pr-counter {
+  position: fixed;
+  top: clamp(24px, 4vh, 44px);
+  right: clamp(24px, 4vw, 56px);
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  color: var(--pr-faint);
+  font-variant-numeric: tabular-nums;
+  z-index: 10;
+}
+.pr-counter b { color: var(--pr-ink); font-weight: 600; }
+
+.pr-track {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: var(--pr-line);
+  z-index: 10;
+}
+.pr-playhead {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background: var(--pr-accent);
+  width: 11%;
+  transition: width 0.7s var(--pr-ease);
+}
+.pr-knob {
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--pr-accent);
+  transform: translateY(-50%);
+  box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.12);
+}
+
+.pr-hint {
+  position: fixed;
+  bottom: clamp(18px, 3vh, 30px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-faint);
+  z-index: 10;
+  opacity: 0.85;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pr-hint kbd {
+  background: rgba(17, 17, 17, 0.08);
+  border-radius: 0;
+  padding: 2px 7px;
+  font-family: var(--font-display);
+  color: var(--pr-ink);
+}
+
+.pr-root :focus-visible {
+  outline: 2px solid var(--pr-ink);
+  outline-offset: 4px;
+}
+
+/* ============================================================
+   NEW-FLOW SLIDES — billu intro, timeline, circle, free time, close
+   Structural lines/rings reveal via .is-active on the same --pr-ease
+   curve; all text still rises out of masks. One motion language.
+   ============================================================ */
+
+/* placeholder tile for images you'll drop in later */
+.pr-ph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px;
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  background: repeating-linear-gradient(
+    -45deg, rgba(0,0,0,0.035), rgba(0,0,0,0.035) 10px,
+    rgba(0,0,0,0.06) 10px, rgba(0,0,0,0.06) 20px);
+  color: var(--pr-faint);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: clamp(9px, 0.9vw, 11px);
+  border: 1px dashed #cfd3d9;
+}
+
+/* ---- billu intro: "Hi!" marquee ---- */
+.pr-hi {
+  overflow: hidden;
+  margin-top: clamp(22px, 4vh, 44px);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.pr-hi-track {
+  display: inline-flex;
+  gap: 0.5em;
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 3vw, 40px);
+  animation: pr-hi-scroll 16s linear infinite;
+}
+.pr-hi-track span:nth-child(even) { color: var(--pr-faint); }
+.pr-hi-track span:nth-child(odd) { color: var(--pr-ink); }
+@keyframes pr-hi-scroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .pr-hi-track { animation: none; } }
+
+/* ---- timeline ---- */
+.pr-timeline {
+  position: relative;
+  margin-top: clamp(30px, 6vh, 60px);
+  min-height: clamp(280px, 42vh, 420px);
+}
+.pr-tl-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1.5px;
+  background: var(--pr-ink);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.pr-slide.is-active .pr-tl-line {
+  transform: scaleX(1);
+  transition: transform 1s var(--pr-ease);
+}
+.pr-tl-row {
+  position: relative;
+  height: clamp(280px, 42vh, 420px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(16px, 3vw, 44px);
+}
+.pr-tl-item {
+  position: relative;
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+}
+.pr-tl-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--pr-ink);
+  box-shadow: 0 0 0 5px var(--pr-bg);
+  z-index: 2;
+}
+.pr-tl-card {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: min(30vw, 260px);
+}
+.pr-tl-item--up .pr-tl-card { bottom: 30px; }
+.pr-tl-item--down .pr-tl-card { top: 30px; }
+.pr-tl-year {
+  font-family: var(--font-sans);
+  font-size: clamp(11px, 1vw, 13px);
+  color: var(--pr-faint);
+  margin-bottom: 6px;
+}
+.pr-tl-org {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(15px, 1.5vw, 20px);
+  color: var(--pr-ink);
+  line-height: 1.15;
+}
+.pr-tl-role {
+  font-family: var(--font-sans);
+  font-size: clamp(12px, 1.15vw, 15px);
+  color: var(--pr-muted);
+  margin-top: 3px;
+}
+.pr-tl-cat {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: clamp(12px, 1.15vw, 15px);
+  color: var(--pr-ink);
+  margin-top: 3px;
+}
+
+/* ---- circle: how I work ---- */
+.pr-ring-wrap {
+  position: relative;
+  width: clamp(280px, 40vw, 440px);
+  aspect-ratio: 1;
+  margin: clamp(60px, 9vh, 96px) auto 0;
+}
+.pr-ring { width: 100%; height: 100%; overflow: visible; display: block; }
+.pr-ring circle {
+  fill: none;
+  stroke: var(--pr-ink);
+  stroke-width: 1.5;
+  stroke-dasharray: 1131;
+  stroke-dashoffset: 1131;
+}
+.pr-slide.is-active .pr-ring circle {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 1.15s var(--pr-ease);
+}
+.pr-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pr-node::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--pr-ink);
+  box-shadow: 0 0 0 5px var(--pr-bg);
+  flex-shrink: 0;
+}
+.pr-node span {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(15px, 1.6vw, 21px);
+  color: var(--pr-ink);
+  white-space: nowrap;
+}
+.pr-node--l { top: 50%; left: 0; transform: translate(-50%, -50%); flex-direction: row-reverse; }
+.pr-node--r { top: 50%; right: 0; transform: translate(50%, -50%); }
+.pr-node--b { bottom: 0; left: 50%; transform: translate(-50%, 50%); flex-direction: column; gap: 6px; }
+.pr-avatar {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(64px, 8vw, 92px);
+  height: clamp(64px, 8vw, 92px);
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--pr-bg);
+  box-shadow: 0 0 0 6px var(--pr-bg);
+  z-index: 2;
+}
+.pr-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ---- free time: list + collage ---- */
+.pr-ft-lead {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 1.2vw, 16px);
+  color: var(--pr-muted);
+  margin-bottom: clamp(14px, 2vh, 22px);
+}
+.pr-ft-list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(10px, 1.8vh, 20px);
+}
+.pr-ft-item {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.6vw, 36px);
+  letter-spacing: -0.02em;
+  color: var(--pr-ink);
+  line-height: 1.12;
+}
+.pr-collage {
+  flex: 1 1 380px;
+  min-width: min(100%, 320px);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: clamp(74px, 9vw, 118px);
+  gap: 10px;
+}
+.pr-tile {
+  overflow: hidden;
+  background: #eef2f7;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+.pr-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pr-tile--wide { grid-column: span 2; }
+.pr-tile--tall { grid-row: span 2; }
+
+/* sparse timeline (only 2 nodes) sits toward the start, not edge-to-edge */
+.pr-tl-row--sparse {
+  justify-content: flex-start;
+  gap: clamp(120px, 22vw, 340px);
+  padding-left: 4%;
+}
+.pr-tl-row--sparse .pr-tl-item { flex: 0 0 auto; }
+
+/* collage fades in just after the list starts rising */
+.pr-collage { opacity: 0; }
+.pr-slide.is-active .pr-collage {
+  opacity: 1;
+  transition: opacity 0.8s var(--pr-ease) 0.25s;
+}
+
+.pr-center { text-align: center; }
+.pr-center-flex { justify-content: center; }
+.pr-close-h { max-width: none; }
+.pr-close-h .pr-em { display: block; margin-top: 0.12em; }
+
+/* ---- close: next up ---- */
+.pr-nextup {
+  position: absolute;
+  right: clamp(28px, 5vw, 72px);
+  bottom: clamp(64px, 12vh, 120px);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(16px, 1.8vw, 24px);
+  color: var(--pr-ink);
+}
+.pr-close-center {
+  text-align: center;
+  align-items: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pr-rise { transform: none !important; }
+  .pr-playhead { transition: none; }
+  .pr-tl-line { transform: scaleX(1); }
+  .pr-ring circle { stroke-dashoffset: 0; }
+  .pr-collage { opacity: 1; }
+}
+
+@media (max-width: 900px) {
+  .pr-h2 { max-width: none; }
+  .pr-lede { max-width: none; }
+  .pr-frame { max-width: 100%; margin-left: 0; }
+  .pr-media { order: 2; }
+  .pr-collage { order: 2; grid-template-columns: repeat(3, 1fr); }
+  /* timeline: stack the cards below a shorter axis on small screens */
+  .pr-tl-row { gap: 10px; }
+  .pr-tl-card { max-width: 40vw; }
+  .pr-tl-org { font-size: 13px; }
+}

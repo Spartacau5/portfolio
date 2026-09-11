@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useLenis } from 'lenis/react';
 
 // A single preview can be a live mini-browser, a still image, or a video.
 export type PreviewContent =
@@ -14,6 +15,7 @@ interface PreviewModalProps {
 }
 
 export function PreviewModal({ content, onClose }: PreviewModalProps) {
+    const lenis = useLenis();
     // Close on Escape, and lock background scroll while open.
     useEffect(() => {
         if (!content) return;
@@ -23,11 +25,13 @@ export function PreviewModal({ content, onClose }: PreviewModalProps) {
         document.addEventListener('keydown', onKey);
         const prevOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
+        lenis?.stop();
         return () => {
             document.removeEventListener('keydown', onKey);
             document.body.style.overflow = prevOverflow;
+            lenis?.start();
         };
-    }, [content, onClose]);
+    }, [content, onClose, lenis]);
 
     if (!content) return null;
 

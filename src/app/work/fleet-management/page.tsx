@@ -9,6 +9,7 @@ import { MvpShowcase } from './MvpShowcase';
 import { VisionWalkthrough } from './VisionWalkthrough';
 import { PreviewModal, type PreviewContent } from './PreviewModal';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 
 // Source line. Renders identically whether or not it's clickable; when given an
 // onClick it's a button (resets its own chrome in CSS) that opens the preview.
@@ -230,13 +231,7 @@ export default function ArrivePage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="back-link"
-                >
-                    Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
-                </button>
+                <ScrollToTopButton />
             </div>
 
         </div>

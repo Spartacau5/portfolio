@@ -1,8 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { useLenis } from 'lenis/react';
+import { scrollToTop } from '@/app/lib/lenisScroll';
 
 export function ZoominfoHero() {
+    const lenis = useLenis();
     const trackRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
 
@@ -22,10 +25,7 @@ export function ZoominfoHero() {
         const html = document.documentElement;
         const prevRestoration = history.scrollRestoration;
         try { history.scrollRestoration = 'manual'; } catch { /* unsupported */ }
-        const hadSmooth = html.classList.contains('scroll-smooth');
-        if (hadSmooth) html.classList.remove('scroll-smooth'); // jump, don't animate
-        window.scrollTo(0, 0);
-        if (hadSmooth) requestAnimationFrame(() => html.classList.add('scroll-smooth'));
+        scrollToTop(lenis, true);
         // Hide the floating nav immediately so it never flashes over the
         // fullscreen hero before the first scroll frame paints. With reduced
         // motion the hero docks instantly, so the nav should stay visible.

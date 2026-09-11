@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
+import { useLenis } from 'lenis/react';
 
 /**
  * An inline image with an expand control. Clicking it (or the badge) opens a
@@ -25,6 +26,7 @@ interface Props {
 export function ZiZoomImage({ src, alt, width, height, className, sizes, quality, unoptimized }: Props) {
     const [open, setOpen] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const lenis = useLenis();
 
     useEffect(() => setMounted(true), []);
 
@@ -36,11 +38,13 @@ export function ZiZoomImage({ src, alt, width, height, className, sizes, quality
         document.addEventListener('keydown', onKey);
         const prevOverflow = document.body.style.overflow;
         document.body.style.overflow = 'hidden';
+        lenis?.stop();
         return () => {
             document.removeEventListener('keydown', onKey);
             document.body.style.overflow = prevOverflow;
+            lenis?.start();
         };
-    }, [open]);
+    }, [open, lenis]);
 
     return (
         <>

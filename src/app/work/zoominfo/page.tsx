@@ -11,6 +11,7 @@ import { ZiRequirements } from './ZiRequirements';
 import { ZiDesignProcess } from './ZiDesignProcess';
 import { ZiZoomImage } from './ZiZoomImage';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
     { id: 'background', label: 'Problem' },
@@ -132,6 +133,9 @@ export default function ZoominfoPage() {
             <section id="strategy" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Solution</h2>
                 <div className="arrive-cs-block-body">
+                    <div className="zi-sol-sticky" aria-hidden="true">
+                        <span className="zi-sol-sticky-label">New AI homepage — a natural-language front door for SalesOS.</span>
+                    </div>
                     {/* New AI homepage */}
                     <h3 id="sol-homepage" className="zi-sol-subhead">
                         New AI homepage — a natural-language front door for SalesOS.
@@ -218,7 +222,7 @@ export default function ZoominfoPage() {
                     <p className="arrive-cs-block-text">
                         We released the alpha to 15 customers in the search-language pilot to gather feedback.
                     </p>
-                    <p className="zi-block-stat">13 of 15 testers preferred the new homepage to the existing experience.</p>
+                    <p className="zi-block-stat"><span className="scroll-count" data-to="13">13</span> of 15 testers preferred the new homepage to the existing experience.</p>
                     <ul className="zi-quotes">
                         <li className="zi-quote">
                             <p className="zi-quote-text">&ldquo;[Google-like search] could be very useful in the long-term&rdquo;</p>
@@ -440,13 +444,7 @@ export default function ZoominfoPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="back-link"
-                >
-                    Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
-                </button>
+                <ScrollToTopButton />
             </div>
         </div>
         </>

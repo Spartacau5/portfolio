@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLenis } from 'lenis/react';
+import { scrollToTop } from '@/app/lib/lenisScroll';
 
 /**
  * Scroll-driven hero for the Arrive case study.
@@ -19,6 +21,7 @@ import { useRouter } from 'next/navigation';
  */
 export function ArriveHero() {
     const router = useRouter();
+    const lenis = useLenis();
     const trackRef = useRef<HTMLDivElement>(null);
     const cardRef = useRef<HTMLDivElement>(null);
     const taglineRef = useRef<HTMLDivElement>(null);
@@ -49,10 +52,7 @@ export function ArriveHero() {
         const html = document.documentElement;
         const prevRestoration = history.scrollRestoration;
         try { history.scrollRestoration = 'manual'; } catch { /* unsupported */ }
-        const hadSmooth = html.classList.contains('scroll-smooth');
-        if (hadSmooth) html.classList.remove('scroll-smooth'); // jump, don't animate
-        window.scrollTo(0, 0);
-        if (hadSmooth) requestAnimationFrame(() => html.classList.add('scroll-smooth'));
+        scrollToTop(lenis, true);
         // Hide the floating nav immediately so it never flashes over the
         // fullscreen video before the first scroll frame paints. With reduced
         // motion the hero docks instantly, so the nav should stay visible.

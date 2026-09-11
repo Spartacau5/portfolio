@@ -6,7 +6,10 @@ import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { analytics } from '@/app/components/GoogleAnalytics';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+import { useLenis } from 'lenis/react';
+import { HEADER_SCROLL_OFFSET, scrollToTarget } from '@/app/lib/lenisScroll';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
     { id: 'background', label: 'Background' },
@@ -24,10 +27,11 @@ export default function MicrosoftPage() {
     // Analytics tracking
     useScrollDepthTracking();
     useTimeOnPage();
+    const lenis = useLenis();
     const scrollToPrototype = () => {
         const prototypeSection = document.getElementById('prototype-section');
         if (prototypeSection) {
-            prototypeSection.scrollIntoView({ behavior: 'smooth' });
+            scrollToTarget(lenis, prototypeSection, { offset: HEADER_SCROLL_OFFSET });
         }
     };
 
@@ -440,13 +444,7 @@ export default function MicrosoftPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="back-link"
-                >
-                    Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
-                </button>
+                <ScrollToTopButton />
             </div>
 
             <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />

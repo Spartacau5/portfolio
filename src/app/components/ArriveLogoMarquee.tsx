@@ -1,6 +1,8 @@
 'use client';
 
 import Image from 'next/image';
+import { useEffect, useRef } from 'react';
+import { useLenis } from 'lenis/react';
 
 // The eight B2B mobility brands Arrive assembled — scrolling marquee that
 // replaces the old looping hero video on the Arrive work card.
@@ -16,11 +18,39 @@ const BRANDS = [
 ];
 
 export function ArriveLogoMarquee() {
-  // Track is duplicated so the -50% translate loops seamlessly.
+  const trackRef = useRef<HTMLDivElement>(null);
+  const offsetRef = useRef(0);
+  const velocityRef = useRef(0);
+
+  useLenis((lenis) => {
+    velocityRef.current = lenis.velocity;
+  });
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    let raf = 0;
+    const tick = () => {
+      const boost = Math.min(Math.abs(velocityRef.current), 48) * 0.06;
+      offsetRef.current += 0.38 + boost;
+      const loopWidth = track.scrollWidth / 2;
+      if (loopWidth > 0 && offsetRef.current >= loopWidth) {
+        offsetRef.current -= loopWidth;
+      }
+      track.style.transform = `translate3d(${-offsetRef.current}px, 0, 0)`;
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
   const loop = [...BRANDS, ...BRANDS];
   return (
     <div className="wg-marquee" aria-label="Arrive brands">
-      <div className="wg-marquee-track">
+      <div ref={trackRef} className="wg-marquee-track wg-marquee-track--lenis">
         {loop.map((b, i) => (
           <Image
             key={`${b.alt}-${i}`}

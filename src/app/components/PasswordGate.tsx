@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion, useAnimationControls } from 'framer-motion';
+import { useLenis } from 'lenis/react';
 
 type PasswordGateProps = {
   open: boolean;
@@ -15,6 +16,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function PasswordGate({ open, onClose, password, redirectTo }: PasswordGateProps) {
   const router = useRouter();
+  const lenis = useLenis();
   const [value, setValue] = useState('');
   const [error, setError] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -26,14 +28,17 @@ export function PasswordGate({ open, onClose, password, redirectTo }: PasswordGa
       setValue('');
       setError(false);
       document.body.style.overflow = 'hidden';
+      lenis?.stop();
       const t = setTimeout(() => inputRef.current?.focus(), 220);
       return () => {
         clearTimeout(t);
         document.body.style.overflow = '';
+        lenis?.start();
       };
     }
     document.body.style.overflow = '';
-  }, [open]);
+    lenis?.start();
+  }, [open, lenis]);
 
   // Prefetch so the redirect is instant.
   useEffect(() => {

@@ -7,6 +7,7 @@ import { ZoominfoHero } from './ZoominfoHero';
 import { ZiInsightBlock, DarkPlaceholder } from './ZiDesignInsights';
 import { ZiProblemAnimation } from './ZiProblemAnimation';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
     { id: 'problem', label: 'Problem' },
@@ -138,7 +139,7 @@ export default function ZoominfoPage() {
             <section id="outcomes" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Outcomes</h2>
                 <div className="arrive-cs-block-body">
-                    <p className="zi-block-stat">13 of 15 testers preferred the new homepage to the existing experience.</p>
+                    <p className="zi-block-stat"><span className="scroll-count" data-to="13">13</span> of 15 testers preferred the new homepage to the existing experience.</p>
                     <p className="arrive-cs-block-text">
                         The alpha did its job: a clear preference signal, plus a live stream of
                         real, unrestricted queries to learn the rest from.
@@ -276,13 +277,7 @@ export default function ZoominfoPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav" style={{ marginTop: '4rem' }}>
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="back-link"
-                >
-                    Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
-                </button>
+                <ScrollToTopButton />
             </div>
         </div>
         </>

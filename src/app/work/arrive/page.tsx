@@ -14,27 +14,9 @@ import { VisionReactions } from './VisionReactions';
 import { PreviewModal, type PreviewContent } from './PreviewModal';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
-
-// Eased window scroll to an element — native scrollIntoView({behavior:'smooth'})
-// gives no control over duration/easing, so we animate it ourselves for a slower,
-// gentler glide. `offset` matches the .arrive-cs-accordion-item scroll-margin-top
-// so the header clears the fixed chrome.
-function smoothScrollToEl(el: HTMLElement, offset = 110, duration = 950) {
-    const startY = window.scrollY;
-    const targetY = el.getBoundingClientRect().top + startY - offset;
-    const dist = targetY - startY;
-    if (Math.abs(dist) < 2) return;
-    // easeInOutCubic — soft acceleration in, soft settle out.
-    const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-    let start = 0;
-    const step = (now: number) => {
-        if (!start) start = now;
-        const p = Math.min((now - start) / duration, 1);
-        window.scrollTo(0, startY + dist * ease(p));
-        if (p < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
-}
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
+import { useLenis } from 'lenis/react';
+import { HEADER_SCROLL_OFFSET, scrollToTarget } from '@/app/lib/lenisScroll';
 
 // One Process step. Controlled so the group behaves as a single-open accordion
 // (opening one collapses the rest), while still letting the user switch freely.
@@ -59,6 +41,10 @@ function AccordionItem({
     const panelRef = useRef<HTMLDivElement>(null);
     const itemRef = useRef<HTMLDivElement>(null);
     const firstRun = useRef(true);
+    const wasOpen = useRef(isOpen);
+    const lenis = useLenis();
+    const lenisRef = useRef(lenis);
+    lenisRef.current = lenis;
 
     useEffect(() => {
         const panel = panelRef.current;
@@ -74,7 +60,11 @@ function AccordionItem({
             panel.style.overflow = 'hidden';
         };
 
-        // First paint: set state without animating or auto-scrolling.
+        const justOpened = isOpen && !wasOpen.current;
+        wasOpen.current = isOpen;
+
+        // First paint (and Strict Mode re-run): set height without scrolling.
+        // Step 1 starts open — scrolling here would dump arrivals on Process.
         if (firstRun.current) {
             firstRun.current = false;
             if (isOpen) settleOpen();
@@ -82,17 +72,14 @@ function AccordionItem({
             return;
         }
 
-        // On open, bring this step's header to a consistent position. Wait for any
-        // sibling above that's collapsing (max-height transition ≈ 0.4s) to settle
-        // first, so every step lands in the same spot; scroll-margin-top (110px on
-        // .arrive-cs-accordion-item) keeps it clear of the fixed header.
+        // Only scroll when the user (or side nav) actually opens a step — not when
+        // Lenis hydrates or the effect re-runs while this step is already open.
         let scrollTimer = 0;
-        if (isOpen) {
+        if (justOpened) {
             scrollTimer = window.setTimeout(() => {
                 const el = itemRef.current;
                 if (!el) return;
-                if (reduce) el.scrollIntoView({ block: 'start' });
-                else smoothScrollToEl(el);
+                scrollToTarget(lenisRef.current, el, { immediate: reduce, offset: HEADER_SCROLL_OFFSET });
             }, reduce ? 0 : 420);
         }
 
@@ -492,7 +479,7 @@ export default function ArrivePage() {
                         nudged a tech-led org toward a product-led one built on research, feedback
                         loops, and iterative sprints. The clearest signal: when the same product
                         leaders re-graded the platform after seeing the vision, the average jumped from
-                        a <strong>D+</strong> to an <strong>A&minus;</strong>.
+                        a <strong className="scroll-grade-from">D+</strong> to an <strong className="scroll-grade-to">A&minus;</strong>.
                     </p>
                     <div className="arrive-cs-block-figure">
                         <Image
@@ -513,13 +500,7 @@ export default function ArrivePage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="back-link"
-                >
-                    Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
-                </button>
+                <ScrollToTopButton />
             </div>
 
         </div>

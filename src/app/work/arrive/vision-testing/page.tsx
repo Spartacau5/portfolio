@@ -1,3 +1,4 @@
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 'use client';
 
 import { useEffect } from 'react';
@@ -909,13 +910,7 @@ export default function VisionTestingPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="back-link"
-                >
-                    Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
-                </button>
+                <ScrollToTopButton />
             </div>
         </div>
     );

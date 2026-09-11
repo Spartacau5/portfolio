@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import CatAnimation from './CatAnimation';
 import { MusicPlayer } from './MusicPlayer';
 import { analytics } from './GoogleAnalytics';
+import { ScrollReveal } from './ScrollReveal';
 
 // V4 MORE page. Header + subtext animate in smoothly on entry (rise + blur
 // clear), then a mixed 2/3-column grid of experiments, community & play.
@@ -84,7 +85,7 @@ export function MoreGrid() {
         </div>
         <div className="mg-grid">
         {/* Row 1 — two wide */}
-        <article className="mg-card mg-span-3">
+        <ScrollReveal as="article" className="mg-card mg-span-3">
           <a
             href="https://www.unstableml.com/"
             target="_blank"
@@ -100,9 +101,9 @@ export function MoreGrid() {
             </div>
           </a>
           <Meta title="UnstableML" sub="Designed an AI workflow enabling content creators to generate AI avatars." tag="AI Tool" />
-        </article>
+        </ScrollReveal>
 
-        <article className="mg-card mg-span-3">
+        <ScrollReveal as="article" className="mg-card mg-span-3">
           <a
             href="https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl"
             target="_blank"
@@ -118,10 +119,10 @@ export function MoreGrid() {
             </div>
           </a>
           <Meta title="Offprint" sub="Built a Chrome extension to track and offset your AI carbon footprint." tag="AI Tool" />
-        </article>
+        </ScrollReveal>
 
         {/* Row 2 — three columns */}
-        <article className="mg-card mg-span-2">
+        <ScrollReveal as="article" className="mg-card mg-span-2">
           <div
             className="mg-cover mg-cover--bleed mg-cover--plain mg-cover--square mg-cover--light"
             data-cursor-label="Coming soon"
@@ -136,9 +137,9 @@ export function MoreGrid() {
             />
           </div>
           <Meta title="Mount Sinai" sub="Designed the UI for an incident-reporting app for hospitals in Africa." tag="UI Design" />
-        </article>
+        </ScrollReveal>
 
-        <article className="mg-card mg-span-2">
+        <ScrollReveal as="article" className="mg-card mg-span-2">
           <a
             href="https://github.com/Spartacau5/studybuddy"
             target="_blank"
@@ -151,9 +152,9 @@ export function MoreGrid() {
             <video className="mg-bleed" src="/images/more/study-buddy.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
           </a>
           <Meta title="Study Buddy" sub="Built a study companion which helps you avoid distractions." tag="AI Tool" />
-        </article>
+        </ScrollReveal>
 
-        <article className="mg-card mg-span-2">
+        <ScrollReveal as="article" className="mg-card mg-span-2">
           <Link
             href="/work/microsoft"
             className="mg-cover mg-cover--bleed mg-cover--square mg-cover--light"
@@ -170,10 +171,10 @@ export function MoreGrid() {
             />
           </Link>
           <Meta title="Microsoft" sub="A collaboration with Microsoft's Inclusive Design team on the future of education." tag="UX/UI Design" />
-        </article>
+        </ScrollReveal>
 
         {/* Row 3 — two wide (AI experiments) */}
-        <article className="mg-card mg-span-3">
+        <ScrollReveal as="article" className="mg-card mg-span-3">
           <a
             href="/documents/ekko-final-presentation-2026.pdf"
             target="_blank"
@@ -189,9 +190,9 @@ export function MoreGrid() {
             </div>
           </a>
           <Meta title="Ekko" sub="An AI copilot enabling nonprofits to do more with less." tag="Strategy Capstone" />
-        </article>
+        </ScrollReveal>
 
-        <article className="mg-card mg-span-3">
+        <ScrollReveal as="article" className="mg-card mg-span-3">
           <a
             href="https://github.com/Spartacau5/arpitTrash"
             target="_blank"
@@ -213,10 +214,10 @@ export function MoreGrid() {
             />
           </a>
           <Meta title="AI Waste Detector" sub="Built an AI waste detector to help you recycle." tag="AI Tool" />
-        </article>
+        </ScrollReveal>
 
         {/* Row 4 — photography · music · gaming */}
-        <article className="mg-card mg-span-2">
+        <ScrollReveal as="article" className="mg-card mg-span-2">
           <a
             href="https://www.behance.net/gallery/72438781/PHTO141-Black-White-Photography-Powelton"
             target="_blank"
@@ -235,9 +236,9 @@ export function MoreGrid() {
             />
           </a>
           <Meta title="Photography & Art" sub="Some photography and art I create." />
-        </article>
+        </ScrollReveal>
 
-        <article className="mg-card mg-span-2">
+        <ScrollReveal as="article" className="mg-card mg-span-2">
           <div
             className="mg-cover mg-cover--music mg-cover--plain mg-cover--tall"
             style={{ cursor: 'default' }}
@@ -248,9 +249,9 @@ export function MoreGrid() {
             <MusicPlayer fill />
           </div>
           <Meta title="Raga Beats" sub="I've been producing music for a decade with my childhood friend." />
-        </article>
+        </ScrollReveal>
 
-        <article className="mg-card mg-span-2">
+        <ScrollReveal as="article" className="mg-card mg-span-2">
           <div className="mg-cover mg-cover--bleed mg-cover--plain mg-cover--tall">
             <iframe
               className="mg-yt"
@@ -270,7 +271,7 @@ export function MoreGrid() {
             />
           </div>
           <Meta title="Gaming" sub="Occasional streams. Top 0.3% COD player. Two-time Elden Lord." />
-        </article>
+        </ScrollReveal>
         </div>
       </div>
     </div>

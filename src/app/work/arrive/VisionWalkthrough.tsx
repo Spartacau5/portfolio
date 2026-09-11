@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 // Each step: a heading, a looping video (looped from `start` seconds), and a
 // vertical timeline of points.
@@ -93,6 +93,15 @@ const END_HOLD = 1100; // pause on the last dot before resetting to grey
 
 export function VisionWalkthrough() {
     const rootRef = useRef<HTMLDivElement>(null);
+    const [pinLayout, setPinLayout] = useState(false);
+
+    useLayoutEffect(() => {
+        const mq = window.matchMedia('(min-width: 821px)');
+        const sync = () => setPinLayout(mq.matches);
+        sync();
+        mq.addEventListener('change', sync);
+        return () => mq.removeEventListener('change', sync);
+    }, []);
 
     useEffect(() => {
         const root = rootRef.current;
@@ -172,34 +181,50 @@ export function VisionWalkthrough() {
     }, []);
 
     return (
-        <section className="vw" ref={rootRef}>
-            {STEPS.map((step) => (
-                <div className="vw-step-block" id={step.id} key={step.n}>
-                    <h3 className="vw-step-heading">
-                        {step.n}. {step.label}
-                    </h3>
-                    <div className="vw-step-body">
-                        <div className="vw-video">
-                            <LoopingVideo src={step.src} start={step.start} />
-                        </div>
-                        <ol className="vw-timeline">
-                            {step.points.map((pt, i) => (
-                                <li className="vw-item" key={i}>
-                                    <div className="vw-marker">
-                                        <span className="vw-dot" />
-                                        {i < step.points.length - 1 && (
-                                            <span className="vw-connector">
-                                                <span className="vw-connector-fill" />
-                                            </span>
-                                        )}
-                                    </div>
-                                    <p className="vw-text">{pt}</p>
-                                </li>
-                            ))}
-                        </ol>
+        <section className="vw vw--sticky" ref={rootRef}>
+            {pinLayout && (
+                <div className="vw-pin-media">
+                    <div className="vw-pin-frame">
+                        {STEPS.map((step, i) => (
+                            <div className={`vw-pin-video${i === 0 ? ' is-active' : ''}`} key={step.id}>
+                                <LoopingVideo src={step.src} start={step.start} />
+                            </div>
+                        ))}
                     </div>
+                    <p className="vw-pin-label">{STEPS[0].n}. {STEPS[0].label}</p>
                 </div>
-            ))}
+            )}
+            <div className="vw-pin-copy">
+                {STEPS.map((step) => (
+                    <div className="vw-step-block" id={step.id} key={step.n}>
+                        <h3 className="vw-step-heading">
+                            {step.n}. {step.label}
+                        </h3>
+                        <div className="vw-step-body">
+                            {!pinLayout && (
+                                <div className="vw-video">
+                                    <LoopingVideo src={step.src} start={step.start} />
+                                </div>
+                            )}
+                            <ol className="vw-timeline">
+                                {step.points.map((pt, i) => (
+                                    <li className="vw-item" key={i}>
+                                        <div className="vw-marker">
+                                            <span className="vw-dot" />
+                                            {i < step.points.length - 1 && (
+                                                <span className="vw-connector">
+                                                    <span className="vw-connector-fill" />
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="vw-text">{pt}</p>
+                                    </li>
+                                ))}
+                            </ol>
+                        </div>
+                    </div>
+                ))}
+            </div>
         </section>
     );
 }

@@ -6,7 +6,10 @@ import { useScrollAnimation, fadeInUp } from '@/app/hooks/useScrollAnimation';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
 import { analytics } from '@/app/components/GoogleAnalytics';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+import { useLenis } from 'lenis/react';
+import { HEADER_SCROLL_OFFSET, scrollToTarget } from '@/app/lib/lenisScroll';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
     { id: 'challenge-section', label: 'Challenge' },
@@ -26,10 +29,11 @@ export default function HypexPage() {
     // Analytics tracking
     useScrollDepthTracking();
     useTimeOnPage();
+    const lenis = useLenis();
     const scrollToChallenge = () => {
         const challengeSection = document.getElementById('challenge-section');
         if (challengeSection) {
-            challengeSection.scrollIntoView({ behavior: 'smooth' });
+            scrollToTarget(lenis, challengeSection, { offset: HEADER_SCROLL_OFFSET });
         }
     };
 
@@ -174,13 +178,27 @@ export default function HypexPage() {
                     I started with redesigning the old version I was provided (or v0 as I called it) into a low/mid-fidelity version to better understand the layout, structure and flow of the landing page.
                 </p>
 
-                <div className="lowfi-gallery">
-                    <Image src="/images/lowfi1.avif" alt="Low-fidelity wireframe 1" width={600} height={400} className="lowfi-main" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi1.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
-                    <div className="lowfi-grid">
-                        <Image src="/images/lowfi2.avif" alt="Low-fidelity wireframe 2" width={200} height={150} className="lowfi-thumb" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi2.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
-                        <Image src="/images/lowfi3.avif" alt="Low-fidelity wireframe 3" width={200} height={150} className="lowfi-thumb" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi3.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
-                        <Image src="/images/lowfi4.avif" alt="Low-fidelity wireframe 4" width={200} height={150} className="lowfi-thumb" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi4.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
-                        <Image src="/images/lowfi5.avif" alt="Low-fidelity wireframe 5" width={200} height={150} className="lowfi-thumb" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/lowfi5.avif', ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])} />
+                <div className="h-scrub">
+                    <div className="h-scrub-sticky">
+                        <div className="h-scrub-track">
+                            {[
+                                { src: '/images/lowfi1.avif', alt: 'Low-fidelity wireframe 1' },
+                                { src: '/images/lowfi2.avif', alt: 'Low-fidelity wireframe 2' },
+                                { src: '/images/lowfi3.avif', alt: 'Low-fidelity wireframe 3' },
+                                { src: '/images/lowfi4.avif', alt: 'Low-fidelity wireframe 4' },
+                                { src: '/images/lowfi5.avif', alt: 'Low-fidelity wireframe 5' },
+                            ].map((img) => (
+                                <Image
+                                    key={img.src}
+                                    src={img.src}
+                                    alt={img.alt}
+                                    width={900}
+                                    height={600}
+                                    style={{ cursor: 'zoom-in' }}
+                                    onClick={() => openLightbox(img.src, ['/images/lowfi1.avif', '/images/lowfi2.avif', '/images/lowfi3.avif', '/images/lowfi4.avif', '/images/lowfi5.avif'])}
+                                />
+                            ))}
+                        </div>
                     </div>
                 </div>
 
@@ -203,13 +221,7 @@ export default function HypexPage() {
 
             {/* Bottom Navigation */}
             <div className="case-study-bottom-nav">
-                <button
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="back-link"
-                >
-                    Go to top
-                    <Image src="/images/arrow-angle.svg" alt="" width={16} height={16} className="top-arrow" aria-hidden="true" />
-                </button>
+                <ScrollToTopButton />
             </div>
 
             <Lightbox src={lightboxSrc} gallery={lightboxGallery} onClose={closeLightbox} />
