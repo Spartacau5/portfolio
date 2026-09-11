@@ -1,5 +1,6 @@
-import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 'use client';
+
+import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 
 import Link from 'next/link';
 import Image from 'next/image';
