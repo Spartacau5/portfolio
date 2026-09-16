@@ -1,15 +1,14 @@
 /* ============================================================
-   /present — standalone walkthrough deck.
-   Ported from arpit-walkthrough.html, re-skinned to the site's
-   design system: Neue Haas / Geist type, monochrome ink on warm
-   off-white, squared corners. ONE motion primitive: type (and
-   media) rising out of a mask on a single easing curve.
-   Everything is scoped under .pr-root and prefixed pr- so it can
-   never touch the rest of the site.
+   /present — recruiter walkthrough deck.
+   Editorial, desktop-first (1440+). Neue Haas display over Geist,
+   monochrome ink on the site's warm off-white, squared corners.
+   Hairlines and a mono eyebrow carry the structure; media sits
+   in the two project gradients the work cards already use.
+   One motion: cues settle in on a single curve. Nothing else moves.
+   Scoped under .pr-root / pr- so it never touches the rest of the site.
    ============================================================ */
 
-/* --- gated site-chrome hide (inert unless <html> has .pr-presenting,
-       which the page component adds on mount and removes on unmount) --- */
+/* --- site-chrome hide, gated on <html>.pr-presenting (added on mount) --- */
 html.pr-presenting .site-nav,
 html.pr-presenting .site-footer,
 html.pr-presenting .skip-link,
@@ -26,15 +25,16 @@ html.pr-presenting * {
 }
 
 .pr-root {
-  /* the site's own palette — gray-50 canvas, near-black ink, grey scale */
   --pr-bg: #f9fafb;
   --pr-ink: #111111;
-  --pr-body: #333333;
+  --pr-body: #3a3a3a;
   --pr-muted: #6b6b6b;
-  --pr-faint: #9b9b9b;
-  --pr-line: #e5e7eb;
-  --pr-chip: #ececec;
-  --pr-accent: #111111;     /* black is the site's interactive accent */
+  --pr-faint: #9a9a9a;
+  --pr-line: #dcdfe3;
+  --pr-line-strong: #111111;
+  --pr-gutter: clamp(40px, 5.5vw, 104px);
+  --pr-top: clamp(72px, 9vh, 120px);
+  --pr-bottom: clamp(64px, 8vh, 104px);
   --pr-ease: cubic-bezier(0.16, 1, 0.3, 1);
 
   position: fixed;
@@ -45,23 +45,81 @@ html.pr-presenting * {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   overflow: hidden;
+  user-select: none;
+}
+.pr-root a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--pr-line);
+  transition: border-color 160ms ease;
+}
+.pr-root a:hover {
+  border-color: var(--pr-ink);
 }
 
+/* ---- chrome: name + slide label top-left, counter top-right ---- */
+.pr-chrome {
+  position: absolute;
+  top: clamp(22px, 3vh, 36px);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-ink);
+}
+.pr-chrome--tl {
+  left: var(--pr-gutter);
+  line-height: 0;
+}
+.pr-mark {
+  height: 64px;
+  width: auto;
+  display: block;
+  image-rendering: -webkit-optimize-contrast;
+}
+.pr-chrome--tr {
+  right: var(--pr-gutter);
+  gap: 8px;
+}
+.pr-chrome-dim {
+  color: var(--pr-faint);
+}
+.pr-chrome b {
+  font-weight: 500;
+}
+
+/* ---- progress: hairline track, ink playhead ---- */
+.pr-track {
+  position: absolute;
+  left: var(--pr-gutter);
+  right: var(--pr-gutter);
+  bottom: clamp(26px, 3.6vh, 44px);
+  height: 1px;
+  background: var(--pr-line);
+  z-index: 3;
+}
+.pr-playhead {
+  height: 100%;
+  width: 100%;
+  background: var(--pr-ink);
+  transform-origin: left center;
+  transform: scaleX(0.125);
+  transition: transform 520ms var(--pr-ease);
+}
+
+/* ---- stage / slides ---- */
 .pr-stage {
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-
 .pr-slide {
   position: absolute;
   inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: clamp(28px, 5.5vw, 96px);
+  padding: var(--pr-top) var(--pr-gutter) var(--pr-bottom);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -71,572 +129,635 @@ html.pr-presenting * {
   visibility: visible;
   pointer-events: auto;
 }
-
-/* the one motion primitive: content rises out of a mask */
-.pr-mask {
-  overflow: hidden;
-  display: block;
-  padding-bottom: 0.08em;
-}
-.pr-rise {
-  display: block;
-  transform: translateY(115%);
+/* cues start invisible; the script settles them in (or reveals instantly) */
+.pr-in {
+  opacity: 0;
+  will-change: opacity, transform;
 }
 
 /* ---- type ---- */
+/* grey mono label over a case headline */
 .pr-eyebrow {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  font-size: clamp(11px, 1.1vw, 14px);
-  letter-spacing: 0.24em;
   color: var(--pr-faint);
-  font-weight: 500;
-  margin-bottom: clamp(20px, 3vh, 40px);
+  margin-bottom: clamp(16px, 2.4vh, 28px);
 }
-
+/* compact section headline */
+.pr-h2--section {
+  font-size: clamp(24px, 2.2vw, 36px);
+  margin-bottom: clamp(20px, 3vh, 36px);
+}
 .pr-h1 {
   font-family: var(--font-display);
-  font-size: clamp(38px, 6.4vw, 92px);
   font-weight: 700;
-  line-height: 0.98;
-  letter-spacing: -0.03em;
-  color: var(--pr-ink);
+  font-size: clamp(56px, 7.6vw, 128px);
+  line-height: 0.94;
+  letter-spacing: -0.035em;
+  margin: 0;
 }
 .pr-h2 {
   font-family: var(--font-display);
-  font-size: clamp(26px, 4.2vw, 58px);
   font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -0.025em;
-  color: var(--pr-ink);
-  max-width: 17ch;
+  font-size: clamp(34px, 3.9vw, 62px);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  margin: 0;
+  text-wrap: balance;
 }
 .pr-lede {
   font-family: var(--font-sans);
-  font-size: clamp(16px, 1.9vw, 27px);
-  font-weight: 400;
-  line-height: 1.3;
+  font-size: clamp(18px, 1.5vw, 24px);
+  line-height: 1.35;
   letter-spacing: -0.01em;
-  max-width: 24ch;
-  margin-top: clamp(18px, 2.6vh, 30px);
   color: var(--pr-body);
+  margin: clamp(20px, 2.8vh, 32px) 0 0;
+  max-width: 34ch;
 }
-/* emphasis = the site's interactive black, one weight heavier —
-   pops against grey body copy without introducing a foreign colour */
-.pr-em {
-  color: var(--pr-ink);
-  font-weight: 600;
+.pr-whisper {
+  font-family: var(--font-sans);
+  font-size: clamp(13px, 1vw, 15px);
+  color: var(--pr-faint);
+  margin: 0;
+  letter-spacing: -0.005em;
 }
 
-/* ---- rows ---- */
-.pr-rows {
-  margin-top: clamp(24px, 4vh, 48px);
+/* ---- media frames (project gradients, squared, shot inset) ---- */
+.pr-frame {
+  position: relative;
+  margin: 0;
+  padding: clamp(14px, 1.4vw, 22px);
   display: flex;
   flex-direction: column;
-  gap: clamp(10px, 1.6vh, 18px);
-  max-width: 46ch;
-}
-.pr-row {
-  font-size: clamp(15px, 1.35vw, 19px);
-  line-height: 1.45;
-  color: var(--pr-body);
-  display: flex;
-  gap: 14px;
-  align-items: baseline;
-}
-.pr-row-k {
-  color: var(--pr-ink);
-  font-weight: 600;
-  font-variant-numeric: tabular-nums;
-  min-width: 1.6ch;
-}
-.pr-row-v { color: var(--pr-body); }
-
-/* ---- metrics ---- */
-.pr-metrics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(28px, 4vw, 64px);
-  margin-top: clamp(24px, 4vh, 44px);
-}
-.pr-metric { display: flex; flex-direction: column; gap: 6px; }
-.pr-num {
-  font-family: var(--font-display);
-  font-size: clamp(26px, 3.4vw, 46px);
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  line-height: 1;
-  color: var(--pr-ink);
-}
-.pr-lbl {
-  font-family: var(--font-sans);
-  font-size: clamp(12px, 1.1vw, 15px);
-  color: var(--pr-muted);
-  max-width: 16ch;
-  line-height: 1.35;
-}
-
-/* ---- contact ---- */
-.pr-contact {
-  margin-top: clamp(28px, 4vh, 48px);
-  display: flex;
-  flex-wrap: wrap;
-  gap: clamp(16px, 2.4vw, 36px);
-  font-size: clamp(15px, 1.5vw, 20px);
-}
-.pr-contact a {
-  color: var(--pr-ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--pr-line);
-  padding-bottom: 2px;
-  transition: border-color 0.3s var(--pr-ease), color 0.3s var(--pr-ease);
-}
-.pr-contact a:hover,
-.pr-contact a:focus-visible { border-color: var(--pr-ink); }
-
-/* ---- split layout w/ real project screenshot ---- */
-.pr-split {
-  display: flex;
-  gap: clamp(32px, 5vw, 80px);
-  align-items: center;
-  flex-wrap: wrap;
-}
-.pr-split > .pr-col {
-  flex: 1 1 340px;
-  min-width: min(100%, 320px);
-}
-.pr-media {
-  flex: 1 1 380px;
-  min-width: min(100%, 320px);
-  overflow: hidden;          /* acts as the rise mask for the frame */
-  display: block;
-}
-/* Frame = a site gradient card (squared) with the screenshot floating on it,
-   exactly like the Work grid covers. Gradient is set inline per project. */
-.pr-frame {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  max-width: min(46vw, 620px);
-  aspect-ratio: 16 / 10;
-  margin-left: auto;
-  padding: clamp(18px, 2.2vw, 32px);
-  background: #eef2f7;                        /* fallback; real gradient inline */
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  gap: 10px;
 }
 .pr-shot {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
   display: block;
-  background: #fff;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  box-shadow: 0 1px 0 rgba(17, 17, 17, 0.06), 0 18px 40px -22px rgba(17, 17, 17, 0.35);
 }
-
-/* Website subtitle w/ expand-collapse chips, on the intro slide */
-.pr-subtitle {
-  font-family: var(--font-sans);
-  font-size: clamp(15px, 1.5vw, 20px);
-  line-height: 1.5;
-  color: var(--pr-muted);
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  max-width: 30ch;
-  margin-top: clamp(20px, 3vh, 34px);
-}
-
-/* Tag pill under each project header — mirrors .wg-tag */
-.pr-tag {
-  display: inline-block;
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  font-size: clamp(10px, 1vw, 12px);
-  letter-spacing: 0.06em;
-  color: #6f6f6f;
-  border: 1px solid #d7d7d7;
-  padding: 3px 9px;
-  line-height: 1.4;
-  margin-top: clamp(14px, 2vh, 22px);
-}
-
-/* The petting cat — perches in the intro like it does on the first Work card */
-.pr-cat {
-  position: absolute;
-  top: clamp(96px, 16vh, 190px);
-  right: clamp(40px, 8vw, 150px);
-  width: clamp(120px, 12vw, 154px);
-  z-index: 4;
-}
-@media (max-width: 900px) {
-  .pr-cat {
-    top: auto;
-    bottom: clamp(70px, 12vh, 130px);
-    right: clamp(20px, 6vw, 40px);
-    width: clamp(104px, 26vw, 128px);
-  }
-}
-
-/* ---- chrome: counter, label, playhead, hint ---- */
-.pr-label {
-  position: fixed;
-  top: clamp(24px, 4vh, 44px);
-  left: clamp(24px, 4vw, 56px);
-  font-family: var(--font-display);
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--pr-faint);
-  z-index: 10;
-}
-.pr-counter {
-  position: fixed;
-  top: clamp(24px, 4vh, 44px);
-  right: clamp(24px, 4vw, 56px);
-  font-family: var(--font-display);
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  color: var(--pr-faint);
-  font-variant-numeric: tabular-nums;
-  z-index: 10;
-}
-.pr-counter b { color: var(--pr-ink); font-weight: 600; }
-
-.pr-track {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 3px;
-  background: var(--pr-line);
-  z-index: 10;
-}
-.pr-playhead {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  background: var(--pr-accent);
-  width: 11%;
-  transition: width 0.7s var(--pr-ease);
-}
-.pr-knob {
-  position: absolute;
-  top: 50%;
-  right: -5px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--pr-accent);
-  transform: translateY(-50%);
-  box-shadow: 0 0 0 4px rgba(17, 17, 17, 0.12);
-}
-
-.pr-hint {
-  position: fixed;
-  bottom: clamp(18px, 3vh, 30px);
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-display);
-  font-size: 12px;
+.pr-cap {
+  font-family: var(--font-mono);
+  font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--pr-faint);
-  z-index: 10;
-  opacity: 0.85;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.pr-hint kbd {
-  background: rgba(17, 17, 17, 0.08);
-  border-radius: 0;
-  padding: 2px 7px;
-  font-family: var(--font-display);
-  color: var(--pr-ink);
-}
-
-.pr-root :focus-visible {
-  outline: 2px solid var(--pr-ink);
-  outline-offset: 4px;
+  color: rgba(17, 17, 17, 0.55);
 }
 
 /* ============================================================
-   NEW-FLOW SLIDES — billu intro, timeline, circle, free time, close
-   Structural lines/rings reveal via .is-active on the same --pr-ease
-   curve; all text still rises out of masks. One motion language.
+   01 — WHO
+   name upper-left, specialties as tags; a hairline at the bottom
+   with Billu the cat sitting on it
    ============================================================ */
-
-/* placeholder tile for images you'll drop in later */
-.pr-ph {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 12px;
-  width: 100%;
-  height: 100%;
-  min-height: 120px;
-  background: repeating-linear-gradient(
-    -45deg, rgba(0,0,0,0.035), rgba(0,0,0,0.035) 10px,
-    rgba(0,0,0,0.06) 10px, rgba(0,0,0,0.06) 20px);
-  color: var(--pr-faint);
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: clamp(9px, 0.9vw, 11px);
-  border: 1px dashed #cfd3d9;
-}
-
-/* ---- billu intro: "Hi!" marquee ---- */
-.pr-hi {
-  overflow: hidden;
-  margin-top: clamp(22px, 4vh, 44px);
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
-}
-.pr-hi-track {
-  display: inline-flex;
-  gap: 0.5em;
-  white-space: nowrap;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(22px, 3vw, 40px);
-  animation: pr-hi-scroll 16s linear infinite;
-}
-.pr-hi-track span:nth-child(even) { color: var(--pr-faint); }
-.pr-hi-track span:nth-child(odd) { color: var(--pr-ink); }
-@keyframes pr-hi-scroll { to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .pr-hi-track { animation: none; } }
-
-/* ---- timeline ---- */
-.pr-timeline {
-  position: relative;
-  margin-top: clamp(30px, 6vh, 60px);
-  min-height: clamp(280px, 42vh, 420px);
-}
-.pr-tl-line {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  height: 1.5px;
-  background: var(--pr-ink);
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-.pr-slide.is-active .pr-tl-line {
-  transform: scaleX(1);
-  transition: transform 1s var(--pr-ease);
-}
-.pr-tl-row {
-  position: relative;
-  height: clamp(280px, 42vh, 420px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: clamp(16px, 3vw, 44px);
-}
-.pr-tl-item {
-  position: relative;
-  flex: 1 1 0;
-  display: flex;
-  justify-content: center;
-}
-.pr-tl-dot {
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: var(--pr-ink);
-  box-shadow: 0 0 0 5px var(--pr-bg);
-  z-index: 2;
-}
-.pr-tl-card {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: min(30vw, 260px);
-}
-.pr-tl-item--up .pr-tl-card { bottom: 30px; }
-.pr-tl-item--down .pr-tl-card { top: 30px; }
-.pr-tl-year {
-  font-family: var(--font-sans);
-  font-size: clamp(11px, 1vw, 13px);
-  color: var(--pr-faint);
-  margin-bottom: 6px;
-}
-.pr-tl-org {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(15px, 1.5vw, 20px);
-  color: var(--pr-ink);
-  line-height: 1.15;
-}
-.pr-tl-role {
-  font-family: var(--font-sans);
-  font-size: clamp(12px, 1.15vw, 15px);
-  color: var(--pr-muted);
-  margin-top: 3px;
-}
-.pr-tl-cat {
-  font-family: var(--font-sans);
-  font-weight: 500;
-  font-size: clamp(12px, 1.15vw, 15px);
-  color: var(--pr-ink);
-  margin-top: 3px;
-}
-
-/* ---- circle: how I work ---- */
-.pr-ring-wrap {
-  position: relative;
-  width: clamp(280px, 40vw, 440px);
-  aspect-ratio: 1;
-  margin: clamp(60px, 9vh, 96px) auto 0;
-}
-.pr-ring { width: 100%; height: 100%; overflow: visible; display: block; }
-.pr-ring circle {
-  fill: none;
-  stroke: var(--pr-ink);
-  stroke-width: 1.5;
-  stroke-dasharray: 1131;
-  stroke-dashoffset: 1131;
-}
-.pr-slide.is-active .pr-ring circle {
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1.15s var(--pr-ease);
-}
-.pr-node {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.pr-node::before {
-  content: '';
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background: var(--pr-ink);
-  box-shadow: 0 0 0 5px var(--pr-bg);
-  flex-shrink: 0;
-}
-.pr-node span {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(15px, 1.6vw, 21px);
-  color: var(--pr-ink);
-  white-space: nowrap;
-}
-.pr-node--l { top: 50%; left: 0; transform: translate(-50%, -50%); flex-direction: row-reverse; }
-.pr-node--r { top: 50%; right: 0; transform: translate(50%, -50%); }
-.pr-node--b { bottom: 0; left: 50%; transform: translate(-50%, 50%); flex-direction: column; gap: 6px; }
-.pr-avatar {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(64px, 8vw, 92px);
-  height: clamp(64px, 8vw, 92px);
-  border-radius: 50%;
-  overflow: hidden;
-  background: var(--pr-bg);
-  box-shadow: 0 0 0 6px var(--pr-bg);
-  z-index: 2;
-}
-.pr-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-/* ---- free time: list + collage ---- */
-.pr-ft-lead {
-  font-family: var(--font-sans);
-  font-size: clamp(13px, 1.2vw, 16px);
-  color: var(--pr-muted);
-  margin-bottom: clamp(14px, 2vh, 22px);
-}
-.pr-ft-list {
-  display: flex;
-  flex-direction: column;
-  gap: clamp(10px, 1.8vh, 20px);
-}
-.pr-ft-item {
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: clamp(20px, 2.6vw, 36px);
-  letter-spacing: -0.02em;
-  color: var(--pr-ink);
-  line-height: 1.12;
-}
-.pr-collage {
-  flex: 1 1 380px;
-  min-width: min(100%, 320px);
+.pr-slide--who {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: clamp(74px, 9vw, 118px);
+  grid-template-rows: 1fr auto;
+  row-gap: clamp(24px, 3.5vh, 40px);
+}
+.pr-who-top {
+  align-self: center;
+}
+.pr-spec {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-faint);
+  margin: clamp(28px, 4vh, 48px) 0 14px;
+}
+.pr-tags {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
-.pr-tile {
-  overflow: hidden;
-  background: #eef2f7;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-.pr-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.pr-tile--wide { grid-column: span 2; }
-.pr-tile--tall { grid-row: span 2; }
-
-/* sparse timeline (only 2 nodes) sits toward the start, not edge-to-edge */
-.pr-tl-row--sparse {
-  justify-content: flex-start;
-  gap: clamp(120px, 22vw, 340px);
-  padding-left: 4%;
-}
-.pr-tl-row--sparse .pr-tl-item { flex: 0 0 auto; }
-
-/* collage fades in just after the list starts rising */
-.pr-collage { opacity: 0; }
-.pr-slide.is-active .pr-collage {
-  opacity: 1;
-  transition: opacity 0.8s var(--pr-ease) 0.25s;
-}
-
-.pr-center { text-align: center; }
-.pr-center-flex { justify-content: center; }
-.pr-close-h { max-width: none; }
-.pr-close-h .pr-em { display: block; margin-top: 0.12em; }
-
-/* ---- close: next up ---- */
-.pr-nextup {
-  position: absolute;
-  right: clamp(28px, 5vw, 72px);
-  bottom: clamp(64px, 12vh, 120px);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(16px, 1.8vw, 24px);
+.pr-tag {
+  font-family: var(--font-sans);
+  font-size: clamp(14px, 1.05vw, 17px);
+  letter-spacing: -0.005em;
+  line-height: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--pr-line-strong);
   color: var(--pr-ink);
 }
-.pr-close-center {
-  text-align: center;
+.pr-who-foot {
+  position: relative;
+  border-top: 1px solid var(--pr-line-strong);
+  height: 0;
+}
+.pr-cat {
+  position: absolute;
+  right: 0;
+  bottom: -1px; /* feet on the rule */
+  line-height: 0;
+}
+.pr-cat .cat-animation-container {
+  opacity: 1;
+}
+
+/* ============================================================
+   02 — TIMELINE
+   five columns on a hairline; rows inside a column are parallel
+   work, separated by grey rules. The Now column is heaviest.
+   ============================================================ */
+.pr-slide--path {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pr-path {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 0.85fr 1.1fr 1.1fr 1.15fr 1.25fr;
+  border-top: 1px solid var(--pr-line-strong);
+}
+.pr-col {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(16px, 2.2vh, 24px) clamp(18px, 1.8vw, 28px) 0 0;
+  border-right: 1px solid var(--pr-line);
+  margin-right: clamp(18px, 1.8vw, 28px);
+  min-width: 0;
+}
+.pr-col:last-child {
+  border-right: 0;
+  margin-right: 0;
+  padding-right: 0;
+}
+.pr-step-year {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-faint);
+  margin-bottom: clamp(10px, 1.6vh, 16px);
+}
+.pr-step {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(12px, 1.8vh, 18px) 0 clamp(14px, 2.2vh, 22px);
+}
+.pr-step + .pr-step {
+  border-top: 1px solid var(--pr-line);
+}
+.pr-step-sub {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-faint);
+}
+.pr-step-org {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(20px, 1.8vw, 30px);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  color: var(--pr-ink);
+}
+.pr-step-role {
+  font-size: clamp(13px, 1vw, 15.5px);
+  line-height: 1.4;
+  color: var(--pr-muted);
+}
+.pr-col--now .pr-step-role {
+  color: var(--pr-body);
+}
+.pr-minitags {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pr-minitags li {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 7px 9px;
+  border: 1px solid var(--pr-line-strong);
+  color: var(--pr-ink);
+}
+.pr-minitags .pr-minitag--ink {
+  background: var(--pr-ink);
+  color: var(--pr-bg);
+  font-weight: 700;
+}
+
+/* ============================================================
+   03 — ZOOMINFO (hero)
+   copy 5/12 left; two offset frames right — homepage large,
+   chat drawer tucked under it. Not a gallery.
+   ============================================================ */
+.pr-slide--zi {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  column-gap: clamp(40px, 4.5vw, 80px);
   align-items: center;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  .pr-rise { transform: none !important; }
-  .pr-playhead { transition: none; }
-  .pr-tl-line { transform: scaleX(1); }
-  .pr-ring circle { stroke-dashoffset: 0; }
-  .pr-collage { opacity: 1; }
+.pr-zi-copy .pr-h2 {
+  max-width: 14ch;
+}
+.pr-cues {
+  list-style: none;
+  margin: clamp(24px, 3.6vh, 44px) 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.pr-cue {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--pr-line);
+  font-size: clamp(15px, 1.2vw, 19px);
+  line-height: 1.4;
+  color: var(--pr-body);
+  max-width: 40ch;
+}
+.pr-cue:last-child {
+  border-bottom: 1px solid var(--pr-line);
+}
+.pr-cue-n,
+.pr-q-n,
+.pr-tenet-n {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--pr-faint);
+  padding-top: 0.35em;
+}
+.pr-stat {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-top: clamp(22px, 3.4vh, 40px);
+}
+.pr-stat-n {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(44px, 4.6vw, 76px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.pr-stat-of {
+  color: var(--pr-faint);
+  font-weight: 500;
+  font-size: 0.55em;
+  letter-spacing: -0.02em;
+}
+.pr-stat-k {
+  font-size: clamp(13px, 1.05vw, 16px);
+  color: var(--pr-muted);
+  max-width: 16ch;
+  line-height: 1.3;
+}
+/* chat frame hangs off the homepage frame at a fixed 70% so the
+   overlap is the same on every screen; margin-bottom reserves the
+   overhang so the pair still centres in the column */
+.pr-zi-media {
+  position: relative;
+  margin-bottom: calc(21% + 42px);
+}
+.pr-frame--zi-home {
+  position: relative;
+  width: 78%;
+}
+.pr-frame--zi-chat {
+  position: absolute;
+  right: 0;
+  top: 70%;
+  width: 54%;
+  outline: 8px solid var(--pr-bg);
+}
+.pr-shot--wide,
+.pr-frame--zi-chat .pr-shot {
+  aspect-ratio: 1776 / 1080;
+  object-fit: cover;
 }
 
-@media (max-width: 900px) {
-  .pr-h2 { max-width: none; }
-  .pr-lede { max-width: none; }
-  .pr-frame { max-width: 100%; margin-left: 0; }
-  .pr-media { order: 2; }
-  .pr-collage { order: 2; grid-template-columns: repeat(3, 1fr); }
-  /* timeline: stack the cards below a shorter axis on small screens */
-  .pr-tl-row { gap: 10px; }
-  .pr-tl-card { max-width: 40vw; }
-  .pr-tl-org { font-size: 13px; }
+/* ============================================================
+   04 — TASHVI (shares the hero grid; one frame instead of two)
+   ============================================================ */
+.pr-zi-media--single {
+  margin-bottom: 0;
+}
+.pr-frame--tashvi {
+  width: 100%;
+}
+.pr-shot--tashvi {
+  aspect-ratio: 1910 / 934;
+  object-fit: cover;
+  width: 100%;
+}
+.pr-live {
+  display: inline-block;
+  margin-top: clamp(22px, 3.4vh, 40px);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-muted);
+}
+
+/* ============================================================
+   05 — NOW (NDA, talk-only)
+   two columns on a hairline. Names, one cue each. No fake UI.
+   ============================================================ */
+.pr-slide--now {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(36px, 6vh, 64px);
+}
+.pr-now-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--pr-line-strong);
+}
+.pr-now {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(20px, 2.8vh, 32px) clamp(28px, 3vw, 56px) clamp(28px, 4vh, 48px) 0;
+}
+.pr-now + .pr-now {
+  padding-left: clamp(28px, 3vw, 56px);
+  padding-right: 0;
+  border-left: 1px solid var(--pr-line);
+}
+.pr-now-k {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-faint);
+}
+.pr-now-org {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(36px, 3.8vw, 64px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-top: 6px;
+}
+.pr-now-cue {
+  font-size: clamp(15px, 1.15vw, 19px);
+  line-height: 1.4;
+  color: var(--pr-body);
+  max-width: 40ch;
+  margin-top: 6px;
+}
+.pr-now-point {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: clamp(14px, 2vh, 22px);
+  padding-top: clamp(14px, 2vh, 22px);
+  border-top: 1px solid var(--pr-line);
+}
+.pr-now-point .pr-now-k {
+  color: var(--pr-ink);
+}
+.pr-now-point .pr-now-cue {
+  color: var(--pr-muted);
+}
+
+/* ============================================================
+   06 — TENETS
+   three big words down the page, each with one clause
+   ============================================================ */
+.pr-slide--tenets {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pr-tenets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pr-tenet:first-child {
+  border-top: 1px solid var(--pr-line);
+}
+.pr-tenet {
+  display: grid;
+  grid-template-columns: 56px 1fr 1fr;
+  align-items: center;
+  column-gap: clamp(20px, 2vw, 40px);
+  padding: clamp(18px, 2.8vh, 32px) 0;
+  border-bottom: 1px solid var(--pr-line);
+}
+.pr-tenet-n {
+  padding-top: 0;
+}
+.pr-tenet-w {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 4.6vw, 80px);
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+.pr-tenet-s {
+  font-size: clamp(16px, 1.3vw, 21px);
+  line-height: 1.35;
+  color: var(--pr-body);
+  max-width: 30ch;
+}
+
+/* ============================================================
+   07 — OUTSIDE WORK
+   three lines left; one landscape + one portrait photo right
+   ============================================================ */
+.pr-slide--out {
+  display: grid;
+  grid-template-columns: 4.5fr 7.5fr;
+  column-gap: clamp(40px, 4.5vw, 80px);
+  align-items: center;
+}
+.pr-out-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--pr-line-strong);
+}
+.pr-out-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: clamp(16px, 2.4vh, 26px) 0;
+  border-bottom: 1px solid var(--pr-line);
+}
+.pr-out-line {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 2.7vw, 46px);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+.pr-out-k {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pr-faint);
+}
+.pr-out-photos {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(14px, 1.4vw, 22px);
+  height: min(64vh, 700px);
+}
+.pr-out-stack {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.4vw, 22px);
+}
+.pr-photo--video {
+  flex: 1 1 0;
+  min-height: 0;
+  background: #111;
+}
+.pr-photo--video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pr-photo {
+  margin: 0;
+  overflow: hidden;
+}
+.pr-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.pr-photo--wide {
+  flex: 1 1 0;
+  min-height: 0;
+}
+.pr-photo--wide img {
+  filter: saturate(0.92);
+}
+/* the AIGA badge is a designed graphic — show it whole, at its own ratio */
+.pr-photo--tall {
+  flex: 0 0 auto;
+  height: 100%;
+  aspect-ratio: 900 / 1215;
+}
+
+/* ============================================================
+   08 — QUESTIONS (consultant close)
+   ============================================================ */
+.pr-slide--qs {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  column-gap: clamp(40px, 4.5vw, 80px);
+  align-items: center;
+}
+.pr-qs-head .pr-h2 {
+  font-size: clamp(56px, 6.4vw, 108px);
+  letter-spacing: -0.035em;
+}
+.pr-lede--faint {
+  color: var(--pr-faint);
+}
+.pr-qs-wrap .pr-eyebrow {
+  margin-bottom: 14px;
+}
+.pr-qs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--pr-line-strong);
+}
+.pr-q {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  align-items: baseline;
+  column-gap: 16px;
+  padding: clamp(14px, 2.2vh, 24px) 0;
+  border-bottom: 1px solid var(--pr-line);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(22px, 2.1vw, 34px);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.pr-q-n {
+  padding-top: 0;
+}
+
+/* ============================================================
+   smaller laptops / windowed browsers
+   ============================================================ */
+@media (max-width: 1180px) {
+  .pr-slide--zi,
+  .pr-slide--tashvi,
+  .pr-slide--out,
+  .pr-slide--qs {
+    grid-template-columns: 1fr 1fr;
+  }
+  .pr-frame--zi-home {
+    width: 86%;
+  }
+  .pr-frame--zi-chat {
+    width: 60%;
+  }
+}
+@media (max-width: 860px) {
+  .pr-slide--zi,
+  .pr-slide--tashvi,
+  .pr-slide--out,
+  .pr-slide--qs {
+    grid-template-columns: 1fr;
+    align-content: center;
+    row-gap: 28px;
+  }
+  .pr-path {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 20px;
+  }
+  .pr-col {
+    border-right: 0;
+    margin-right: 0;
+  }
+  .pr-tenet {
+    grid-template-columns: 40px 1fr;
+  }
+  .pr-tenet-s {
+    grid-column: 2;
+  }
+  .pr-out-photos {
+    height: 34vh;
+  }
+}
+
+/* ---- reduced motion: nothing animates; cues simply appear ---- */
+@media (prefers-reduced-motion: reduce) {
+  .pr-in {
+    opacity: 1;
+    will-change: auto;
+  }
+  .pr-playhead,
+  .pr-root a {
+    transition: none;
+  }
 }

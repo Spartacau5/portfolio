@@ -6,7 +6,14 @@ import { analytics } from './GoogleAnalytics';
 // Frame order: cat1 through cat13 (note: cat6 doesn't exist)
 const frameSequence = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13];
 
-export default function CatAnimation() {
+type CatAnimationProps = {
+    /** 'click' (default) pets Billu and counts it; 'hover' plays the stretch on mouse-enter and lets clicks fall through */
+    trigger?: 'click' | 'hover';
+    /** hide the "Pet my cat" tooltip */
+    hideTooltip?: boolean;
+};
+
+export default function CatAnimation({ trigger = 'click', hideTooltip = false }: CatAnimationProps = {}) {
     const [currentFrame, setCurrentFrame] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
     const animationRef = useRef<NodeJS.Timeout | null>(null);
@@ -100,15 +107,19 @@ export default function CatAnimation() {
     }, []);
 
     const frameNumber = frameSequence[currentFrame];
+    const hoverMode = trigger === 'hover';
 
     return (
         <div
             className="cat-animation-container"
-            onClick={playAnimation}
-            onMouseEnter={() => setIsHovered(true)}
+            onClick={hoverMode ? undefined : playAnimation}
+            onMouseEnter={() => {
+                setIsHovered(true);
+                if (hoverMode) playAnimationVisual();
+            }}
             onMouseLeave={() => setIsHovered(false)}
             style={{
-                cursor: 'pointer',
+                cursor: hoverMode ? 'default' : 'pointer',
                 width: '220px',
                 height: '62px',
                 overflow: 'visible',
@@ -116,7 +127,7 @@ export default function CatAnimation() {
             }}
         >
             {/* Tooltip */}
-            <div
+            {!hideTooltip && <div
                 className="cat-tooltip"
                 style={{
                     position: 'absolute',
@@ -133,7 +144,7 @@ export default function CatAnimation() {
                 }}
             >
                 Pet my cat Billu!{petCount !== null && ` (${petCount.toLocaleString()} pets)`}
-            </div>
+            </div>}
 
             {/* SVG with cropped viewBox to show only the cat */}
             <svg

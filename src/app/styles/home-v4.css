@@ -119,16 +119,28 @@
 /* On small screens an expanded chip's copy can't fit on one line — cap it to the
    container and let it wrap onto multiple lines instead of running off-screen. */
 @media (max-width: 767px) {
+  /* Open chip flows like a sentence: the typed copy continues on the same line
+     after the label and only wraps once it reaches the edge, left-aligned. */
   .wg-chip--expandable.is-open {
-    flex-wrap: wrap;
+    display: inline-block;
     white-space: normal;
+    text-align: left;
+    line-height: 1.45;
     height: auto;
     overflow: visible;
   }
+  .wg-chip--expandable.is-open .wg-chip-head,
+  .wg-chip--expandable.is-open .wg-chip-label,
+  .wg-chip--expandable.is-open .wg-chip-icon,
   .wg-chip--expandable.is-open .wg-chip-extra,
-  .wg-chip--expandable.is-open .wg-chip-typed {
+  .wg-chip--expandable.is-open .wg-chip-typed,
+  .wg-chip--expandable.is-open .wg-chip-end {
+    display: inline;
     white-space: normal;
     overflow: visible;
+  }
+  .wg-chip--expandable.is-open .wg-chip-icon {
+    margin-left: 0.3em;
   }
 }
 .wg-chip--expandable:focus-visible {

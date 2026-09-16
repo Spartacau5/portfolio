@@ -15,6 +15,8 @@ type ExpandableChipProps = {
   label: string;
   icon: string;
   expandedText: string;
+  /** shorter copy used at <=767px, where the full line would wrap awkwardly */
+  expandedTextMobile?: string;
   endSymbol: string;
   iconMono?: boolean;
   onTrailBounce?: (phase: 'expand' | 'collapse') => void;
@@ -32,9 +34,19 @@ const TYPE_START_MS = 100;
 
 export const ExpandableChip = forwardRef<ExpandableChipHandle, ExpandableChipProps>(
   function ExpandableChip(
-    { label, icon, expandedText, endSymbol, iconMono = false, onTrailBounce },
+    { label, icon, expandedText: expandedTextFull, expandedTextMobile, endSymbol, iconMono = false, onTrailBounce },
     ref,
   ) {
+    const [isMobile, setIsMobile] = useState(false);
+    useEffect(() => {
+      const mq = window.matchMedia('(max-width: 767px)');
+      const sync = () => setIsMobile(mq.matches);
+      sync();
+      mq.addEventListener('change', sync);
+      return () => mq.removeEventListener('change', sync);
+    }, []);
+    const expandedText = isMobile && expandedTextMobile != null ? expandedTextMobile : expandedTextFull;
+
     const [open, setOpen] = useState(false);
     const [typed, setTyped] = useState('');
     const [done, setDone] = useState(false);

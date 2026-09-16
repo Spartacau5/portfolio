@@ -155,6 +155,7 @@ export function WorkGrid() {
             label="Product Designer"
             icon="❁"
             expandedText=" turning complex problems into products people can actually use."
+            expandedTextMobile=" turning complex problems into usable products."
             endSymbol="☺"
             onTrailBounce={(phase) => afterDesignerTrail.current?.bounce(phase)}
           />
