@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import CatAnimation from '../components/CatAnimation';
+import CatAnimation from '../../components/CatAnimation';
 import './present.css';
 
 /*
- * /present — recruiter walkthrough. Nine slides, one hero (ZoomInfo).
+ * /present/v1 — frozen snapshot of the first recruiter walkthrough (Sep 17, 2026). Edit /present, not this. Nine slides, one hero (ZoomInfo).
  * Slides are cues for Arpit to talk over, not a document to read.
  * Keyboard (arrows / space / home / end / pgup / pgdn) + click-to-advance.
  * Everything is scoped to .pr-root / pr- so it never restyles the site.
