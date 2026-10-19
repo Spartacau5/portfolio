@@ -1,0 +1,253 @@
+/* ============================================================
+   /present/rove — slides that only the Rove deck has.
+   Layers on present.css: same tokens, hairlines and mono labels.
+   ============================================================ */
+
+/* present.css declares .pr-h2--section before .pr-h2, so its margin loses; restore it here */
+.rv-slide--flow .pr-h2--section,
+.rv-slide--ai .pr-h2--section {
+  margin-bottom: clamp(24px, 3.6vh, 44px);
+}
+
+/* ============================================================
+   03 — PRODUCTS
+   3 × 2 walkthroughs, each in its project gradient. The grid takes
+   whatever height the slide has left so both rows always fit.
+   ============================================================ */
+.rv-slide--work {
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(112px, 14vh, 144px); /* the grid runs top-aligned, so clear the face mark */
+}
+.rv-work {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
+  gap: clamp(12px, 1.2vw, 20px);
+}
+.rv-work-tile {
+  min-height: 0;
+  min-width: 0;
+}
+.rv-work-media {
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+}
+.rv-work-media > .pr-shot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.rv-work-media > .rv-work-shot--center {
+  object-position: center;
+}
+/* J&J has stills only: the two report covers, side by side */
+.rv-work-stills {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.rv-work-stills .pr-shot {
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+.rv-work-cap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.rv-work-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(14px, 1.1vw, 18px);
+  letter-spacing: -0.015em;
+  white-space: nowrap;
+}
+.rv-work-cap .pr-cap {
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   06 — PRODUCT FILM
+   the script as clickable beats; the film plays beside it
+   ============================================================ */
+.rv-beats {
+  list-style: none;
+  margin: clamp(22px, 3.2vh, 40px) 0 0;
+  padding: 0;
+  border-top: 1px solid var(--pr-line);
+}
+.pr-root .rv-beat {
+  appearance: none;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--pr-line);
+  width: 100%;
+  margin: 0;
+  padding: clamp(8px, 1.2vh, 12px) 0;
+  display: grid;
+  grid-template-columns: 44px 104px 1fr;
+  column-gap: 12px;
+  align-items: baseline;
+  text-align: left;
+  font: inherit;
+  color: var(--pr-faint);
+  cursor: pointer !important; /* beats the deck-wide cursor reset */
+  transition: color 200ms ease;
+}
+.rv-beat:hover,
+.rv-beat.is-on {
+  color: var(--pr-ink);
+}
+.rv-beat:focus-visible {
+  outline: 1px solid var(--pr-ink);
+  outline-offset: 2px;
+}
+.rv-beat-t,
+.rv-beat-k {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.rv-beat-s {
+  font-size: clamp(14px, 1.08vw, 17px);
+  line-height: 1.35;
+}
+.rv-beat.is-on .rv-beat-s {
+  color: var(--pr-body);
+}
+.rv-film {
+  width: 100%;
+}
+.rv-film-shot {
+  aspect-ratio: 16 / 9;
+}
+.pr-root .rv-sound {
+  position: absolute;
+  top: calc(clamp(14px, 1.4vw, 22px) + 12px);
+  right: calc(clamp(14px, 1.4vw, 22px) + 12px);
+  appearance: none;
+  border: 0;
+  margin: 0;
+  padding: 8px 11px;
+  background: rgba(17, 17, 17, 0.72);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer !important; /* beats the deck-wide cursor reset */
+}
+.rv-sound[aria-pressed='true'] {
+  background: var(--pr-ink);
+}
+
+/* ============================================================
+   05 — HOW I MAKE CONTENT
+   six steps on one rule, each ending in what it produces
+   ============================================================ */
+.rv-slide--flow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.rv-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  border-top: 1px solid var(--pr-line-strong);
+}
+.rv-step {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(16px, 2.4vh, 26px) clamp(14px, 1.4vw, 24px) 0 0;
+  margin-right: clamp(14px, 1.4vw, 24px);
+  border-right: 1px solid var(--pr-line);
+  min-width: 0;
+}
+.rv-step:last-child {
+  border-right: 0;
+  margin-right: 0;
+  padding-right: 0;
+}
+.rv-step .pr-cue-n {
+  padding-top: 0;
+}
+.rv-step-k {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 2vw, 34px);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.rv-step-s {
+  font-size: clamp(14px, 1.08vw, 17px);
+  line-height: 1.4;
+  color: var(--pr-body);
+  min-height: 4.2em;
+}
+.rv-step-out {
+  align-self: flex-start;
+  margin-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 7px 9px;
+  background: var(--pr-ink);
+  color: var(--pr-bg);
+}
+
+/* ============================================================
+   responsive
+   ============================================================ */
+@media (max-width: 1180px) {
+  .rv-flow {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 24px;
+  }
+  .rv-step:nth-child(3) {
+    border-right: 0;
+    margin-right: 0;
+  }
+}
+@media (max-width: 860px) {
+  .rv-work {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: none;
+    overflow-y: auto;
+  }
+  .rv-work-tile {
+    min-height: 200px;
+  }
+  .rv-flow {
+    grid-template-columns: 1fr 1fr;
+  }
+  .rv-step {
+    border-right: 0;
+    margin-right: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-beat {
+    transition: none;
+  }
+}

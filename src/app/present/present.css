@@ -74,6 +74,17 @@ html.pr-presenting * {
 .pr-chrome--tl {
   left: var(--pr-gutter);
   line-height: 0;
+  /* it's a button: strip the chrome, keep the hit area */
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+.pr-chrome--tl:focus-visible {
+  outline: 1px solid var(--pr-ink);
+  outline-offset: 6px;
 }
 .pr-mark {
   height: 64px;
