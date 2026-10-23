@@ -4166,6 +4166,12 @@ html.arrive-immersive .cs-side-nav {
     text-align: left;
 }
 
+/* Process steps are always expanded — the header is a label, not a toggle. */
+.arrive-cs-accordion-summary--static {
+    cursor: default;
+    user-select: auto;
+}
+
 .arrive-cs-accordion-summary::-webkit-details-marker {
     display: none;
 }

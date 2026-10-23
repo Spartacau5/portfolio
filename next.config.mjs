@@ -14,7 +14,8 @@ const nextConfig = {
       { source: '/projects/zoominfo/:path*', destination: '/work/zoominfo/:path*', permanent: true },
       { source: '/contact', destination: 'https://www.linkedin.com/in/arpitahluwalia/', permanent: false },
       { source: '/offprint', destination: 'https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl', permanent: false },
-      { source: '/tashvi', destination: 'https://tashvi.ai/', permanent: false },
+      // Tashvi hidden for now (see SHOW_TASHVI in src/app/lib/flags.ts); restore with the flag.
+      // { source: '/tashvi', destination: 'https://tashvi.ai/', permanent: false },
       { source: '/work/zoominfo-archive', destination: '/work/zoominfo', permanent: true },
     ];
   },

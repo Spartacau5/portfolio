@@ -2,10 +2,11 @@
 
 import { useEffect, useRef } from 'react';
 import CatAnimation from '../components/CatAnimation';
+import { SHOW_TASHVI } from '../lib/flags';
 import './present.css';
 
 /*
- * /present — recruiter walkthrough. Nine slides, one hero (ZoomInfo).
+ * /present — recruiter walkthrough. Eight slides, one hero (ZoomInfo).
  * Slides are cues for Arpit to talk over, not a document to read.
  * Keyboard (arrows / space / home / end / pgup / pgdn) + click-to-advance.
  * Everything is scoped to .pr-root / pr- so it never restyles the site.
@@ -173,8 +174,16 @@ export default function PresentPage() {
       nextSlide();
     };
 
+    // the face mark top-left is a home button: click restarts from slide 1
+    const mark = root.querySelector<HTMLElement>('.pr-chrome--tl');
+    const onMark = (e: MouseEvent) => {
+      e.stopPropagation();
+      show(0);
+    };
+
     window.addEventListener('keydown', onKey);
     stage?.addEventListener('click', onClick);
+    mark?.addEventListener('click', onMark);
 
     // optional deep link: /present#3 opens on slide 3
     const hashN = parseInt(window.location.hash.replace('#', ''), 10);
@@ -190,6 +199,7 @@ export default function PresentPage() {
     return () => {
       window.removeEventListener('keydown', onKey);
       stage?.removeEventListener('click', onClick);
+      mark?.removeEventListener('click', onMark);
       document.documentElement.classList.remove('pr-presenting');
     };
   }, []);
@@ -197,14 +207,14 @@ export default function PresentPage() {
   return (
     <div className="pr-root is-start" ref={rootRef} aria-label="Arpit Ahluwalia walkthrough">
       {/* chrome */}
-      <div className="pr-chrome pr-chrome--tl" aria-hidden="true">
+      <button type="button" className="pr-chrome pr-chrome--tl" title="Back to start" aria-label="Back to start">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img className="pr-mark" src="/images/present/face.png" alt="" />
-      </div>
+      </button>
       <div className="pr-chrome pr-chrome--tr">
         <b id="pr-cur">01</b>
         <span className="pr-chrome-dim">/</span>
-        <span id="pr-tot" className="pr-chrome-dim">09</span>
+        <span id="pr-tot" className="pr-chrome-dim">08</span>
       </div>
 
       <div className="pr-stage">
@@ -274,7 +284,7 @@ export default function PresentPage() {
               <span className="pr-step-year">2024 – 26</span>
               <div className="pr-step">
                 <span className="pr-step-org pr-step-org--bold">Parsons</span>
-                <span className="pr-step-role">MS, Strategic Design &amp; Management · just graduated</span>
+                <span className="pr-step-role">MS, Strategic Design &amp; Management</span>
                 <ul className="pr-minitags">
                   <li className="pr-minitag--ink">AI</li>
                 </ul>
@@ -284,10 +294,12 @@ export default function PresentPage() {
                 <span className="pr-step-org">Arrive</span>
                 <span className="pr-step-role">Contract product design · via Craft · mobility</span>
               </div>
+              {SHOW_TASHVI && (
               <div className="pr-step">
                 <span className="pr-step-org">Tashvi.ai</span>
                 <span className="pr-step-role">Co-founder &amp; Design Lead · conversational AI product</span>
               </div>
+              )}
             </li>
 
             <li className="pr-col pr-col--now pr-in">
@@ -358,33 +370,8 @@ export default function PresentPage() {
           </div>
         </section>
 
-        {/* 04 — ZOOMINFO · MOBILE SMS */}
-        <section className="pr-slide pr-slide--zi pr-slide--sms" data-label="ZoomInfo · Mobile SMS">
-          <div className="pr-zi-copy">
-            <div className="pr-eyebrow pr-in">ZoomInfo · Mobile SMS</div>
-            <h2 className="pr-h2 pr-in">Candidate conversations, on the go.</h2>
-            <p className="pr-cue pr-cue--solo pr-in">
-              I designed the mobile SMS experience so recruiters could manage candidate conversations away from their desks.
-            </p>
-          </div>
-
-          <div className="pr-zi-media pr-zi-media--single">
-            <figure className="pr-frame pr-frame--sms pr-in" style={{ background: GRAD.zoominfo }}>
-              <video
-                className="pr-shot pr-shot--sms"
-                src="/images/present/zi-sms.mp4"
-                muted
-                loop
-                playsInline
-                preload="auto"
-                aria-label="TalentOS: sending an SMS to a candidate"
-              />
-              <figcaption className="pr-cap">TalentOS · SMS a candidate · shipped</figcaption>
-            </figure>
-          </div>
-        </section>
-
-        {/* 05 — TASHVI (same hierarchy as the hero, shorter talk) */}
+        {/* 04 — TASHVI (same hierarchy as the hero, shorter talk) */}
+        {SHOW_TASHVI && (
         <section className="pr-slide pr-slide--zi pr-slide--tashvi" data-label="Tashvi.ai">
           <div className="pr-zi-copy">
             <div className="pr-eyebrow pr-in">Tashvi.ai · Co-founder &amp; Design Lead</div>
@@ -444,8 +431,9 @@ export default function PresentPage() {
             </div>
           </div>
         </section>
+        )}
 
-        {/* 06 — NOW */}
+        {/* 05 — NOW */}
         <section className="pr-slide pr-slide--now" data-label="Now">
           <div className="pr-now-head">
             <div className="pr-eyebrow pr-in">Now · 2026</div>
@@ -479,7 +467,7 @@ export default function PresentPage() {
           </div>
         </section>
 
-        {/* 07 — HOW I TREAT CONVERSATIONAL AI */}
+        {/* 06 — HOW I TREAT CONVERSATIONAL AI */}
         <section className="pr-slide pr-slide--tenets" data-label="How I treat it">
           <ol className="pr-tenets">
             <li className="pr-tenet pr-in">
@@ -500,7 +488,7 @@ export default function PresentPage() {
           </ol>
         </section>
 
-        {/* 08 — OUTSIDE WORK */}
+        {/* 07 — OUTSIDE WORK */}
         <section className="pr-slide pr-slide--out" data-label="Outside work">
           <div className="pr-out-copy">
             <div className="pr-eyebrow pr-in">Outside the day job</div>
@@ -538,7 +526,7 @@ export default function PresentPage() {
           </div>
         </section>
 
-        {/* 09 — THANK YOU */}
+        {/* 08 — THANK YOU */}
         <section className="pr-slide pr-slide--qs pr-slide--thanks" data-label="Thank you">
           <div className="pr-qs-head">
             <h2 className="pr-h2 pr-in">Thank you.</h2>

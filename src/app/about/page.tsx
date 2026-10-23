@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useCallback, useEffect, useLayoutEffect, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDragScroll } from '../hooks/useDragScroll';
+import { SHOW_TASHVI } from '../lib/flags';
 
 // V4 About — flat full-width layout from Figma (node 619-20021).
 // Persona tabs swap the header line with a smooth animation.
@@ -67,7 +68,7 @@ const TABS: { key: string; label: string; header: ReactNode }[] = [
       <>
         I’m {'{highly_technical}'} and while (I’m ≠ engineer) I know my way /around &amp; can speak
         “fluently” with you; I built (<ExtLink href="https://arpitahluwalia.com">this.site</ExtLink>) from
-        scratch + (<ExtLink href="https://tashvi.ai">this.one</ExtLink>) &amp;&amp; (
+        scratch{SHOW_TASHVI && <> + (<ExtLink href="https://tashvi.ai">this.one</ExtLink>)</>} &amp;&amp; (
         <ExtLink href="https://www.unstableml.com">this.too</ExtLink>).
       </>
     ),
@@ -97,7 +98,7 @@ const EXPERIENCE = [
   { year: '2023', org: 'ZoomInfo', role: 'UX/UI Designer III' },
   { year: '2022', org: 'Johnson & Johnson', role: 'Contract UX/UI Designer' },
   { year: '2021', org: 'HypeX', role: 'UI Designer' },
-];
+].filter((r) => SHOW_TASHVI || r.org !== 'Tashvi.ai');
 const LEADERSHIP = [
   { year: 'Present', org: 'AIGA NY', role: 'Mentor' },
   { year: '2026', org: 'HackAI @ UTAustin', role: 'Judge' },

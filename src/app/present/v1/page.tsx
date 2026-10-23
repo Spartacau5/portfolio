@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import CatAnimation from '../../components/CatAnimation';
+import { SHOW_TASHVI } from '../../lib/flags';
 import './present.css';
 
 /*
@@ -284,10 +285,12 @@ export default function PresentPage() {
                 <span className="pr-step-org">Arrive</span>
                 <span className="pr-step-role">Contract product design · via Craft · mobility</span>
               </div>
+              {SHOW_TASHVI && (
               <div className="pr-step">
                 <span className="pr-step-org">Tashvi.ai</span>
                 <span className="pr-step-role">Co-founder &amp; Design Lead · conversational AI product</span>
               </div>
+              )}
             </li>
 
             <li className="pr-col pr-col--now pr-in">
@@ -385,6 +388,7 @@ export default function PresentPage() {
         </section>
 
         {/* 05 — TASHVI (same hierarchy as the hero, shorter talk) */}
+        {SHOW_TASHVI && (
         <section className="pr-slide pr-slide--zi pr-slide--tashvi" data-label="Tashvi.ai">
           <div className="pr-zi-copy">
             <div className="pr-eyebrow pr-in">Tashvi.ai · Co-founder &amp; Design Lead</div>
@@ -444,6 +448,7 @@ export default function PresentPage() {
             </div>
           </div>
         </section>
+        )}
 
         {/* 06 — NOW */}
         <section className="pr-slide pr-slide--now" data-label="Now">

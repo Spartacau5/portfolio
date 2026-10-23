@@ -10,6 +10,7 @@ import { FleetLogoLoop } from './FleetLogoLoop';
 import { TashviLogoLoop } from './TashviLogoLoop';
 import { ArriveLogoMarquee } from './ArriveLogoMarquee';
 import { analytics } from './GoogleAnalytics';
+import { SHOW_TASHVI } from '../lib/flags';
 import { ExpandableChip, type ExpandableChipHandle } from './ExpandableChip';
 import { ChipTrail, type ChipTrailHandle } from './ChipTrail';
 import { ScrollReveal } from './ScrollReveal';
@@ -22,7 +23,6 @@ const GRADIENTS = {
   tashvi: 'linear-gradient(180deg, #F8EDC7 0%, #EDF9EE 100%)',
   fleet: 'linear-gradient(180deg, #D6EBFE 0%, #D6E0DC 100%)',
   jnj: 'linear-gradient(180deg, #FEDBD3 0%, #FFF9ED 100%)',
-  hypex: 'linear-gradient(180deg, #D6D7FE 0%, #F1F0FE 100%)',
 };
 
 // Entrance animation — matches the More page header (staggered rise + un-blur).
@@ -226,6 +226,7 @@ export function WorkGrid() {
         </ScrollReveal>
 
         {/* Tashvi.ai */}
+        {SHOW_TASHVI && (
         <ScrollReveal as="article" className="wg-card" delay={0}>
           <a
             href="https://tashvi.ai/"
@@ -247,6 +248,7 @@ export function WorkGrid() {
             tag="UX Engineering"
           />
         </ScrollReveal>
+        )}
 
         {/* Fleet Management — case study not yet published */}
         <ScrollReveal as="article" className="wg-card" delay={0.06}>
@@ -299,31 +301,6 @@ export function WorkGrid() {
             title="Johnson & Johnson"
             sub="Transformed complex global ESG and DEI data into an engaging, compliant visual experience for a Fortune 50 audience."
             tag="UX/UI Design"
-          />
-        </ScrollReveal>
-
-        {/* HYPEX */}
-        <ScrollReveal as="article" className="wg-card" delay={0.06}>
-          <Link
-            href="/work/hypex"
-            className="wg-cover"
-            style={{ background: GRADIENTS.hypex }}
-            data-cursor-label="View Case Study"
-            aria-label="HYPEX case study"
-            onClick={() => analytics.trackCaseStudyView('HYPEX')}
-          >
-            <Image
-              src="/images/hypex-mockup.png"
-              alt="HYPEX"
-              width={500}
-              height={400}
-              className="wg-cover-img wg-cover-img--hypex"
-            />
-          </Link>
-          <Meta
-            title="HYPEX"
-            sub="Led marketing and design efforts for an NFT-based trading game."
-            tag="UI Design"
           />
         </ScrollReveal>
         </div>

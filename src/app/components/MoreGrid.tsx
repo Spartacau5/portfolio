@@ -7,6 +7,7 @@ import CatAnimation from './CatAnimation';
 import { MusicPlayer } from './MusicPlayer';
 import { analytics } from './GoogleAnalytics';
 import { ScrollReveal } from './ScrollReveal';
+import { SHOW_TASHVI } from '../lib/flags';
 
 // V4 MORE page. Header + subtext animate in smoothly on entry (rise + blur
 // clear), then a mixed 2/3-column grid of experiments, community & play.
@@ -16,7 +17,7 @@ const GRAD = {
   ekko: 'linear-gradient(180deg, #E7E0FF 0%, #F4F0FF 100%)',
   sinai: 'linear-gradient(180deg, #BFF0FF 0%, #EBEFF9 100%)',
   microsoft: 'linear-gradient(180deg, #F8F3C7 0%, #EBEFF9 100%)',
-  avatars: 'linear-gradient(180deg, #FEDBD3 0%, #FFF9ED 100%)',
+  hypex: 'linear-gradient(180deg, #D6D7FE 0%, #F1F0FE 100%)',
   photo: 'linear-gradient(180deg, #E9ECEF 0%, #F5F6F8 100%)',
 };
 
@@ -37,14 +38,15 @@ const introItem = {
   },
 };
 
-// Header removed — subtext sits on the left, tag on the right.
-function Meta({ sub, tag }: { title?: string; sub: string; tag?: string }) {
+// Title (left) + tag (right), subtext below — same layout as the Work cards.
+function Meta({ title, sub, tag }: { title: string; sub: string; tag?: string }) {
   return (
     <div className="mg-meta">
       <div className="mg-meta-row">
-        <p className="mg-card-sub">{sub}</p>
+        <h3 className="mg-card-title">{title}</h3>
         {tag && <span className="mg-tag">{tag}</span>}
       </div>
+      <p className="mg-card-sub">{sub}</p>
     </div>
   );
 }
@@ -62,6 +64,7 @@ export function MoreGrid() {
         <motion.h1 className="mg-title" variants={introItem}>
           I spend time with my communities, building tools with AI and curating my next DJ set.
         </motion.h1>
+        {SHOW_TASHVI && (
         <motion.p className="mg-sub" variants={introItem}>
           Currently building
           <a
@@ -76,6 +79,7 @@ export function MoreGrid() {
             </svg>
           </a>
         </motion.p>
+        )}
       </motion.header>
 
       {/* Mixed grid — 4 rows */}
@@ -86,21 +90,23 @@ export function MoreGrid() {
         <div className="mg-grid">
         {/* Row 1 — two wide */}
         <ScrollReveal as="article" className="mg-card mg-span-3">
-          <a
-            href="https://www.unstableml.com/"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href="/work/hypex"
             className="mg-cover"
-            style={{ background: GRAD.avatars }}
-            data-cursor-label="View Website"
-            aria-label="UnstableML — view website"
-            onClick={() => analytics.trackCaseStudyView('UnstableML')}
+            style={{ background: GRAD.hypex }}
+            data-cursor-label="View Case Study"
+            aria-label="HYPEX case study"
+            onClick={() => analytics.trackCaseStudyView('HYPEX')}
           >
-            <div className="mg-cover-inner mg-cover-inner--contain">
-              <video src="/images/more/ai-avatars-opt.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
-            </div>
-          </a>
-          <Meta title="UnstableML" sub="Designed an AI workflow enabling content creators to generate AI avatars." tag="AI Tool" />
+            <Image
+              src="/images/hypex-mockup.png"
+              alt="HYPEX"
+              width={500}
+              height={400}
+              className="mg-cover-img mg-cover-img--hypex"
+            />
+          </Link>
+          <Meta title="HYPEX" sub="Led marketing and design efforts for an NFT-based trading game." tag="UI Design" />
         </ScrollReveal>
 
         <ScrollReveal as="article" className="mg-card mg-span-3">

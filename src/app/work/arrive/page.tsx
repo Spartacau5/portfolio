@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics';
@@ -15,125 +15,31 @@ import { PreviewModal, type PreviewContent } from './PreviewModal';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
-import { useLenis } from 'lenis/react';
-import { HEADER_SCROLL_OFFSET, scrollToTarget } from '@/app/lib/lenisScroll';
 
-// One Process step. Controlled so the group behaves as a single-open accordion
-// (opening one collapses the rest), while still letting the user switch freely.
-// Height is animated in JS (max-height) so the panel can return to `overflow:
-// visible` once open — the inner figures/boards break out horizontally and must
-// not be clipped.
-function AccordionItem({
+// One Process step. Always expanded: numbered header, then its content.
+function ProcessStep({
     id,
     num,
     title,
-    isOpen,
-    onToggle,
     children,
 }: {
     id: string;
     num: number;
     title: React.ReactNode;
-    isOpen: boolean;
-    onToggle: () => void;
     children: React.ReactNode;
 }) {
-    const panelRef = useRef<HTMLDivElement>(null);
-    const itemRef = useRef<HTMLDivElement>(null);
-    const firstRun = useRef(true);
-    const wasOpen = useRef(isOpen);
-    const lenis = useLenis();
-    const lenisRef = useRef(lenis);
-    lenisRef.current = lenis;
-
-    useEffect(() => {
-        const panel = panelRef.current;
-        if (!panel) return;
-
-        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const settleOpen = () => {
-            panel.style.maxHeight = 'none';
-            panel.style.overflow = 'visible';
-        };
-        const settleClosed = () => {
-            panel.style.maxHeight = '0px';
-            panel.style.overflow = 'hidden';
-        };
-
-        const justOpened = isOpen && !wasOpen.current;
-        wasOpen.current = isOpen;
-
-        // First paint (and Strict Mode re-run): set height without scrolling.
-        // Step 1 starts open — scrolling here would dump arrivals on Process.
-        if (firstRun.current) {
-            firstRun.current = false;
-            if (isOpen) settleOpen();
-            else settleClosed();
-            return;
-        }
-
-        // Only scroll when the user (or side nav) actually opens a step — not when
-        // Lenis hydrates or the effect re-runs while this step is already open.
-        let scrollTimer = 0;
-        if (justOpened) {
-            scrollTimer = window.setTimeout(() => {
-                const el = itemRef.current;
-                if (!el) return;
-                scrollToTarget(lenisRef.current, el, { immediate: reduce, offset: HEADER_SCROLL_OFFSET });
-            }, reduce ? 0 : 420);
-        }
-
-        if (reduce) {
-            if (isOpen) settleOpen();
-            else settleClosed();
-            return () => window.clearTimeout(scrollTimer);
-        }
-
-        if (isOpen) {
-            panel.style.overflow = 'hidden';
-            panel.style.maxHeight = `${panel.scrollHeight}px`;
-            const onEnd = (e: TransitionEvent) => {
-                if (e.target !== panel || e.propertyName !== 'max-height') return;
-                settleOpen();
-                panel.removeEventListener('transitionend', onEnd);
-            };
-            panel.addEventListener('transitionend', onEnd);
-            return () => {
-                panel.removeEventListener('transitionend', onEnd);
-                window.clearTimeout(scrollTimer);
-            };
-        }
-
-        // Closing: pin to the current height, then collapse on the next frame.
-        panel.style.overflow = 'hidden';
-        panel.style.maxHeight = `${panel.scrollHeight}px`;
-        void panel.offsetHeight; // force reflow so the change registers
-        requestAnimationFrame(() => {
-            panel.style.maxHeight = '0px';
-        });
-        return () => window.clearTimeout(scrollTimer);
-    }, [isOpen]);
-
     return (
-        <div id={id} ref={itemRef} className={`arrive-cs-accordion-item${isOpen ? ' is-open' : ''}`}>
-            <button
-                type="button"
-                className="arrive-cs-accordion-summary"
-                aria-expanded={isOpen}
-                onClick={onToggle}
-            >
+        <div id={id} className="arrive-cs-accordion-item is-open">
+            <div className="arrive-cs-accordion-summary arrive-cs-accordion-summary--static">
                 <span className="arrive-cs-accordion-num">{num}</span>
                 <span className="arrive-cs-accordion-title">{title}</span>
-                <span className="arrive-cs-accordion-icon" aria-hidden="true" />
-            </button>
-            <div ref={panelRef} className="arrive-cs-accordion-panel">
-                <div className="arrive-cs-accordion-content">{children}</div>
             </div>
+            <div className="arrive-cs-accordion-content">{children}</div>
         </div>
     );
 }
 
-// Process step ids, in order — shared by the accordion and the nav's sub-items.
+// Process step ids, in order — shared by the steps and the nav's sub-items.
 const PROCESS_STEPS = [
     { id: 'process-initial', label: 'Initial Concept' },
     { id: 'process-product', label: 'Kickoff with Product' },
@@ -171,17 +77,6 @@ export default function ArrivePage() {
     // Click-to-enlarge image lightbox.
     const { lightboxSrc, lightboxGallery, openLightbox, closeLightbox } = useLightbox();
 
-    // Process accordion — single open step at a time. Starts on step 1 so
-    // "Initial Concept" is expanded on load (and is the default active nav item).
-    const [openStep, setOpenStep] = useState<number | null>(1);
-    const toggleStep = (n: number) => setOpenStep((cur) => (cur === n ? null : n));
-
-    // Clicking a Process sub-section in the side nav expands that step.
-    const handleNavSelect = (id: string) => {
-        const step = PROCESS_STEPS.findIndex((s) => s.id === id);
-        if (step !== -1) setOpenStep(step + 1);
-    };
-
     return (
         <>
         <div className="case-study-page arrive-cs">
@@ -192,7 +87,7 @@ export default function ArrivePage() {
             <ArriveHero />
 
             {/* Sticky section nav — reveals once the hero docks (see CSS). */}
-            <CaseStudyNav items={NAV_ITEMS} onSelect={handleNavSelect} />
+            <CaseStudyNav items={NAV_ITEMS} />
 
             {/* Intro */}
             <section className="arrive-cs-intro">
@@ -320,7 +215,7 @@ export default function ArrivePage() {
             <section id="process" className="arrive-cs-block">
                 <h2 className="arrive-cs-block-label">Process</h2>
                 <div className="arrive-cs-block-body arrive-cs-accordion">
-                    <AccordionItem id="process-initial" num={1} title="Initial Concept" isOpen={openStep === 1} onToggle={() => toggleStep(1)}>
+                    <ProcessStep id="process-initial" num={1} title="Initial Concept">
                             <p className="arrive-cs-block-text">
                                 As part of my engagement with Arrive, I&apos;d spent months researching
                                 for another project which led me to talk with drivers, dispatchers, and
@@ -351,9 +246,9 @@ export default function ArrivePage() {
                                     </figure>
                                 ))}
                             </div>
-                    </AccordionItem>
+                    </ProcessStep>
 
-                    <AccordionItem id="process-product" num={2} title="Kickoff with Product" isOpen={openStep === 2} onToggle={() => toggleStep(2)}>
+                    <ProcessStep id="process-product" num={2} title="Kickoff with Product">
                             <p className="arrive-cs-block-text">
                                 Worked with product managers to stress test the vision against what was
                                 technically feasible and where the roadmap was already heading,
@@ -413,9 +308,9 @@ export default function ArrivePage() {
                                 We then spent time as a team hearing out the ideas and discussing which
                                 ones to focus on as we iterate and polish the vision.
                             </p>
-                    </AccordionItem>
+                    </ProcessStep>
 
-                    <AccordionItem id="process-product-again" num={3} title="Workshop #1: Product (again)" isOpen={openStep === 3} onToggle={() => toggleStep(3)}>
+                    <ProcessStep id="process-product-again" num={3} title="Workshop #1: Product (again)">
                             <p className="arrive-cs-block-text">
                                 Design team worked on developing a high-fidelity vision and we
                                 reconvened with the product team to get feedback through another
@@ -437,19 +332,19 @@ export default function ArrivePage() {
                                     Figma 101: Try holding CTRL (Windows) or CMD (Mac) and + or - to zoom in/out. Hold Space and Click to move around the frame.
                                 </figcaption>
                             </figure>
-                    </AccordionItem>
+                    </ProcessStep>
 
-                    <AccordionItem id="process-sales" num={4} title="Workshop #2: Sales" isOpen={openStep === 4} onToggle={() => toggleStep(4)}>
+                    <ProcessStep id="process-sales" num={4} title="Workshop #2: Sales">
                         <SalesWorkshop />
-                    </AccordionItem>
+                    </ProcessStep>
 
-                    <AccordionItem id="process-sales-leadership" num={5} title="Workshop #3: Sales Leadership" isOpen={openStep === 5} onToggle={() => toggleStep(5)}>
+                    <ProcessStep id="process-sales-leadership" num={5} title="Workshop #3: Sales Leadership">
                         <SalesLeadershipWorkshop />
-                    </AccordionItem>
+                    </ProcessStep>
 
-                    <AccordionItem id="process-synthesis" num={6} title="Synthesis" isOpen={openStep === 6} onToggle={() => toggleStep(6)}>
+                    <ProcessStep id="process-synthesis" num={6} title="Synthesis">
                         <Synthesis />
-                    </AccordionItem>
+                    </ProcessStep>
                 </div>
             </section>
 

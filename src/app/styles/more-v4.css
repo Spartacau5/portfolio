@@ -122,6 +122,14 @@
   z-index: 1;
 }
 
+/* HYPEX mockup runs a touch small on the gradient — scale it up to fill more */
+.mg-cover-img--hypex {
+  width: auto;
+  height: auto;
+  transform: scale(1.24);
+  transform-origin: center center;
+}
+
 /* Placeholder cover — label centered on the gradient */
 .mg-placeholder {
   font-family: var(--font-display);
@@ -286,7 +294,7 @@
   font-size: 14px;
   line-height: 1.5;
   color: #8c8c8c;
-  margin: 0;
+  margin: 6px 0 0;
 }
 .mg-tag {
   font-family: var(--font-display);

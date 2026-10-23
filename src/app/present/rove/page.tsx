@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import CatAnimation from '../../components/CatAnimation';
+import { SHOW_TASHVI } from '../../lib/flags';
 import FilmBeats from './FilmBeats';
 import '../present.css';
 import './rove.css';
@@ -323,10 +324,12 @@ export default function RovePresentPage() {
                 <span className="pr-step-org">Arrive</span>
                 <span className="pr-step-role">Contract product design · via Craft · mobility</span>
               </div>
+              {SHOW_TASHVI && (
               <div className="pr-step">
                 <span className="pr-step-org">Tashvi.ai</span>
                 <span className="pr-step-role">Co-founder &amp; Design Lead · conversational AI product</span>
               </div>
+              )}
             </li>
 
             <li className="pr-col pr-col--now pr-in">
@@ -436,9 +439,11 @@ export default function RovePresentPage() {
         </section>
 
         {/* 06 — TASHVI PRODUCT FILM */}
+        {SHOW_TASHVI && (
         <section className="pr-slide pr-slide--zi rv-slide--film" data-label="Tashvi · launch film">
           <FilmBeats grad={GRAD.tashvi} />
         </section>
+        )}
 
         {/* 07 — WHERE AI FITS */}
         <section className="pr-slide pr-slide--tenets rv-slide--ai" data-label="AI">
