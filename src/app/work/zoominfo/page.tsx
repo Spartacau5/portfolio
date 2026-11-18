@@ -12,6 +12,7 @@ import { ZiDesignProcess } from './ZiDesignProcess';
 import { ZiZoomImage } from './ZiZoomImage';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
+import { CASE_LINES, CASE_DELAY_MS } from '@/app/lib/buddyLines';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
     { id: 'background', label: 'Problem' },
@@ -202,7 +203,7 @@ export default function ZoominfoPage() {
                         to understand why. Every interaction was a data point — including from
                         the people who turned it off.
                     </p>
-                    <div className="arrive-cs-block-figure">
+                    <div className="arrive-cs-block-figure" data-buddy={CASE_LINES.zoominfoFavorite} data-buddy-delay={CASE_DELAY_MS}>
                         <video
                             src="/images/off.mp4"
                             autoPlay
@@ -222,7 +223,7 @@ export default function ZoominfoPage() {
                     <p className="arrive-cs-block-text">
                         We released the alpha to 15 customers in the search-language pilot to gather feedback.
                     </p>
-                    <p className="zi-block-stat"><span className="scroll-count" data-to="13">13</span> of 15 testers preferred the new homepage to the existing experience.</p>
+                    <p className="zi-block-stat" data-buddy={CASE_LINES.zoominfoStat} data-buddy-delay={CASE_DELAY_MS}><span className="scroll-count" data-to="13">13</span> of 15 testers preferred the new homepage to the existing experience.</p>
                     <ul className="zi-quotes">
                         <li className="zi-quote">
                             <p className="zi-quote-text">&ldquo;[Google-like search] could be very useful in the long-term&rdquo;</p>

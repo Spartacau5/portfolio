@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLenis } from 'lenis/react';
 import { analytics } from './GoogleAnalytics';
 import { scrollToTop } from '../lib/lenisScroll';
+import { SITE_LINES, CONNECT_WIDTH } from '../lib/buddyLines';
 
 // V4 universal nav — flat, full-width, squared. Geist Mono, uppercase.
 // WORK = landing (/), ABOUT = /about, MORE = /more, RESUME opens the PDF,
@@ -141,7 +142,7 @@ export function Header() {
     </div>
     <header ref={headerRef} className={`site-nav${menuOpen ? ' is-open' : ''}`}>
       {/* Left — logo (masked so it recolours grey → black on hover) */}
-      <Link href="/" className="site-nav__brand" aria-label="Arpit Ahluwalia — home">
+      <Link href="/" className="site-nav__brand" aria-label="Arpit Ahluwalia — home" data-buddy={SITE_LINES.khanda}>
         <span className="site-nav__logo" aria-hidden="true" />
       </Link>
 
@@ -172,6 +173,8 @@ export function Header() {
         rel="noopener noreferrer"
         className="site-nav__mono site-nav__contact"
         aria-label="Connect on LinkedIn"
+        data-buddy={SITE_LINES.connect}
+        data-buddy-width={CONNECT_WIDTH}
         onClick={() => analytics.trackSocialClick('LinkedIn')}
       >
         <span className="diamond" aria-hidden="true">✦</span>

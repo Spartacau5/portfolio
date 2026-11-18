@@ -370,16 +370,14 @@
 .ab-quotes {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0 64px;
+  gap: clamp(64px, 8vh, 104px) 64px;
+  /* each row's pair starts at the same line; a shorter quote just ends sooner */
+  align-items: start;
   /* now the last section — extra breathing room above */
   margin-top: clamp(120px, 20vh, 260px);
   margin-bottom: clamp(40px, 6vh, 80px);
 }
-@media (max-width: 1024px) { .ab-quotes { grid-template-columns: 1fr; gap: 0; } }
-.ab-qcol { display: flex; flex-direction: column; gap: clamp(64px, 8vh, 104px); }
-@media (max-width: 1024px) {
-  .ab-qcol + .ab-qcol { margin-top: clamp(64px, 8vh, 104px); }
-}
+@media (max-width: 1024px) { .ab-quotes { grid-template-columns: 1fr; } }
 
 /* Big bold pull-quote */
 .ab-quote-body {

@@ -1,0 +1,184 @@
+/* ============================================================
+   Hover Buddy — Arpit's head that trails the cursor and talks
+   ============================================================ */
+
+.hb-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 44px;
+  height: 44px;
+  pointer-events: none;
+  z-index: 99998; /* just under the custom cursor dot */
+  will-change: transform;
+}
+
+.hb-head-pop {
+  position: absolute; /* stacked, so swapping faces happens in place */
+  inset: 0;
+}
+
+.hb-head {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f8c98a; /* warm peach shows through the cutout */
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  transform-origin: 50% 85%; /* waggle from the "neck", not the center */
+}
+
+/* Someone else's photo (e.g. a recommender): black and white like Arpit's
+   cutout, on a cooler backing so it reads as a guest. */
+.hb-head.is-guest {
+  background: #dfe5ec; /* fallback when no data-buddy-color is given */
+}
+
+.hb-head.is-guest img {
+  filter: grayscale(1) contrast(1.05);
+}
+
+.hb-head img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+}
+
+/* The bubble sits beside the head, vertically centered on it. */
+.hb-bubble-anchor {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: max-content;
+}
+
+.hb-bubble-anchor.is-right {
+  left: calc(100% + 10px);
+}
+
+.hb-bubble-anchor.is-left {
+  right: calc(100% + 10px);
+}
+
+.hb-head-bump,
+.hb-bubble-bump {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hb-bubble-bump {
+  width: auto;
+  height: auto;
+}
+
+/* Outer box animates its width/height to the inner text's measured size, so
+   a new line smoothly resizes the same bubble instead of re-popping it. */
+.hb-bubble {
+  overflow: hidden;
+  border-radius: 9px;
+  background: #fff;
+  color: #111;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 2px 4px rgba(0, 0, 0, 0.04),
+    0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.hb-bubble-inner {
+  width: max-content;
+  max-width: 280px;
+  padding: 7px 11px 8px;
+  font-family: var(--font-sans), 'Graphik', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  white-space: normal;
+  text-wrap: pretty;
+}
+
+/* **bold** runs: heavier, and kept on one line (e.g. an email address) */
+.hb-strong {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Speaker's name when it isn't Arpit talking */
+.hb-who {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 3px;
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  color: #8a8f98;
+}
+
+/* Relationship note, right-aligned on the name row */
+.hb-who-meta {
+  text-align: right;
+  color: #a3a8b0;
+}
+
+/* Combo counter that pops on the bubble's far corner (e.g. pet streaks). */
+.hb-badge {
+  position: absolute;
+  top: -9px;
+  padding: 2px 7px 3px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-family: var(--font-sans), 'Graphik', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.hb-badge.is-right {
+  right: -8px;
+}
+
+.hb-badge.is-left {
+  left: -8px;
+}
+
+/* The greeting points at an element — give it a little wiggle to find it. */
+[data-buddy-hint].is-buddy-hinted {
+  animation: hb-hint-wiggle 0.9s cubic-bezier(0.36, 0, 0.2, 1) 2;
+  opacity: 1;
+}
+
+@keyframes hb-hint-wiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  20% { transform: rotate(-3deg) scale(1.04); }
+  45% { transform: rotate(2.5deg) scale(1.04); }
+  70% { transform: rotate(-1deg) scale(1.01); }
+}
+
+.hb-ch {
+  opacity: 0;
+  transition: opacity 0.16s ease-out;
+}
+
+.hb-ch.is-on {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hb-ch {
+    transition: none;
+  }
+
+  [data-buddy-hint].is-buddy-hinted {
+    animation: none;
+  }
+}

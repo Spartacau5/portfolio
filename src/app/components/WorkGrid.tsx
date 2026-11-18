@@ -6,22 +6,24 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import CatAnimation from './CatAnimation';
 import { ZoomInfoLogoLoop } from './ZoomInfoLogoLoop';
-import { FleetLogoLoop } from './FleetLogoLoop';
 import { TashviLogoLoop } from './TashviLogoLoop';
 import { ArriveLogoMarquee } from './ArriveLogoMarquee';
+import { KalshiCover } from './KalshiCover';
+import { MeritonCover } from './MeritonCover';
+import { StandardCharteredCover } from './StandardCharteredCover';
 import { analytics } from './GoogleAnalytics';
 import { SHOW_TASHVI } from '../lib/flags';
+import { CARD_LINES, CARD_DELAY_MS, SITE_LINES } from '../lib/buddyLines';
 import { ExpandableChip, type ExpandableChipHandle } from './ExpandableChip';
 import { ChipTrail, type ChipTrailHandle } from './ChipTrail';
 import { ScrollReveal } from './ScrollReveal';
 
-// V4 landing (WORK). Six case-study cards: squared gradient cover with the
+// V4 landing (WORK). Case-study cards: squared gradient cover with the
 // project title / subtitle / tag always visible below it.
 const GRADIENTS = {
   zoominfo: 'linear-gradient(180deg, #BFF0FF 0%, #EBEFF9 100%)',
   arrive: 'linear-gradient(180deg, #FFCEFE 0%, #FFF0FF 100%)',
   tashvi: 'linear-gradient(180deg, #F8EDC7 0%, #EDF9EE 100%)',
-  fleet: 'linear-gradient(180deg, #D6EBFE 0%, #D6E0DC 100%)',
   jnj: 'linear-gradient(180deg, #FEDBD3 0%, #FFF9ED 100%)',
 };
 
@@ -82,8 +84,9 @@ function AvailabilityStatus() {
       tabIndex={touchMode ? 0 : undefined}
       aria-expanded={open}
       aria-label="Currently looking for new roles"
-      onMouseEnter={show}
-      onMouseLeave={hide}
+      // Desktop hover: Arpit's hover buddy says it instead of the text pill.
+      // Keyboard focus and touch still open the pill.
+      data-buddy={touchMode ? undefined : SITE_LINES.available}
       onFocus={show}
       onBlur={hide}
       onClick={handleClick}
@@ -147,7 +150,9 @@ export function WorkGrid() {
     <div className="wg-home">
       {/* Intro */}
       <motion.header className="wg-intro" variants={introContainer} initial="hidden" animate="show">
-        <motion.h1 className="wg-title" variants={introItem}>Arpit Ahluwalia</motion.h1>
+        <motion.h1 className="wg-title" variants={introItem}>
+          <span data-buddy={SITE_LINES.name}>Arpit Ahluwalia</span>
+        </motion.h1>
         <motion.p className="wg-subtitle" variants={introItem}>
           I&apos;m a
           <ExpandableChip
@@ -185,13 +190,74 @@ export function WorkGrid() {
           <CatAnimation />
         </div>
         <div className="wg-grid">
-        {/* ZoomInfo */}
+        {/* Kalshi: case study not yet written, title line is placeholder */}
         <ScrollReveal as="article" className="wg-card" delay={0}>
+          <div
+            className="wg-cover"
+            style={{ background: '#00D395', cursor: 'default' }}
+            data-cursor-label="Locked — case study in progress"
+          data-buddy={CARD_LINES.kalshi}
+          data-buddy-delay={CARD_DELAY_MS}
+          >
+            <KalshiCover />
+          </div>
+          <Meta
+            title="Kalshi"
+            sub="Case study in progress."
+            tag="Product Design"
+          />
+        </ScrollReveal>
+
+        {/* Meriton: case study not yet written, title line is placeholder */}
+        <ScrollReveal as="article" className="wg-card" delay={0.06}>
+          <div
+            className="wg-cover"
+            style={{ background: '#FFFFFF', border: 'none', cursor: 'default' }}
+            data-cursor-label="Locked — case study in progress"
+          data-buddy={CARD_LINES.meriton}
+          data-buddy-delay={CARD_DELAY_MS}
+          >
+            <MeritonCover />
+            {/* The card's usual faint edge, on top so it sits over both white and orange. */}
+            <span
+              aria-hidden="true"
+              style={{ position: 'absolute', inset: 0, border: '1px solid rgba(0, 0, 0, 0.05)', pointerEvents: 'none' }}
+            />
+          </div>
+          <Meta
+            title="Meriton"
+            sub="Case study in progress."
+            tag="Product Design"
+          />
+        </ScrollReveal>
+
+        {/* Standard Chartered: case study not yet written, title line is placeholder */}
+        <ScrollReveal as="article" className="wg-card" delay={0}>
+          <div
+            className="wg-cover"
+            style={{ background: '#FFFFFF', cursor: 'default' }}
+            data-cursor-label="Locked — case study in progress"
+          data-buddy={CARD_LINES.standardChartered}
+          data-buddy-delay={CARD_DELAY_MS}
+          >
+            <StandardCharteredCover />
+          </div>
+          <Meta
+            title="Standard Chartered"
+            sub="Case study in progress."
+            tag="Product Design"
+          />
+        </ScrollReveal>
+
+        {/* ZoomInfo */}
+        <ScrollReveal as="article" className="wg-card" delay={0.06}>
           <Link
             href="/work/zoominfo"
             className="wg-cover"
             style={{ background: GRADIENTS.zoominfo }}
             data-cursor-label="View Case Study"
+            data-buddy={CARD_LINES.zoominfo}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="ZoomInfo case study"
             onClick={() => analytics.trackCaseStudyView('ZoomInfo')}
           >
@@ -207,12 +273,14 @@ export function WorkGrid() {
         </ScrollReveal>
 
         {/* Arrive */}
-        <ScrollReveal as="article" className="wg-card" delay={0.06}>
+        <ScrollReveal as="article" className="wg-card" delay={0}>
           <Link
             href="/work/arrive"
             className="wg-cover"
             style={{ background: GRADIENTS.arrive }}
             data-cursor-label="View Case Study"
+            data-buddy={CARD_LINES.arrive}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="Arrive case study"
             onClick={() => analytics.trackCaseStudyView('Arrive')}
           >
@@ -235,6 +303,8 @@ export function WorkGrid() {
             className="wg-cover"
             style={{ background: GRADIENTS.tashvi }}
             data-cursor-label="View Website"
+            data-buddy={CARD_LINES.tashvi}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="Tashvi.ai — view website"
             onClick={() => analytics.trackCaseStudyView('Tashvi')}
           >
@@ -250,33 +320,15 @@ export function WorkGrid() {
         </ScrollReveal>
         )}
 
-        {/* Fleet Management — case study not yet published */}
-        <ScrollReveal as="article" className="wg-card" delay={0.06}>
-          <div
-            className="wg-cover"
-            style={{ background: GRADIENTS.fleet, cursor: 'default' }}
-            data-cursor-label="Coming soon"
-            role="img"
-            aria-label="EasyPark case study — coming soon"
-          >
-            <div className="wg-cover-inner">
-              <FleetLogoLoop />
-            </div>
-          </div>
-          <Meta
-            title="EasyPark"
-            sub="Led the research and strategy that validated product-market fit for a parking-planner MVP."
-            tag="UX/UI Design"
-          />
-        </ScrollReveal>
-
         {/* Johnson & Johnson */}
-        <ScrollReveal as="article" className="wg-card" delay={0}>
+        <ScrollReveal as="article" className="wg-card" delay={0.06}>
           <Link
             href="/work/jnj"
             className="wg-cover"
             style={{ background: GRADIENTS.jnj }}
             data-cursor-label="View Case Study"
+            data-buddy={CARD_LINES.jnj}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="Johnson and Johnson case study"
             onClick={() => analytics.trackCaseStudyView('Johnson & Johnson')}
           >

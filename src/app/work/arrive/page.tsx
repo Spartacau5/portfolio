@@ -15,6 +15,7 @@ import { PreviewModal, type PreviewContent } from './PreviewModal';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
+import { CASE_LINES, CASE_DELAY_MS } from '@/app/lib/buddyLines';
 
 // One Process step. Always expanded: numbered header, then its content.
 function ProcessStep({
@@ -343,7 +344,9 @@ export default function ArrivePage() {
                     </ProcessStep>
 
                     <ProcessStep id="process-synthesis" num={6} title="Synthesis">
-                        <Synthesis />
+                        <div data-buddy={CASE_LINES.arriveFavorite} data-buddy-delay={CASE_DELAY_MS}>
+                            <Synthesis />
+                        </div>
                     </ProcessStep>
                 </div>
             </section>
@@ -376,7 +379,7 @@ export default function ArrivePage() {
                         leaders re-graded the platform after seeing the vision, the average jumped from
                         a <strong className="scroll-grade-from">D+</strong> to an <strong className="scroll-grade-to">A&minus;</strong>.
                     </p>
-                    <div className="arrive-cs-block-figure">
+                    <div className="arrive-cs-block-figure" data-buddy={CASE_LINES.arriveStat} data-buddy-delay={CASE_DELAY_MS}>
                         <Image
                             src="/images/grade-platform-after.png"
                             alt="Senior product leadership grading the vision"

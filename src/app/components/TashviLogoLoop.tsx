@@ -49,7 +49,7 @@ export function TashviLogoLoop({ className = '' }: { className?: string }) {
                         transition={{ duration: CROSSFADE, ease: 'easeInOut' }}
                     >
                         <BrandLoopVideo
-                            src="/images/tashvi-loop.mp4"
+                            src="/images/tashvi-demo-loop.mp4"
                             className="h-full w-full rounded-3xl object-cover"
                             onDone={() => setShowVideo(false)}
                         />

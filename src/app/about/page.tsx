@@ -5,6 +5,7 @@ import { useCallback, useEffect, useLayoutEffect, useState, type ReactNode } fro
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDragScroll } from '../hooks/useDragScroll';
 import { SHOW_TASHVI } from '../lib/flags';
+import { ABOUT_LINES, GALLERY_LINES, RECOMMENDATION_MORE } from '../lib/buddyLines';
 
 // V4 About — flat full-width layout from Figma (node 619-20021).
 // Persona tabs swap the header line with a smooth animation.
@@ -92,103 +93,184 @@ const INTRO = [
   },
 ];
 
-const EXPERIENCE = [
-  { year: '2026', org: 'Tashvi.ai', role: 'Co-founder & Design Lead' },
-  { year: '2025', org: 'Arrive', role: 'Contract UX Researcher' },
-  { year: '2023', org: 'ZoomInfo', role: 'UX/UI Designer III' },
-  { year: '2022', org: 'Johnson & Johnson', role: 'Contract UX/UI Designer' },
-  { year: '2021', org: 'HypeX', role: 'UI Designer' },
+// Each row can link out to the org and give Arpit's hover buddy a line.
+type Row = { year: string; org: string; role: string; url?: string; buddy?: string };
+
+const EXPERIENCE: Row[] = [
+  { year: '2026', org: 'Tashvi.ai', role: 'Co-founder & Design Lead', url: 'https://tashvi.ai', buddy: ABOUT_LINES.tashvi },
+  { year: '2025', org: 'Arrive', role: 'Contract UX Researcher', url: 'https://www.arrive.com', buddy: ABOUT_LINES.arrive },
+  { year: '2023', org: 'ZoomInfo', role: 'UX/UI Designer III', url: 'https://www.zoominfo.com', buddy: ABOUT_LINES.zoominfo },
+  { year: '2022', org: 'Johnson & Johnson', role: 'Contract UX/UI Designer', url: 'https://www.jnj.com', buddy: ABOUT_LINES.jnj },
+  // hypex.io no longer resolves, so this points at the case study instead
+  { year: '2021', org: 'HypeX', role: 'UI Designer', url: '/work/hypex', buddy: ABOUT_LINES.hypex },
 ].filter((r) => SHOW_TASHVI || r.org !== 'Tashvi.ai');
-const LEADERSHIP = [
-  { year: 'Present', org: 'AIGA NY', role: 'Mentor' },
-  { year: '2026', org: 'HackAI @ UTAustin', role: 'Judge' },
-  { year: '2025', org: 'Figma', role: 'Campus Leader' },
-  { year: '2021', org: 'TEDxDrexelU', role: 'Vice-President' },
+const LEADERSHIP: Row[] = [
+  { year: 'Present', org: 'AIGA NY', role: 'Mentor', url: 'https://growth.aigany.org/amp/', buddy: ABOUT_LINES.aiga },
+  { year: '2026', org: 'HackAI @ UTAustin', role: 'Judge', buddy: ABOUT_LINES.hackai },
+  { year: '2025', org: 'Figma', role: 'Campus Leader', url: 'https://www.figma.com/education/', buddy: ABOUT_LINES.figma },
+  { year: '2021', org: 'TEDxDrexelU', role: 'Vice-President', buddy: ABOUT_LINES.tedx },
 ];
-const COMMUNITY = [
-  { year: '2026', org: 'PrabhKiSeva', role: 'Co-Founder' },
-  { year: '2025', org: 'ArtMate', role: 'Co-Founder' },
+const COMMUNITY: Row[] = [
+  { year: '2026', org: 'PrabhKiSeva', role: 'Co-Founder', url: 'https://www.prabhkiseva.org/', buddy: ABOUT_LINES.prabhkiseva },
+  { year: '2025', org: 'ArtMate', role: 'Co-Founder', buddy: ABOUT_LINES.artmate },
 ];
-const AWARDS = [
-  { year: '2025', org: 'FigBuild', role: 'Winner' },
-  { year: '2025', org: 'IDEO: AI x Design Thinking', role: 'Certificate' },
+const AWARDS: Row[] = [
+  {
+    year: '2025',
+    org: 'FigBuild',
+    role: 'Winner',
+    url: 'https://www.linkedin.com/posts/arpitahluwalia_figbuild-dreamscape-coherence-activity-7322781517967933440-gzva',
+    buddy: ABOUT_LINES.figbuild,
+  },
+  { year: '2025', org: 'IDEO: AI x Design Thinking', role: 'Certificate', url: 'https://www.ideou.com/', buddy: ABOUT_LINES.ideo },
 ];
 
-// Testimonials — split into two columns as in the Figma.
-const QUOTES_LEFT = [
+// Testimonials — split into two columns as in the Figma. Each quote can carry
+// the rest of the LinkedIn recommendation (`more`) and the recommender's
+// headshot (`photo`, in /public/images/buddy/people/): hovering the quote pops
+// in their face instead of Arpit's, saying the part that isn't shown.
+type Testimonial = {
+  name: string;
+  role: string;
+  url?: string;
+  body: string;
+  more?: string;
+  photo?: string;
+  /** how they know Arpit, shown right-aligned in the bubble */
+  relation?: string;
+  /** backing color behind their cutout, one per person (Arpit's is peach) */
+  color?: string;
+  /** kept in the data but not rendered */
+  hidden?: boolean;
+};
+// Rows read left → right: Amir | Or, Emily | Kieran, Kevin | Jeremy.
+const QUOTES_LEFT: Testimonial[] = [
   {
     name: 'Or Mendels',
     role: 'Director of Product Design',
     url: 'https://www.linkedin.com/in/or-mendels-2b841672/',
+    more: RECOMMENDATION_MORE.or,
+    relation: 'Our design director at ZoomInfo',
+    color: '#A8D8B0',
+    photo: '/images/buddy/people/or-mendels.png',
     body: '“A standout team member who handles end-to-end processes seamlessly — from user research to detailed design. Truly a pleasure to collaborate with.”',
+  },
+  {
+    name: 'Kieran Evans',
+    role: 'Sr. Director of Design',
+    url: 'https://www.linkedin.com/in/kieranevans/',
+    // From his #feelgood shoutout in Craft's Slack (Jul 2025), not LinkedIn
+    more: RECOMMENDATION_MORE.kieran,
+    relation: 'Design leadership at Craft',
+    color: '#92D6D0',
+    photo: '/images/buddy/people/kieran.png',
+    body: '“Arpit has been at Craft for all of a week and a half, and has been moving like he’s been here for years.”',
   },
   {
     name: 'Jeremy Agtarap',
     role: 'Product Marketing Manager',
     url: 'https://www.linkedin.com/in/jeremy-agtarap-09a09959',
+    more: RECOMMENDATION_MORE.jeremy,
+    relation: 'Product marketing partner at ZoomInfo',
+    color: '#9CC8F0',
+    photo: '/images/buddy/people/jeremy-agtarap.png',
     body: '“He made a genuinely complicated SMS process as easy as 1, 2, 3, always keeping the user’s end-to-end journey in mind. Any company would be lucky to have him.”',
   },
   {
     name: 'Vineet Kaushik',
+    // Hidden for now: without his photo, the empty avatar dilutes the quote.
+    hidden: true,
     role: 'Sr. Software Engineer',
     url: 'https://www.linkedin.com/in/vineet-kaushik-4ba166236',
+    more: RECOMMENDATION_MORE.vineet,
+    relation: 'My favorite developer at ZoomInfo',
+    color: '#92D6D0',
+    photo: '/images/buddy/people/vineet-kaushik.png',
     body: '“He highlighted UX that greatly enhanced how users interact with what we built. Solid, dependable, and always ready to unblock the team.”',
   },
 ];
-const QUOTES_RIGHT = [
+const QUOTES_RIGHT: Testimonial[] = [
   {
     name: 'Amir Kfir',
     role: 'UX Team Lead/Manager',
     url: 'https://www.linkedin.com/in/amirkfir',
+    more: RECOMMENDATION_MORE.amir,
+    relation: 'My manager at ZoomInfo',
+    color: '#F4A6A0',
+    photo: '/images/buddy/people/amir-kfir.png',
     body: '“His commitment to quality and innovative problem-solving sets him apart. A superb designer with an incredible drive to learn.”',
+  },
+  {
+    name: 'Emily Stuart',
+    role: 'Director of UX Research',
+    url: 'https://www.linkedin.com/in/emilylaurenstuart',
+    photo: '/images/buddy/people/emily-stuart.png',
+    more: RECOMMENDATION_MORE.emily,
+    relation: 'My manager at Craft',
+    color: '#F5B5D3',
+    body: '“He came into a whirlwind of a complicated recruitment with no fear and full commitment. He shows up with great ideas and an entrepreneurial energy that makes him an asset to any team.”',
   },
   {
     name: 'Kevin White',
     role: 'Sr. UX Designer',
     url: 'https://www.linkedin.com/in/kevinwhite1000',
+    more: RECOMMENDATION_MORE.kevin,
+    relation: 'My teammate at ZoomInfo',
+    color: '#C9B6F2',
+    photo: '/images/buddy/people/kevin-white.png',
     body: '“A remarkable ability to absorb feedback and navigate intricate user journeys. He delivers designs of outstanding quality with remarkable speed and efficiency.”',
   },
-  {
-    name: 'Emily Stuart',
-    role: 'Sr. UX Researcher',
-    url: 'https://www.linkedin.com/in/emilylaurenstuart',
-    body: '“He came into a whirlwind of a complicated recruitment with no fear and full commitment. He shows up with great ideas and an entrepreneurial energy that makes him an asset to any team.”',
-  },
 ];
-
-const GALLERY: { cap: string; img: string; imgMobile?: string; url?: string; pos?: string }[] = [
+const GALLERY: { cap: string; img: string; imgMobile?: string; url?: string; pos?: string; buddy?: string }[] = [
   {
     cap: 'Mentoring designers at AIGA NY',
+    buddy: GALLERY_LINES.aiga,
     img: '/images/gallery/aiga-mentor.webp',
     imgMobile: '/images/gallery/aiga-mentor-mobile.jpg',
     url: 'https://www.linkedin.com/posts/arpitahluwalia_aiga-aigany-aigamentor-share-7443379510911057920-MwWK/?utm_source=share&utm_medium=member_desktop&rcm=ACoAACTea-cBaGhvJbY2Ie6x3UbeUR0f3p5rW6Q',
   },
   {
     cap: 'Won Figma’s first national hackathon (1st of 54 teams)',
+    buddy: GALLERY_LINES.figbuild,
     img: '/images/photos/1745887158804.jpg',
     url: 'https://www.linkedin.com/posts/arpitahluwalia_figbuild-dreamscape-coherence-activity-7322781517967933440-gzva?utm_source=share&utm_medium=member_desktop&rcm=ACoAACTea-cBaGhvJbY2Ie6x3UbeUR0f3p5rW6Q',
     pos: '72% center', // right-of-middle
   },
   {
     cap: 'Curated a community of 1000+ designers at Parsons',
+    buddy: GALLERY_LINES.campus,
     img: '/images/gallery/figma-campus-leader.webp',
     url: 'https://www.instagram.com/p/DPK1mpMDal3/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==',
   },
   {
     cap: 'Organize monthly food donation drives since COVID',
+    buddy: GALLERY_LINES.prabhkiseva,
     img: '/images/gallery/prabhkiseva.jpg',
     url: 'https://www.prabhkiseva.org/',
     pos: '25% center', // left-of-middle
   },
 ];
 
-function Rows({ items }: { items: { year: string; org: string; role: string }[] }) {
+function Rows({ items }: { items: Row[] }) {
   return (
     <div className="ab-rows">
       {items.map((r) => (
-        <div className="ab-row" key={r.year + r.org}>
+        <div
+          className="ab-row"
+          key={r.year + r.org}
+          data-buddy={r.buddy}
+          data-buddy-delay={r.buddy ? '250' : undefined}
+        >
           <span className="ab-row-year">{r.year}</span>
-          <span className="ab-row-org">{r.org}</span>
+          <span className="ab-row-org">
+            {!r.url ? (
+              r.org
+            ) : r.url.startsWith('/') ? (
+              <a className="ab-link" href={r.url}>{r.org}</a>
+            ) : (
+              <ExtLink href={r.url}>{r.org}</ExtLink>
+            )}
+          </span>
           <span className="ab-row-role">{r.role}</span>
         </div>
       ))}
@@ -208,22 +290,18 @@ const quoteFade = {
   }),
 };
 
-function Quote({
-  name,
-  role,
-  url,
-  body,
-  row,
-}: {
-  name: string;
-  role: string;
-  url: string;
-  body: string;
-  row: number;
-}) {
+function Quote({ name, role, url, body, more, photo, relation, color, row }: Testimonial & { row: number }) {
+  const speaks = !!more;
   return (
     <motion.article
       className="ab-quote"
+      data-buddy={more}
+      data-buddy-avatar={speaks ? photo : undefined}
+      data-buddy-who={speaks ? name : undefined}
+      data-buddy-meta={speaks ? relation : undefined}
+      data-buddy-color={speaks ? color : undefined}
+      data-buddy-delay={speaks ? '380' : undefined}
+      data-buddy-width={speaks ? '380' : undefined} // recommendations run long: wider, fewer lines
       variants={quoteFade}
       custom={row}
       initial="hidden"
@@ -232,7 +310,11 @@ function Quote({
     >
       <p className="ab-quote-body">{body}</p>
       <div className="ab-quote-attr">
-        <ExtLink href={url} className="ab-quote-name">{name}</ExtLink>
+        {url ? (
+          <ExtLink href={url} className="ab-quote-name">{name}</ExtLink>
+        ) : (
+          <span className="ab-quote-name">{name}</span>
+        )}
         <span className="ab-quote-role">{role}</span>
       </div>
     </motion.article>
@@ -399,6 +481,7 @@ export default function About() {
         </motion.div>
         <motion.div
           className="ab-photo-frame"
+          data-buddy={ABOUT_LINES.photo}
           initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.19 }}
@@ -478,7 +561,7 @@ export default function About() {
               </>
             );
             return (
-              <figure key={g.cap}>
+              <figure key={g.cap} data-buddy={g.buddy} data-buddy-delay={g.buddy ? '380' : undefined}>
                 {g.url ? (
                   <a className="ab-shot-link" href={g.url} target="_blank" rel="noopener noreferrer">
                     {shots}
@@ -503,18 +586,16 @@ export default function About() {
           })}
         </motion.section>
 
-        {/* Testimonials — each quote fades in on scroll, staggered by row */}
+        {/* Testimonials — one grid, paired by row so each row's quotes start at
+            the same height (top-aligned). Each fades in on scroll, staggered by row. */}
         <section className="ab-quotes">
-          <div className="ab-qcol">
-            {QUOTES_RIGHT.map((q, i) => (
-              <Quote key={q.name} row={i} {...q} />
-            ))}
-          </div>
-          <div className="ab-qcol">
-            {QUOTES_LEFT.map((q, i) => (
-              <Quote key={q.name} row={i} {...q} />
-            ))}
-          </div>
+          {QUOTES_RIGHT.filter((q) => !q.hidden).flatMap((q, i) => {
+            const pair = QUOTES_LEFT.filter((x) => !x.hidden)[i];
+            return [
+              <Quote key={q.name} row={i} {...q} />,
+              ...(pair ? [<Quote key={pair.name} row={i} {...pair} />] : []),
+            ];
+          })}
         </section>
       </div>
     </main>

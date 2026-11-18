@@ -10,6 +10,7 @@ import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 import { useLenis } from 'lenis/react';
 import { HEADER_SCROLL_OFFSET, scrollToTarget } from '@/app/lib/lenisScroll';
+import { CASE_LINES, CASE_DELAY_MS } from '@/app/lib/buddyLines';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
     { id: 'background', label: 'Background' },
@@ -222,7 +223,7 @@ export default function MicrosoftPage() {
                 <p className="content-text" style={{ marginTop: '2.5rem' }}>
                     We also facilitated Co-Design Workshops (7 sessions across 3 rounds, 60-75 minutes each) which ensured our solution was built with and for teachers every step of the process from ideation to prototype.
                 </p>
-                <div className="stacked-images">
+                <div className="stacked-images" data-buddy={CASE_LINES.microsoftFavorite} data-buddy-delay={CASE_DELAY_MS}>
                     <Image src="/images/codesign1.png" alt="Co-Design Workshop 1" width={800} height={500} className="content-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/codesign1.png', ['/images/codesign1.png', '/images/codesign2.png'])} />
                     <Image src="/images/codesign2.png" alt="Co-Design Workshop 2" width={800} height={500} className="content-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/codesign2.png', ['/images/codesign1.png', '/images/codesign2.png'])} />
                 </div>

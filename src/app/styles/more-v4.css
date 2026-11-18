@@ -309,3 +309,25 @@
   flex-shrink: 0;
   border-radius: 0;
 }
+
+/* ---- One cover height for every row (desktop) ----
+   Every card cover matches the height of the wide (span-3, 16:10) covers, so
+   rows line up regardless of how many cards they hold. Container units read
+   the grid's own width: (two columns minus the 44px gap) at 3:2 — tall enough
+   for all four Spotify tracks, which fill whatever height they're given. */
+@media (min-width: 1025px) {
+  .mg-grid {
+    container-type: inline-size;
+    --mg-row-h: calc((100cqw - 44px) / 2 * 0.6667);
+  }
+  .mg-grid .mg-card .mg-cover {
+    aspect-ratio: auto;
+    height: var(--mg-row-h);
+  }
+  /* Inset screenshots (Ekko, Offprint) keep their own 16:10 shape in the
+     narrower covers instead of getting their sides cropped. */
+  .mg-grid .mg-span-2 .mg-cover-inner {
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+}

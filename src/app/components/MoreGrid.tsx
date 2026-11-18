@@ -8,6 +8,8 @@ import { MusicPlayer } from './MusicPlayer';
 import { analytics } from './GoogleAnalytics';
 import { ScrollReveal } from './ScrollReveal';
 import { SHOW_TASHVI } from '../lib/flags';
+import { FleetLogoLoop } from './FleetLogoLoop';
+import { CARD_LINES, CARD_DELAY_MS, MORE_LINES } from '../lib/buddyLines';
 
 // V4 MORE page. Header + subtext animate in smoothly on entry (rise + blur
 // clear), then a mixed 2/3-column grid of experiments, community & play.
@@ -19,6 +21,7 @@ const GRAD = {
   microsoft: 'linear-gradient(180deg, #F8F3C7 0%, #EBEFF9 100%)',
   hypex: 'linear-gradient(180deg, #D6D7FE 0%, #F1F0FE 100%)',
   photo: 'linear-gradient(180deg, #E9ECEF 0%, #F5F6F8 100%)',
+  fleet: 'linear-gradient(180deg, #D6EBFE 0%, #D6E0DC 100%)',
 };
 
 const YT_SHORT = 'Iuxt6Z8Trxs';
@@ -39,9 +42,9 @@ const introItem = {
 };
 
 // Title (left) + tag (right), subtext below — same layout as the Work cards.
-function Meta({ title, sub, tag }: { title: string; sub: string; tag?: string }) {
+function Meta({ title, sub, tag, buddy }: { title: string; sub: string; tag?: string; buddy?: string }) {
   return (
-    <div className="mg-meta">
+    <div className="mg-meta" data-buddy={buddy}>
       <div className="mg-meta-row">
         <h3 className="mg-card-title">{title}</h3>
         {tag && <span className="mg-tag">{tag}</span>}
@@ -88,13 +91,15 @@ export function MoreGrid() {
           <CatAnimation />
         </div>
         <div className="mg-grid">
-        {/* Row 1 — two wide */}
+        {/* Row 1 — two wide: client case studies */}
         <ScrollReveal as="article" className="mg-card mg-span-3">
           <Link
             href="/work/hypex"
             className="mg-cover"
             style={{ background: GRAD.hypex }}
             data-cursor-label="View Case Study"
+            data-buddy={MORE_LINES.hypex}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="HYPEX case study"
             onClick={() => analytics.trackCaseStudyView('HYPEX')}
           >
@@ -109,22 +114,26 @@ export function MoreGrid() {
           <Meta title="HYPEX" sub="Led marketing and design efforts for an NFT-based trading game." tag="UI Design" />
         </ScrollReveal>
 
+        {/* EasyPark — moved here from Work for now; case study not yet published */}
         <ScrollReveal as="article" className="mg-card mg-span-3">
-          <a
-            href="https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
             className="mg-cover"
-            style={{ background: GRAD.offprint }}
-            data-cursor-label="View Website"
-            aria-label="Offprint — view Chrome extension"
-            onClick={() => analytics.trackCaseStudyView('Offprint')}
+            style={{ background: GRAD.fleet, cursor: 'default' }}
+            data-cursor-label="Coming soon"
+            data-buddy={CARD_LINES.easypark}
+            data-buddy-delay={CARD_DELAY_MS}
+            role="img"
+            aria-label="EasyPark case study — coming soon"
           >
             <div className="mg-cover-inner">
-              <video src="/images/offprint-loop.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
+              <FleetLogoLoop />
             </div>
-          </a>
-          <Meta title="Offprint" sub="Built a Chrome extension to track and offset your AI carbon footprint." tag="AI Tool" />
+          </div>
+          <Meta
+            title="EasyPark"
+            sub="Led the research and strategy that validated product-market fit for a parking-planner MVP."
+            tag="UX/UI Design"
+          />
         </ScrollReveal>
 
         {/* Row 2 — three columns */}
@@ -132,6 +141,8 @@ export function MoreGrid() {
           <div
             className="mg-cover mg-cover--bleed mg-cover--plain mg-cover--square mg-cover--light"
             data-cursor-label="Coming soon"
+            data-buddy={MORE_LINES.mountSinai}
+            data-buddy-delay={CARD_DELAY_MS}
             style={{ cursor: 'default' }}
           >
             <Image
@@ -152,6 +163,8 @@ export function MoreGrid() {
             rel="noopener noreferrer"
             className="mg-cover mg-cover--bleed mg-cover--square"
             data-cursor-label="View Website"
+            data-buddy={MORE_LINES.studyBuddy}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="Study Buddy — view on GitHub"
             onClick={() => analytics.trackCaseStudyView('Study Buddy')}
           >
@@ -165,6 +178,8 @@ export function MoreGrid() {
             href="/work/microsoft"
             className="mg-cover mg-cover--bleed mg-cover--square mg-cover--light"
             data-cursor-label="View Case Study"
+            data-buddy={MORE_LINES.microsoft}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="Microsoft case study"
             onClick={() => analytics.trackCaseStudyView('Microsoft')}
           >
@@ -179,8 +194,8 @@ export function MoreGrid() {
           <Meta title="Microsoft" sub="A collaboration with Microsoft's Inclusive Design team on the future of education." tag="UX/UI Design" />
         </ScrollReveal>
 
-        {/* Row 3 — two wide (AI experiments) */}
-        <ScrollReveal as="article" className="mg-card mg-span-3">
+        {/* Row 3 — three across (AI experiments) */}
+        <ScrollReveal as="article" className="mg-card mg-span-2">
           <a
             href="/documents/ekko-final-presentation-2026.pdf"
             target="_blank"
@@ -188,6 +203,8 @@ export function MoreGrid() {
             className="mg-cover"
             style={{ background: GRAD.ekko }}
             data-cursor-label="View PDF"
+            data-buddy={MORE_LINES.ekko}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="Ekko — view presentation PDF"
             onClick={() => analytics.trackCaseStudyView('Ekko')}
           >
@@ -198,13 +215,35 @@ export function MoreGrid() {
           <Meta title="Ekko" sub="An AI copilot enabling nonprofits to do more with less." tag="Strategy Capstone" />
         </ScrollReveal>
 
-        <ScrollReveal as="article" className="mg-card mg-span-3">
+        <ScrollReveal as="article" className="mg-card mg-span-2">
+          <a
+            href="https://chromewebstore.google.com/detail/offprint/noolmimnjfhhnkibgledocngcgbkmojl"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mg-cover"
+            style={{ background: GRAD.offprint }}
+            data-cursor-label="View Website"
+            data-buddy={MORE_LINES.offprint}
+            data-buddy-delay={CARD_DELAY_MS}
+            aria-label="Offprint — view Chrome extension"
+            onClick={() => analytics.trackCaseStudyView('Offprint')}
+          >
+            <div className="mg-cover-inner">
+              <video src="/images/offprint-loop.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
+            </div>
+          </a>
+          <Meta title="Offprint" sub="Built a Chrome extension to track and offset your AI carbon footprint." tag="AI Tool" />
+        </ScrollReveal>
+
+        <ScrollReveal as="article" className="mg-card mg-span-2">
           <a
             href="https://github.com/Spartacau5/arpitTrash"
             target="_blank"
             rel="noopener noreferrer"
             className="mg-cover mg-cover--bleed mg-cover--light"
             data-cursor-label="View Website"
+            data-buddy={MORE_LINES.aiWaste}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="AI Waste Detector — view on GitHub"
             onClick={() => analytics.trackCaseStudyView('AI Waste Detector')}
           >
@@ -230,6 +269,8 @@ export function MoreGrid() {
             rel="noopener noreferrer"
             className="mg-cover mg-cover--bleed mg-cover--tall mg-cover--light"
             data-cursor-label="View Website"
+            data-buddy={MORE_LINES.photography}
+            data-buddy-delay={CARD_DELAY_MS}
             aria-label="Photography and art — view on Behance"
             onClick={() => analytics.trackSocialClick('Behance')}
           >
@@ -254,7 +295,12 @@ export function MoreGrid() {
           >
             <MusicPlayer fill />
           </div>
-          <Meta title="Raga Beats" sub="I've been producing music for a decade with my childhood friend." />
+          {/* Line sits on the title: the cursor can't be tracked inside Spotify's embed */}
+          <Meta
+            title="Raga Beats"
+            sub="I've been producing music for a decade with my childhood friend."
+            buddy={MORE_LINES.ragaBeats}
+          />
         </ScrollReveal>
 
         <ScrollReveal as="article" className="mg-card mg-span-2">
@@ -273,6 +319,8 @@ export function MoreGrid() {
               rel="noopener noreferrer"
               aria-label="Gaming channel on YouTube"
               data-cursor-label="View Website"
+              data-buddy={MORE_LINES.gaming}
+              data-buddy-delay={CARD_DELAY_MS}
               onClick={() => analytics.trackSocialClick('YouTube')}
             />
           </div>

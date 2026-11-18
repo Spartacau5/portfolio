@@ -2,14 +2,23 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { analytics } from './GoogleAnalytics';
+import {
+    createPetSession,
+    idleLine,
+    NUDGE_AFTER_MS,
+    STREAK_GAP_MS,
+} from '../lib/billuPets';
 
 // Frame order: cat1 through cat13 (note: cat6 doesn't exist)
 const frameSequence = [1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13];
 
+const FLUSH_MS = 700; // batch rapid pets into one counter request
+const MAX_BATCH = 25; // matches the API cap
+
 type CatAnimationProps = {
     /** 'click' (default) pets Billu and counts it; 'hover' plays the stretch on mouse-enter and lets clicks fall through */
     trigger?: 'click' | 'hover';
-    /** hide the "Pet my cat" tooltip */
+    /** don't give Billu a hover-buddy line (e.g. inside presentation decks) */
     hideTooltip?: boolean;
 };
 
@@ -19,7 +28,21 @@ export default function CatAnimation({ trigger = 'click', hideTooltip = false }:
     const animationRef = useRef<NodeJS.Timeout | null>(null);
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [petCount, setPetCount] = useState<number | null>(null);
-    const [isHovered, setIsHovered] = useState(false);
+    const [mounted, setMounted] = useState(false);
+
+    // Pet streak → what Arpit's hover buddy says
+    const session = useRef<ReturnType<typeof createPetSession> | null>(null);
+    if (session.current === null) session.current = createPetSession();
+    const [petLine, setPetLine] = useState<string | null>(null);
+    const [streak, setStreak] = useState(0);
+    const nudgeTimer = useRef<number | null>(null);
+    const idleTimer = useRef<number | null>(null);
+
+    // Batched counter writes
+    const pending = useRef(0);
+    const flushTimer = useRef<number | null>(null);
+
+    useEffect(() => setMounted(true), []);
 
     // Load pet count from API on mount
     useEffect(() => {
@@ -68,20 +91,79 @@ export default function CatAnimation({ trigger = 'click', hideTooltip = false }:
         animationRef.current = setTimeout(animate, 130);
     }, [isAnimating]);
 
-    const playAnimation = useCallback(() => {
-        if (isAnimating) return;
+    const flush = useCallback((useBeacon = false) => {
+        if (flushTimer.current !== null) {
+            window.clearTimeout(flushTimer.current);
+            flushTimer.current = null;
+        }
+        const amount = pending.current;
+        if (!amount) return;
+        pending.current = 0;
+        const body = JSON.stringify({ amount });
 
-        // Track the pet in Google Analytics
+        if (useBeacon && typeof navigator.sendBeacon === 'function') {
+            navigator.sendBeacon('/api/cat-counter', body);
+            return;
+        }
+        fetch('/api/cat-counter', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body,
+            keepalive: true,
+        })
+            .then(res => res.json())
+            .then(data => {
+                // server total + anything petted since this batch went out
+                if (typeof data.count === 'number') setPetCount(data.count + pending.current);
+            })
+            .catch(() => {});
+    }, []);
+
+    // Don't lose a streak's pets if the tab closes mid-batch
+    useEffect(() => {
+        const onHide = () => flush(true);
+        window.addEventListener('pagehide', onHide);
+        return () => {
+            window.removeEventListener('pagehide', onHide);
+            flush();
+        };
+    }, [flush]);
+
+    const clearLineTimers = () => {
+        if (nudgeTimer.current !== null) window.clearTimeout(nudgeTimer.current);
+        if (idleTimer.current !== null) window.clearTimeout(idleTimer.current);
+        nudgeTimer.current = idleTimer.current = null;
+    };
+
+    // Every click counts — the stretch keeps playing, but pets never get dropped.
+    const pet = useCallback(() => {
         analytics.trackCatPet();
 
-        // Increment counter via API
-        fetch('/api/cat-counter', { method: 'POST' })
-            .then(res => res.json())
-            .then(data => setPetCount(data.count))
-            .catch(() => {});
+        pending.current += 1;
+        setPetCount(c => (c ?? 0) + 1);
+        if (pending.current >= MAX_BATCH) flush();
+        else {
+            if (flushTimer.current !== null) window.clearTimeout(flushTimer.current);
+            flushTimer.current = window.setTimeout(() => flush(), FLUSH_MS);
+        }
+
+        const beat = session.current!.pet();
+        setPetLine(beat.line);
+        setStreak(beat.streak);
+
+        // Pause mid-streak → Arpit eggs you on. Longer pause → back to idle.
+        clearLineTimers();
+        nudgeTimer.current = window.setTimeout(() => {
+            const nudge = session.current!.nudge();
+            if (nudge) setPetLine(nudge);
+        }, NUDGE_AFTER_MS);
+        idleTimer.current = window.setTimeout(() => {
+            setPetLine(null);
+            setStreak(0);
+        }, STREAK_GAP_MS + 1800);
 
         playAnimationVisual();
-    }, [isAnimating, playAnimationVisual]);
+    }, [flush, playAnimationVisual]);
 
     // Auto-play animation once per session on first visit
     useEffect(() => {
@@ -103,21 +185,33 @@ export default function CatAnimation({ trigger = 'click', hideTooltip = false }:
             if (animationRef.current) {
                 clearTimeout(animationRef.current);
             }
+            clearLineTimers();
         };
     }, []);
 
     const frameNumber = frameSequence[currentFrame];
     const hoverMode = trigger === 'hover';
+    const speaks = !hideTooltip;
+
+    // What Arpit's hover buddy says. The buddy re-speaks whenever this changes.
+    const buddyLine = petLine ?? (mounted ? idleLine(petCount) : 'You can pet my cat Billu.');
+    const badge = petLine && streak >= 2 ? `×${streak}` : undefined;
 
     return (
         <div
             className="cat-animation-container"
-            onClick={hoverMode ? undefined : playAnimation}
+            data-buddy={speaks ? buddyLine : undefined}
+            data-buddy-badge={speaks ? badge : undefined}
+            data-buddy-hint={speaks && !hoverMode ? 'my cat Billu' : undefined}
+            onClick={hoverMode ? undefined : pet}
             onMouseEnter={() => {
-                setIsHovered(true);
                 if (hoverMode) playAnimationVisual();
             }}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseLeave={() => {
+                clearLineTimers();
+                setPetLine(null);
+                setStreak(0);
+            }}
             style={{
                 cursor: hoverMode ? 'default' : 'pointer',
                 width: '220px',
@@ -126,26 +220,6 @@ export default function CatAnimation({ trigger = 'click', hideTooltip = false }:
                 position: 'relative',
             }}
         >
-            {/* Tooltip */}
-            {!hideTooltip && <div
-                className="cat-tooltip"
-                style={{
-                    position: 'absolute',
-                    top: '-20px',
-                    background: 'rgba(0, 0, 0, 0.8)',
-                    color: 'white',
-                    padding: '4px 10px',
-                    borderRadius: '6px',
-                    fontSize: '12px',
-                    whiteSpace: 'nowrap',
-                    opacity: isHovered ? 1 : 0,
-                    transition: 'opacity 0.2s ease',
-                    pointerEvents: 'none',
-                }}
-            >
-                Pet my cat Billu!{petCount !== null && ` (${petCount.toLocaleString()} pets)`}
-            </div>}
-
             {/* SVG with cropped viewBox to show only the cat */}
             <svg
                 viewBox="260 625 400 110"

@@ -7,7 +7,10 @@ import "./styles/home-v4.css";
 import "./styles/more-v4.css";
 import "./styles/about-v4.css";
 import "./styles/password-gate.css";
+import "./styles/hover-buddy.css";
 import { CustomCursor } from "./components/CustomCursor";
+import { HoverBuddy } from "./components/HoverBuddy";
+import { SITE_LINES } from "./lib/buddyLines";
 import { PageTransition } from "./components/PageTransition";
 import { Header } from "./components/Header";
 import { SmoothScroll } from "./components/SmoothScroll";
@@ -83,6 +86,7 @@ export default function RootLayout({
         <Analytics />
         <SpeedInsights />
         <CustomCursor />
+        <HoverBuddy />
         <Header />
         <PageTransition>
           {children}
@@ -90,8 +94,8 @@ export default function RootLayout({
         <CaseStudyMotion />
         <ScrollEnhancements />
         <footer className="site-footer">
-          <div className="site-footer__mono site-footer__credit">
-            Developed with <span className="heart" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></span>
+          <div className="site-footer__mono site-footer__credit" data-buddy={SITE_LINES.footer}>
+            Designed &amp; built in Brooklyn
           </div>
           <div className="site-footer__mono site-footer__links">
             <a className="site-footer__link" href="mailto:arpit.ahluwalia1@gmail.com" aria-label="Email Arpit Ahluwalia">Email</a>

@@ -7,6 +7,7 @@ import { useScrollDepthTracking, useTimeOnPage } from '@/app/hooks/useAnalytics'
 import { Lightbox, useLightbox } from '@/app/components/Lightbox';
 import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
+import { CASE_LINES, CASE_DELAY_MS } from '@/app/lib/buddyLines';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
     {
@@ -227,7 +228,7 @@ export default function JnJPage() {
                     After understanding the UI requirements, I connected with stakeholders from JnJ to better understand the target user types for these type of reports and I learnt a lot more than I initially thought this would intended/designed for.
                 </p>
 
-                <div className="audience-grid">
+                <div className="audience-grid" data-buddy={CASE_LINES.jnjFavorite} data-buddy-delay={CASE_DELAY_MS}>
                     {/* Investors */}
                     <div className="audience-card">
                         <div className="audience-icon">
@@ -339,7 +340,7 @@ export default function JnJPage() {
                     From our research on past microsites and competitors, I designed 2 versions of the information architecture with simplified navigation, clear language, and intuitive groupings that aligned with user expectations. Since 2020 was a big year in healthcare in terms of COVID and J&J's frontline involvement in developing a vaccine, we wanted to highlight that work and stories but also not take away from all the other important global initiatives they focused on that year including work towards solving HIV, TB, Ebola and more.
                 </p>
 
-                <div className="captioned-images">
+                <div className="captioned-images" data-buddy={CASE_LINES.jnjStat} data-buddy-delay={CASE_DELAY_MS}>
                     <div className="captioned-image">
                         <Image src="/images/v1.webp" alt="Information Architecture Version A" width={600} height={400} className="stacked-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/v1.webp', ['/images/v1.webp', '/images/v2.webp'])} />
                         <span className="image-caption">Version A</span>

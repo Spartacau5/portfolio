@@ -28,10 +28,26 @@ export async function GET() {
   }
 }
 
-export async function POST() {
+// Rapid petting is batched client-side into one request with an `amount`.
+// Capped so one request can't inflate the counter.
+const MAX_BATCH = 25;
+
+async function readAmount(req: Request): Promise<number> {
   try {
+    // sendBeacon posts text/plain, so parse the raw body either way
+    const body = JSON.parse(await req.text());
+    const n = Math.floor(Number(body?.amount));
+    return Number.isFinite(n) ? Math.min(Math.max(n, 1), MAX_BATCH) : 1;
+  } catch {
+    return 1;
+  }
+}
+
+export async function POST(req: Request) {
+  try {
+    const amount = await readAmount(req);
     // Increment the counter atomically
-    const count = await redis.incr(COUNTER_KEY);
+    const count = amount === 1 ? await redis.incr(COUNTER_KEY) : await redis.incrby(COUNTER_KEY, amount);
     return NextResponse.json({ count });
   } catch (error) {
     console.error('Redis POST error:', error);

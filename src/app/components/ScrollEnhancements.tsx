@@ -55,7 +55,8 @@ export function ScrollEnhancements() {
     hairlines.forEach((el) => el.classList.add('scroll-hairline'));
 
     const quotes = Array.from(
-      document.querySelectorAll<HTMLElement>('.zi-quote, .ab-quote')
+      // About testimonials don't get the drawn rule — only case-study quotes
+      document.querySelectorAll<HTMLElement>('.zi-quote')
     );
     quotes.forEach((el) => el.classList.add('scroll-quote'));
 

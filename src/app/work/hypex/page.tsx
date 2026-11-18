@@ -10,6 +10,7 @@ import { ScrollToTopButton } from '@/app/components/ScrollToTopButton';
 import { CaseStudyNav, type CaseStudyNavItem } from '@/app/components/CaseStudyNav';
 import { useLenis } from 'lenis/react';
 import { HEADER_SCROLL_OFFSET, scrollToTarget } from '@/app/lib/lenisScroll';
+import { CASE_LINES, CASE_DELAY_MS } from '@/app/lib/buddyLines';
 
 const NAV_ITEMS: CaseStudyNavItem[] = [
     { id: 'challenge-section', label: 'Challenge' },
@@ -214,7 +215,7 @@ export default function HypexPage() {
                 <p className="content-text">
                     Once we satisfied investors with a basic version of what HypeX does, I designed a final version which hit that immersive space environment I wanted to achieve. Our young team of college developers worked hard to bring the designs to life using React components which you can check out at <a href="https://www.hypex.io" target="_blank" rel="noopener noreferrer" className="content-link">www.hypex.io<svg className="content-link-arrow" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 2.5H9.5V8.5M9.5 2.5L2.5 9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg></a>
                 </p>
-                <div className="highfi-image-container">
+                <div className="highfi-image-container" data-buddy={CASE_LINES.hypexFavorite} data-buddy-delay={CASE_DELAY_MS}>
                     <Image src="/images/finalhighfi.webp" alt="Final high-fidelity design" width={1000} height={700} className="highfi-image" style={{ cursor: 'zoom-in' }} onClick={() => openLightbox('/images/finalhighfi.webp')} />
                 </div>
             </section>
