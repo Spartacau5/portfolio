@@ -2,7 +2,6 @@
 
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef } from 'react';
-import { useLenis } from 'lenis/react';
 
 function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -116,7 +115,10 @@ export function ScrollEnhancements() {
     };
   }, [pathname]);
 
-  useLenis(() => {
+  // Driven by the browser's own scroll events, so it works with Lenis (desktop,
+  // which scrolls the window and fires them) and without it (touch devices).
+  const update = useRef<() => void>(() => {});
+  update.current = () => {
     if (prefersReducedMotion()) return;
     const n = nodesRef.current;
     if (!n) return;
@@ -187,7 +189,26 @@ export function ScrollEnhancements() {
       const label = n.vwSteps[idx]?.querySelector('.vw-step-heading')?.textContent?.trim();
       if (n.vwLabel && label && n.vwLabel.textContent !== label) n.vwLabel.textContent = label;
     }
-  });
+  };
+
+  useEffect(() => {
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        update.current();
+      });
+    };
+    onScroll(); // paint the right state before the first scroll
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [pathname]);
 
   return null;
 }

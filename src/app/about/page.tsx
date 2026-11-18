@@ -536,8 +536,9 @@ export default function About() {
           </div>
         </motion.section>
 
-        {/* Gallery — fade in on scroll */}
-        <motion.section className="ab-gallery" {...scrollFadeProps}>
+        {/* Gallery — each photo fades in as it arrives (on phones they stack into
+            one tall column, so fading the whole section waited far too long) */}
+        <section className="ab-gallery">
           {GALLERY.map((g) => {
             const shots = (
               <>
@@ -562,6 +563,12 @@ export default function About() {
             );
             return (
               <figure key={g.cap} data-buddy={g.buddy} data-buddy-delay={g.buddy ? '380' : undefined}>
+                <motion.div
+                  variants={scrollFade}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.25 }}
+                >
                 {g.url ? (
                   <a className="ab-shot-link" href={g.url} target="_blank" rel="noopener noreferrer">
                     {shots}
@@ -581,10 +588,11 @@ export default function About() {
                     g.cap
                   )}
                 </figcaption>
+                </motion.div>
               </figure>
             );
           })}
-        </motion.section>
+        </section>
 
         {/* Testimonials — one grid, paired by row so each row's quotes start at
             the same height (top-aligned). Each fades in on scroll, staggered by row. */}
