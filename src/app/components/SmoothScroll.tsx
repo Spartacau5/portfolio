@@ -46,12 +46,18 @@ function LenisBehaviors() {
   return null;
 }
 
+// Lenis only runs where it adds something: a mouse/trackpad (smooth wheel) with
+// motion allowed. Touch devices scroll natively (syncTouch is off anyway), and
+// keeping Lenis attached there made iOS touch-scroll stick and refuse to return
+// to the top.
+const SMOOTH_QUERY = '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)';
+
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setEnabled(!mq.matches);
+    const mq = window.matchMedia(SMOOTH_QUERY);
+    const sync = () => setEnabled(mq.matches);
     sync();
     mq.addEventListener('change', sync);
     return () => mq.removeEventListener('change', sync);
@@ -60,7 +66,8 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
   return (
     <>
       {enabled && <ReactLenis root options={OPTIONS} />}
-      {enabled && <LenisBehaviors />}
+      {/* Always on: scroll-to-top on navigation + skip link, with native fallbacks */}
+      <LenisBehaviors />
       {children}
     </>
   );

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import CatAnimation from './CatAnimation';
 import { MusicPlayer } from './MusicPlayer';
+import { LazyMount } from './LazyMount';
 import { analytics } from './GoogleAnalytics';
 import { ScrollReveal } from './ScrollReveal';
 import { SHOW_TASHVI } from '../lib/flags';
@@ -168,7 +169,9 @@ export function MoreGrid() {
             aria-label="Study Buddy — view on GitHub"
             onClick={() => analytics.trackCaseStudyView('Study Buddy')}
           >
-            <video className="mg-bleed" src="/images/more/study-buddy.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
+            <LazyMount>
+              <video className="mg-bleed" src="/images/more/study-buddy.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
+            </LazyMount>
           </a>
           <Meta title="Study Buddy" sub="Built a study companion which helps you avoid distractions." tag="AI Tool" />
         </ScrollReveal>
@@ -229,7 +232,9 @@ export function MoreGrid() {
             onClick={() => analytics.trackCaseStudyView('Offprint')}
           >
             <div className="mg-cover-inner">
-              <video src="/images/offprint-loop.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
+              <LazyMount>
+                <video src="/images/offprint-loop.mp4" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" />
+              </LazyMount>
             </div>
           </a>
           <Meta title="Offprint" sub="Built a Chrome extension to track and offset your AI carbon footprint." tag="AI Tool" />
@@ -247,16 +252,18 @@ export function MoreGrid() {
             aria-label="AI Waste Detector — view on GitHub"
             onClick={() => analytics.trackCaseStudyView('AI Waste Detector')}
           >
-            <video
-              className="mg-bleed mg-bleed--zoom"
-              src="/images/more/trash-detector.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              aria-hidden="true"
-            />
+            <LazyMount>
+              <video
+                className="mg-bleed mg-bleed--zoom"
+                src="/images/more/trash-detector.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                aria-hidden="true"
+              />
+            </LazyMount>
           </a>
           <Meta title="AI Waste Detector" sub="Built an AI waste detector to help you recycle." tag="AI Tool" />
         </ScrollReveal>
@@ -293,7 +300,9 @@ export function MoreGrid() {
             role="region"
             aria-label="Raga Beats music player"
           >
-            <MusicPlayer fill />
+            <LazyMount>
+              <MusicPlayer fill />
+            </LazyMount>
           </div>
           {/* Line sits on the title: the cursor can't be tracked inside Spotify's embed */}
           <Meta
@@ -305,13 +314,16 @@ export function MoreGrid() {
 
         <ScrollReveal as="article" className="mg-card mg-span-2">
           <div className="mg-cover mg-cover--bleed mg-cover--plain mg-cover--tall">
-            <iframe
-              className="mg-yt"
-              src={`https://www.youtube.com/embed/${YT_SHORT}?autoplay=1&mute=1&controls=0&loop=1&playlist=${YT_SHORT}&playsinline=1&modestbranding=1&rel=0`}
-              title="Gaming channel"
-              allow="autoplay; encrypted-media"
-              frameBorder="0"
-            />
+            {/* Embeds (and their ~3MB of player + video) load only as the row nears view */}
+            <LazyMount>
+              <iframe
+                className="mg-yt"
+                src={`https://www.youtube.com/embed/${YT_SHORT}?autoplay=1&mute=1&controls=0&loop=1&playlist=${YT_SHORT}&playsinline=1&modestbranding=1&rel=0`}
+                title="Gaming channel"
+                allow="autoplay; encrypted-media"
+                frameBorder="0"
+              />
+            </LazyMount>
             <a
               className="mg-yt-hit"
               href={YT_CHANNEL}

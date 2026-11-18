@@ -204,7 +204,7 @@ export function WorkGrid() {
           <Meta
             title="Kalshi"
             sub="Case study in progress."
-            tag="Product Design"
+            tag="Design Engineering"
           />
         </ScrollReveal>
 
@@ -227,7 +227,7 @@ export function WorkGrid() {
           <Meta
             title="Meriton"
             sub="Case study in progress."
-            tag="Product Design"
+            tag="Design Engineering"
           />
         </ScrollReveal>
 
@@ -245,7 +245,7 @@ export function WorkGrid() {
           <Meta
             title="Standard Chartered"
             sub="Case study in progress."
-            tag="Product Design"
+            tag="Design Engineering"
           />
         </ScrollReveal>
 
